@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "641187a6a60d3953301be80f"
+  },
+  "credit": 30,
+  "description": "Account Desc",
+  "createdAt": {
+    "$date": "2023-03-15T08:53:58.336Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641187e3a60d3953301be811"
+  },
+  "debit": 30,
+  "description": "Account Desc",
+  "createdAt": {
+    "$date": "2023-03-15T08:54:59.069Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,127 @@
+[{
+  "_id": {
+    "$oid": "642a8e04e8b0a4959b98a22e"
+  },
+  "slashRedemption": {
+    "fromDate": "2023-04-30",
+    "toDate": "2023-05-03"
+  },
+  "slashRedemptionDays": {
+    "sun": true,
+    "mon": false,
+    "tue": false,
+    "wed": true,
+    "thu": true,
+    "fri": true,
+    "sat": true
+  },
+  "slashRedemptionPercentage": 30,
+  "slashRedemptionProducts": [
+    {
+      "productId": {
+        "$oid": "64196c40274d50ecb32f659b"
+      },
+      "productName": "New Product",
+      "_id": {
+        "$oid": "642a8e04e8b0a4959b98a22f"
+      }
+    },
+    {
+      "productId": {
+        "$oid": "641d425813b5204cf04fd517"
+      },
+      "productName": "Ear Phone",
+      "_id": {
+        "$oid": "642a8e04e8b0a4959b98a230"
+      }
+    },
+    {
+      "productId": {
+        "$oid": "641d4abc8ee199de4a625421"
+      },
+      "productName": "Samsung M2",
+      "_id": {
+        "$oid": "642a8e04e8b0a4959b98a231"
+      }
+    }
+  ],
+  "businessId": {
+    "$oid": "64144186df14fd9876dd77d9"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642d156ca6d6d94888b419e1"
+  },
+  "slashRedemption": {
+    "fromDate": "2023-04-13",
+    "toDate": "2023-04-12"
+  },
+  "slashRedemptionDays": {
+    "sun": true,
+    "mon": false,
+    "tue": true,
+    "wed": true,
+    "thu": false,
+    "fri": false,
+    "sat": false
+  },
+  "slashRedemptionPercentage": 10,
+  "slashRedemptionProducts": [
+    {
+      "productId": {
+        "$oid": "642c00d390766124d7facd6e"
+      },
+      "productName": "New",
+      "_id": {
+        "$oid": "642d156ca6d6d94888b419e2"
+      }
+    },
+    {
+      "productId": {
+        "$oid": "642c028390766124d7facd78"
+      },
+      "productName": "New 3",
+      "_id": {
+        "$oid": "642d15a0bfc4f023fae3957e"
+      }
+    }
+  ],
+  "businessId": {
+    "$oid": "642a7b46e8b0a4959b98a0d9"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6434f96c29575f09337bc0af"
+  },
+  "slashRedemption": {
+    "fromDate": "2023-04-13",
+    "toDate": "2023-04-20"
+  },
+  "slashRedemptionDays": {
+    "sun": true,
+    "mon": true,
+    "tue": false,
+    "wed": true,
+    "thu": false,
+    "fri": false,
+    "sat": false
+  },
+  "slashRedemptionPercentage": 10,
+  "slashRedemptionProducts": [
+    {
+      "productId": {
+        "$oid": "6433e62caa8b552f27fe408e"
+      },
+      "productName": "Phone",
+      "_id": {
+        "$oid": "6435041ab8ab145c4eddf2f6"
+      }
+    }
+  ],
+  "businessId": {
+    "$oid": "6433d91e7bd421f5204d3847"
+  },
+  "__v": 0
+}]

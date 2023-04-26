@@ -1,0 +1,45 @@
+[{
+  "_id": {
+    "$oid": "6423f94ec9144ecaba9acb4b"
+  },
+  "name": "pradeep",
+  "gender": "male",
+  "ageGroup": "25 – 35 Years",
+  "currentLocation": "chennai",
+  "mobileNumber": {
+    "$numberLong": "7829744718"
+  },
+  "email": "pradeepkuamr@pearlcons.com",
+  "lpUser": "no",
+  "srpCount": "no",
+  "rating": "not sure",
+  "expectations": {
+    "instant_gratification_and_rewards": "yes",
+    "simplicity_and_ease_of_operating": "yes",
+    "Omnichannel_experience": "yes",
+    "extensive_range_of_options": "no",
+    "flexibility_in_usage_of_points": "yes",
+    "reminder_services": "no",
+    "notification_of_offers_and_promotion": "yes",
+    "easy_redemption_options": "no",
+    "referral_programs": "no",
+    "others": "ok something app development",
+    "additional_Recommendations": "prop encashment"
+  },
+  "plainArea": {
+    "Hidden_charges": "yes",
+    "expiry_of_points": "yes",
+    "absence_of_relevant_information": "yes",
+    "multiple_standalone_programs": "yes",
+    "carrying_the_loyalty_card": "yes",
+    "inconsistent_experience": "yes",
+    "spam_Irrelevant_notifications": "yes",
+    "low_percentage_of_rewards": "yes",
+    "limited_range_of_offers": "yes",
+    "others": "no"
+  },
+  "date": {
+    "$date": "2023-03-29T08:39:42.499Z"
+  },
+  "__v": 0
+}]

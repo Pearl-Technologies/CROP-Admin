@@ -1,0 +1,67 @@
+[{
+  "_id": {
+    "$oid": "64366aebb5939a11eaa3b5af"
+  },
+  "publishingSlot": "month",
+  "publishedAs": "promo",
+  "bid_start_date": "26/4/2023",
+  "bid_end_date": "30/4/2023",
+  "published_start_date": "1/5/2023",
+  "published_end_date": "31/5/2023",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64366af8b5939a11eaa3b5b2"
+  },
+  "publishingSlot": "day",
+  "publishedAs": "promo",
+  "bid_start_date": "12/4/2023",
+  "bid_end_date": "14/4/2023",
+  "published_start_date": "20/4/2023",
+  "published_end_date": "21/4/2023",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64366b05b5939a11eaa3b5b5"
+  },
+  "publishingSlot": "week",
+  "publishedAs": "promo",
+  "bid_start_date": "19/4/2023",
+  "bid_end_date": "21/4/2023",
+  "published_start_date": "22/4/2023",
+  "published_end_date": "28/4/2023",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64366b10b5939a11eaa3b5b8"
+  },
+  "publishingSlot": "week",
+  "publishedAs": "topRating",
+  "bid_start_date": "19/4/2023",
+  "bid_end_date": "21/4/2023",
+  "published_start_date": "22/4/2023",
+  "published_end_date": "28/4/2023",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64366b15b5939a11eaa3b5bb"
+  },
+  "publishingSlot": "day",
+  "publishedAs": "topRating",
+  "bid_start_date": "12/4/2023",
+  "bid_end_date": "14/4/2023",
+  "published_start_date": "20/4/2023",
+  "published_end_date": "21/4/2023",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64366b1bb5939a11eaa3b5be"
+  },
+  "publishingSlot": "month",
+  "publishedAs": "topRating",
+  "bid_start_date": "26/4/2023",
+  "bid_end_date": "30/4/2023",
+  "published_start_date": "1/5/2023",
+  "published_end_date": "31/5/2023",
+  "__v": 0
+}]

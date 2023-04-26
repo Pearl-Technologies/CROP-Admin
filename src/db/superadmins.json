@@ -1,0 +1,12 @@
+[{
+  "_id": {
+    "$oid": "6411947da60d3953301be847"
+  },
+  "name": "pradeep",
+  "email": "pradeepkumar@pearlcons.com",
+  "password": "$2a$10$7890cVwGG8f1hjKDCpJUSeMgldZmu3hmcc8tIl17eFeFmeTclwK6e",
+  "createdAt": {
+    "$date": "2023-03-15T09:48:45.907Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "642c18f7b40714c0afc35780"
+  },
+  "confirmation_of_booked_promos": "congratulation for promo",
+  "CROP_promos": "congratulation for CROP",
+  "upload_and_removal_of_offer": "thank you for update",
+  "business_insights": "low your redeemption rate to get more benifit",
+  "user": {
+    "$oid": "64257be8ab0757d368e3422c"
+  },
+  "date": {
+    "$date": "2023-04-04T12:32:55.015Z"
+  },
+  "__v": 0
+}]

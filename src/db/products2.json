@@ -1,0 +1,553 @@
+[{
+  "_id": {
+    "$oid": "641d475113b5204cf04fd530"
+  },
+  "title": "IQOO",
+  "children": "phone",
+  "image": "https://img.lovepik.com/free-png/20210928/lovepik-mobile-phone-png-image_401663651_wh1200.png",
+  "originalPrice": 33000,
+  "price": 29700,
+  "discount": 10,
+  "shortDescription": "Short DEscription",
+  "description": "Description",
+  "brand": "IQOO",
+  "quantity": 1000,
+  "croppoints": 100,
+  "apply": "onCrop",
+  "type": "Top Rank",
+  "itemInfo": "Item info",
+  "status": "active",
+  "customiseMsg": "Thanks",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 108,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "642ba24671645f0c9baeb102"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-03-24T06:46:41.357Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-03T11:08:16.112Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641d8656a98f25b7232d31ff"
+  },
+  "title": "Laptop E214",
+  "children": "laptop",
+  "image": "https://i.dell.com/is/image/DellContent/content/da…ode=sharp2&size=3491,2077&chrss=full&imwidth=5000",
+  "originalPrice": 80000,
+  "price": 72000,
+  "discount": 10,
+  "shortDescription": "awesome laptop",
+  "description": "This is an awasome laptop",
+  "brand": "Dell",
+  "quantity": 30,
+  "croppoints": 12,
+  "apply": "Redeem Crops",
+  "itemInfo": "Mid Spec laptop",
+  "status": "active",
+  "customiseMsg": "Thanks for buying this amazing product",
+  "mktOfferFor": "",
+  "bidPrice": 109,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "642ba24671645f0c9baeb102"
+  },
+  "sector": "shop",
+  "createdAt": {
+    "$date": "2023-03-24T11:15:34.808Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-03T11:09:01.667Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641d8706a98f25b7232d3203"
+  },
+  "title": "Asus vivobook",
+  "children": "laptop",
+  "image": "https://www.asus.com/media/Odin/Websites/global/Series/9.png",
+  "originalPrice": 80000,
+  "price": 72000,
+  "discount": 10,
+  "shortDescription": "awesome laptop",
+  "description": "This is an awasome laptop",
+  "brand": "Asus",
+  "quantity": 30,
+  "croppoints": 12,
+  "apply": "Redeem Crops",
+  "itemInfo": "Mid Spec laptop",
+  "status": "active",
+  "customiseMsg": "Thanks for buying this amazing product",
+  "mktOfferFor": "",
+  "bidPrice": 120,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "64144186df14fd9876dd77d9"
+  },
+  "sector": "shop",
+  "createdAt": {
+    "$date": "2023-03-24T11:18:30.823Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-03T11:09:11.499Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642ba37e71645f0c9baeb111"
+  },
+  "title": "Ear Phone",
+  "image": "https://www.asus.com/media/Odin/Websites/global/Series/9.png",
+  "originalPrice": 399,
+  "price": 359.1,
+  "discount": 10,
+  "description": "This is an awasome Earphone",
+  "brand": "Bolt",
+  "quantity": 200,
+  "croppoints": 359,
+  "apply": "earnCrop",
+  "status": "active",
+  "customiseMsg": "Thanks for buying this amazing product",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 0,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "642a7b46e8b0a4959b98a0d9"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-04T04:11:42.433Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-04T04:11:42.433Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642ba40571645f0c9baeb115"
+  },
+  "title": "Laptop E102",
+  "image": "https://www.asus.com/media/Odin/Websites/global/Series/9.png",
+  "originalPrice": 950,
+  "price": 855,
+  "discount": 10,
+  "description": "Mid Range Laptop",
+  "brand": "Dell",
+  "quantity": 100,
+  "croppoints": 855,
+  "apply": "earnCrop",
+  "status": "active",
+  "customiseMsg": "Thanks for buying this product",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 0,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "642a7b46e8b0a4959b98a0d9"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-04T04:13:57.228Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-04T04:13:57.228Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642bc688d2ad3181885e24fd"
+  },
+  "title": "Phone",
+  "image": "https://www.asus.com/media/Odin/Websites/global/Series/9.png",
+  "originalPrice": 1600,
+  "price": 1440,
+  "discount": 10,
+  "description": "High Specification mobile phone",
+  "brand": "Asus",
+  "quantity": 200,
+  "croppoints": 1600,
+  "apply": "earnCrop",
+  "status": "active",
+  "customiseMsg": "Thanks for buying this product",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 101,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "642a7b46e8b0a4959b98a0d9"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-04T06:41:12.485Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-05T06:32:31.205Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642bebc254ca5a06eea46cf6"
+  },
+  "title": "Wireless Ear Phone",
+  "image": "https://www.asus.com/media/Odin/Websites/global/Series/9.png",
+  "originalPrice": 20,
+  "price": 18,
+  "discount": 10,
+  "description": "This is an awasome Earphone",
+  "brand": "Boat",
+  "quantity": 4,
+  "croppoints": 18,
+  "apply": "earnCrop",
+  "status": "active",
+  "customiseMsg": "Thanks for buying this product",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 0,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "642a7b46e8b0a4959b98a0d9"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-04T09:20:02.481Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-04T09:20:02.481Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642c02c790766124d7facd7c"
+  },
+  "title": "Crop",
+  "image": "https://www.asus.com/media/Odin/Websites/global/Series/9.png",
+  "originalPrice": 399,
+  "price": 359.1,
+  "discount": 10,
+  "description": "It is an new earphone",
+  "brand": "Boat",
+  "quantity": 5,
+  "croppoints": 359.1,
+  "apply": "earnCrop",
+  "status": "active",
+  "customiseMsg": "Cutomizr Msg",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 0,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "642a7b46e8b0a4959b98a0d9"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-04T10:58:15.530Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-04T10:58:15.530Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642c0481758615adf1e62d04"
+  },
+  "title": "cr",
+  "image": "https://www.asus.com/media/Odin/Websites/global/Series/9.png",
+  "originalPrice": 100,
+  "price": 96,
+  "discount": 4,
+  "description": "High Specification mobile phone",
+  "brand": "cr",
+  "quantity": 100,
+  "croppoints": 9.6,
+  "apply": "both",
+  "availDate": {
+    "fromDate": "Tue Apr 11 2023 05:30:00 GMT+0530 (India Standard Time)",
+    "toDate": "Thu Apr 20 2023 05:30:00 GMT+0530 (India Standard Time)"
+  },
+  "status": "active",
+  "customiseMsg": "Thanks for buying this product",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 0,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "642a7b46e8b0a4959b98a0d9"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-04T11:05:37.848Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-05T09:16:36.690Z"
+  },
+  "__v": 0,
+  "redeemCROPs": 399
+},{
+  "_id": {
+    "$oid": "6433e3c3aa8b552f27fe4087"
+  },
+  "title": "Ear Phone",
+  "image": [
+    "https://www.asus.com/media/Odin/Websites/global/Series/9.png"
+  ],
+  "originalPrice": 399,
+  "price": 359.1,
+  "discount": 10,
+  "description": "It is an new earphone",
+  "brand": "Boat",
+  "quantity": 100,
+  "croppoints": 359.1,
+  "redeemCROPs": 200,
+  "apply": "redeemCrop",
+  "availDate": {
+    "fromDate": "2023-04-13",
+    "toDate": "2023-04-19"
+  },
+  "status": "active",
+  "customiseMsg": "Thanks for buying this amazing product",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 0,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "6433d91e7bd421f5204d3847"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-10T10:24:03.838Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-10T10:24:03.838Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6433e62caa8b552f27fe408e"
+  },
+  "title": "Phone",
+  "image": [
+    "https://www.asus.com/media/Odin/Websites/global/Series/9.png"
+  ],
+  "originalPrice": 399,
+  "price": 359.1,
+  "discount": 10,
+  "description": "High Specification mobile phone",
+  "brand": "Boat",
+  "quantity": 200,
+  "croppoints": 359.1,
+  "redeemCROPs": 200,
+  "apply": "redeemCrop",
+  "availDate": {
+    "fromDate": "2023-04-13",
+    "toDate": "2023-04-19"
+  },
+  "status": "active",
+  "customiseMsg": "Thank for buying this amazing product",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 0,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "6433d91e7bd421f5204d3847"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-10T10:34:20.391Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-11T06:53:17.827Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6433ff6e4463597dd6c33708"
+  },
+  "title": "Ear phone",
+  "image": [
+    "https://www.asus.com/media/Odin/Websites/global/Series/9.png"
+  ],
+  "originalPrice": 399,
+  "price": 359.1,
+  "discount": 10,
+  "description": "This is an awasome Earphone",
+  "brand": "New Brand",
+  "quantity": 100,
+  "croppoints": 359.1,
+  "redeemCROPs": 200,
+  "apply": "redeemCrop",
+  "availDate": {
+    "fromDate": "2023-04-19",
+    "toDate": "2023-04-20"
+  },
+  "status": "active",
+  "customiseMsg": "Thanks for buying this product",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 0,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "6433d91e7bd421f5204d3847"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-10T12:22:06.090Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-10T12:22:06.090Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6434e0ee494c74d8a976068d"
+  },
+  "title": "Laptop",
+  "image": "https://www.asus.com/media/Odin/Websites/global/Series/9.png",
+  "originalPrice": 399,
+  "price": 359.1,
+  "discount": 10,
+  "description": "High Specification mobile phone",
+  "brand": "Asus",
+  "quantity": 100,
+  "croppoints": 359.1,
+  "redeemCROPs": null,
+  "apply": "earnCrop",
+  "availDate": {
+    "fromDate": "2023-04-12",
+    "toDate": "2023-04-13"
+  },
+  "status": "active",
+  "customiseMsg": "Thanks for buying this product",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 0,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "6433d91e7bd421f5204d3847"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-11T04:24:14.392Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-11T04:24:14.392Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6434e16b494c74d8a9760691"
+  },
+  "title": "Laptop",
+  "image": "https://www.asus.com/media/Odin/Websites/global/Series/9.png",
+  "originalPrice": 300,
+  "price": 270,
+  "discount": 10,
+  "description": "It is an new earphone",
+  "brand": "Lenovo",
+  "quantity": 200,
+  "croppoints": 270,
+  "redeemCROPs": null,
+  "apply": "earnCrop",
+  "availDate": {
+    "fromDate": "2023-04-14",
+    "toDate": "2023-04-20"
+  },
+  "status": "active",
+  "customiseMsg": "Thanks",
+  "mktOfferFor": "promoteOffer",
+  "bidPrice": 0,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "6433d91e7bd421f5204d3847"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-11T04:26:19.201Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-11T04:26:19.201Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6434e1ae494c74d8a9760695"
+  },
+  "title": "Laptop",
+  "image": "https://www.asus.com/media/Odin/Websites/global/Series/9.png",
+  "originalPrice": 1999,
+  "price": 2.2737367544323206e-13,
+  "discount": 100,
+  "description": "It is an new earphone",
+  "brand": "Boat",
+  "quantity": 100,
+  "croppoints": 2.2737367544323206e-13,
+  "redeemCROPs": 399,
+  "apply": "both",
+  "availDate": {
+    "fromDate": "2023-04-13",
+    "toDate": "2023-04-19"
+  },
+  "status": "active",
+  "customiseMsg": "Thanks for buying this product",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 0,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "6433d91e7bd421f5204d3847"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-11T04:27:26.899Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-11T04:27:26.899Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6434e2960ea2ea4dfc60b1dc"
+  },
+  "title": "Laptop",
+  "image": "https://www.asus.com/media/Odin/Websites/global/Series/9.png",
+  "originalPrice": null,
+  "price": 0,
+  "discount": null,
+  "description": "Description",
+  "brand": "Samsung",
+  "quantity": 300,
+  "croppoints": 0,
+  "redeemCROPs": 200,
+  "apply": "redeemCrop",
+  "availDate": {
+    "fromDate": "2023-04-14",
+    "toDate": "2023-04-20"
+  },
+  "status": "active",
+  "customiseMsg": "Thanks for buying this amazing product",
+  "mktOfferFor": "topRankOffer",
+  "bidPrice": 0,
+  "rating": 0,
+  "likes": 0,
+  "user": {
+    "$oid": "6433d91e7bd421f5204d3847"
+  },
+  "sector": "shops",
+  "createdAt": {
+    "$date": "2023-04-11T04:31:18.357Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-11T04:31:18.357Z"
+  },
+  "__v": 0
+}]

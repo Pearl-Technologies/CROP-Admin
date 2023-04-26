@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "642c1c68b40714c0afc3578e"
+  },
+  "missing_points_claim": "you have a missing claim request",
+  "complaint": "we have got your complaint",
+  "request": "we have received your request",
+  "auto_generated_service_requests": "you will update asap",
+  "user": {
+    "$oid": "64257be8ab0757d368e3422c"
+  },
+  "date": {
+    "$date": "2023-04-04T12:47:36.866Z"
+  },
+  "__v": 0
+}]

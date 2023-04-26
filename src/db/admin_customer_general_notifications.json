@@ -1,0 +1,17 @@
+[{
+  "_id": {
+    "$oid": "642ba6ef13f02226ec3e3f51"
+  },
+  "business_promos": "congratulation! you own a promo code",
+  "CROP_promos": "congratulation! you own a CROP promo code",
+  "offers": "hot deal offer of the YEAR",
+  "bonus_points": "you have own a bonus point",
+  "get_a_mate": "thank you for refferal",
+  "user": {
+    "$oid": "64257be8ab0757d368e3422c"
+  },
+  "date": {
+    "$date": "2023-04-04T04:26:23.767Z"
+  },
+  "__v": 0
+}]

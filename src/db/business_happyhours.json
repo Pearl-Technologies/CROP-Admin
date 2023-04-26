@@ -1,0 +1,56 @@
+[{
+  "_id": {
+    "$oid": "642ba8e0f2cac5885e5a8d58"
+  },
+  "happyHoursDates": {
+    "fromDate": "2023-04-02",
+    "toDate": "2023-04-26"
+  },
+  "happyHoursDays": {
+    "sun": true,
+    "mon": true,
+    "tue": true,
+    "wed": true,
+    "thu": true,
+    "fri": true,
+    "sat": true
+  },
+  "happyHoursPercentage": 10,
+  "happyHoursProducts": [
+    {
+      "productId": {
+        "$oid": "642bc688d2ad3181885e24fd"
+      },
+      "productName": "Phone",
+      "_id": {
+        "$oid": "642d43222287d208629f9364"
+      }
+    },
+    {
+      "productId": {
+        "$oid": "642ba40571645f0c9baeb115"
+      },
+      "productName": "Laptop E102",
+      "_id": {
+        "$oid": "642d578565b61c2dc9376ed2"
+      }
+    },
+    {
+      "productId": {
+        "$oid": "642bebc254ca5a06eea46cf6"
+      },
+      "productName": "Wireless Ear Phone",
+      "_id": {
+        "$oid": "642d578565b61c2dc9376ed4"
+      }
+    }
+  ],
+  "businessId": {
+    "$oid": "642a7b46e8b0a4959b98a0d9"
+  },
+  "__v": 0,
+  "happyHoursTime": {
+    "startTime": "05:18",
+    "endTime": "20:17"
+  }
+}]

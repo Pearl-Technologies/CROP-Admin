@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "642a31bb6c9e0c2812b5d8e6"
+  },
+  "first": {
+    "base": 50,
+    "silver": 50,
+    "gold": 55,
+    "platinum": 60
+  },
+  "second": {
+    "base": 120,
+    "silver": 120,
+    "gold": 132,
+    "platinum": 144
+  },
+  "third": {
+    "base": 300,
+    "silver": 300,
+    "gold": 330,
+    "platinum": 360
+  },
+  "fourth": {
+    "base": 60,
+    "silver": 60,
+    "gold": 66,
+    "platinum": 72
+  },
+  "user": {
+    "$oid": "641d3eaa7dc1ae7d84985bfb"
+  },
+  "createdAt": {
+    "$date": "2023-04-03T01:54:03.127Z"
+  },
+  "__v": 0
+}]

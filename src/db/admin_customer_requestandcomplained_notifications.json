@@ -1,0 +1,17 @@
+[{
+  "_id": {
+    "$oid": "642be2ff0c80e532485caf3c"
+  },
+  "missing_points_claim": "you have receive a missing complain",
+  "offers_redeemed": "thank you for offer redeem",
+  "complaint": "you have received a complain",
+  "request": "you have received a request",
+  "rate_your_experience": "you have receive a rating",
+  "user": {
+    "$oid": "64257be8ab0757d368e3422c"
+  },
+  "date": {
+    "$date": "2023-04-04T08:42:39.831Z"
+  },
+  "__v": 0
+}]

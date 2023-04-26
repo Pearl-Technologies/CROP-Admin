@@ -1,0 +1,44 @@
+[{
+  "_id": {
+    "$oid": "6423f957c9144ecaba9acb4e"
+  },
+  "businessName": "cookathome",
+  "natureOfBusiness": "food",
+  "currentLocation": "chennai",
+  "mobileNumber": {
+    "$numberLong": "7829744718"
+  },
+  "email": "pradeepkumar@pearlcomns.com",
+  "olpUser": "no",
+  "lpApp": "no",
+  "rating": "Likely",
+  "expectations": {
+    "repeat_business": "yes",
+    "do_it_Yourself_options": "yes",
+    "simplicity_and_ease_of_operating": "yes",
+    "business_analytics": "not",
+    "marketing_strategy": "yes",
+    "reminder_services": "yes",
+    "measure_of_customer_satisfaction": "yes",
+    "AI_and_automation": "yes",
+    "customer_retention": "yes",
+    "others": "not now",
+    "additional_Recommendations": "dont have"
+  },
+  "plainArea": {
+    "Highinvestment_low_returns": "yes",
+    "transactionalLoyalty_discount_driven": "yes",
+    "management_and_maintenance": "yes",
+    "integration_with_ePOS_and_other_systems": "yes",
+    "lack_of_actionable_insights": "yes",
+    "market_saturation": "yes",
+    "unclaimed_Points_liability": "yes",
+    "complex_customisation_requirement": "no",
+    "low_member_engagement": "yes",
+    "Others": "no idea"
+  },
+  "date": {
+    "$date": "2023-03-29T08:39:51.831Z"
+  },
+  "__v": 0
+}]

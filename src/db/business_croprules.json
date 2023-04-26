@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "642bcd49d2ad3181885e2511"
+  },
+  "cropPerAudCredit": 3,
+  "cropPerAudDebit": 2,
+  "businessId": {
+    "$oid": "642a7b46e8b0a4959b98a0d9"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6434f727f7f18e3d99c9f5db"
+  },
+  "cropPerAudCredit": 1.1,
+  "cropPerAudDebit": 1.5,
+  "businessId": {
+    "$oid": "6433d91e7bd421f5204d3847"
+  },
+  "__v": 0
+}]
