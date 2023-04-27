@@ -21,7 +21,6 @@ import axios from 'axios'
 import Stack from '@mui/material/Stack'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
-// ** Icons Imports
 import Google from 'mdi-material-ui/Google'
 import Github from 'mdi-material-ui/Github'
 import Twitter from 'mdi-material-ui/Twitter'
@@ -32,11 +31,9 @@ import themeConfig from 'src/configs/themeConfig'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 import LinearProgress from '@mui/material/LinearProgress'
-
 const Card = styled(MuiCard)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: '28rem' }
 }))
-
 const LinkStyled = styled('a')(({ theme }) => ({
   fontSize: '0.875rem',
   textDecoration: 'none',
@@ -59,7 +56,7 @@ const PasswordReset = () => {
   const [values, setValues] = useState({
     password: '',
     email: '',
-    c_password:'',
+    c_password: '',
     showPassword: false
   })
   const [open, setOpen] = React.useState(false)
@@ -84,14 +81,13 @@ const PasswordReset = () => {
     setValues({ ...values, [prop]: event.target.value })
   }
 
-  
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false)
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword = () => setShowPassword(show => !show)
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  const handleMouseDownPassword = event => {
+    event.preventDefault()
+  }
   const resetPassword = () => {
     setLoginStatus(true)
     axios
@@ -101,12 +97,10 @@ const PasswordReset = () => {
         if (response.status === 200) {
           setLoginStatus(false)
           setMessage(response.data)
-          router.push("/pages/login")   
-
+          router.push('/pages/login')
         } else {
           console.log('status code change')
           setLoginStatus(false)
-        
         }
       })
       .catch(function (error) {
@@ -116,19 +110,20 @@ const PasswordReset = () => {
         // handleClick()
         // console.log(message);
       })
-      setValues({
-        password: '',
-        email: '',
-        c_password:'',
-        showPassword: false
-      })
-      handleClick()
+    setValues({
+      password: '',
+      email: '',
+      c_password: '',
+      showPassword: false
+    })
+    handleClick()
   }
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
   })
   useEffect(() => {
     setValues({ ...values, ['email']: router?.query?.email })
+    //eslint-plugin-next
   }, [])
   return (
     <Box className='content-center'>
@@ -152,10 +147,10 @@ const PasswordReset = () => {
           <Typography variant='h5' component='h2' textAlign={'center'}>
             Set New Password
           </Typography>
-   
-          <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()} style={{alignContent:'center'}}>
+
+          <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()} style={{ alignContent: 'center' }}>
             <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
-            <OutlinedInput 
+            <OutlinedInput
               type={showPassword ? 'text' : 'password'}
               endAdornment={
                 <InputAdornment position='end'>
@@ -165,7 +160,7 @@ const PasswordReset = () => {
                     onMouseDown={handleMouseDownPassword}
                     edge='end'
                   >
-                    {showPassword ? <EyeOffOutline />:<EyeOutline />}
+                    {showPassword ? <EyeOffOutline /> : <EyeOutline />}
                   </IconButton>
                 </InputAdornment>
               }
@@ -184,7 +179,7 @@ const PasswordReset = () => {
                     onMouseDown={handleMouseDownPassword}
                     edge='end'
                   >
-                    {showPassword ?  <EyeOffOutline />:<EyeOutline />}
+                    {showPassword ? <EyeOffOutline /> : <EyeOutline />}
                   </IconButton>
                 </InputAdornment>
               }
@@ -203,11 +198,10 @@ const PasswordReset = () => {
               submit
             </Button>
             <Link passHref href='/pages/login'>
-                <LinkStyled>go to login</LinkStyled>
-              </Link>
+              <LinkStyled>go to login</LinkStyled>
+            </Link>
             {loginStatus && <LinearProgress />}
           </form>
-
         </CardContent>
         <Stack spacing={2} sx={{ width: '100%' }}>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} style={{ border: '1px solid blue' }}>
