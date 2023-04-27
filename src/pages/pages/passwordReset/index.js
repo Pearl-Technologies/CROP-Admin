@@ -31,6 +31,7 @@ import themeConfig from 'src/configs/themeConfig'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 import LinearProgress from '@mui/material/LinearProgress'
+
 const Card = styled(MuiCard)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: '28rem' }
 }))
@@ -123,7 +124,6 @@ const PasswordReset = () => {
   })
   useEffect(() => {
     setValues({ ...values, ['email']: router?.query?.email })
-    //eslint-plugin-next
   }, [])
   return (
     <Box className='content-center'>

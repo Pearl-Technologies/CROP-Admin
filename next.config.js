@@ -8,6 +8,7 @@ const {parsed: myEnv} =require('dotenv').config({
 module.exports = {
   trailingSlash: true,
   reactStrictMode: false,
+  ignoreDuringBuilds: true,
   experimental: {
     esmExternals: false,
     jsconfigPaths: true // enables it for both jsconfig.json and tsconfig.json

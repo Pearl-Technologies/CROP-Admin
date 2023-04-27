@@ -24,9 +24,10 @@ import DepositWithdraw from 'src/views/dashboard/DepositWithdraw'
 import SalesByCountries from 'src/views/dashboard/SalesByCountries'
 
 import React, {useState, useEffect} from 'react'
+import { useRouter } from 'next/router'
 import axios from 'axios'
-
 const Dashboard = () => {
+  const router = useRouter()
   let HOST=process.env.HOST;
   const [customerCount, setCustomerCount] = useState('');
   const [businessCount, setBusinessCount] = useState('');
@@ -102,10 +103,14 @@ const Dashboard = () => {
 const everyDayRender=()=>{
   datas.map(data=>{makeSlot(data)})
 }
+
   useEffect(()=>{
     // fetchCustomerCount();
     // fetchBusinessCount();
     everyDayRender()
+    if(!localStorage.getItem('token')){
+      router.push('/pages/login')
+    }
   },[])
 
   return (

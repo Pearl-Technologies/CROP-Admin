@@ -68,8 +68,7 @@ export default function BasicModal({data, item}) {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data
-                      .filter(x => x.user === item.user)
+                    {data?.filter(x => x.user === item.user)
                       .map(row => (
                         <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
                           <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
