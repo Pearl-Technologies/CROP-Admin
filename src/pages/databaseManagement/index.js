@@ -253,23 +253,30 @@ const Database = () => {
                 src='https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
               />
               {/* <span>Edogaru</span> */}
-              <span style={{ margin:"auto"}}>{user.email}</span>
+              <span style={{ margin:"auto"}}>{user.UserTitle}{" "}{user.name.fName}{" "}{user.name.mName}{" "}{user.name.lName}</span>
               <span> </span>
             </div>
 
             <div style={{padding:"10px", overflow:"auto"}}>
               <FormControl variant='standard' sx={{ gap: '10px' }} >
                 <Box sx={{ display: 'flex', gap: '2px' }}>
-                  <TextField id='outlined-basic' label='Title' variant='outlined' value={user.UserTitle} />
+                  <TextField id='outlined-basic' label='email' variant='outlined' value={user.email} />
+                  <TextField id='outlined-basic' label='mobile' variant='outlined' value={user.mobileNumber} />
+                  {/* <TextField id='outlined-basic' label='Title' variant='outlined' value={user.UserTitle} />
                   <TextField id='outlined-basic' label='First Name' variant='outlined' value={user.name.fName} />
                   <TextField id='outlined-basic' label='Middle Name' variant='outlined' value={user.name.mName} />
-                  <TextField id='outlined-basic' label='Last Name' variant='outlined' value={user.name.lName} />
+                  <TextField id='outlined-basic' label='Last Name' variant='outlined' value={user.name.lName} /> */}
                 </Box>
-                <Box sx={{ display: 'flex', gap: '2px' }}>
+                {/* <Box sx={{ display: 'flex', gap: '2px' }}>
                   <TextField label='Gender' variant='outlined' value={user.gender} />
                   <TextField label='AgeGroup' variant='outlined' value={user.agegroup} />
                   <TextField label='MobileNo' variant='outlined' value={user.mobileNumber} />
-                </Box>
+                </Box> */}
+                <Box sx={{ display: 'flex', gap: '2px', space: "10px" }}>
+                <TextField label='Email Notification' variant='outlined' value={user.emailNotification} />
+                <TextField label='Market Notification' variant='outlined' value={user.mktNotification} />
+                <TextField label='Message Notification' variant='outlined' value={user.smsNotification} />
+                </Box >
                 <Box sx={{ display: 'flex', gap: '2px' }}>
                 <TextField label='CROP ID' variant='outlined' value={user.cropid} />
                 <TextField label='PROP ID' variant='outlined' value={user.propid} />
@@ -277,11 +284,6 @@ const Database = () => {
                 </Box>
                 <Box sx={{ display: 'flex', gap: '2px' }}>
                 <TextField label='Biometric status' variant='outlined' value={user.biometricterms} />
-                <TextField label='Email Notification' variant='outlined' value={user.emailNotification} />
-                <TextField label='Market Notification' variant='outlined' value={user.mktNotification} />
-                <TextField label='Message Notification' variant='outlined' value={user.smsNotification} />
-                </Box >
-                <Box sx={{ display: 'flex', gap: '2px' }}>
                 <TextField label='Refferal Code' variant='outlined' value={user.refercode} />
                 <TextField label='Interests' variant='outlined' value={user.interestList?.valueOf()} />
                 </Box>                          
@@ -353,7 +355,7 @@ const Database = () => {
                     <TableCell>Profile</TableCell>
                     <TableCell>Invoices</TableCell>
                     <TableCell>CROPs</TableCell>
-                    <TableCell>PROPs</TableCell>
+                    <TableCell>PROP Id</TableCell>
                     <TableCell>Audit Report</TableCell>
                   </TableRow>
                 </TableHead>
@@ -399,7 +401,7 @@ const Database = () => {
                       </TableCell>
                       <TableCell onClick={() => showCustomerCrop(row._id)}>
                         <Chip
-                          label={row.croppoints}
+                          label={row.croppoints.toFixed(2)}
                           // color={statusObj[row.status].color}
                           color={'primary'}
                           sx={{

@@ -299,17 +299,17 @@ const AccountManagement = () => {
                       flexWrap: 'wrap',
                       alignItems: 'center',
                       justifyContent: 'space-between'
-                    }}
+                    }}                    
                   >
                     <Box width='100px'>
                       <Typography variant='body2' sx={{ mb: 0.5, mr: 5, fontWeight: 600, color: 'text.primary' }}>
                         {item.cropid}
                       </Typography>
                     </Box>
-                    <Box>
+                    <Box component="span" sx={{width: 200 }}>
                       <Typography
                         variant='body2'
-                        sx={{ mb: 0.5, fontWeight: 600, color: 'text.primary', cursor: 'pointer' }}
+                        sx={{ mb: 0.5, fontWeight: 600, color: 'text.primary', cursor: 'pointer'}}
                         onClick={() => showCustomerCrop(item._id)}
                       >
                         {item?.name?.fName??" "}{" "}{item?.name?.mName??" "}{" "}{item?.name?.lName??" "}
@@ -322,7 +322,7 @@ const AccountManagement = () => {
                         sx={{ mb: 2, fontWeight: 600, color: 'text.primary', cursor: 'pointer' }}
                         onClick={() => showCustomerCrop(item._id)}
                       >
-                        <img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoints}
+                        <img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoints.toFixed(2)}
                       </Typography>
                       <LinearProgress color={item.color} value={item.progress} variant='determinate' />
                     </Box>

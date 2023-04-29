@@ -116,7 +116,7 @@ const LoginPage = () => {
       .catch(function (error) {
         setLoginStatus(false);
         console.log(error);
-        setMessage(error.response.data?.errors?.[0]) 
+        setMessage(error?.response?.data?.msg) 
         let {errors} = error.response.data;
         console.log(errors)
         // console.log(error)

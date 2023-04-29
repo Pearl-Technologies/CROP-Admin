@@ -21,7 +21,8 @@ const CropDetails = ({}) => {
   const router = useRouter()
   const { q } = router.query
   //   console.log(productData);
-  const myCropData = orderData.filter(data => data.user === q)
+  // const myCropData = orderData.filter(data => data.user === q)
+  const myCropData = orderData
   console.log(myCropData)
   const columns = [
     { id: 'order id', label: 'Order_Id', minWidth: 170 },
@@ -92,11 +93,11 @@ const CropDetails = ({}) => {
   const getAllOrders=()=>{
     setODStatus(true);
     axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomerCrop`)
+      .get(`${process.env.HOST}/api/crop_trasaction/getMyCropTrasaction?user=${q}`)
       .then(function (response) {
         // handle success
         // console.log(response);
-        setOrderData(response.data.cropDetails)
+        setOrderData(response.data.trasactionDetails)
         setODStatus(false)
       })
       .catch(function (error) {
@@ -107,7 +108,7 @@ const CropDetails = ({}) => {
   }
   useEffect(()=>{
     getAllOrders()
-  },[])
+  },[q])
 
   return (
     // <Grid item xs={12}>
@@ -164,10 +165,10 @@ const CropDetails = ({}) => {
                   {myCropData.map(row => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
-                        <TableCell>{new Date(row.date).toLocaleDateString()}</TableCell>
-                        <TableCell>{row.description}</TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row.debit}</TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row.credit}</TableCell>
+                        <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
+                        <TableCell>{row?.description}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{row.transactionType === 'debit'? row.crop.toFixed(2):""}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{row.transactionType === 'credit'? row.crop.toFixed(2):""}</TableCell>
                       </TableRow>
                     )
                   })}

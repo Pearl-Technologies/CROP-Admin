@@ -1,4 +1,4 @@
-import router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
@@ -20,20 +20,19 @@ const CustomerInvoiceDetails = ({}) => {
   const [invoiceStatus, setInvoiceStatus] = useState(false);
   const router = useRouter()
   const { q } = router.query
-  //   console.log(productData);
-  const myInvoiceData = invoiceData.filter(data => data.user === q)
-//   const myInvoiceData = invoiceData
-  console.log(myInvoiceData)
-  
+  // const myInvoiceData = invoiceData.filter(data => data.user === q)
+  const myInvoiceData = invoiceData
+  console.log(myInvoiceData)  
 
   const getAllOrders=()=>{
     setInvoiceStatus(true);
     axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomerInvoice`)
+      // .post(`${process.env.HOST}/api/admin/getAllCustomerInvoice`)
+      .get(`${process.env.HOST}/api/crop_trasaction/getMyCropTrasaction?user=${router.query.q}`)
       .then(function (response) {
         // handle success
         // console.log(response);
-        setInvoiceData(response.data.invoices)
+        setInvoiceData(response.data.trasactionDetails)
         setInvoiceStatus(false)
       })
       .catch(function (error) {
@@ -43,8 +42,10 @@ const CustomerInvoiceDetails = ({}) => {
       })
   }
   useEffect(()=>{
-    getAllOrders()
-  },[])
+    if(q != undefined) {
+      getAllOrders()
+    }
+  },[q])
 
   return (
         <Grid item xs={12}>
@@ -57,8 +58,11 @@ const CustomerInvoiceDetails = ({}) => {
                 <TableHead>
                   <TableRow>                  
                       <TableCell> Date</TableCell>
-                      <TableCell> Description</TableCell>
-                      <TableCell> Invoice Number</TableCell>                                    
+                      <TableCell> Amount</TableCell>
+                      <TableCell> CROPs</TableCell>
+                      <TableCell> Invoice View</TableCell>
+                      <TableCell> invoice</TableCell>
+                                            
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -66,8 +70,10 @@ const CustomerInvoiceDetails = ({}) => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
                         <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
-                        <TableCell>{row.invoiceDesecription}</TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row.invoiceNumber}</TableCell>
+                        <TableCell>{row.amount}</TableCell>
+                        <TableCell>{row.crop.toFixed(2)}</TableCell>
+                        <TableCell><a href={row.pt.invoice_url}>View Invoice</a></TableCell>
+                        <TableCell><a href={row.pt.invoice_pdf}>Download</a></TableCell>
                       </TableRow>
                     )
                   })}
