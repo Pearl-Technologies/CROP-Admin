@@ -53,7 +53,7 @@ const CustomerInvoiceDetails = ({}) => {
           <CardHeader title='Customer invoice Details' titleTypographyProps={{ variant: 'h6' }} />
           <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
-            {invoiceStatus ? <Spinner/>: !myInvoiceData.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :
+            {invoiceStatus ? <Spinner/>: !myInvoiceData?.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :
               <Table stickyHeader aria-label='sticky table'>
                 <TableHead>
                   <TableRow>                  
