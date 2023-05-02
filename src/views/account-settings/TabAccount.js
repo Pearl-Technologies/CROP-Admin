@@ -28,6 +28,8 @@ import Snackbar from '@mui/material/Snackbar'
 import Close from 'mdi-material-ui/Close'
 import DatePicker from 'react-datepicker'
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 const ImgStyled = styled('img')(({ theme }) => ({
   width: 120,
   height: 120,
@@ -57,7 +59,7 @@ const TabAccount = () => {
   const [date, setDate] = useState(null)
   const [open, setOpen] = useState(false)
   const [updateStatus, setUpdateStatus] = useState(false)
-  const [message, setMessage] = useState([])
+  const [message, setMessage] = useState("")
   const [openAlert, setOpenAlert] = useState(false)
   const [imgSrc, setImgSrc] = useState([])
   const [data, setData] = useState({
@@ -67,6 +69,7 @@ const TabAccount = () => {
     phone: '',
     gender: ''
   })
+  const [imageFile, setImageFile] = useState(null);
   const CustomInput = forwardRef((props, ref) => {
     return <TextField inputRef={ref} label='Birth Date' fullWidth {...props} />
   })
@@ -94,34 +97,54 @@ const TabAccount = () => {
     setOpen(false)
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
     setUpdateStatus(true)
     const formData = new FormData()
     formData.append('name', data?.name)
-    formData.append('imageUrl', imgSrc)
     formData.append('birthDate', data?.birthDate)
     formData.append('phone', data?.phone)
     formData.append('gender', data?.gender)
-    axios
+    formData.append('image', imageFile);
+    await axios
       .post(`${process.env.HOST}/api/admin/updateAdminUser`, formData, {
         headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-          accept: 'application/json',
-          'Accept-Language': 'en-US,en;q=0.8',
-          'Content-Type': `multipart/form-data; boundary=${formData._boundary}`
+          "authorization": `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": 'multipart/form-data'
         }
       })
       .then(function (response) {
-        setMessage(response.data)
-        handleClick()
+        toast.success(response.data.msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
+        setMessage(response.data.msg);
         setUpdateStatus(false)
       })
       .catch(function (error) {
         console.log(error)
         setUpdateStatus(false)
+        let msg = error?.response?.data?.msg
+        setMessage(msg);
+        toast.error(msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
       })
   }
+  
   const getDetails = async () => {
     const resoponse = await fetch(`${process.env.HOST}/api/admin/getAdminData`, {
       method: 'post',
@@ -134,28 +157,35 @@ const TabAccount = () => {
   }
   useEffect(() => {
     getDetails()
-  }, [])
+  }, [message])
   
   return (
     <CardContent>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} style={{ border: '1px solid blue' }}>
-        <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
-          {message?.msg}
-        </Alert>
-      </Snackbar>
       {updateStatus && <LinearProgress />}
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <form encType='multipart/form-data'>
         <Grid container spacing={7}>
           <Grid item xs={12} sx={{ marginTop: 4.8, marginBottom: 3 }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              {/* <ImgStyled src={`${imgSrc.data.toString('base64')}`} alt='Profile Pic' /> */}
+              <ImgStyled src={`${process.env.HOST}/api/products/image/${data.filename}`} alt='Profile Pic' />
               <Box>
                 <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
                   Upload New Photo
                   <input
                     hidden
                     type='file'
-                    onChange={onChange}
+                    onChange={(e) => setImageFile(e.target.files[0])}
                     accept='image/png, image/jpeg'
                     id='account-settings-upload-image'
                   />

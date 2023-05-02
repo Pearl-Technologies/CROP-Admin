@@ -22,7 +22,9 @@ import Eye from 'mdi-material-ui/Eye'
 import { useRouter } from 'next/router'
 import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
-import CircularProgress from '@mui/material/CircularProgress';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const style = {
   position: 'absolute',
@@ -142,14 +144,13 @@ const services = () => {
   const handleClick = () => {
     setOpen(true)
   }
-  
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return
     }
     setOpen(false)
   }
-  
 
   const fetchCustomerDetails = () => {
     axios
@@ -514,7 +515,6 @@ const services = () => {
     )
   }
   function ChangeAccountStatus({ user }) {
-  
     const style = {
       position: 'absolute',
       top: '50%',
@@ -533,7 +533,7 @@ const services = () => {
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
     const ChangeStatus = sts => {
-      SetUpdateStatus(true);
+      SetUpdateStatus(true)
       // let formData = new FormData()
       // formData.append('status', sts)
       // formData.append('_id', user)
@@ -541,16 +541,34 @@ const services = () => {
         status: sts,
         _id: user
       }
-      axios({ method: 'post', url: `${process.env.HOST}/api/admin/updateCustomerStatus`, data: body})
+      axios({ method: 'post', url: `${process.env.HOST}/api/admin/updateCustomerStatus`, data: body })
         .then(function (response) {
           setMessage(response.data)
-          SetUpdateStatus(false);
-          handleClick()
+          SetUpdateStatus(false)
+          toast.success(response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
         })
         .catch(function (error) {
           console.log(error.message)
-          SetUpdateStatus(false);
-          handleClick()
+          SetUpdateStatus(false)
+          toast.error(error.response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
         })
       handleClose()
     }
@@ -570,7 +588,7 @@ const services = () => {
           }}
           onClick={handleOpen}
         />
-        {updateStatus && <CircularProgress size={20}/>}
+        {updateStatus && <CircularProgress size={20} />}
         <Modal
           open={open}
           onClose={handleClose}
@@ -607,7 +625,6 @@ const services = () => {
                 margin: '3px'
               }}
               onClick={() => {
-               
                 ChangeStatus('deactivated')
               }}
             />
@@ -624,7 +641,6 @@ const services = () => {
                 margin: '3px'
               }}
               onClick={() => {
-                
                 ChangeStatus('presuspend')
               }}
             />
@@ -641,7 +657,6 @@ const services = () => {
                 margin: '3px'
               }}
               onClick={() => {
-                
                 ChangeStatus('active')
               }}
             />
@@ -672,20 +687,38 @@ const services = () => {
     const handleClose = () => setOpen(false)
     const ChangeStatus = sts => {
       SetUpdateStatus(true)
-      let body = {'status': sts, '_id': user}
-      axios({ method: 'post', url: `${process.env.HOST}/api/admin/updateBusinessAccountStatus`, data: body})
+      let body = { status: sts, _id: user }
+      axios({ method: 'post', url: `${process.env.HOST}/api/admin/updateBusinessAccountStatus`, data: body })
         .then(function (response) {
           console.log(response)
           setMessage(response.data)
-          SetUpdateStatus(false);
-          handleClick()
+          SetUpdateStatus(false)
+          toast.success(response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
         })
         .catch(function (error) {
           console.log(error.message)
-          SetUpdateStatus(false);
-          handleClick()
+          SetUpdateStatus(false)
+          toast.error(error.response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
         })
-        handleClose()
+      handleClose()
     }
 
     return (
@@ -703,7 +736,7 @@ const services = () => {
           }}
           onClick={handleOpen}
         />
-        {updateStatus && <CircularProgress size={20}/>}
+        {updateStatus && <CircularProgress size={20} />}
         <Modal
           open={open}
           onClose={handleClose}
@@ -724,7 +757,6 @@ const services = () => {
                 margin: '3px'
               }}
               onClick={() => {
-  
                 ChangeStatus('suspended')
               }}
             />
@@ -741,7 +773,6 @@ const services = () => {
                 margin: '3px'
               }}
               onClick={() => {
-                
                 ChangeStatus('deactivated')
               }}
             />
@@ -758,7 +789,6 @@ const services = () => {
                 margin: '3px'
               }}
               onClick={() => {
-                
                 ChangeStatus('presuspend')
               }}
             />
@@ -775,7 +805,6 @@ const services = () => {
                 margin: '3px'
               }}
               onClick={() => {
-                
                 ChangeStatus('active')
               }}
             />
@@ -805,22 +834,22 @@ const services = () => {
 
   return (
     <Grid container spacing={2}>
-      
-      <Snackbar open={open} anchorOrigin={{ vertical:"top", horizontal:"center" }} autoHideDuration={6000} onClose={handleClose} style={{ border: '1px solid blue' }}>
-        {reponseCode > 299 ? (
-          <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
-            {message?.msg}
-          </Alert>
-        ) : (
-          <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
-            {message?.msg}
-          </Alert>
-        )}
-      </Snackbar>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='colored'
+      />
       <Grid item xs={12}>
         <Card>
           <TableContainer sx={{ height: 400 }}>
-            <h3 style={{ marginLeft: '20px' }}>Customer Data</h3>  
+            <h3 style={{ marginLeft: '20px' }}>Customer Data</h3>
             <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
               <TableHead>
                 <TableRow>

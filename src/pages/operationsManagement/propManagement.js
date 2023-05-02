@@ -15,6 +15,8 @@ import axios from 'axios'
 import LinearProgress from '@mui/material/LinearProgress'
 import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 // ** Demo Components Imports
 
 // ** Third Party Styles Imports
@@ -154,30 +156,40 @@ const CropMilestone = () => {
       data: body
     })
       .then(function (response) {
-        console.log(response)
         setUpdateStatus(false)
         setMessage(response.data)
         setResponseCode(response.status)
-        handleClick()
+        toast.success(response.data.msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
       })
       .catch(function (error) {
         setUpdateStatus(false)
         console.log(error)
         setMessage(error.response.data)
         setResponseCode(error.response.status)
-        handleClick()
+        toast.success(response.data.msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
       })
   }
   const handelMileStoneUpdate = e => {
     setUpdateStatus(true)
     e.preventDefault()
-    // let formData = new FormData()
-    // formData.append('first', milestoneValue.first)
-    // formData.append('second', milestoneValue.second)
-    // formData.append('third', milestoneValue.third)
-    // formData.append('fourth', milestoneValue.fourth)
-    // formData.append('_id', milestoneValue._id)
-    // formData.append('user', milestoneValue.user)
     axios({
       method: 'post',
       url: `${process.env.HOST}/api/admin/updateMilestoneData`,
@@ -188,34 +200,54 @@ const CropMilestone = () => {
         console.log(response)
         setMessage(response.data)
         setResponseCode(response.status)
-        handleClick()
+        toast.success(response.data.msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
       })
       .catch(function (error) {
         setUpdateStatus(false)
         console.log(error)
         setMessage(error.response.data)
         setResponseCode(error.response.status)
-        handleClick()
+        toast.success(error.response.data.msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
       })
   }
   useEffect(() => {
     fetchPropData()
     fetchDefaultMileStoneData()
   }, [])
-  console.log(milestoneValue)
+  
   return (
     <DatePickerWrapper>
       {updateStatus && <LinearProgress/>}
-      <Snackbar open={open} anchorOrigin={{ vertical:"top", horizontal:"center" }} autoHideDuration={6000} onClose={handleClose}>
-        {reponseCode > 299 ? 
-          <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
-            {message?.msg}
-          </Alert>:
-          <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
-            {message?.msg}
-          </Alert>
-        }
-      </Snackbar>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
           <Card>

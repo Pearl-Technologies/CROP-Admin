@@ -25,6 +25,8 @@ import MenuItem from '@mui/material/MenuItem'
 import CircularProgress from '@mui/material/CircularProgress'
 import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const style = {
   position: 'absolute',
@@ -176,14 +178,32 @@ const Complaint = () => {
           setUpdateStatus(false)
           setMessage(response.data)
           setResponseCode(response.status)
-          handleClick()
+          toast.success(response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
         })
         .catch(function (error) {
           setUpdateStatus(false)
           console.log(error)
           setMessage(error?.response?.data)
           setResponseCode(error?.response?.status)
-          handleClick()
+          toast.error(error.response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
         })
       handleClose()
     }
@@ -251,14 +271,32 @@ const Complaint = () => {
           setUpdateStatus(false)
           setMessage(response.data)
           setResponseCode(response.status)
-          handleClick()
+          toast.success(response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
         })
         .catch(function (error) {
           setUpdateStatus(false)
           console.log(error)
           setMessage(error?.response?.data)
           setResponseCode(error?.response?.status)
-          handleClick()
+          toast.error(error.response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
         })
       handleClose()
     }
@@ -326,23 +364,19 @@ const Complaint = () => {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Card>
-          <h4 style={{ marginLeft: '20px' }}>Customer Complain</h4>
-          <Snackbar
-            open={open}
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            autoHideDuration={6000}
-            onClose={handleCloseAlert}
-          >
-            {reponseCode > 299 ? (
-              <Alert onClose={handleCloseAlert} severity='error' sx={{ width: '100%' }}>
-                {message?.msg}
-              </Alert>
-            ) : (
-              <Alert onClose={handleCloseAlert} severity='success' sx={{ width: '100%' }}>
-                {message?.msg}
-              </Alert>
-            )}
-          </Snackbar>
+          <h4 style={{ marginLeft: '20px' }}>Customer Complaint</h4>
+          <ToastContainer
+            position='top-right'
+            autoClose={5000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick
+            rtl={true}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme='colored'
+          />
           <TableContainer sx={{ height: 400 }}>
             <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
               <TableHead>
@@ -392,7 +426,7 @@ const Complaint = () => {
       <Grid item xs={12}>
         <Card>
           <TableContainer>
-            <h3 style={{ marginLeft: '20px' }}>Business Complain</h3>
+            <h3 style={{ marginLeft: '20px' }}>Business Complaint</h3>
             <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
               <TableHead>
                 <TableRow>

@@ -20,6 +20,9 @@ import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField'
 import Eye from 'mdi-material-ui/Eye'
 import { useRouter } from 'next/router'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const style = {
   position: 'absolute',
@@ -51,6 +54,7 @@ const TierManagement = () => {
   const business = require('../../db/businesses.json')
   const [customerData, setCustomerData] = useState([])
   const [businessData, setBusinessData] = useState([])
+  const [message, setMessage] = useState('');
   const showCustomerCrop =(x)=>{
     router.push(`/accountManagement/cropDetails?q=${x}`)
     // return<CropDetails id={x}/>
@@ -73,179 +77,7 @@ const TierManagement = () => {
         console.log(error)
       })
   }
-  function BusinessModal({ user }) {
-    const [open, setOpen] = useState(false)
-    const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
-    return (
-      <div>
-        <Button onClick={handleOpen}><Eye/></Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-        >
-          <Box sx={style}>
-            <Typography id='modal-modal-title' variant='h6' component='h2'>
-              Profile
-            </Typography>
-            <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-              <Grid item xs={12} md={12}>
-                <p><span style={{fontWeight:"bold"}}>Tier:  </span><span>{user.Tier}</span></p>
-                {/* <h3>TierChangeDate:</h3><span>{new Date(user.TierChangeDate.$date)}</span> */}
-                <p><span style={{fontWeight:"bold"}}>Biometric: </span><span>{user.bio? "true":"false"}</span></p>
-                <p><span style={{fontWeight:"bold"}}>BusinessName:</span><span>{user.businessId.BusinessName}</span></p>
-                <p><span style={{fontWeight:"bold"}}>ABN No:</span><span>{user.businessId.ABN }</span></p>
-                <p><span style={{fontWeight:"bold"}}>ACN No:</span><span>{user.businessId.ACN }</span></p>
-                {/* <p>span style={{fontWeight:"bold"}} <h3>JoinDate:</h3><span>{user.createdAt }</span></p>  */}
-                <p><span style={{fontWeight:"bold"}}>CROP ID:</span><span>{user.cropId }</span></p>
-                <p><span style={{fontWeight:"bold"}}>Delivery Services:</span><span>{user.deliveryServices }</span></p>
-                <p><span style={{fontWeight:"bold"}}>Email:</span><span>{user.email }</span></p>
-                <p><span style={{fontWeight:"bold"}}>Email Notification:</span><span>{user.emailNotification }</span></p>
-                {/* <p><span style={{fontWeight:"bold"}}> Tier Change Date:</span><span>{user.lastUpdatedDate }</span></p> */}
-                <p><span style={{fontWeight:"bold"}}>Market Notification:</span><span>{user.mktNotification }</span></p>
-                <p><span style={{fontWeight:"bold"}}>Mobile Number:</span><span>{parseInt(user.mobileNumber.$numberLong) }</span></p>
-                <p><span style={{fontWeight:"bold"}}>Nature Of Business:</span><span>{user.natureOfBusiness }</span></p>
-                <p><span style={{fontWeight:"bold"}}>News Letter Subscription:</span><span>{user.newsLetterSubscription }</span></p>
-                <p><span style={{fontWeight:"bold"}}>Notification:</span><span>{user.notification }</span></p>
-                <p><span style={{fontWeight:"bold"}}>OutletCount:</span><span>{user.outletCount }</span></p>
-                <p><span style={{fontWeight:"bold"}}>OwnerName:</span><span>{user.ownerName.title+" "+ user.ownerName?.fName+" "+ user?.ownerName?.mName+" "+user.ownerName?.lName  }</span></p>
-                <p><span style={{fontWeight:"bold"}}>PROP ID:</span><span>{user.propId}</span></p>
-                <p><span style={{fontWeight:"bold"}}>RefferalCode:</span><span>{user.refferalCode}</span></p>
-                <p><span style={{fontWeight:"bold"}}>Message Notification:</span><span>{user.smsNotification}</span></p>
-                <p><span style={{fontWeight:"bold"}}>Status:</span><span>{user.status}</span></p>
-                <p><span style={{fontWeight:"bold"}}>TransctionInterface:</span><span>{user.transctionInterface}</span></p>
-              </Grid>
-            </Typography>
-          </Box>
-        </Modal>
-      </div>
-    )
-  }
-  function StoreModal({ user }) {
-    const [open, setOpen] = useState(false)
-    const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
-    return (
-      <div>
-        <Button onClick={handleOpen}><Eye/></Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-        >
-          <Box sx={style}>
-            <Typography id='modal-modal-title' variant='h6' component='h2'>
-              Profile
-            </Typography>
-            <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-              <Grid item xs={12} md={12}>
-                <p><span style={{fontWeight:"bold"}}>Tier:  </span><span>{user.Tier}</span></p>
-                {/* <h3>TierChangeDate:</h3><span>{new Date(user.TierChangeDate.$date)}</span> */}
-                <p><span style={{fontWeight:"bold"}}>Biometric: </span><span>{user.bio? "true":"false"}</span></p>
-                <p><span style={{fontWeight:"bold"}}>BusinessName:</span><span>{user.businessId.BusinessName}</span></p>
-                <p><span style={{fontWeight:"bold"}}>ABN No:</span><span>{user.businessId.ABN }</span></p>
-                <p><span style={{fontWeight:"bold"}}>ACN No:</span><span>{user.businessId.ACN }</span></p>
-                {/* <p>span style={{fontWeight:"bold"}} <h3>JoinDate:</h3><span>{user.createdAt }</span></p>  */}
-                <p><span style={{fontWeight:"bold"}}>CROP ID:</span><span>{user.cropId }</span></p>
-                <p><span style={{fontWeight:"bold"}}>Delivery Services:</span><span>{user.deliveryServices }</span></p>
-                <p><span style={{fontWeight:"bold"}}>Email:</span><span>{user.email }</span></p>
-                <p><span style={{fontWeight:"bold"}}>Email Notification:</span><span>{user.emailNotification }</span></p>
-                {/* <p><span style={{fontWeight:"bold"}}> Tier Change Date:</span><span>{user.lastUpdatedDate }</span></p> */}
-                <p><span style={{fontWeight:"bold"}}>Market Notification:</span><span>{user.mktNotification }</span></p>
-                <p><span style={{fontWeight:"bold"}}>Mobile Number:</span><span>{parseInt(user.mobileNumber.$numberLong) }</span></p>
-                <p><span style={{fontWeight:"bold"}}>Nature Of Business:</span><span>{user.natureOfBusiness }</span></p>
-                <p><span style={{fontWeight:"bold"}}>News Letter Subscription:</span><span>{user.newsLetterSubscription }</span></p>
-                <p><span style={{fontWeight:"bold"}}>Notification:</span><span>{user.notification }</span></p>
-                <p><span style={{fontWeight:"bold"}}>OutletCount:</span><span>{user.outletCount }</span></p>
-                <p><span style={{fontWeight:"bold"}}>OwnerName:</span><span>{user.ownerName.title+" "+ user.ownerName?.fName+" "+ user?.ownerName?.mName+" "+user.ownerName?.lName  }</span></p>
-                <p><span style={{fontWeight:"bold"}}>PROP ID:</span><span>{user.propId}</span></p>
-                <p><span style={{fontWeight:"bold"}}>RefferalCode:</span><span>{user.refferalCode}</span></p>
-                <p><span style={{fontWeight:"bold"}}>Message Notification:</span><span>{user.smsNotification}</span></p>
-                <p><span style={{fontWeight:"bold"}}>Status:</span><span>{user.status}</span></p>
-                <p><span style={{fontWeight:"bold"}}>TransctionInterface:</span><span>{user.transctionInterface}</span></p>
-              </Grid>
-            </Typography>
-          </Box>
-        </Modal>
-      </div>
-    )
-  }
-  function CustomerModal({ user }) {
-    const [open, setOpen] = useState(false)
-    const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
-    return (
-      <div>
-        <Button onClick={handleOpen}>
-          <Eye />
-        </Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-        >
-          <Box sx={style}>
-            <Typography id='modal-modal-title' variant='h6' component='h2'>
-              Profile Details
-            </Typography>
-            <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-              <FormControl variant='standard'>
-                <h4>Name:</h4> <span>{user.UserTitle + ' ' + user.name.fName + ' ' + user.name.mName + ' ' + user.name.lName}</span>
-                <p><span style={{fontWeight:'bold'}}>Gender: </span><span>{user.gender}</span></p>
-                {/* <p>age: {user?.dob.}</p> */}
-                <p><span style={{fontWeight:'bold'}}>AgeGroup:</span> <span>{user.agegroup}</span></p>
-                <p><span style={{fontWeight:'bold'}}>MobileNo:</span> <span>{user.mobileNumber}</span></p>
-                <p><span style={{fontWeight:'bold'}}>Email:</span> <span>{user.email}</span></p>
-                <p><span style={{fontWeight:'bold'}}>Avatar:</span> <span>{user.avatar}</span></p>
-                <p><span style={{fontWeight:'bold'}}>CROP ID:</span> <span>{user.cropid}</span></p>
-                <p><span style={{fontWeight:'bold'}}>PROP ID:</span> <span>{user.propid}</span></p>
-                <p><span style={{fontWeight:'bold'}}>Biometric status:</span> <span>{user.biometricterms}</span></p>
-                <p><span style={{fontWeight:'bold'}}>Tier:</span> <span>{user.UserTier}</span></p>
-                <p><span style={{fontWeight:'bold'}}>Email Notification:</span> <span>{user.emailNotification}</span></p>
-                <p><span style={{fontWeight:'bold'}}>Email Notification:</span> <span>{user.emailNotification}</span></p>
-                <p><span style={{fontWeight:'bold'}}>Market Notification:</span> <span>{user.mktNotification}</span></p>
-                <p><span style={{fontWeight:'bold'}}>Message Notification:</span> <span>{user.smsNotification}</span></p>
-                <p><span style={{fontWeight:'bold'}}>Refferal Code: </span><span>{user.refercode}</span>  </p>
-
-                {user.interestList && (
-                  <div>
-                    <h6>Interests</h6>
-                    {user.interestList &&
-                      user.interestList.map((data, i) => (
-                        <span key={'interest' + i}>
-                          <p>{data}</p>
-                        </span>
-                      ))}
-                  </div>
-                )}
-                {user.address &&
-                  user.address.map((data, i) => (
-                    <span key={'address' + data._id}>
-                      <h6>
-                        Home:{' '}
-                        {data.address.line1 +
-                          ' ' +
-                          data.address.line2 +
-                          ' ' +
-                          data.address.line3 +
-                          ' ' +
-                          data.address.pin +
-                          ' ' +
-                          data.address.state}
-                      </h6>
-                    </span>
-                  ))}
-              </FormControl>
-            </Typography>
-          </Box>
-        </Modal>
-      </div>
-    )
-  }
+  
   const fetchBusinessDetails = () => {
     axios
       .post(`${process.env.HOST}/api/admin/getAllBusiness`)
@@ -259,13 +91,251 @@ const TierManagement = () => {
         console.log(error)
       })
   }
+
+  function ChangeAccountTier({ user, type }) {
+    const style = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 200,
+      bgcolor: 'background.paper',
+      justifyContent: 'space-between',
+      boxShadow: 24,
+      p: 4,
+      display: 'flex',
+      flexDirection: 'column'
+    }
+    const [updateStatus, SetUpdateStatus] = useState(false)
+    const [open, setOpen] = React.useState(false)
+    const handleOpen = () => setOpen(true)
+    const handleClose = () => setOpen(false)
+    const ChangeTier = (type,sts) => {
+      SetUpdateStatus(true)
+      const body = {
+        tier: sts,
+        _id: user,
+        type
+      }
+      axios({ method: 'post', url: `${process.env.HOST}/api/admin/updateTier`, data: body })
+        .then(function (response) {
+          SetUpdateStatus(false)
+          toast.success(response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
+          setMessage("success")
+          handleClose()
+        })
+        .catch(function (error) {
+          console.log(error)          
+          SetUpdateStatus(false)
+          handleClose()
+          toast.error(error.response?.data?.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
+          
+          setMessage("fail")
+        })
+    }
+
+    return (
+      <div>
+        <Chip
+          label={'Change'}
+          // color={statusObj[row.status].color}
+          color={'primary'}
+          sx={{
+            height: 24,
+            fontSize: '0.75rem',
+            textTransform: 'capitalize',
+            '& .MuiChip-label': { fontWeight: 500 },
+            cursor: 'pointer'
+          }}
+          onClick={handleOpen}
+        />
+        {updateStatus && <CircularProgress size={20} />}
+        {type =="customer" &&<Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'
+        >
+          <Box sx={style}>
+            <Chip
+              label={'Base'}
+              // color={statusObj[row.status].color}
+              color={'info'}
+              sx={{
+                height: 24,
+                fontSize: '0.75rem',
+                textTransform: 'capitalize',
+                '& .MuiChip-label': { fontWeight: 500 },
+                cursor: 'pointer',
+                margin: '3px'
+              }}
+              onClick={() => {
+                ChangeTier(type,'Base')
+              }}
+            />
+            <Chip
+              label={'Silver'}
+              // color={statusObj[row.status].color}
+              color={'error'}
+              sx={{
+                height: 24,
+                fontSize: '0.75rem',
+                textTransform: 'capitalize',
+                '& .MuiChip-label': { fontWeight: 500 },
+                cursor: 'pointer',
+                margin: '3px'
+              }}
+              onClick={() => {
+                ChangeTier(type, 'Silver')
+              }}
+            />
+            <Chip
+              label={'Gold'}
+              // color={statusObj[row.status].color}
+              color={'warning'}
+              sx={{
+                height: 24,
+                fontSize: '0.75rem',
+                textTransform: 'capitalize',
+                '& .MuiChip-label': { fontWeight: 500 },
+                cursor: 'pointer',
+                margin: '3px'
+              }}
+              onClick={() => {
+                ChangeTier(type,'Gold')
+              }}
+            />
+            <Chip
+              label={'Platinum'}
+              // color={statusObj[row.status].color}
+              color={'primary'}
+              sx={{
+                height: 24,
+                fontSize: '0.75rem',
+                textTransform: 'capitalize',
+                '& .MuiChip-label': { fontWeight: 500 },
+                cursor: 'pointer',
+                margin: '3px'
+              }}
+              onClick={() => {
+                ChangeTier(type,'Platinum')
+              }}
+            />
+          </Box>
+        </Modal>}
+        {type =="business" &&<Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'
+        >
+          <Box sx={style}>
+            <Chip
+              label={'A'}
+              // color={statusObj[row.status].color}
+              color={'info'}
+              sx={{
+                height: 24,
+                fontSize: '0.75rem',
+                textTransform: 'capitalize',
+                '& .MuiChip-label': { fontWeight: 500 },
+                cursor: 'pointer',
+                margin: '3px'
+              }}
+              onClick={() => {
+                ChangeTier(type,'A')
+              }}
+            />
+            <Chip
+              label={'B'}
+              // color={statusObj[row.status].color}
+              color={'error'}
+              sx={{
+                height: 24,
+                fontSize: '0.75rem',
+                textTransform: 'capitalize',
+                '& .MuiChip-label': { fontWeight: 500 },
+                cursor: 'pointer',
+                margin: '3px'
+              }}
+              onClick={() => {
+                ChangeTier(type, 'B')
+              }}
+            />
+            <Chip
+              label={'C'}
+              // color={statusObj[row.status].color}
+              color={'warning'}
+              sx={{
+                height: 24,
+                fontSize: '0.75rem',
+                textTransform: 'capitalize',
+                '& .MuiChip-label': { fontWeight: 500 },
+                cursor: 'pointer',
+                margin: '3px'
+              }}
+              onClick={() => {
+                ChangeTier(type,'C')
+              }}
+            />
+            <Chip
+              label={'D'}
+              // color={statusObj[row.status].color}
+              color={'primary'}
+              sx={{
+                height: 24,
+                fontSize: '0.75rem',
+                textTransform: 'capitalize',
+                '& .MuiChip-label': { fontWeight: 500 },
+                cursor: 'pointer',
+                margin: '3px'
+              }}
+              onClick={() => {
+                ChangeTier(type,'D')
+              }}
+            />
+          </Box>
+        </Modal>}
+      </div>
+    )
+  }
   useEffect(() => {
     fetchCustomerDetails()
     fetchBusinessDetails()
-  }, [])
+  }, [message])
   
   return (
     <Grid container spacing={2}>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='colored'
+      />
       <Grid item xs={12}>
         <Card>
           <TableContainer sx={{ height: 400 }}>
@@ -316,26 +386,13 @@ const TierManagement = () => {
                     <TableCell>{row.UserTier}</TableCell>
                     <TableCell>
                       {/* <CustomerModal user={row} /> */}
-                      {"01/01/2023"}
+                      {new Date(row.TierChangeDate).toLocaleDateString()}
                     </TableCell>
                     {/* <TableCell onClick={
                           ()=>showCustomerCrop(row._id.$oid)}>{row.croppoints}</TableCell>
                     <TableCell>{'PROP Info'}</TableCell> */}
                     <TableCell>
-                    <Chip
-                        label={"Change"}
-                        // color={statusObj[row.status].color}
-                        color={'info'}
-                        sx={{
-                          height: 24,
-                          fontSize: '0.75rem',
-                          textTransform: 'capitalize',
-                          '& .MuiChip-label': { fontWeight: 500 },
-                          cursor:'pointer'
-                          
-                        }}
-                        disabled
-                      />
+                      <ChangeAccountTier user={row._id} type="customer" />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -392,19 +449,7 @@ const TierManagement = () => {
                     <TableCell>{"01/01/2023"}</TableCell>
                     
                     <TableCell>
-                    <Chip
-                        label={"Change"}
-                        // color={statusObj[row.status].color}
-                        color={'info'}
-                        sx={{
-                          height: 24,
-                          fontSize: '0.75rem',
-                          textTransform: 'capitalize',
-                          '& .MuiChip-label': { fontWeight: 500 },
-                          cursor:'pointer'
-                        }}
-                        disabled
-                      />
+                    <ChangeAccountTier user={row._id} type="business" />
                     </TableCell>
                     {/* <TableCell>{'view active offers'}</TableCell> */}
                   </TableRow>

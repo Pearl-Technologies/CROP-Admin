@@ -105,7 +105,7 @@ const Navigation = props => {
                 onScrollY: container => scrollMenu(container)
               })}
         >
-          {beforeVerticalNavMenuContent ? beforeVerticalNavMenuContent(props) : null}
+          {beforeVerticalNavMenuContent ? beforeVerticalNavMenuContent(props) : ""}
           <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             {userVerticalNavMenuContent ? (
               userVerticalNavMenuContent(props)

@@ -18,8 +18,6 @@ import MuiCard from '@mui/material/Card'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
 import axios from 'axios'
-import Stack from '@mui/material/Stack'
-import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
 // ** Icons Imports
 import Google from 'mdi-material-ui/Google'
@@ -28,13 +26,12 @@ import Twitter from 'mdi-material-ui/Twitter'
 import Facebook from 'mdi-material-ui/Facebook'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
-import Alert from './alert'
 import themeConfig from 'src/configs/themeConfig'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
-import LinearProgress from '@mui/material/LinearProgress';
-
-
+import LinearProgress from '@mui/material/LinearProgress'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 const Card = styled(MuiCard)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: '28rem' }
 }))
@@ -55,20 +52,18 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
 const LoginPage = () => {
   if (typeof window !== 'undefined') {
     // Perform localStorage action
-
   }
-
 
   // ** State
   const [values, setValues] = useState({
     password: '',
-    email:'',
+    email: '',
     showPassword: false
   })
   const [open, setOpen] = React.useState(false)
   const [message, setMessage] = React.useState([])
-  const [loginStatus, setLoginStatus] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [loginStatus, setLoginStatus] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
   const theme = useTheme()
   const router = useRouter()
 
@@ -95,48 +90,63 @@ const LoginPage = () => {
     event.preventDefault()
   }
   const login = () => {
-    setLoginStatus(true);
-    if(rememberMe){
+    setLoginStatus(true)
+    if (rememberMe) {
       localStorage.setItem('email', values.email)
       localStorage.setItem('password', values.password)
     }
     axios
       .post(`${process.env.HOST}/api/admin/adminLogIn`, values)
       .then(function (response) {
-        if(response.status === 200){
+        if (response.status === 200) {
           localStorage.setItem('token', response.data.accessToken)
           localStorage.setItem('user', response.data.user)
-          setLoginStatus(false);
+          setLoginStatus(false)
           router.push('/')
-        }else{
-          console.log("status code change")
-          setLoginStatus(false);
+        } else {
+          console.log('status code change')
+          setLoginStatus(false)
         }
       })
       .catch(function (error) {
-        setLoginStatus(false);
-        console.log(error);
-        setMessage(error?.response?.data?.msg) 
-        let {errors} = error.response.data;
-        console.log(errors)
-        // console.log(error)
-          handleClick()
-          // console.log(message);
-        
+        setLoginStatus(false)
+        console.log(error)
+        let msg = error?.response?.data?.msg
+        toast.error(msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
       })
   }
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
   })
   useEffect(() => {
-    if (localStorage.getItem('token')) {router.push('/')}
-    setValues({ ...values, ['email']: localStorage.getItem('email'), ['password']:localStorage.getItem('password') })
-
+    if (localStorage.getItem('token')) {
+      router.push('/')
+    }
+    setValues({ ...values, ['email']: localStorage.getItem('email'), ['password']: localStorage.getItem('password') })
   }, [])
-  console.log(process.env.HOST);
-
   return (
     <Box className='content-center'>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Card sx={{ zIndex: 1 }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(12, 9, 7)} !important` }}>
           <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -195,15 +205,26 @@ const LoginPage = () => {
             <Box
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             >
-              <FormControlLabel control={<Checkbox />} label='Remember Me'  onClick={()=>setRememberMe(remember=>!remember)}/>
+              <FormControlLabel
+                control={<Checkbox />}
+                label='Remember Me'
+                onClick={() => setRememberMe(remember => !remember)}
+              />
               <Link passHref href='/pages/forgotPassword'>
                 <LinkStyled>Forgot Password?</LinkStyled>
               </Link>
             </Box>
-            <Button fullWidth size='large' variant='contained' sx={{ marginBottom: 7 }} onClick={login} disabled={loginStatus}>
+            <Button
+              fullWidth
+              size='large'
+              variant='contained'
+              sx={{ marginBottom: 7 }}
+              onClick={login}
+              disabled={loginStatus}
+            >
               Login
             </Button>
-            {loginStatus &&<LinearProgress/>}
+            {loginStatus && <LinearProgress />}
             {/* <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
               <Typography variant='body2' sx={{ marginRight: 2 }}>
                 New on our platform?
@@ -241,20 +262,6 @@ const LoginPage = () => {
             </Box> */}
           </form>
         </CardContent>
-        <Stack spacing={2} sx={{ width: '100%' }}>
-          {/* <Button variant="outlined" onClick={handleClick}>
-        Open success snackbar
-      </Button> */}
-          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} style={{ border: '1px solid blue' }}>
-            <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
-              {message?.msg}
-            </Alert>
-          </Snackbar>
-          {/* <Alert severity="error">This is an error message!</Alert>
-      <Alert severity="warning">This is a warning message!</Alert>
-      <Alert severity="info">This is an information message!</Alert>
-      <Alert severity="success">This is a success message!</Alert> */}
-        </Stack>
       </Card>
       <FooterIllustrationsV1 />
     </Box>

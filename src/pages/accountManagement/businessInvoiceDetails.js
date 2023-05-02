@@ -14,21 +14,23 @@ import TablePagination from '@mui/material/TablePagination'
 import Spinner from '../databaseManagement/spinner'
 import axios from 'axios'
 import Link from '@mui/material/Link';
+import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 
 const BusinessInvoiceDetails = ({}) => {
   // const productData = require('../../db/orders_customers.json')
-  const businessInvoices = require('../../db/admin_payment_trackers.json')
-  const [invoiceData, setInvoiceData] = useState(businessInvoices);
+  // const businessInvoices = require('../../db/admin_payment_trackers.json')
+  const [invoiceData, setInvoiceData] = useState([]);
   const [invoiceStatus, setInvoiceStatus] = useState(false);
   const router = useRouter()
   const { q } = router.query
   //   console.log(productData);
-  const myInvoiceData = invoiceData.filter(data => data.businessId.$oid === q)
+  // const myInvoiceData = invoiceData.filter(data => data.businessId.$oid === q)
+  const myInvoiceData = invoiceData
 
   const getAllOrders=()=>{
     setInvoiceStatus(true);
     axios
-      .post(`${process.env.HOST}/api/admin/getAllBusinessInvoice`)
+      .post(`${process.env.HOST}/api/admin/findBusinessInvoice`, {user:q})
       .then(function (response) {
         // handle success
         // console.log(response);
@@ -42,8 +44,8 @@ const BusinessInvoiceDetails = ({}) => {
       })
   }
   useEffect(()=>{
-    // getAllOrders()
-  },[])
+    getAllOrders()
+  },[q])
   console.log(myInvoiceData)
   return (
         <Grid item xs={12}>
@@ -67,7 +69,7 @@ const BusinessInvoiceDetails = ({}) => {
                   {myInvoiceData.map(row => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id.$oid}>
-                        <TableCell>{new Date(row.createdAt.$date).toLocaleDateString()}</TableCell>
+                        <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.invoice_id}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.customer_email}</TableCell>
                         <TableCell style={{textAlign:"left"}}><Link href={row.invoice_url}>Invoice View</Link></TableCell>

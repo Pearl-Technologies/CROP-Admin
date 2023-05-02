@@ -26,6 +26,8 @@ import TextareaAutosize from '@mui/base/TextareaAutosize'
 import CircularProgress from '@mui/material/CircularProgress'
 import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -97,14 +99,32 @@ const Request = () => {
           setUpdateStatus(false)
           setMessage(response.data)
           setResponseCode(response.status)
-          handleClick()
+          toast.success(response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
         })
         .catch(function (error) {
           setUpdateStatus(false)
           console.log(error)
           setMessage(error?.response?.data)
           setResponseCode(error?.response?.status)
-          handleClick()
+          toast.error(error.response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
         })
     }
     return (
@@ -302,16 +322,34 @@ const Request = () => {
           setUpdateStatus(false)
           setMessage(response.data)
           setResponseCode(response.status)
-          handleClick()
+          toast.success(response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
         })
         .catch(function (error) {
           setUpdateStatus(false)
           console.log(error)
           setMessage(error?.response?.data)
           setResponseCode(error?.response?.status)
-          handleClick()
+          toast.error(error.response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })
         })
-      handleClose()
+      
     }
     return (
       <div>
@@ -385,6 +423,18 @@ const Request = () => {
 
   return (
     <Grid container spacing={2}>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Grid item xs={12}>
         <Card>
           <h4 style={{ marginLeft: '20px' }}>Customer Request</h4>

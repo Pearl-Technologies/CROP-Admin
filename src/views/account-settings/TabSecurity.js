@@ -23,7 +23,8 @@ import axios from 'axios'
 import LinearProgress from '@mui/material/LinearProgress'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 const TabSecurity = () => {
   // ** States
   const [values, setValues] = useState({
@@ -91,29 +92,41 @@ const TabSecurity = () => {
   const handelSaveChange = e => {
     e.preventDefault()
     setUpdateStatus(true)
-    const formData = new FormData()
-    formData.append('password', values.currentPassword)
-    formData.append('newPassword', values.newPassword)
-    formData.append('confirmPassword', values.confirmNewPassword)
+    let body={'password': values.currentPassword, 'newPassword': values.newPassword, 'confirmPassword': values.confirmNewPassword}
     axios
-      .post(`${process.env.HOST}/api/admin/updateAdminUserPassword`, formData, {
+      .post(`${process.env.HOST}/api/admin/updateAdminUserPassword`, body, {
         headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-          accept: 'application/json',
-          'Accept-Language': 'en-US,en;q=0.8',
-          'Content-Type': `multipart/form-data; boundary=${formData._boundary}`
+          "authorization": `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': `application/json`
         }
       })
       .then(function (response) {
         setStatusCode(response.status);
         setMessage(response.data)
+        toast.success(response.data.msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
         setUpdateStatus(false)
-        handleClick()
       })
       .catch(function (error) {
         setMessage(error.response.data)
-        setStatusCode(error.response.status)
-        handleClick(error.response.status);
+        toast.error(error.response.data.msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
         console.log(error)
         setUpdateStatus(false)
       })
@@ -121,14 +134,18 @@ const TabSecurity = () => {
   
   return (
     <form>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} style={{ border: '1px solid blue' }}>
-        {statusCode === 202 ? <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
-          {message?.msg}
-        </Alert>:
-        <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
-          {message?.msg}
-        </Alert>}
-      </Snackbar>
+            <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       {updateStatus && <LinearProgress />}
       <CardContent sx={{ paddingBottom: 0 }}>
         <Grid container spacing={5}>
