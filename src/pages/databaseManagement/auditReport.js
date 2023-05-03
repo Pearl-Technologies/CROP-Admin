@@ -85,7 +85,7 @@ const AuditReport = ({}) => {
   const getAuditReport=()=>{
     setADStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAuditReport`)
+      .post(`${process.env.HOST}/api/admin/getCustomerAuditReport?q=${q}`)
       .then(function (response) {
         // handle success
         // console.log(response);
@@ -100,7 +100,7 @@ const AuditReport = ({}) => {
 
   useEffect(()=>{
     getAuditReport();
-  },[])
+  },[q])
 
   // console.log(myAuditData)
   return (

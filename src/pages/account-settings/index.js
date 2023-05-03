@@ -92,9 +92,6 @@ const AccountSettings = () => {
         <TabPanel sx={{ p: 0 }} value='security'>
           <TabSecurity />
         </TabPanel>
-        {/* <TabPanel sx={{ p: 0 }} value='info'>
-          <TabInfo />
-        </TabPanel> */}
       </TabContext>
     </Card>
   )

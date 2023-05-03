@@ -129,7 +129,7 @@ const LoginPage = () => {
   })
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      router.push('/')
+      router.push('/admin')
     }
     setValues({ ...values, ['email']: localStorage.getItem('email'), ['password']: localStorage.getItem('password') })
   }, [])

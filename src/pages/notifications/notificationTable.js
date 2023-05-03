@@ -22,7 +22,7 @@ import axios from 'axios'
 export default function NotificationTable() {
     const [notificationData, setNotificationData] = useState([]);
   const fetchNotification=()=>{
-    axios.post("http://localhost:7000/api/admin/getAllNotifications")
+    axios.post(`${process.env.HOST}/api/admin/getAllNotifications`)
     .then(function(response){
       setNotificationData(response.data.notifications);
     })

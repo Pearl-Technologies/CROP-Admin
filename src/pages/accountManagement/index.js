@@ -28,8 +28,6 @@ import { useRouter } from 'next/router'
 
 const AccountManagement = () => {
   const router = useRouter()
-  const users = require('../../db/users_customers.json')
-  const business = require('../../db/businesses.json')
   const [businessData, setBusinessData] = useState([])
   const [customerData, setCustomerData] = useState([])
   const [bdStatus, setBDStatus] = useState(false)
@@ -171,13 +169,13 @@ const AccountManagement = () => {
   }
 
   const showCustomerCrop = x => {
-    router.push(`accountManagement/cropDetails?q=${x}`)
+    router.push(`/accountManagement/cropDetails?q=${x}`)
   }
   const showCustomerProp = x => {
-    router.push(`accountManagement/propDetails?q=${x}`)
+    router.push(`/accountManagement/propDetails?q=${x}`)
   }
   const showBusinessCrop = x => {
-    router.push(`accountManagement/businessCropDetails?q=${x}`)
+    router.push(`/accountManagement/businessCropDetails?q=${x}`)
   }
   const fetchBusinessDetails = () => {
     setBDStatus(true)
@@ -287,7 +285,7 @@ const AccountManagement = () => {
                       mr: 3,
                       width: 40,
                       height: 40,
-                      backgroundColor: theme => `rgba(${theme.palette.customColors.main}, 0.04)`
+                      // backgroundColor: theme => `rgba(${theme.palette.customColors.main}, 0.04)`
                     }}
                   >
                     {/* <img src={item.imgSrc} alt={item.title} height={item.imgHeight} /> */}
@@ -401,7 +399,7 @@ const AccountManagement = () => {
                         mr: 3,
                         width: 40,
                         height: 40,
-                        backgroundColor: theme => `rgba(${theme.palette.customColors.main}, 0.04)`
+                        // backgroundColor: theme => `rgba(${theme.palette.customColors.main}, 0.04)`
                       }}
                     >
                       {/* <img src={item.imgSrc} alt={item.title} height={item.imgHeight} /> */}
@@ -515,7 +513,7 @@ const AccountManagement = () => {
                         mr: 3,
                         width: 40,
                         height: 40,
-                        backgroundColor: theme => `rgba(${theme.palette.customColors.main}, 0.04)`
+                        // backgroundColor: theme => `rgba(${theme.palette.customColors.main}, 0.04)`
                       }}
                     >
                       {/* <img src={item.imgSrc} alt={item.title} height={item.imgHeight} /> */}

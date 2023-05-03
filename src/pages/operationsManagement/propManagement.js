@@ -23,7 +23,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import 'react-datepicker/dist/react-datepicker.css'
 
 const CropMilestone = () => {
-  const milestoneData = require('../../db/admin_milestones.json')
   const [open, setOpen] = useState(false)
   const [updateStatus, setUpdateStatus] = useState(false)
   const [message, setMessage] = useState([])

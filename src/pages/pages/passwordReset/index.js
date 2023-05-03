@@ -98,7 +98,7 @@ const PasswordReset = () => {
         if (response.status === 200) {
           setLoginStatus(false)
           setMessage(response.data)
-          router.push('/pages/login')
+          router.push('pages/login')
         } else {
           console.log('status code change')
           setLoginStatus(false)
@@ -130,7 +130,7 @@ const PasswordReset = () => {
       <Card sx={{ zIndex: 1 }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(12, 9, 7)} !important` }}>
           <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img src='/images/logo.png' alt='logo' width='150px' />
+            <img src='images/logo.png' alt='logo' width='150px' />
             <Typography
               variant='h6'
               sx={{

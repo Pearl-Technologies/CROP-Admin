@@ -56,11 +56,11 @@ const TierManagement = () => {
   const [businessData, setBusinessData] = useState([])
   const [message, setMessage] = useState('');
   const showCustomerCrop =(x)=>{
-    router.push(`/accountManagement/cropDetails?q=${x}`)
+    router.push(`accountManagement/cropDetails?q=${x}`)
     // return<CropDetails id={x}/>
   }
   const showCustomerAuditReport =(x)=>{
-    router.push(`/databaseManagement/auditReport?q=${x}`)
+    router.push(`databaseManagement/auditReport?q=${x}`)
     
   }
 
@@ -120,6 +120,7 @@ const TierManagement = () => {
       axios({ method: 'post', url: `${process.env.HOST}/api/admin/updateTier`, data: body })
         .then(function (response) {
           SetUpdateStatus(false)
+          setMessage("success")
           toast.success(response.data.msg, {
             position: 'top-right',
             autoClose: 5000,
@@ -130,7 +131,7 @@ const TierManagement = () => {
             progress: undefined,
             theme: 'colored'
           })
-          setMessage("success")
+    
           handleClose()
         })
         .catch(function (error) {
@@ -422,7 +423,7 @@ const TierManagement = () => {
                     <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
-                          {row.businessId?.BusinessName}
+                          {row.businessName}
                         </Typography>
                         {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
                         <Typography variant='caption'>{row.designation}</Typography>
@@ -442,11 +443,11 @@ const TierManagement = () => {
                         }}
                       />
                     </TableCell>
-                    <TableCell>{row.Tier}</TableCell>
+                    <TableCell>{row.tier}</TableCell>
                     {/* <TableCell>
                      <BusinessModal user={row} />                      
                     </TableCell> */}
-                    <TableCell>{"01/01/2023"}</TableCell>
+                    <TableCell>{new Date(row.tierChangeDate).toLocaleDateString()}</TableCell>
                     
                     <TableCell>
                     <ChangeAccountTier user={row._id} type="business" />

@@ -490,7 +490,7 @@ const Database = () => {
                           }}
                         />
                       </TableCell>
-                      <TableCell>{row.Tier}</TableCell>
+                      <TableCell>{row.tier}</TableCell>
                       <TableCell>
                         <BusinessModal user={row} />
                       </TableCell>

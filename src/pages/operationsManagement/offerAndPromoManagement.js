@@ -145,9 +145,9 @@ const DashboardTable = () => {
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
                     {/* {row?.image?.letght && row.image.map((product)=>(
-                      <CardMedia component='img' height='50' image={`http://localhost:7000/api/products/image/${product}`} alt='Paella dish' />
+                      <CardMedia component='img' height='50' image={`${process.env.HOST}/api/products/image/${product}`} alt='Paella dish' />
                     ))} */}
-                    <CardMedia component='img' height='50' image={`http://localhost:7000/api/products/image/${row?.image[0]}`} alt='Paella dish' />
+                    <CardMedia component='img' height='50' image={`${process.env.HOST}/api/products/image/${row?.image[0]}`} alt='Paella dish' />
                     <Typography variant='caption'>{row.designation}</Typography>
                   </Box>
                 </TableCell>
@@ -164,7 +164,7 @@ const DashboardTable = () => {
                 <TableCell>
                   <Chip
                     label={row.status}
-                    color={statusObj[row.status].color}
+                    color={statusObj[row.status]?.color}
                     // color={'success'}
                     sx={{
                       height: 24,

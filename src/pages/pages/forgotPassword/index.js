@@ -103,7 +103,7 @@ const ForgotPassword = () => {
         if(response.status === 200){
           setLoginStatus(false);
           localStorage.setItem('email', values.email)
-          router.push('/pages/passwordReset')
+          router.push('pages/passwordReset')
         }else{
           console.log("status code change")
           setLoginStatus(false);

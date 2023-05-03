@@ -1,21 +1,10 @@
 {
-  "name": "materio-mui-react-nextjs-admin-template-free",
-  "description": "Most Powerful & Comprehensive Free MUI React NextJS Admin Dashboard Template built for developers! 🚀",
+  "name": "crop-admin",
+  "description": "crop-admin",
   "license": "MIT",
   "version": "1.0.0",
-  "homepage": "https://cropglobalservices.com/admin/",
-  "author": {
-    "name": "ThemeSelection",
-    "url": "https://themeselection.com/"
-  },
-  "bugs": {
-    "url": "https://github.com/themeselection/materio-mui-react-nextjs-admin-template-free/issues"
-  },
+  "homepage": "/",
   "private": false,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/themeselection/materio-mui-react-nextjs-admin-template-free.git"
-  },
   "keywords": [
     "react",
     "javascript",
@@ -23,7 +12,6 @@
     "typescript",
     "dashboard",
     "material-design",
-    "nextjs",
     "material-ui",
     "admin-dashboard",
     "free",
@@ -53,6 +41,7 @@
     "@mui/lab": "^5.0.0-alpha.70",
     "@mui/material": "^5.12.1",
     "@popperjs/core": "^2.11.2",
+    "@stripe/stripe-js": "^1.52.1",
     "apexcharts-clevision": "3.28.5",
     "axios": "^1.3.4",
     "babel-eslint": "^10.1.0",
@@ -70,6 +59,7 @@
     "react-perfect-scrollbar": "^1.5.8",
     "react-popper": "^2.2.5",
     "react-toastify": "^9.1.2",
+    "stripe": "^12.3.0",
     "toastify": "^2.0.1"
   },
   "devDependencies": {
