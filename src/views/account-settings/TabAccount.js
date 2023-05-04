@@ -153,7 +153,7 @@ const TabAccount = () => {
     
     const parseData = await resoponse.json()
     // setImgSrc(parseData.user[0]?.imageUrl)
-    setData(parseData.user[0])
+    setData(parseData.user)
   }
   useEffect(() => {
     getDetails()
@@ -178,7 +178,7 @@ const TabAccount = () => {
         <Grid container spacing={7}>
           <Grid item xs={12} sx={{ marginTop: 4.8, marginBottom: 3 }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <ImgStyled src={`${process.env.HOST}/api/products/image/${data.filename}`} alt='Profile Pic' />
+              <ImgStyled src={`${process.env.HOST}/api/products/image/${data?.filename}`} alt='Profile Pic' />
               <Box>
                 <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
                   Upload New Photo
@@ -204,7 +204,7 @@ const TabAccount = () => {
               fullWidth
               label='Name'
               placeholder='John Doe'
-              value={data.name}
+              value={data?.name}
               onChange={handelChange('name')}
             />
           </Grid>
@@ -214,7 +214,7 @@ const TabAccount = () => {
               type='email'
               label='Email'
               // placeholder='johnDoe@example.com'
-              value={data.email}
+              value={data?.email}
               // onChange={handelChange('email')}
               aria-readonly
             />

@@ -1,5 +1,6 @@
 import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 let stripePromise;
 const getStripe = () => {
     // console.log(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
@@ -11,21 +12,18 @@ const getStripe = () => {
 
 const handleCheckout = async () => {
   const stripe = await getStripe();
-  const response = await fetch(
-    `http://${process.env.HOST}/api/customer/royalty/purchaseRequest`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
 
-      body: JSON.stringify({type:"CROP", quantity:100}),
-    }
-  );
-  if (response.statusCode === 500) return;
-  const data = await response.json();
-//   toast.loading("Redirecting...");
-  stripe.redirectToCheckout({ sessionId: data.id });
+  axios({
+    url:`${process.env.HOST}/api/customer/royalty/purchaseRequest`,
+    method: "POST",
+    data:{type:"PROP", quantity:100, user_id:"6433cc8279495c4233562ecb"}
+    }).then(function(response){
+      console.log(response);
+      if (response.statusCode === 500) return;
+    //   toast.loading("Redirecting...");
+      stripe.redirectToCheckout({ sessionId: response.data.id });
+    })
+
 };
 export default function PreviewPage() {
   React.useEffect(() => {

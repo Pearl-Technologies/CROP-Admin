@@ -17,6 +17,8 @@ import FormControl from '@mui/material/FormControl'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormControlLabel from '@mui/material/FormControlLabel'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 // ** Icons Imports
 import EyeOutline from 'mdi-material-ui/EyeOutline'
@@ -32,12 +34,12 @@ const Form = styled('form')(({ theme }) => ({
 }))
 
 const layoutFrom = () => {
-    // const basePrice = require("../../db/admin_baseprices.json");
+  // const basePrice = require("../../db/admin_baseprices.json");
   // ** State
-//   const [values, setValues] = useState(
-// basePrice[0]
+  //   const [values, setValues] = useState(
+  // basePrice[0]
   // )
-  const [basePrice, setBasePrice] = useState([]);
+  const [basePrice, setBasePrice] = useState([])
 
   // Handle Password
   const handleChange = prop => event => {
@@ -51,34 +53,66 @@ const layoutFrom = () => {
   const handleMouseDownPassword = event => {
     event.preventDefault()
   }
-  const fetchBasePrice=()=>{
-    axios.post(`${process.env.HOST}/api/admin/getBasePrice`)
-    .then(function(response){
-      setBasePrice(response.data.defaultPrice[0])
-    })
-    .catch(function(error){
-      console.log(error);
-    })
+  const fetchBasePrice = () => {
+    axios
+      .post(`${process.env.HOST}/api/admin/getBasePrice`)
+      .then(function (response) {
+        setBasePrice(response.data.defaultPrice[0])
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   }
-  
-  const updateBasePrice=()=>{
-    axios({url:`${process.env.HOST}/api/admin/updateBasePrice`, method:"post", data:basePrice})
-    .then(function(response){
-      console.log(response.data);
-    })
-    .catch(function(error){
-      console.log(error.message)
-    })
+
+  const updateBasePrice = () => {
+    axios({ url: `${process.env.HOST}/api/admin/updateBasePrice`, method: 'post', data: basePrice })
+      .then(function (response) {
+        toast.success(response.data.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
+      })
+      .catch(function (error) {
+        console.log(error.message)
+        toast.success(error.response.data.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
+      })
   }
-  
-useEffect(()=>{
-  fetchBasePrice()
-},[])
+
+  useEffect(() => {
+    fetchBasePrice()
+  }, [])
   return (
     <Card>
-      <CardHeader title='Commercial' titleTypographyProps={{ variant: 'h6' }}/>
-      <CardContent sx={{ minHeight: 500, display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
-        <Form onSubmit={e => e.preventDefault()} sx={{height:'500px', overflow:'auto'}}>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='colored'
+      />
+      <CardHeader title='Commercial' titleTypographyProps={{ variant: 'h6' }} />
+      <CardContent sx={{ minHeight: 500, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Form onSubmit={e => e.preventDefault()} sx={{ height: '500px', overflow: 'auto' }}>
           <Grid container spacing={5}>
             <Grid item xs={12}>
               <Typography variant='h5'>Update Base Prices</Typography>
@@ -98,7 +132,7 @@ useEffect(()=>{
                 fullWidth
                 label='Base Price for Top Ranking of Promos (AUD)'
                 // placeholder='Enter the value'
-                value={basePrice?.top_promo}   
+                value={basePrice?.top_promo}
                 onChange={handleChange('top_promo')}
                 focused
               />
@@ -108,8 +142,8 @@ useEffect(()=>{
                 fullWidth
                 label='Base Price for Top Ranking of Offers - Store (AUD)'
                 // placeholder='Enter the value'
-                value={basePrice?.top_storeOffer}  
-                onChange={handleChange('top_storeOffer')} 
+                value={basePrice?.top_storeOffer}
+                onChange={handleChange('top_storeOffer')}
                 focused
               />
             </Grid>
@@ -119,8 +153,8 @@ useEffect(()=>{
                 fullWidth
                 label='Base Price for Mass Notifications (AUD)'
                 // placeholder='Enter the value'
-                value={basePrice?.massNotification} 
-                onChange={handleChange('massNotification')}  
+                value={basePrice?.massNotification}
+                onChange={handleChange('massNotification')}
                 focused
               />
             </Grid>
@@ -129,8 +163,8 @@ useEffect(()=>{
                 fullWidth
                 label='Base Price for Survey Design Assistance (AUD)'
                 // placeholder='Enter the value'
-                value={basePrice?.surveyDesign} 
-                onChange={handleChange('surveyDesign')}  
+                value={basePrice?.surveyDesign}
+                onChange={handleChange('surveyDesign')}
                 focused
               />
             </Grid>
@@ -140,7 +174,7 @@ useEffect(()=>{
                 label='Set valuation for CROP for Earn CROPs (AUD)'
                 // placeholder='Enter the value'
                 value={basePrice?.earnCropValuation}
-                onChange={handleChange('earnCropValuation')}  
+                onChange={handleChange('earnCropValuation')}
                 focused
               />
             </Grid>
@@ -150,7 +184,7 @@ useEffect(()=>{
                 label='Set valuation for CROP for Redeem CROPs (AUD)'
                 // placeholder='Enter the value'
                 value={basePrice?.redeemCropValuation}
-                onChange={handleChange('redeemCropValuation')} 
+                onChange={handleChange('redeemCropValuation')}
                 focused
               />
             </Grid>
@@ -161,7 +195,7 @@ useEffect(()=>{
                 // placeholder='Enter the value'
                 value={basePrice?.weekday}
                 focused
-                onChange={handleChange('weekday')} 
+                onChange={handleChange('weekday')}
               />
             </Grid>
             <Grid item xs={12}>
@@ -170,7 +204,7 @@ useEffect(()=>{
                 label='Weekend (AUD)'
                 // placeholder='Enter the value'
                 value={basePrice?.weekend}
-                onChange={handleChange('weekend')} 
+                onChange={handleChange('weekend')}
                 focused
               />
             </Grid>
@@ -180,7 +214,7 @@ useEffect(()=>{
                 label='Public Holidays (AUD)'
                 // placeholder='Enter the value'
                 value={basePrice?.publicHoliday}
-                onChange={handleChange('publicHoliday')} 
+                onChange={handleChange('publicHoliday')}
                 focused
               />
             </Grid>

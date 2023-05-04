@@ -11,6 +11,8 @@ import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Notifications = () => {
   const [notificationData, setNotificationData] = useState([])
@@ -35,7 +37,6 @@ const Notifications = () => {
     if (reason === 'clickaway') {
       return
     }
-
     setOpen(false)
   }
   const handelChange = prop => event => {
@@ -45,12 +46,17 @@ const Notifications = () => {
     setCustomerGeneralNotification({ ...customerGeneralNotification, [prop]: event.target.value })
   }
   const handelChangePurchaseAndRedeemtionNotification = prop => event => {
-    setCustomerPurchaseAndRedeemtionNotification({ ...customerPurchaseAndRedeemtionNotification, [prop]: event.target.value })
+    setCustomerPurchaseAndRedeemtionNotification({
+      ...customerPurchaseAndRedeemtionNotification,
+      [prop]: event.target.value
+    })
   }
   const handelChangeRequestAndComplaintNotification = prop => event => {
-    setCustomerRequestAndComplaintNotification({ ...customerRequestAndComplaintNotification, [prop]: event.target.value })
+    setCustomerRequestAndComplaintNotification({
+      ...customerRequestAndComplaintNotification,
+      [prop]: event.target.value
+    })
   }
-
 
   const handelChangeBusinessAccountNotification = prop => event => {
     setBusinessAccountNotification({ ...businessAccountNotification, [prop]: event.target.value })
@@ -59,91 +65,169 @@ const Notifications = () => {
     setBusinessGeneralNotification({ ...businessGeneralNotification, [prop]: event.target.value })
   }
   const handelChangeBusinessPurchaseAndRedeemptionNotification = prop => event => {
-    setBusinessPurchaseAndRedeemptionNotification({ ...businessPurchaseAndRedeemptionNotification, [prop]: event.target.value })
+    setBusinessPurchaseAndRedeemptionNotification({
+      ...businessPurchaseAndRedeemptionNotification,
+      [prop]: event.target.value
+    })
   }
   const handelChangeBusinessRequestAndComplaintNotification = prop => event => {
-    setBusinessRequestAndComplaintNotification({ ...BusinessRequestAndComplaintNotification, [prop]: event.target.value })
+    setBusinessRequestAndComplaintNotification({
+      ...BusinessRequestAndComplaintNotification,
+      [prop]: event.target.value
+    })
   }
 
   const updateCustomerAccountNotification = () => {
     axios({
-      url:`${process.env.HOST}/api/admin/updateCustomerAccountNotification`,
-      method:'post',
-      data:customerAccountNotification
+      url: `${process.env.HOST}/api/admin/updateCustomerAccountNotification`,
+      method: 'post',
+      data: customerAccountNotification
     }).then(function (response) {
-      setMessage(response.data)
-      handleClick();
+      setMessage(response.data.msg)
+      toast.success(response.data.msg, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
     })
   }
   const updateCustomerGeneralNotification = () => {
     axios({
-      url:`${process.env.HOST}/api/admin/updateCustomerGenearlNotification`,
-      method:'post',
-      data:customerGeneralNotification
+      url: `${process.env.HOST}/api/admin/updateCustomerGenearlNotification`,
+      method: 'post',
+      data: customerGeneralNotification
     }).then(function (response) {
-      setMessage(response.data)
-      handleClick();
+      setMessage(response.data.msg)
+      toast.success(response.data.msg, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
     })
   }
   const updateCustomerPurchaseAndRedeemtionNotification = () => {
     axios({
-      url:`${process.env.HOST}/api/admin/updateCustomerPurchaseAndRedeemNotification`,
-      method:'post',
-      data:customerPurchaseAndRedeemtionNotification
+      url: `${process.env.HOST}/api/admin/updateCustomerPurchaseAndRedeemNotification`,
+      method: 'post',
+      data: customerPurchaseAndRedeemtionNotification
     }).then(function (response) {
-      setMessage(response.data)
-      handleClick();
+      setMessage(response.data.msg)
+      toast.success(response.data.msg, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
     })
   }
   const updateCustomerRequestAndComplaintNotification = () => {
     axios({
-      url:`${process.env.HOST}/api/admin/updateCustomerRequestAndComplaintNotification`,
-      method:'post',
-      data:customerRequestAndComplaintNotification
+      url: `${process.env.HOST}/api/admin/updateCustomerRequestAndComplaintNotification`,
+      method: 'post',
+      data: customerRequestAndComplaintNotification
     }).then(function (response) {
-      setMessage(response.data)
-      handleClick();
+      setMessage(response.data.msg)
+      toast.success(response.data.msg, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
     })
   }
 
   const updateBusinessAccountNotification = () => {
     axios({
-      url:`${process.env.HOST}/api/admin/updateBusinessAccountNotification`,
-      method:'post',
-      data:businessAccountNotification
+      url: `${process.env.HOST}/api/admin/updateBusinessAccountNotification`,
+      method: 'post',
+      data: businessAccountNotification
     }).then(function (response) {
-      setMessage(response.data)
-      handleClick();
+      setMessage(response.data.msg)
+      toast.success(response.data.msg, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
     })
   }
   const updateBusinessGeneralNotification = () => {
     axios({
-      url:`${process.env.HOST}/api/admin/updateBusinessGenearlNotification`,
-      method:'post',
-      data:businessGeneralNotification
+      url: `${process.env.HOST}/api/admin/updateBusinessGenearlNotification`,
+      method: 'post',
+      data: businessGeneralNotification
     }).then(function (response) {
-      setMessage(response.data)
-      handleClick();
+      setMessage(response.data.msg)
+      toast.success(response.data.msg, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
     })
   }
   const updateBusinessPurchaseAndRedeemptionNotification = () => {
     axios({
-      url:`${process.env.HOST}/api/admin/updateBusinessPurchaseAndRedeemNotification`,
-      method:'post',
-      data:businessPurchaseAndRedeemptionNotification
+      url: `${process.env.HOST}/api/admin/updateBusinessPurchaseAndRedeemNotification`,
+      method: 'post',
+      data: businessPurchaseAndRedeemptionNotification
     }).then(function (response) {
-      setMessage(response.data)
-      handleClick();
+      setMessage(response.data.msg)
+      toast.success(response.data.msg, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
     })
   }
   const updateBusinessRequestAndComplaintNotification = () => {
     axios({
-      url:`${process.env.HOST}/api/admin/updateBusinessRequestAndComplaintNotification`,
-      method:'post',
-      data:BusinessRequestAndComplaintNotification
+      url: `${process.env.HOST}/api/admin/updateBusinessRequestAndComplaintNotification`,
+      method: 'post',
+      data: BusinessRequestAndComplaintNotification
     }).then(function (response) {
-      setMessage(response.data)
-      handleClick();
+      setMessage(response.data.msg)
+      toast.success(response.data.msg, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
     })
   }
 
@@ -174,7 +258,7 @@ const Notifications = () => {
   }
   const fetchBusinessAccountNotification = () => {
     axios.post(`${process.env.HOST}/api/admin/getBusinessAccountNotification`).then(function (response) {
-      console.log(response);
+      console.log(response)
       setBusinessAccountNotification(response.data.notification[0])
     })
   }
@@ -194,7 +278,6 @@ const Notifications = () => {
     })
   }
 
-
   useEffect(() => {
     fetchNotification()
     fetchCustomerAccountNotification()
@@ -209,17 +292,18 @@ const Notifications = () => {
   console.log(businessAccountNotification)
   return (
     <div>
-      <Stack spacing={2} sx={{ width: '100%' }}>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical:"top", horizontal:"right" }}>
-          <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
-            {message && message}
-          </Alert>
-        </Snackbar>
-        {/* <Alert severity="error">This is an error message!</Alert>
-      <Alert severity="warning">This is a warning message!</Alert>
-      <Alert severity="info">This is an information message!</Alert>
-      <Alert severity="success">This is a success message!</Alert> */}
-      </Stack>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='colored'
+      />
       <div>
         <h3 style={{ marginLeft: '10px' }}>Customer notification</h3>
         <Accordion>
@@ -317,11 +401,46 @@ const Notifications = () => {
             <Typography>General Notifications</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <TextField focused style={{ margin: '5px', width:"100%"  }} label='Business Promos' variant='outlined' onChange={handelChangeGeneralNotification('business_promos')} value={customerGeneralNotification.business_promos}/>
-            <TextField style={{ margin: '5px', width:"100%" }} label='CROP Promos' variant='outlined' onChange={handelChangeGeneralNotification('CROP_promos')} focused value={customerGeneralNotification.CROP_promos}/>
-            <TextField style={{ margin: '5px', width:"100%" }} label='Offers' variant='outlined' onChange={handelChangeGeneralNotification('offers')} focused value={customerGeneralNotification.offers}/>
-            <TextField style={{ margin: '5px', width:"100%" }} label='Bonus Points' variant='outlined' onChange={handelChangeGeneralNotification('bonus_points')} focused value={customerGeneralNotification.bonus_points}/>
-            <TextField style={{ margin: '5px', width:"100%" }} label='Get a Mate' variant='outlined' onChange={handelChangeGeneralNotification('get_a_mate')} focused value={customerGeneralNotification.get_a_mate}/>
+            <TextField
+              focused
+              style={{ margin: '5px', width: '100%' }}
+              label='Business Promos'
+              variant='outlined'
+              onChange={handelChangeGeneralNotification('business_promos')}
+              value={customerGeneralNotification.business_promos}
+            />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='CROP Promos'
+              variant='outlined'
+              onChange={handelChangeGeneralNotification('CROP_promos')}
+              focused
+              value={customerGeneralNotification.CROP_promos}
+            />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='Offers'
+              variant='outlined'
+              onChange={handelChangeGeneralNotification('offers')}
+              focused
+              value={customerGeneralNotification.offers}
+            />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='Bonus Points'
+              variant='outlined'
+              onChange={handelChangeGeneralNotification('bonus_points')}
+              focused
+              value={customerGeneralNotification.bonus_points}
+            />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='Get a Mate'
+              variant='outlined'
+              onChange={handelChangeGeneralNotification('get_a_mate')}
+              focused
+              value={customerGeneralNotification.get_a_mate}
+            />
             <Button
               variant='contained'
               style={{ margin: '5px' }}
@@ -338,15 +457,46 @@ const Notifications = () => {
             <Typography>Purchase and Redemption Notifications</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <TextField style={{ margin: '5px', width:"100%" }} label='Offers Purchased' variant='outlined' focused onChange={handelChangePurchaseAndRedeemtionNotification('offers_purchased')} value={customerPurchaseAndRedeemtionNotification.offers_purchased} />
             <TextField
-              style={{ margin: '5px', width:"100%" }}
-              label='Offers Redeemed (Both Points as well as PROPs Redemption)'
-              variant='outlined' focused onChange={handelChangePurchaseAndRedeemtionNotification('offers_redeemed')} value={customerPurchaseAndRedeemtionNotification.offers_redeemed}
+              style={{ margin: '5px', width: '100%' }}
+              label='Offers Purchased'
+              variant='outlined'
+              focused
+              onChange={handelChangePurchaseAndRedeemtionNotification('offers_purchased')}
+              value={customerPurchaseAndRedeemtionNotification.offers_purchased}
             />
-            <TextField style={{ margin: '5px', width:"100%" }} label='Points Purchased' variant='outlined' focused onChange={handelChangePurchaseAndRedeemtionNotification('points_purchased')} value={customerPurchaseAndRedeemtionNotification.points_purchased} />
-            <TextField style={{ margin: '5px', width:"100%" }} label='Payment Notifications' variant='outlined' focused onChange={handelChangePurchaseAndRedeemtionNotification('payment_notifications')} value={customerPurchaseAndRedeemtionNotification.payment_notifications} />
-            <TextField style={{ margin: '5px', width:"100%" }} label='E-Vouchers' variant='outlined' focused onChange={handelChangePurchaseAndRedeemtionNotification('e_vouchers')} value={customerPurchaseAndRedeemtionNotification.e_vouchers} />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='Offers Redeemed (Both Points as well as PROPs Redemption)'
+              variant='outlined'
+              focused
+              onChange={handelChangePurchaseAndRedeemtionNotification('offers_redeemed')}
+              value={customerPurchaseAndRedeemtionNotification.offers_redeemed}
+            />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='Points Purchased'
+              variant='outlined'
+              focused
+              onChange={handelChangePurchaseAndRedeemtionNotification('points_purchased')}
+              value={customerPurchaseAndRedeemtionNotification.points_purchased}
+            />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='Payment Notifications'
+              variant='outlined'
+              focused
+              onChange={handelChangePurchaseAndRedeemtionNotification('payment_notifications')}
+              value={customerPurchaseAndRedeemtionNotification.payment_notifications}
+            />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='E-Vouchers'
+              variant='outlined'
+              focused
+              onChange={handelChangePurchaseAndRedeemtionNotification('e_vouchers')}
+              value={customerPurchaseAndRedeemtionNotification.e_vouchers}
+            />
             <Button
               variant='contained'
               style={{ margin: '5px' }}
@@ -364,17 +514,37 @@ const Notifications = () => {
           </AccordionSummary>
           <AccordionDetails>
             <TextField
-              style={{ margin: '5px', width:"100%" }}
+              style={{ margin: '5px', width: '100%' }}
               label='Missing Points Claim (With reference number)'
-              variant='outlined' focused onChange={handelChangeRequestAndComplaintNotification('missing_points_claim')} value={customerRequestAndComplaintNotification.missing_points_claim}
+              variant='outlined'
+              focused
+              onChange={handelChangeRequestAndComplaintNotification('missing_points_claim')}
+              value={customerRequestAndComplaintNotification.missing_points_claim}
             />
             <TextField
-              style={{ margin: '5px', width:"100%" }}
+              style={{ margin: '5px', width: '100%' }}
               label='Complaint (With complaint reference number)'
-              variant='outlined' focused onChange={handelChangeRequestAndComplaintNotification('complaint')} value={customerRequestAndComplaintNotification.complaint}
+              variant='outlined'
+              focused
+              onChange={handelChangeRequestAndComplaintNotification('complaint')}
+              value={customerRequestAndComplaintNotification.complaint}
             />
-            <TextField style={{ margin: '5px', width:"100%" }} label='Request (With Request Number)' variant='outlined' focused onChange={handelChangeRequestAndComplaintNotification('request')} value={customerRequestAndComplaintNotification.request} />
-            <TextField style={{ margin: '5px', width:"100%" }} label='Rate Your Experience' variant='outlined' focused onChange={handelChangeRequestAndComplaintNotification('rate_your_experience')} value={customerRequestAndComplaintNotification.rate_your_experience} />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='Request (With Request Number)'
+              variant='outlined'
+              focused
+              onChange={handelChangeRequestAndComplaintNotification('request')}
+              value={customerRequestAndComplaintNotification.request}
+            />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='Rate Your Experience'
+              variant='outlined'
+              focused
+              onChange={handelChangeRequestAndComplaintNotification('rate_your_experience')}
+              value={customerRequestAndComplaintNotification.rate_your_experience}
+            />
             <Button
               variant='contained'
               style={{ margin: '5px' }}
@@ -393,55 +563,178 @@ const Notifications = () => {
           <AccordionSummary expandIcon={<ArrowDownBoldCircle />} aria-controls='panel1a-content' id='panel1a-header'>
             <Typography>Account Notifications</Typography>
           </AccordionSummary>
-{    businessAccountNotification &&      <AccordionDetails>
-            <TextField style={{ margin: '5px', width:'100%' }} label='First Time Subscription' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('first_time_subscription')} value={businessAccountNotification.first_time_subscription} />
-            <TextField style={{ margin: '5px', width:'100%' }} label='Subscription Renewal' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('subscription_renewal')} value={businessAccountNotification.subscription_renewal} />
-            <TextField
-              style={{ margin: '5px', width:'100%' }}
-              label='Points Transaction (End of day update on points given vs redeemed)'
-              variant='outlined' focused onChange={handelChangeBusinessAccountNotification('points_transaction')} value={businessAccountNotification.points_transaction}
-            />
-            <TextField
-              style={{ margin: '5px', width:'100%' }}
-              label='Sales (End of day update on total purchase from the APP)'
-              variant='outlined' focused onChange={handelChangeBusinessAccountNotification('sales')} value={businessAccountNotification.sales}
-            />
-            <TextField style={{ margin: '5px', width:"100%"}} label='Point Offered Against Spends)' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('point_offered_against_spends')} value={businessAccountNotification.point_offered_against_spends}/>
-            <TextField style={{ margin: '5px', width:"100%"}} label='Point Offered Surveys Completed)' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('point_offered_surveys_completed')} value={businessAccountNotification.point_offered_surveys_completed}/>
-            <TextField style={{ margin: '5px', width:"100%"}} label='Point Offered Social Media Posts)' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('point_Offered_social_media')} value={businessAccountNotification.point_Offered_social_media}/>
-            <TextField style={{ margin: '5px', width:"100%"}} label='Base Threshold Limit' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('base_threshold_limit')} value={businessAccountNotification.base_threshold_limit}/>
-            <TextField style={{ margin: '5px', width:"100%"}} label='Pin Change' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('pin_change')} value={businessAccountNotification.pin_change}/>
-            <TextField style={{ margin: '5px', width:"100%"}} label='Program Change Offer Points' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('program_change_Offer_points')} value={businessAccountNotification.program_change_Offer_points}/>
-            {/* <TextField style={{ margin: '5px', width:"100%"}} label='Program Change Offer Points' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('program_change_redemption')} value={businessAccountNotification.}/> */}
-            <TextField style={{ margin: '5px', width:"100%"}} label='Program Change Redemption Rules' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('program_change_redemption')} value={businessAccountNotification.program_change_redemption}/>
-            <TextField style={{ margin: '5px', width:"100%"}} label='Program Change Bonus Points' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('program_change_bonus_points')} value={businessAccountNotification.program_change_bonus_points}/>
-            <TextField style={{ margin: '5px', width:"100%"}} label='Program Change Slash Redemption Changes' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('program_change_slash_redeemption_changes')} value={businessAccountNotification.program_change_slash_redeemption_changes}/>
-            <TextField style={{ margin: '5px', width:"100%"}} label='Transfer Out' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('transfer_out')} value={businessAccountNotification.transfer_out}/>
-            <TextField style={{ margin: '5px', width:"100%"}} label='Statement Generation' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('statement_generation')} value={businessAccountNotification.statement_generation}/>
-            <Button
-              variant='contained'
-              style={{ margin: '5px' }}
-              onClick={() => {
-                updateBusinessAccountNotification()
-              }}
-            >
-              Update
-            </Button>
-          </AccordionDetails>}
+          {businessAccountNotification && (
+            <AccordionDetails>
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='First Time Subscription'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('first_time_subscription')}
+                value={businessAccountNotification.first_time_subscription}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Subscription Renewal'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('subscription_renewal')}
+                value={businessAccountNotification.subscription_renewal}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Points Transaction (End of day update on points given vs redeemed)'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('points_transaction')}
+                value={businessAccountNotification.points_transaction}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Sales (End of day update on total purchase from the APP)'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('sales')}
+                value={businessAccountNotification.sales}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Point Offered Against Spends)'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('point_offered_against_spends')}
+                value={businessAccountNotification.point_offered_against_spends}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Point Offered Surveys Completed)'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('point_offered_surveys_completed')}
+                value={businessAccountNotification.point_offered_surveys_completed}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Point Offered Social Media Posts)'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('point_Offered_social_media')}
+                value={businessAccountNotification.point_Offered_social_media}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Base Threshold Limit'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('base_threshold_limit')}
+                value={businessAccountNotification.base_threshold_limit}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Pin Change'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('pin_change')}
+                value={businessAccountNotification.pin_change}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Program Change Offer Points'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('program_change_Offer_points')}
+                value={businessAccountNotification.program_change_Offer_points}
+              />
+              {/* <TextField style={{ margin: '5px', width:"100%"}} label='Program Change Offer Points' variant='outlined' focused onChange={handelChangeBusinessAccountNotification('program_change_redemption')} value={businessAccountNotification.}/> */}
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Program Change Redemption Rules'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('program_change_redemption')}
+                value={businessAccountNotification.program_change_redemption}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Program Change Bonus Points'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('program_change_bonus_points')}
+                value={businessAccountNotification.program_change_bonus_points}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Program Change Slash Redemption Changes'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('program_change_slash_redeemption_changes')}
+                value={businessAccountNotification.program_change_slash_redeemption_changes}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Transfer Out'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('transfer_out')}
+                value={businessAccountNotification.transfer_out}
+              />
+              <TextField
+                style={{ margin: '5px', width: '100%' }}
+                label='Statement Generation'
+                variant='outlined'
+                focused
+                onChange={handelChangeBusinessAccountNotification('statement_generation')}
+                value={businessAccountNotification.statement_generation}
+              />
+              <Button
+                variant='contained'
+                style={{ margin: '5px' }}
+                onClick={() => {
+                  updateBusinessAccountNotification()
+                }}
+              >
+                Update
+              </Button>
+            </AccordionDetails>
+          )}
         </Accordion>
         <Accordion>
           <AccordionSummary expandIcon={<ArrowDownBoldCircle />} aria-controls='panel2a-content' id='panel2a-header'>
             <Typography>General Notifications</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <TextField style={{ margin: '5px', width:"100%"}} label='Confirmation of Booked Promos' variant='outlined' focused onChange={handelChangeBusinessGeneralNotification('confirmation_of_booked_promos')} value={businessGeneralNotification.confirmation_of_booked_promos} />
             <TextField
-              style={{ margin: '5px', width:"100%" }}
-              label='CROP Promos (With Promo Code where applicable)'
-              variant='outlined' focused onChange={handelChangeBusinessGeneralNotification('CROP_promos')} value={businessGeneralNotification.CROP_promos}
+              style={{ margin: '5px', width: '100%' }}
+              label='Confirmation of Booked Promos'
+              variant='outlined'
+              focused
+              onChange={handelChangeBusinessGeneralNotification('confirmation_of_booked_promos')}
+              value={businessGeneralNotification.confirmation_of_booked_promos}
             />
-            <TextField style={{ margin: '5px', width:"100%"}} label='Upload And Removal Of Offers' variant='outlined' focused onChange={handelChangeBusinessGeneralNotification('upload_and_removal_of_offer')} value={businessGeneralNotification.upload_and_removal_of_offer} />
-            <TextField style={{ margin: '5px', width:"100%"}} label='Business Insights' variant='outlined' focused onChange={handelChangeBusinessGeneralNotification('business_insights')} value={businessGeneralNotification.business_insights} />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='CROP Promos (With Promo Code where applicable)'
+              variant='outlined'
+              focused
+              onChange={handelChangeBusinessGeneralNotification('CROP_promos')}
+              value={businessGeneralNotification.CROP_promos}
+            />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='Upload And Removal Of Offers'
+              variant='outlined'
+              focused
+              onChange={handelChangeBusinessGeneralNotification('upload_and_removal_of_offer')}
+              value={businessGeneralNotification.upload_and_removal_of_offer}
+            />
+            <TextField
+              style={{ margin: '5px', width: '100%' }}
+              label='Business Insights'
+              variant='outlined'
+              focused
+              onChange={handelChangeBusinessGeneralNotification('business_insights')}
+              value={businessGeneralNotification.business_insights}
+            />
             <Button
               variant='contained'
               style={{ margin: '5px' }}
@@ -461,22 +754,34 @@ const Notifications = () => {
             <TextField
               style={{ margin: '5px', width: '100%' }}
               label='Payment Notification (Against Purchase of offers)'
-              variant='outlined' focused onChange={handelChangeBusinessPurchaseAndRedeemptionNotification('payment_notification')} value={businessPurchaseAndRedeemptionNotification.payment_notification}
+              variant='outlined'
+              focused
+              onChange={handelChangeBusinessPurchaseAndRedeemptionNotification('payment_notification')}
+              value={businessPurchaseAndRedeemptionNotification.payment_notification}
             />
             <TextField
               style={{ margin: '5px', width: '100%' }}
               label='Order Notification For Purchase (With Order Number and Unique Code)'
-              variant='outlined' focused onChange={handelChangeBusinessPurchaseAndRedeemptionNotification('order_notification_for_purchase')} value={businessPurchaseAndRedeemptionNotification.order_notification_for_purchase}
+              variant='outlined'
+              focused
+              onChange={handelChangeBusinessPurchaseAndRedeemptionNotification('order_notification_for_purchase')}
+              value={businessPurchaseAndRedeemptionNotification.order_notification_for_purchase}
             />
             <TextField
               style={{ margin: '5px', width: '100%' }}
               label='Redemption Notification (Both Points as well as PROPs Redemption)'
-              variant='outlined' focused onChange={handelChangeBusinessPurchaseAndRedeemptionNotification('redeemption_notification')} value={businessPurchaseAndRedeemptionNotification.redeemption_notification}
+              variant='outlined'
+              focused
+              onChange={handelChangeBusinessPurchaseAndRedeemptionNotification('redeemption_notification')}
+              value={businessPurchaseAndRedeemptionNotification.redeemption_notification}
             />
             <TextField
               style={{ margin: '5px', width: '100%' }}
               label='Order Notification For Redemption (With Order Number and Unique Code) '
-              variant='outlined' focused onChange={handelChangeBusinessPurchaseAndRedeemptionNotification('order_notification_for_redeemption')} value={businessPurchaseAndRedeemptionNotification.order_notification_for_redeemption}
+              variant='outlined'
+              focused
+              onChange={handelChangeBusinessPurchaseAndRedeemptionNotification('order_notification_for_redeemption')}
+              value={businessPurchaseAndRedeemptionNotification.order_notification_for_redeemption}
             />
             <Button
               variant='contained'
@@ -497,28 +802,40 @@ const Notifications = () => {
             <TextField
               style={{ margin: '5px', width: '100%' }}
               label='Missing Points Claim (With reference number)'
-              variant='outlined' focused onChange={handelChangeBusinessRequestAndComplaintNotification('missing_points_claim')} value={BusinessRequestAndComplaintNotification.missing_points_claim}
+              variant='outlined'
+              focused
+              onChange={handelChangeBusinessRequestAndComplaintNotification('missing_points_claim')}
+              value={BusinessRequestAndComplaintNotification.missing_points_claim}
             />
             <TextField
               style={{ margin: '5px', width: '100%' }}
               label='Complaint (With complaint reference number)'
-              variant='outlined' focused onChange={handelChangeBusinessRequestAndComplaintNotification('complaint')} value={BusinessRequestAndComplaintNotification.complaint}
+              variant='outlined'
+              focused
+              onChange={handelChangeBusinessRequestAndComplaintNotification('complaint')}
+              value={BusinessRequestAndComplaintNotification.complaint}
             />
             <TextField
               style={{ margin: '5px', width: '100%' }}
               label='Request (With Request Number)'
-              variant='outlined' focused onChange={handelChangeBusinessRequestAndComplaintNotification('request')} value={BusinessRequestAndComplaintNotification.request}
+              variant='outlined'
+              focused
+              onChange={handelChangeBusinessRequestAndComplaintNotification('request')}
+              value={BusinessRequestAndComplaintNotification.request}
             />
             <TextField
               style={{ margin: '5px', width: '100%' }}
               label='Auto generated service requests (With Request Number)'
-              variant='outlined' focused onChange={handelChangeBusinessRequestAndComplaintNotification('auto_generated_service_requests')} value={BusinessRequestAndComplaintNotification.auto_generated_service_requests}
+              variant='outlined'
+              focused
+              onChange={handelChangeBusinessRequestAndComplaintNotification('auto_generated_service_requests')}
+              value={BusinessRequestAndComplaintNotification.auto_generated_service_requests}
             />
             <Button
               variant='contained'
               style={{ margin: '5px' }}
               onClick={() => {
-               updateCustomerRequestAndComplaintNotification()
+                updateCustomerRequestAndComplaintNotification()
               }}
             >
               Update
