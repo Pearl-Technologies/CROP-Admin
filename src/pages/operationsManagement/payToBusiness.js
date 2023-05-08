@@ -16,7 +16,7 @@ const handleCheckout = async () => {
   axios({
     url:`${process.env.HOST}/api/customer/royalty/purchaseRequest`,
     method: "POST",
-    data:{type:"PROP", quantity:100, user_id:"6433cc8279495c4233562ecb"}
+    data:{type:"CROP", quantity:100, user_id:"6433cc8279495c4233562ecb"}
     }).then(function(response){
       console.log(response);
       if (response.statusCode === 500) return;

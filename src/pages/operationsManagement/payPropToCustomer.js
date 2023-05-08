@@ -21,6 +21,11 @@ import TextField from '@mui/material/TextField'
 import Eye from 'mdi-material-ui/Eye'
 import { useRouter } from 'next/router'
 import Spinner from '../databaseManagement/spinner'
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { Link } from '@mui/material'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -50,6 +55,28 @@ const PayToCustomer = () => {
   const [businessData, setBusinessData] = useState([])
   const [cdStatus, setCDStatus] = useState(false)
   const [bdStatus, setBDStatus] = useState(false)
+  const [expanded, setExpanded] = React.useState(false)
+  const [soleData, setSoldData] = React.useState([])
+  const fetchBusinessProductSoldDetails = id => {
+    setCDStatus(true)
+    axios
+      .post(`${process.env.HOST}/api/admin/getPurchasedProductStatement`, { businessId: id })
+      .then(function (response) {
+        // handle success
+        console.log(response)
+        setSoldData(response.data.statement)
+        setCDStatus(false)
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error)
+        setCDStatus(false)
+      })
+  }
+  const handleChange = (panel, id) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false)
+    fetchBusinessProductSoldDetails(id)
+  }
   const showCustomerCrop = x => {
     router.push(`/accountManagement/cropDetails?q=${x}`)
     // return<CropDetails id={x}/>
@@ -80,153 +107,6 @@ const PayToCustomer = () => {
         setCDStatus(false)
       })
   }
-  function BusinessModal({ user }) {
-    const [open, setOpen] = useState(false)
-    const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
-    console.log(user)
-    return (
-      <div>
-        <Button onClick={handleOpen}>
-          <Eye />
-        </Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-        >
-          <Box sx={style}>
-          <div style={{display:"flex", flexDirection:"column", margin:"5%"}}>
-              <img style={{margin:"auto"}}
-                width='150px'
-                src='https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
-              />
-              {/* <span>Edogaru</span> */}
-              <span style={{ margin:"auto"}}>{user.email}</span>
-              <span> </span>
-            </div>
-            <div style={{padding:"10px", overflow:"auto"}}>
-              <FormControl variant='standard' sx={{ gap: '10px' }} >
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                  <TextField id='outlined-basic' label='Title' variant='outlined' value={user.UserTitle} />
-                  <TextField id='outlined-basic' label='First Name' variant='outlined' value={user?.businessName} />
-  
-                </Box>
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                  <TextField label='MobileNo' variant='outlined' value={user?.mobileNumber} />
-                </Box>
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                <TextField label='CROP ID' variant='outlined' value={user?.cropId} />
-                <TextField label='Tier' variant='outlined' value={user?.Tier} />
-                </Box>
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                <TextField label='Biometric status' variant='outlined' value={user?.bio} />
-                <TextField label='Email Notification' variant='outlined' value={user?.emailNotification} />
-                <TextField label='Market Notification' variant='outlined' value={user?.mktNotification} />
-                <TextField label='Message Notification' variant='outlined' value={user.smsNotification} />
-                </Box >
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                <TextField label='Refferal Code' variant='outlined' value={user.refferalCode} />
-                <TextField label='Interests' variant='outlined' value={user.interestList?.valueOf()} />
-                </Box>                          
-            <h4>Address</h4>
-          <Box  sx={{ display: 'flex',  flexDirection: 'column'   }}>
-            {user?.address &&
-                    user?.address.map((data, i) => (
-                      <Box sx={{ display: 'flex', gap: '10px', flexDirection: 'column', margin:"20px" }} key={'address' + data._id}>
-                        <TextField label='line1' variant='outlined' value={data?.line1}/>                        
-                        <TextField label='line2' variant='outlined' value={data?.line2}/>                        
-                        <TextField label='line3' variant='outlined' value={data?.line3}/>                        
-                        <TextField label='state' variant='outlined' value={data?.state}/>                        
-                        <TextField label='pin' variant='outlined' value={data?.pin}/>                        
-                      </Box>
-                    ))}
-          </Box>
-              </FormControl>
-            </div>
-
-          </Box>
-        </Modal>
-      </div>
-    )
-  }
-  function CustomerModal({ user }) {
-    const [open, setOpen] = useState(false)
-    const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
-    return (
-      <div>
-        <Button onClick={handleOpen}>
-          <Eye />
-        </Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-        >
-          <Box sx={style}>
-            <div style={{display:"flex", flexDirection:"column", margin:"5%"}}>
-              <img style={{margin:"auto"}}
-                width='150px'
-                src='https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
-              />
-              {/* <span>Edogaru</span> */}
-              <span style={{ margin:"auto"}}>{user.UserTitle}{" "}{user.name.fName}{" "}{user.name.mName}{" "}{user.name.lName}</span>
-              <span> </span>
-            </div>
-
-            <div style={{padding:"10px", overflow:"auto"}}>
-              <FormControl variant='standard' sx={{ gap: '10px' }} >
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                  <TextField id='outlined-basic' label='email' variant='outlined' value={user.email} />
-                  <TextField id='outlined-basic' label='mobile' variant='outlined' value={user.mobileNumber} />
-                  {/* <TextField id='outlined-basic' label='Title' variant='outlined' value={user.UserTitle} />
-                  <TextField id='outlined-basic' label='First Name' variant='outlined' value={user.name.fName} />
-                  <TextField id='outlined-basic' label='Middle Name' variant='outlined' value={user.name.mName} />
-                  <TextField id='outlined-basic' label='Last Name' variant='outlined' value={user.name.lName} /> */}
-                </Box>
-                {/* <Box sx={{ display: 'flex', gap: '2px' }}>
-                  <TextField label='Gender' variant='outlined' value={user.gender} />
-                  <TextField label='AgeGroup' variant='outlined' value={user.agegroup} />
-                  <TextField label='MobileNo' variant='outlined' value={user.mobileNumber} />
-                </Box> */}
-                <Box sx={{ display: 'flex', gap: '2px', space: "10px" }}>
-                <TextField label='Email Notification' variant='outlined' value={user.emailNotification} />
-                <TextField label='Market Notification' variant='outlined' value={user.mktNotification} />
-                <TextField label='Message Notification' variant='outlined' value={user.smsNotification} />
-                </Box >
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                <TextField label='CROP ID' variant='outlined' value={user.cropid} />
-                <TextField label='PROP ID' variant='outlined' value={user.propid} />
-                <TextField label='Tier' variant='outlined' value={user.UserTier} />
-                </Box>
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                <TextField label='Biometric status' variant='outlined' value={user.biometricterms} />
-                <TextField label='Refferal Code' variant='outlined' value={user.refercode} />
-                <TextField label='Interests' variant='outlined' value={user.interestList?.valueOf()} />
-                </Box>                          
-            <h4>Address</h4>
-          <Box  sx={{ display: 'flex',  flexDirection: 'column'   }}>
-            {user.address &&
-                    user.address.map((data, i) => (
-                      <Box sx={{ display: 'flex', gap: '10px', flexDirection: 'column', margin:"20px" }} key={'address' + data._id}>
-                        <TextField label='line1' variant='outlined' value={data.line1}/>                        
-                        <TextField label='line2' variant='outlined' value={data.line2}/>                        
-                        <TextField label='line3' variant='outlined' value={data.line3}/>                        
-                        <TextField label='state' variant='outlined' value={data.state}/>                        
-                        <TextField label='pin' variant='outlined' value={data.pin}/>                        
-                      </Box>
-                    ))}
-          </Box>
-              </FormControl>
-            </div>
-          </Box>
-        </Modal>
-      </div>
-    )
-  }
   const fetchBusinessDetails = () => {
     setBDStatus(true)
     axios
@@ -242,12 +122,6 @@ const PayToCustomer = () => {
         console.log(error)
         setBDStatus(false)
       })
-  }
-  const showCustomerInvoice = x => {
-    router.push(`/accountManagement/customerInvoiceDetails?q=${x}`)
-  }
-  const showBusinessInvoice = x => {
-    router.push(`/accountManagement/businessInvoiceDetails?q=${x}`)
   }
   useEffect(() => {
     fetchCustomerDetails()
@@ -320,86 +194,138 @@ const PayToCustomer = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Business Name</TableCell>
-                    <TableCell>CROP Id</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Tier</TableCell>
-                    <TableCell>Profile</TableCell>
-                    <TableCell>Invoices</TableCell>
-                    <TableCell>CROPs</TableCell>
-                    <TableCell>Active Offers</TableCell>
-                    <TableCell>Audit Report</TableCell>
                   </TableRow>
                 </TableHead>
 
                 <TableBody>
-                  {businessData.map(row => (
-                    <TableRow
-                      hover
-                      key={'business' + row._id}
-                      sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
-                    >
-                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
-                            {row.businessName}
-                          </Typography>
-                          {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
-                          {/* <Typography variant='caption'>{row.designation}</Typography> */}
-                        </Box>
-                      </TableCell>
-                      <TableCell>{row.cropId}</TableCell>
-                      <TableCell>
-                        <Chip
-                          label={row.status}
-                          // color={statusObj[row.status].color}
-                          color={statusObj[`${row.status}`]?.color}
-                          sx={{
-                            height: 24,
-                            fontSize: '0.75rem',
-                            textTransform: 'capitalize',
-                            '& .MuiChip-label': { fontWeight: 500 }
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell>{row.tier}</TableCell>
-                      <TableCell>
-                        <BusinessModal user={row} />
-                      </TableCell>
-                      <TableCell onClick={() => showBusinessInvoice(row._id)} sx={{ cursor: 'pointer' }}>
-                        {'invoices'}
-                      </TableCell>
-                      <TableCell>{row.croppoint}</TableCell>
-                      <TableCell>
-                        <Chip
-                          label={'Active Offers'}
-                          // color={statusObj[row.status].color}
-                          color={'info'}
-                          sx={{
-                            height: 24,
-                            fontSize: '0.75rem',
-                            textTransform: 'capitalize',
-                            '& .MuiChip-label': { fontWeight: 500 }
-                          }}
-                          onClick={() => showActiveOffers(row._id)}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Chip
-                          label={'Audit Report'}
-                          // color={statusObj[row.status].color}
-                          color={'info'}
-                          sx={{
-                            height: 24,
-                            fontSize: '0.75rem',
-                            textTransform: 'capitalize',
-                            '& .MuiChip-label': { fontWeight: 500 },
-                            cursor: 'pointer'
-                          }}
-                          onClick={() => showBusinessAuditReport(row._id)}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {businessData.map((row, x) => {
+                    let value_pay_to_business = 0
+                    return (
+                      <TableRow key={'business' + row._id}>
+                        <Accordion expanded={expanded === `pannel${x}`} onChange={handleChange(`pannel${x}`, row._id)}>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls='panel1bh-content'
+                            id='panel1bh-header'
+                          >
+                            <Typography sx={{ width: '33%', flexShrink: 0 }}>{row.businessName}</Typography>
+                            {/* <Typography sx={{ color: 'text.secondary' }}>{value_pay_to_business}</Typography> */}
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell>Date</TableCell>
+                                  <TableCell>Title</TableCell>
+                                  {/* <TableCell>Txn Id</TableCell> */}
+                                  <TableCell>Price</TableCell>
+                                  <TableCell>CROP</TableCell>
+                                  <TableCell>Quantity</TableCell>
+                                  <TableCell>Total CROP</TableCell>
+                                  <TableCell>Total</TableCell>
+                                  <TableCell>CROPs Values</TableCell>
+                                  <TableCell>Crop Retaintion %5</TableCell>
+                                  <TableCell>ToPay</TableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                {soleData.map((data, i) => {
+                                  value_pay_to_business =
+                                    data.item.price * data.item.cartQuantity -
+                                    ((data.item.price * data.item.cartQuantity -
+                                      data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1) *
+                                      5) /
+                                      100 +
+                                    value_pay_to_business
+                                  return (
+                                    <TableRow key={'dorder' + 1}>
+                                      <TableCell>
+                                        <Typography>{new Date(data.createdAt).toLocaleDateString()}</Typography>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Typography>{data.item.title}</Typography>
+                                      </TableCell>
+                                      {/* <TableCell><Typography>{data.payment.transactionId}</Typography></TableCell> */}
+                                      <TableCell>
+                                        <Typography>{data.item.price}</Typography>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Typography>{data.item.cropRulesWithBonus.toFixed(2)}</Typography>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Typography>{data.item.cartQuantity}</Typography>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Typography>
+                                          {(data.item.cartQuantity * data.item.cropRulesWithBonus).toFixed(2)}
+                                        </Typography>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Typography>{data.item.price * data.item.cartQuantity}</Typography>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Typography>
+                                          {(data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1).toFixed(2)}
+                                        </Typography>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Typography>
+                                          {(
+                                            ((data.item.price * data.item.cartQuantity -
+                                              data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1) *
+                                              5) /
+                                            100
+                                          ).toFixed(2)}
+                                        </Typography>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Typography>
+                                          {(
+                                            data.item.price * data.item.cartQuantity -
+                                            ((data.item.price * data.item.cartQuantity -
+                                              data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1) *
+                                              5) /
+                                              100
+                                          ).toFixed(2)}
+                                        </Typography>
+                                      </TableCell>
+                                    </TableRow>
+                                  )
+                                })}
+                                <TableRow>
+                                  <TableCell colSpan={8}>
+                                    <Typography></Typography>
+                                  </TableCell>
+                                  <TableCell>
+                                    <Typography>Total ToPay</Typography>
+                                  </TableCell>
+                                  <TableCell>
+                                    <Typography>{value_pay_to_business.toFixed(2)}</Typography>
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell colSpan={9}>
+                                    <Typography></Typography>
+                                  </TableCell>
+                                  <TableCell>
+                                    <Link
+                                      component='button'
+                                      variant='body2'
+                                      onClick={() => {
+                                        console.log(data);
+                                      }}
+                                    >
+                                      Pay Now
+                                    </Link>
+                                  </TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
+                          </AccordionDetails>
+                        </Accordion>
+                      </TableRow>
+                    )
+                  })}
                 </TableBody>
               </Table>
             )}
