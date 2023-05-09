@@ -26,6 +26,7 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Link } from '@mui/material'
+import TreeView from './treeView'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -63,16 +64,16 @@ const PayToCustomer = () => {
       .post(`${process.env.HOST}/api/admin/getPurchasedProductStatement`, { businessId: id })
       .then(function (response) {
         // handle success
-        console.log(response)
         setSoldData(response.data.statement)
         setCDStatus(false)
       })
       .catch(function (error) {
         // handle error
         console.log(error)
-        setCDStatus(false)
+
       })
   }
+
   const handleChange = (panel, id) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false)
     fetchBusinessProductSoldDetails(id)
@@ -201,129 +202,130 @@ const PayToCustomer = () => {
                   {businessData.map((row, x) => {
                     let value_pay_to_business = 0
                     return (
-                      <TableRow key={'business' + row._id}>
-                        <Accordion expanded={expanded === `pannel${x}`} onChange={handleChange(`pannel${x}`, row._id)}>
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls='panel1bh-content'
-                            id='panel1bh-header'
-                          >
-                            <Typography sx={{ width: '33%', flexShrink: 0 }}>{row.businessName}</Typography>
-                            {/* <Typography sx={{ color: 'text.secondary' }}>{value_pay_to_business}</Typography> */}
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
-                              <TableHead>
-                                <TableRow>
-                                  <TableCell>Date</TableCell>
-                                  <TableCell>Title</TableCell>
-                                  {/* <TableCell>Txn Id</TableCell> */}
-                                  <TableCell>Price</TableCell>
-                                  <TableCell>CROP</TableCell>
-                                  <TableCell>Quantity</TableCell>
-                                  <TableCell>Total CROP</TableCell>
-                                  <TableCell>Total</TableCell>
-                                  <TableCell>CROPs Values</TableCell>
-                                  <TableCell>Crop Retaintion %5</TableCell>
-                                  <TableCell>ToPay</TableCell>
-                                </TableRow>
-                              </TableHead>
-                              <TableBody>
-                                {soleData.map((data, i) => {
-                                  value_pay_to_business =
-                                    data.item.price * data.item.cartQuantity -
-                                    ((data.item.price * data.item.cartQuantity -
-                                      data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1) *
-                                      5) /
-                                      100 +
-                                    value_pay_to_business
-                                  return (
-                                    <TableRow key={'dorder' + 1}>
-                                      <TableCell>
-                                        <Typography>{new Date(data.createdAt).toLocaleDateString()}</Typography>
-                                      </TableCell>
-                                      <TableCell>
-                                        <Typography>{data.item.title}</Typography>
-                                      </TableCell>
-                                      {/* <TableCell><Typography>{data.payment.transactionId}</Typography></TableCell> */}
-                                      <TableCell>
-                                        <Typography>{data.item.price}</Typography>
-                                      </TableCell>
-                                      <TableCell>
-                                        <Typography>{data.item.cropRulesWithBonus.toFixed(2)}</Typography>
-                                      </TableCell>
-                                      <TableCell>
-                                        <Typography>{data.item.cartQuantity}</Typography>
-                                      </TableCell>
-                                      <TableCell>
-                                        <Typography>
-                                          {(data.item.cartQuantity * data.item.cropRulesWithBonus).toFixed(2)}
-                                        </Typography>
-                                      </TableCell>
-                                      <TableCell>
-                                        <Typography>{data.item.price * data.item.cartQuantity}</Typography>
-                                      </TableCell>
-                                      <TableCell>
-                                        <Typography>
-                                          {(data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1).toFixed(2)}
-                                        </Typography>
-                                      </TableCell>
-                                      <TableCell>
-                                        <Typography>
-                                          {(
-                                            ((data.item.price * data.item.cartQuantity -
-                                              data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1) *
-                                              5) /
-                                            100
-                                          ).toFixed(2)}
-                                        </Typography>
-                                      </TableCell>
-                                      <TableCell>
-                                        <Typography>
-                                          {(
-                                            data.item.price * data.item.cartQuantity -
-                                            ((data.item.price * data.item.cartQuantity -
-                                              data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1) *
-                                              5) /
-                                              100
-                                          ).toFixed(2)}
-                                        </Typography>
-                                      </TableCell>
-                                    </TableRow>
-                                  )
-                                })}
-                                <TableRow>
-                                  <TableCell colSpan={8}>
-                                    <Typography></Typography>
-                                  </TableCell>
-                                  <TableCell>
-                                    <Typography>Total ToPay</Typography>
-                                  </TableCell>
-                                  <TableCell>
-                                    <Typography>{value_pay_to_business.toFixed(2)}</Typography>
-                                  </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                  <TableCell colSpan={9}>
-                                    <Typography></Typography>
-                                  </TableCell>
-                                  <TableCell>
-                                    <Link
-                                      component='button'
-                                      variant='body2'
-                                      onClick={() => {
-                                        console.log(data);
-                                      }}
-                                    >
-                                      Pay Now
-                                    </Link>
-                                  </TableCell>
-                                </TableRow>
-                              </TableBody>
-                            </Table>
-                          </AccordionDetails>
-                        </Accordion>
-                      </TableRow>
+                      <TreeView id={row._id} data={row}/>
+                      // <TableRow key={'business' + row._id}>
+                      //   <Accordion expanded={expanded === `pannel${x}`} onChange={handleChange(`pannel${x}`, row._id)}>
+                      //     <AccordionSummary
+                      //       expandIcon={<ExpandMoreIcon />}
+                      //       aria-controls='panel1bh-content'
+                      //       id='panel1bh-header'
+                      //     >
+                      //       <Typography sx={{ width: '33%', flexShrink: 0 }}>{row.businessName}</Typography>
+                      //       {/* <Typography sx={{ color: 'text.secondary' }}>{result}</Typography> */}
+                      //     </AccordionSummary>
+                      //     <AccordionDetails>
+                      //       <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+                      //         <TableHead>
+                      //           <TableRow>
+                      //             <TableCell>Date</TableCell>
+                      //             <TableCell>Title</TableCell>
+                      //             {/* <TableCell>Txn Id</TableCell> */}
+                      //             <TableCell>Price</TableCell>
+                      //             <TableCell>CROP</TableCell>
+                      //             <TableCell>Quantity</TableCell>
+                      //             <TableCell>Total CROP</TableCell>
+                      //             <TableCell>Total</TableCell>
+                      //             <TableCell>CROPs Values</TableCell>
+                      //             <TableCell>Crop Retaintion %5</TableCell>
+                      //             <TableCell>ToPay</TableCell>
+                      //           </TableRow>
+                      //         </TableHead>
+                      //         <TableBody>
+                      //           {soleData.map((data, i) => {
+                      //             value_pay_to_business =
+                      //               data.item.price * data.item.cartQuantity -
+                      //               ((data.item.price * data.item.cartQuantity -
+                      //                 data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1) *
+                      //                 5) /
+                      //                 100 +
+                      //               value_pay_to_business
+                      //             return (
+                      //               <TableRow key={'dorder' + i}>
+                      //                 <TableCell>
+                      //                   <Typography>{new Date(data.createdAt).toLocaleDateString()}</Typography>
+                      //                 </TableCell>
+                      //                 <TableCell>
+                      //                   <Typography>{data.item.title}</Typography>
+                      //                 </TableCell>
+                      //                 {/* <TableCell><Typography>{data.payment.transactionId}</Typography></TableCell> */}
+                      //                 <TableCell>
+                      //                   <Typography>{data.item.price}</Typography>
+                      //                 </TableCell>
+                      //                 <TableCell>
+                      //                   <Typography>{data.item.cropRulesWithBonus.toFixed(2)}</Typography>
+                      //                 </TableCell>
+                      //                 <TableCell>
+                      //                   <Typography>{data.item.cartQuantity}</Typography>
+                      //                 </TableCell>
+                      //                 <TableCell>
+                      //                   <Typography>
+                      //                     {(data.item.cartQuantity * data.item.cropRulesWithBonus).toFixed(2)}
+                      //                   </Typography>
+                      //                 </TableCell>
+                      //                 <TableCell>
+                      //                   <Typography>{data.item.price * data.item.cartQuantity}</Typography>
+                      //                 </TableCell>
+                      //                 <TableCell>
+                      //                   <Typography>
+                      //                     {(data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1).toFixed(2)}
+                      //                   </Typography>
+                      //                 </TableCell>
+                      //                 <TableCell>
+                      //                   <Typography>
+                      //                     {(
+                      //                       ((data.item.price * data.item.cartQuantity -
+                      //                         data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1) *
+                      //                         5) /
+                      //                       100
+                      //                     ).toFixed(2)}
+                      //                   </Typography>
+                      //                 </TableCell>
+                      //                 <TableCell>
+                      //                   <Typography>
+                      //                     {(
+                      //                       data.item.price * data.item.cartQuantity -
+                      //                       ((data.item.price * data.item.cartQuantity -
+                      //                         data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1) *
+                      //                         5) /
+                      //                         100
+                      //                     ).toFixed(2)}
+                      //                   </Typography>
+                      //                 </TableCell>
+                      //               </TableRow>
+                      //             )
+                      //           })}
+                      //           <TableRow>
+                      //             <TableCell colSpan={8}>
+                      //               <Typography></Typography>
+                      //             </TableCell>
+                      //             <TableCell>
+                      //               <Typography>Total ToPay</Typography>
+                      //             </TableCell>
+                      //             <TableCell>
+                      //               <Typography>{value_pay_to_business.toFixed(2)}</Typography>
+                      //             </TableCell>
+                      //           </TableRow>
+                      //           <TableRow>
+                      //             <TableCell colSpan={9}>
+                      //               <Typography></Typography>
+                      //             </TableCell>
+                      //             <TableCell>
+                      //               <Link
+                      //                 component='button'
+                      //                 variant='body2'
+                      //                 onClick={() => {
+                      //                   console.log(data);
+                      //                 }}
+                      //               >
+                      //                 Pay Now
+                      //               </Link>
+                      //             </TableCell>
+                      //           </TableRow>
+                      //         </TableBody>
+                      //       </Table>
+                      //     </AccordionDetails>
+                      //   </Accordion>
+                      // </TableRow>
                     )
                   })}
                 </TableBody>
