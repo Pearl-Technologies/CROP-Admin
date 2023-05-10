@@ -101,6 +101,8 @@ const LoginPage = () => {
         if (response.status === 200) {
           localStorage.setItem('token', response.data.accessToken)
           localStorage.setItem('user', response.data.user)
+          localStorage.setItem('profileImage', response.data.profileImage)
+          localStorage.setItem('name', response.data.name)
           setLoginStatus(false)
           router.push('/')
         } else {

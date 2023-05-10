@@ -9,9 +9,10 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
-import CardMedia from '@mui/material/CardMedia';
+import CardMedia from '@mui/material/CardMedia'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { left } from '@popperjs/core'
 const rows = [
   {
     age: 27,
@@ -98,7 +99,8 @@ const statusObj = {
 
 const DashboardTable = () => {
   const [productData, setProductData] = useState([])
-  const product = require("../../db/products2.json");
+  const [mostPopularProductData, setMostPopularProductData] = useState([])
+  const [promoProductData, setPromoProductData] = useState([])
   const fetchDetails = () => {
     axios
       .post(`${process.env.HOST}/api/admin/getAllProduct`)
@@ -112,23 +114,133 @@ const DashboardTable = () => {
         console.log(error)
       })
   }
+  const fetchMostPopularProductDetails = () => {
+    axios
+      .post(`${process.env.HOST}/api/admin/getAllMostPopularProduct`)
+      .then(function (response) {
+        // handle success
+        // console.log(response);
+        setMostPopularProductData(response.data.productList)
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error)
+      })
+  }
+  const fetchPromoProductDetails = () => {
+    axios
+      .post(`${process.env.HOST}/api/admin/getAllPromoProduct`)
+      .then(function (response) {
+        // handle success
+        // console.log(response);
+        setPromoProductData(response.data.productList)
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error)
+      })
+  }
   useEffect(() => {
     fetchDetails()
+    fetchMostPopularProductDetails()
+    fetchPromoProductDetails()
   }, [])
-  console.log(productData)
   return (
     <Card>
-      <TableContainer style={{height:600, overflow:'auto'}}>
+      <TableContainer style={{ height: 600, overflow: 'auto' }}>
+      <h1 style={{paddingLeft:"20px"}}>Most Popular</h1>
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
               <TableCell>Product</TableCell>
               <TableCell>Title</TableCell>
-              <TableCell>Star Rating</TableCell>
+              <TableCell>Rating</TableCell>
               <TableCell>Likes</TableCell>
-              <TableCell>Dollar Value</TableCell>
+              <TableCell>AUD</TableCell>
               <TableCell>CROPs</TableCell>
-              <TableCell>Bid Invoice</TableCell>
+              <TableCell>Bid AUD</TableCell>
+              <TableCell>From</TableCell>
+              <TableCell>To</TableCell>
+              <TableCell>Market For</TableCell>
+              <TableCell>Sector</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Slot</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {mostPopularProductData.map(row => (
+              <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
+                    {/* {row?.image?.letght && row.image.map((product)=>(
+                      <CardMedia component='img' height='50' image={`${process.env.HOST}/api/products/image/${product}`} alt='Paella dish' />
+                    ))} */}
+                    <CardMedia
+                      component='img'
+                      height='50'
+                      image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
+                      alt='Paella dish'
+                    />
+                    <Typography variant='caption'>{row.designation}</Typography>
+                  </Box>
+                </TableCell>
+                <TableCell>{row?.title}</TableCell>
+                <TableCell>{row?.rating}</TableCell>
+                <TableCell>{row?.likes}</TableCell>
+                <TableCell>{row?.price}</TableCell>
+                <TableCell>{row?.croppoints}</TableCell>
+                <TableCell>{row?.bidPrice}</TableCell>
+                <TableCell>{row?.mktDate?.fromDate}</TableCell>
+                <TableCell>{row?.mktDate?.toDate}</TableCell>
+                <TableCell>{row?.mktOfferFor}</TableCell>
+                <TableCell>{row?.sector}</TableCell>
+                <TableCell>
+                  <Chip
+                    label={row.status}
+                    color={statusObj[row.status]?.color}
+                    // color={'success'}
+                    sx={{
+                      height: 24,
+                      fontSize: '0.75rem',
+                      textTransform: 'capitalize',
+                      '& .MuiChip-label': { fontWeight: 500 }
+                    }}
+                  />
+                </TableCell>
+                <TableCell>{row?.slot}</TableCell>
+                <TableCell sx={{ cursor: 'pointer' }}>
+                  <Chip
+                    label={'Delete'}
+                    // color={statusObj[row.status].color}
+                    color={'error'}
+                    sx={{
+                      height: 24,
+                      fontSize: '0.75rem',
+                      textTransform: 'capitalize',
+                      '& .MuiChip-label': { fontWeight: 500 },
+                      cursor: 'pointer'
+                    }}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TableContainer style={{ height: 600, overflow: 'auto' }}>
+            <h1 style={{paddingLeft:"20px"}}>Star Rating</h1>
+        <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+          <TableHead>
+            <TableRow>
+              <TableCell>Product</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>Rating</TableCell>
+              <TableCell>Likes</TableCell>
+              <TableCell>AUD</TableCell>
+              <TableCell>CROPs</TableCell>
+              <TableCell>Bid AUD</TableCell>
               <TableCell>From</TableCell>
               <TableCell>To</TableCell>
               <TableCell>Market For</TableCell>
@@ -147,20 +259,25 @@ const DashboardTable = () => {
                     {/* {row?.image?.letght && row.image.map((product)=>(
                       <CardMedia component='img' height='50' image={`${process.env.HOST}/api/products/image/${product}`} alt='Paella dish' />
                     ))} */}
-                    <CardMedia component='img' height='50' image={`${process.env.HOST}/api/products/image/${row?.image[0]}`} alt='Paella dish' />
+                    <CardMedia
+                      component='img'
+                      height='50'
+                      image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
+                      alt='Paella dish'
+                    />
                     <Typography variant='caption'>{row.designation}</Typography>
                   </Box>
                 </TableCell>
                 <TableCell>{row?.title}</TableCell>
                 <TableCell>{row?.rating}</TableCell>
-              <TableCell>{row?.likes}</TableCell>
-              <TableCell>{row?.price}</TableCell>
-              <TableCell>{row?.croppoints}</TableCell>
-              <TableCell>{row?.bidPrice}</TableCell>
+                <TableCell>{row?.likes}</TableCell>
+                <TableCell>{row?.price}</TableCell>
+                <TableCell>{row?.croppoints}</TableCell>
+                <TableCell>{row?.bidPrice}</TableCell>
                 <TableCell>{row?.mktDate?.fromDate}</TableCell>
                 <TableCell>{row?.mktDate?.toDate}</TableCell>
                 <TableCell>{row?.mktOfferFor}</TableCell>
-                <TableCell>{row?.sector}</TableCell>                
+                <TableCell>{row?.sector}</TableCell>
                 <TableCell>
                   <Chip
                     label={row.status}
@@ -175,9 +292,9 @@ const DashboardTable = () => {
                   />
                 </TableCell>
                 <TableCell>{row?.slot}</TableCell>
-                <TableCell sx={{cursor:'pointer'}}>
-                <Chip
-                    label={"Delete"}
+                <TableCell sx={{ cursor: 'pointer' }}>
+                  <Chip
+                    label={'Delete'}
                     // color={statusObj[row.status].color}
                     color={'error'}
                     sx={{
@@ -185,8 +302,245 @@ const DashboardTable = () => {
                       fontSize: '0.75rem',
                       textTransform: 'capitalize',
                       '& .MuiChip-label': { fontWeight: 500 },
-                      cursor:'pointer'
-                    }}/>
+                      cursor: 'pointer'
+                    }}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TableContainer style={{ height: 600, overflow: 'auto' }}>
+            <h1 style={{paddingLeft:"20px"}}>Near Me</h1>
+        <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+          <TableHead>
+            <TableRow>
+              <TableCell>Product</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>Rating</TableCell>
+              <TableCell>Likes</TableCell>
+              <TableCell>AUD</TableCell>
+              <TableCell>CROPs</TableCell>
+              <TableCell>Bid AUD</TableCell>
+              <TableCell>From</TableCell>
+              <TableCell>To</TableCell>
+              <TableCell>Market For</TableCell>
+              <TableCell>Sector</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Slot</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {productData.map(row => (
+              <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
+                    {/* {row?.image?.letght && row.image.map((product)=>(
+                      <CardMedia component='img' height='50' image={`${process.env.HOST}/api/products/image/${product}`} alt='Paella dish' />
+                    ))} */}
+                    <CardMedia
+                      component='img'
+                      height='50'
+                      image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
+                      alt='Paella dish'
+                    />
+                    <Typography variant='caption'>{row.designation}</Typography>
+                  </Box>
+                </TableCell>
+                <TableCell>{row?.title}</TableCell>
+                <TableCell>{row?.rating}</TableCell>
+                <TableCell>{row?.likes}</TableCell>
+                <TableCell>{row?.price}</TableCell>
+                <TableCell>{row?.croppoints}</TableCell>
+                <TableCell>{row?.bidPrice}</TableCell>
+                <TableCell>{row?.mktDate?.fromDate}</TableCell>
+                <TableCell>{row?.mktDate?.toDate}</TableCell>
+                <TableCell>{row?.mktOfferFor}</TableCell>
+                <TableCell>{row?.sector}</TableCell>
+                <TableCell>
+                  <Chip
+                    label={row.status}
+                    color={statusObj[row.status]?.color}
+                    // color={'success'}
+                    sx={{
+                      height: 24,
+                      fontSize: '0.75rem',
+                      textTransform: 'capitalize',
+                      '& .MuiChip-label': { fontWeight: 500 }
+                    }}
+                  />
+                </TableCell>
+                <TableCell>{row?.slot}</TableCell>
+                <TableCell sx={{ cursor: 'pointer' }}>
+                  <Chip
+                    label={'Delete'}
+                    // color={statusObj[row.status].color}
+                    color={'error'}
+                    sx={{
+                      height: 24,
+                      fontSize: '0.75rem',
+                      textTransform: 'capitalize',
+                      '& .MuiChip-label': { fontWeight: 500 },
+                      cursor: 'pointer'
+                    }}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TableContainer style={{ height: 600, overflow: 'auto' }}>
+            <h1 style={{paddingLeft:"20px"}}>Promo Product</h1>
+        <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+          <TableHead>
+            <TableRow>
+              <TableCell>Product</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>Rating</TableCell>
+              <TableCell>Likes</TableCell>
+              <TableCell>AUD</TableCell>
+              <TableCell>CROPs</TableCell>
+              <TableCell>Bid AUD</TableCell>
+              <TableCell>From</TableCell>
+              <TableCell>To</TableCell>
+              <TableCell>Market For</TableCell>
+              <TableCell>Sector</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Slot</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {promoProductData.map(row => (
+              <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
+                    {/* {row?.image?.letght && row.image.map((product)=>(
+                      <CardMedia component='img' height='50' image={`${process.env.HOST}/api/products/image/${product}`} alt='Paella dish' />
+                    ))} */}
+                    <CardMedia
+                      component='img'
+                      height='50'
+                      image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
+                      alt='Paella dish'
+                    />
+                    <Typography variant='caption'>{row.designation}</Typography>
+                  </Box>
+                </TableCell>
+                <TableCell>{row?.title}</TableCell>
+                <TableCell>{row?.rating}</TableCell>
+                <TableCell>{row?.likes}</TableCell>
+                <TableCell>{row?.price}</TableCell>
+                <TableCell>{row?.croppoints}</TableCell>
+                <TableCell>{row?.bidPrice}</TableCell>
+                <TableCell>{row?.mktDate?.fromDate}</TableCell>
+                <TableCell>{row?.mktDate?.toDate}</TableCell>
+                <TableCell>{row?.mktOfferFor}</TableCell>
+                <TableCell>{row?.sector}</TableCell>
+                <TableCell>
+                  <Chip
+                    label={row.status}
+                    color={statusObj[row.status]?.color}
+                    // color={'success'}
+                    sx={{
+                      height: 24,
+                      fontSize: '0.75rem',
+                      textTransform: 'capitalize',
+                      '& .MuiChip-label': { fontWeight: 500 }
+                    }}
+                  />
+                </TableCell>
+                <TableCell>{row?.slot}</TableCell>
+                <TableCell sx={{ cursor: 'pointer' }}>
+                  <Chip
+                    label={'Delete'}
+                    // color={statusObj[row.status].color}
+                    color={'error'}
+                    sx={{
+                      height: 24,
+                      fontSize: '0.75rem',
+                      textTransform: 'capitalize',
+                      '& .MuiChip-label': { fontWeight: 500 },
+                      cursor: 'pointer'
+                    }}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TableContainer style={{ height: 600, overflow: 'auto' }}>
+            <h1 style={{paddingLeft:"20px"}}>All Other Product</h1>
+        <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+          <TableHead>
+            <TableRow>
+              <TableCell>Product</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>Rating</TableCell>
+              <TableCell>Likes</TableCell>
+              <TableCell>AUD</TableCell>
+              <TableCell>CROPs</TableCell>
+              <TableCell>Sector</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {productData.map(row => (
+              <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
+                    {/* {row?.image?.letght && row.image.map((product)=>(
+                      <CardMedia component='img' height='50' image={`${process.env.HOST}/api/products/image/${product}`} alt='Paella dish' />
+                    ))} */}
+                    <CardMedia
+                      component='img'
+                      height='50'
+                      image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
+                      alt='Paella dish'
+                    />
+                    <Typography variant='caption'>{row.designation}</Typography>
+                  </Box>
+                </TableCell>
+                <TableCell>{row?.title}</TableCell>
+                <TableCell>{row?.rating}</TableCell>
+                <TableCell>{row?.likes}</TableCell>
+                <TableCell>{row?.price}</TableCell>
+                <TableCell>{row?.croppoints}</TableCell>
+                <TableCell>{row?.sector}</TableCell>
+                <TableCell>
+                  <Chip
+                    label={row.status}
+                    color={statusObj[row.status]?.color}
+                    // color={'success'}
+                    sx={{
+                      height: 24,
+                      fontSize: '0.75rem',
+                      textTransform: 'capitalize',
+                      '& .MuiChip-label': { fontWeight: 500 }
+                    }}
+                  />
+                </TableCell>
+                <TableCell sx={{ cursor: 'pointer' }}>
+                  <Chip
+                    label={'Delete'}
+                    // color={statusObj[row.status].color}
+                    color={'error'}
+                    sx={{
+                      height: 24,
+                      fontSize: '0.75rem',
+                      textTransform: 'capitalize',
+                      '& .MuiChip-label': { fontWeight: 500 },
+                      cursor: 'pointer'
+                    }}
+                  />
                 </TableCell>
               </TableRow>
             ))}

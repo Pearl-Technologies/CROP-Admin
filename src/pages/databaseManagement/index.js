@@ -33,7 +33,7 @@ const style = {
   borderRadius: '10px',
   boxShadow: 24,
   p: 4,
-  display: 'flex'
+
 }
 const rows = [
   {
@@ -173,54 +173,82 @@ const Database = () => {
           aria-describedby='modal-modal-description'
         >
           <Box sx={style}>
-          <div style={{display:"flex", flexDirection:"column", margin:"5%"}}>
+          <h2 style={{textAlign:"center"}}>Profile Details</h2>
+            <Grid container spacing={2}>
+              <Grid item sm={4} style={{alignItems:"center",alignContent:"center",textAlign:"center"}}>
               <img style={{margin:"auto"}}
                 width='150px'
-                src='https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
+                src={`${process.env.HOST}/api/products/image/${user?.avatar}`}
               />
-              {/* <span>Edogaru</span> */}
-              <span style={{ margin:"auto"}}>{user.email}</span>
-              <span> </span>
-            </div>
-            <div style={{padding:"10px", overflow:"auto"}}>
-              <FormControl variant='standard' sx={{ gap: '10px' }} >
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                  <TextField id='outlined-basic' label='Title' variant='outlined' value={user.UserTitle} />
-                  <TextField id='outlined-basic' label='First Name' variant='outlined' value={user?.businessName} />
-  
-                </Box>
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                  <TextField label='MobileNo' variant='outlined' value={user?.mobileNumber} />
-                </Box>
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                <TextField label='CROP ID' variant='outlined' value={user?.cropId} />
-                <TextField label='Tier' variant='outlined' value={user?.Tier} />
-                </Box>
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                <TextField label='Biometric status' variant='outlined' value={user?.bio} />
-                <TextField label='Email Notification' variant='outlined' value={user?.emailNotification} />
-                <TextField label='Market Notification' variant='outlined' value={user?.mktNotification} />
-                <TextField label='Message Notification' variant='outlined' value={user.smsNotification} />
-                </Box >
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                <TextField label='Refferal Code' variant='outlined' value={user.refferalCode} />
-                <TextField label='Interests' variant='outlined' value={user.interestList?.valueOf()} />
-                </Box>                          
-            <h4>Address</h4>
-          <Box  sx={{ display: 'flex',  flexDirection: 'column'   }}>
-            {user?.address &&
-                    user?.address.map((data, i) => (
-                      <Box sx={{ display: 'flex', gap: '10px', flexDirection: 'column', margin:"20px" }} key={'address' + data._id}>
-                        <TextField label='line1' variant='outlined' value={data?.line1}/>                        
-                        <TextField label='line2' variant='outlined' value={data?.line2}/>                        
-                        <TextField label='line3' variant='outlined' value={data?.line3}/>                        
-                        <TextField label='state' variant='outlined' value={data?.state}/>                        
-                        <TextField label='pin' variant='outlined' value={data?.pin}/>                        
-                      </Box>
-                    ))}
-          </Box>
-              </FormControl>
-            </div>
+                <div>
+                  <span>{user.UserTitle}</span>
+                  <span>{user?.businessName}</span>
+                
+                </div>
+                  {/* <span style={{ margin:"auto"}}>{user.UserTitle}{" "}{user.name.fName}{" "}{user.name.mName}{" "}{user.name.lName}</span> */}
+              </Grid>
+              <Grid item sm={8}>
+                <Grid container spacing={2}>
+                  <Grid item sm={6}>
+                    <TextField style={{marginTop:"10px"}} id='outlined-basic' label='email' variant='outlined' value={user.email} />
+                  
+                    <TextField style={{marginTop:"15px"}} label='Message Notification' variant='outlined' value={user.smsNotification} />
+                    <TextField style={{marginTop:"15px"}} label='Refferal Code' variant='outlined' value={user.referalCode} />
+                    <TextField style={{marginTop:"15px"}} label='CROP ID' variant='outlined' value={user.cropId} />
+                    <TextField style={{marginTop:"15px"}} label='Tier' variant='outlined' value={user.Tier} />
+                  </Grid>
+                  <Grid item sm={6}>
+                  <TextField style={{marginTop:"10px"}}  label='Email Notification' variant='outlined' value={user.emailNotification} />
+                    <TextField style={{marginTop:"15px"}} label='Market Notification' variant='outlined' value={user.mktNotification} />
+                    <TextField style={{marginTop:"15px"}} label='Biometric status' variant='outlined' value={user.bio} />
+                    <TextField style={{marginTop:"15px"}} label='Interests' variant='outlined' value={user.interestList?.valueOf()} />
+
+                    
+                  </Grid>
+                </Grid>
+              </Grid>
+             
+            </Grid>
+          
+                  {user.address &&
+                          user.address.map((data, i) => (
+                            <div  key={'address' + data._id} >
+                              <h3>Address 1</h3>
+                                 
+                                  <Grid container spacing={2} >
+                                    <Grid item sm={6}>
+                                      <Grid container spacing={2} style={{width:"350px",lineHeight:"10px",borderRadius:"10px",border:"1px solid #c1c1c1"}}>
+                                        <Grid item sm={2}>
+                                            <p style={{fontWeight:"bold"}}>Line1 </p> 
+                                            <p style={{fontWeight:"bold"}}>Line2 </p>
+                                           <p style={{fontWeight:"bold"}}>Line3 </p>
+                                            <p style={{fontWeight:"bold"}}>State </p>
+                                            <p style={{fontWeight:"bold"}}>Pin  </p>
+                                        </Grid>
+                                        <Grid item sm={10}>
+                                            <p>:{data.line1}</p>
+                                            <p>:{data.line2}</p>
+                                            <p>:{data.line3}</p>
+                                            <p>:{data.state}</p>
+                                            <p>:{data.pin}</p>
+                                        </Grid>
+                                      </Grid>
+                                     
+                                    </Grid>
+                                    <Grid item sm={6}>
+                                       
+                                       
+                                    </Grid>
+                                
+                                    
+                                         
+                                </Grid>          
+                            </div>
+
+                          ))}
+             
+          
+        
 
           </Box>
         </Modal>
@@ -242,67 +270,53 @@ const Database = () => {
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'
         >
-          <Box sx={style}>
-            {/* <Typography id='modal-modal-title' variant='h6' component='h2'>
-              Profile Details
-            </Typography> */}
-
-            <div style={{display:"flex", flexDirection:"column", margin:"5%"}}>
-              <img style={{margin:"auto"}}
-                width='150px'
-                src='https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
-              />
-              {/* <span>Edogaru</span> */}
-              <span style={{ margin:"auto"}}>{user.UserTitle}{" "}{user.name.fName}{" "}{user.name.mName}{" "}{user.name.lName}</span>
-              <span> </span>
-            </div>
-
-            <div style={{padding:"10px", overflow:"auto"}}>
-              <FormControl variant='standard' sx={{ gap: '10px' }} >
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                  <TextField id='outlined-basic' label='email' variant='outlined' value={user.email} />
-                  <TextField id='outlined-basic' label='mobile' variant='outlined' value={user.mobileNumber} />
-                  {/* <TextField id='outlined-basic' label='Title' variant='outlined' value={user.UserTitle} />
-                  <TextField id='outlined-basic' label='First Name' variant='outlined' value={user.name.fName} />
-                  <TextField id='outlined-basic' label='Middle Name' variant='outlined' value={user.name.mName} />
-                  <TextField id='outlined-basic' label='Last Name' variant='outlined' value={user.name.lName} /> */}
-                </Box>
-                {/* <Box sx={{ display: 'flex', gap: '2px' }}>
-                  <TextField label='Gender' variant='outlined' value={user.gender} />
-                  <TextField label='AgeGroup' variant='outlined' value={user.agegroup} />
-                  <TextField label='MobileNo' variant='outlined' value={user.mobileNumber} />
-                </Box> */}
-                <Box sx={{ display: 'flex', gap: '2px', space: "10px" }}>
-                <TextField label='Email Notification' variant='outlined' value={user.emailNotification} />
-                <TextField label='Market Notification' variant='outlined' value={user.mktNotification} />
-                <TextField label='Message Notification' variant='outlined' value={user.smsNotification} />
-                </Box >
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                <TextField label='CROP ID' variant='outlined' value={user.cropid} />
-                <TextField label='PROP ID' variant='outlined' value={user.propid} />
-                <TextField label='Tier' variant='outlined' value={user.UserTier} />
-                </Box>
-                <Box sx={{ display: 'flex', gap: '2px' }}>
-                <TextField label='Biometric status' variant='outlined' value={user.biometricterms} />
-                <TextField label='Refferal Code' variant='outlined' value={user.refercode} />
-                <TextField label='Interests' variant='outlined' value={user.interestList?.valueOf()} />
-                </Box>                          
-            <h4>Address</h4>
-          <Box  sx={{ display: 'flex',  flexDirection: 'column'   }}>
-            {user.address &&
-                    user.address.map((data, i) => (
-                      <Box sx={{ display: 'flex', gap: '10px', flexDirection: 'column', margin:"20px" }} key={'address' + data._id}>
-                        <TextField label='line1' variant='outlined' value={data.line1}/>                        
-                        <TextField label='line2' variant='outlined' value={data.line2}/>                        
-                        <TextField label='line3' variant='outlined' value={data.line3}/>                        
-                        <TextField label='state' variant='outlined' value={data.state}/>                        
-                        <TextField label='pin' variant='outlined' value={data.pin}/>                        
-                      </Box>
-                    ))}
+         
+        <Box sx={style}>
+            <h2 style={{textAlign:"center"}}>Profile Details</h2>
+            <Grid container spacing={2}>
+              <Grid item sm={4} style={{alignItems:"center",alignContent:"center",textAlign:"center"}}>
+                <img style={{margin:"auto"}}
+                  width='150px'
+                  src='https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
+                />
+                <div>
+                  <span>{user.UserTitle}</span>
+                  <span>{user.name.fName}</span>
+                  <span>{user.name.mName}</span>
+                  <span>{user.name.lName}</span>
+                </div>
+                  {/* <span style={{ margin:"auto"}}>{user.UserTitle}{" "}{user.name.fName}{" "}{user.name.mName}{" "}{user.name.lName}</span> */}
+              </Grid>
+              <Grid item sm={8}>
+                <Grid container spacing={2}>
+                  <Grid item sm={6}>
+                    <TextField style={{marginTop:"10px"}} id='outlined-basic' label='email' variant='outlined' value={user.email} />
+                  
+                    <TextField style={{marginTop:"15px"}} label='Message Notification' variant='outlined' value={user.smsNotification} />
+                    <TextField style={{marginTop:"15px"}} label='Refferal Code' variant='outlined' value={user.refercode} />
+                    <TextField style={{marginTop:"15px"}} label='CROP ID' variant='outlined' value={user.cropid} />
+                    <TextField style={{marginTop:"15px"}} label='Tier' variant='outlined' value={user.UserTier} />
+                  </Grid>
+                  <Grid item sm={6}>
+                  <TextField style={{marginTop:"10px"}}  label='Email Notification' variant='outlined' value={user.emailNotification} />
+                    <TextField style={{marginTop:"15px"}} label='Market Notification' variant='outlined' value={user.mktNotification} />
+                    <TextField style={{marginTop:"15px"}} label='Biometric status' variant='outlined' value={user.biometricterms} />
+                    <TextField style={{marginTop:"15px"}} label='Interests' variant='outlined' value={user.interestList?.valueOf()} />
+                    <TextField style={{marginTop:"15px"}} label='CROP ID' variant='outlined' value={user.cropid} />
+                    
+                  </Grid>
+                </Grid>
+              </Grid>
+             
+            </Grid>
+          
+             
+          
+        
+                 
           </Box>
-              </FormControl>
-            </div>
-          </Box>
+          
+
         </Modal>
       </div>
     )
