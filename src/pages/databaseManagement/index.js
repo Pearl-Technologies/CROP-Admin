@@ -369,7 +369,7 @@ const Database = () => {
                     <TableCell>Profile</TableCell>
                     <TableCell>Invoices</TableCell>
                     <TableCell>CROPs</TableCell>
-                    <TableCell>PROP Id</TableCell>
+                    <TableCell>PROPs</TableCell>
                     <TableCell>Audit Report</TableCell>
                   </TableRow>
                 </TableHead>
@@ -427,7 +427,20 @@ const Database = () => {
                           }}
                         />
                       </TableCell>
-                      <TableCell sx={{ cursor: 'pointer' }}>{row.propid}</TableCell>
+                      <TableCell sx={{ cursor: 'pointer' }}>
+                      <Chip
+                          label={row.proppoints}
+                          // color={statusObj[row.status].color}
+                          color={'secondary'}
+                          sx={{
+                            height: 24,
+                            fontSize: '0.75rem',
+                            textTransform: 'capitalize',
+                            '& .MuiChip-label': { fontWeight: 500 },
+                            cursor: 'pointer'
+                          }}
+                        />
+                      </TableCell>
                       <TableCell onClick={() => showCustomerAuditReport(row._id)}>
                         <Chip
                           label={'Audit report'}

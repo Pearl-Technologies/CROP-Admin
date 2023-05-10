@@ -93,7 +93,7 @@ const CropDetails = ({}) => {
   const getAllOrders=()=>{
     setODStatus(true);
     axios
-      .get(`${process.env.HOST}/api/crop_trasaction/getMyCropTrasaction?user=${q}`)
+      .get(`${process.env.HOST}/api/admin/getAllCropTrasactionByAdmin?user=${q}`)
       .then(function (response) {
         // handle success
         // console.log(response);

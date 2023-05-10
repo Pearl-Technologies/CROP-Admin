@@ -52,6 +52,7 @@ const PasswordReset = () => {
   if (typeof window !== 'undefined') {
     // Perform localStorage action
   }
+  
 
   // ** State
   const [values, setValues] = useState({
@@ -89,27 +90,31 @@ const PasswordReset = () => {
   const handleMouseDownPassword = event => {
     event.preventDefault()
   }
+    // Get the query string from the current URL
+const queryString = window.location.search;
+
+// Create a URLSearchParams object from the query string
+const urlParams = new URLSearchParams(queryString);
+
+// Retrieve the value of a specific query parameter
+const email = urlParams.get('email');
+const passkey = urlParams.get('passkey');
   const resetPassword = () => {
+   
     setLoginStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/adminPasswordReset`, values)
+      .post(`${process.env.HOST}/api/admin/adminPasswordReset`, values,   {headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${passkey}`
+      }})
       .then(function (response) {
-        console.log(response)
-        if (response.status === 200) {
           setLoginStatus(false)
           setMessage(response.data)
           router.push('pages/login')
-        } else {
-          console.log('status code change')
-          setLoginStatus(false)
-        }
       })
       .catch(function (error) {
         setLoginStatus(false)
         console.log(error)
-        // console.log(error)
-        // handleClick()
-        // console.log(message);
       })
     setValues({
       password: '',
@@ -117,11 +122,13 @@ const PasswordReset = () => {
       c_password: '',
       showPassword: false
     })
-    handleClick()
+    
   }
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
   })
+
+
   useEffect(() => {
     setValues({ ...values, ['email']: router?.query?.email })
   }, [])

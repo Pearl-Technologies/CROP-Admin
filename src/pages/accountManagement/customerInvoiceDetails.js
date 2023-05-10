@@ -28,7 +28,7 @@ const CustomerInvoiceDetails = ({}) => {
     setInvoiceStatus(true);
     axios
       // .post(`${process.env.HOST}/api/admin/getAllCustomerInvoice`)
-      .get(`${process.env.HOST}/api/crop_trasaction/getMyCropTrasaction?user=${router.query.q}`)
+      .get(`${process.env.HOST}/api/admin/getAllCropTrasactionByAdmin?user=${router.query.q}`)
       .then(function (response) {
         // handle success
         // console.log(response);

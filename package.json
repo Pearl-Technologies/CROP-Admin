@@ -3,7 +3,7 @@
   "description": "crop-admin",
   "license": "MIT",
   "version": "1.0.0",
-  "homepage": "/",
+  "homepage": "/pages/login",
   "private": false,
   "keywords": [
     "react",

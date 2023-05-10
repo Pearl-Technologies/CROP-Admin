@@ -18,8 +18,6 @@ import MuiCard from '@mui/material/Card'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
 import axios from 'axios'
-import Stack from '@mui/material/Stack'
-import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
 // ** Icons Imports
 import Google from 'mdi-material-ui/Google'
@@ -32,7 +30,8 @@ import themeConfig from 'src/configs/themeConfig'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 import LinearProgress from '@mui/material/LinearProgress';
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Card = styled(MuiCard)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: '28rem' }
@@ -60,9 +59,7 @@ const ForgotPassword = () => {
 
   // ** State
   const [values, setValues] = useState({
-    password: '',
-    email:'',
-    showPassword: false
+    email:'',    
   })
   const [open, setOpen] = React.useState(false)
   const [message, setMessage] = React.useState([])
@@ -97,17 +94,19 @@ const ForgotPassword = () => {
     setLoginStatus(true);
     
     axios
-      .post(`${process.env.HOST}/api/admin/passwordRest_email`, values)
-      .then(function (response) {
-        console.log(response)
-        if(response.status === 200){
+      .post(`${process.env.HOST}/api/admin/passwordResetEmail`, values)
+      .then(function (response) {        
           setLoginStatus(false);
-          localStorage.setItem('email', values.email)
-          router.push('pages/passwordReset')
-        }else{
-          console.log("status code change")
-          setLoginStatus(false);
-        }
+          toast.success(error.response.data.msg, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
+          })        
       })
       .catch(function (error) {
         setLoginStatus(false);
@@ -123,13 +122,20 @@ const ForgotPassword = () => {
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
   })
-  useEffect(() => {
-    setValues({ ...values, ['email']: localStorage.getItem('email'), ['password']:localStorage.getItem('password') })
-
-  }, [])
-
   return (
     <Box className='content-center'>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Card sx={{ zIndex: 1 }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(12, 9, 7)} !important` }}>
           <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -168,14 +174,6 @@ const ForgotPassword = () => {
           
           </form>
         </CardContent>
-        <Stack spacing={2} sx={{ width: '100%' }}>
-        
-          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} style={{ border: '1px solid blue' }}>
-            <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
-              {message?.msg}
-            </Alert>
-          </Snackbar>
-        </Stack>
       </Card>
       <FooterIllustrationsV1 />
     </Box>
