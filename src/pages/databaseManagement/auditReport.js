@@ -12,6 +12,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TablePagination from '@mui/material/TablePagination'
 import Spinner from '../databaseManagement/spinner';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios'
 
 const AuditReport = ({}) => {
@@ -106,7 +107,8 @@ const AuditReport = ({}) => {
   return (
     <Grid item xs={12}>
       <Card>
-        <CardHeader title='Customer Update Records' titleTypographyProps={{ variant: 'h6' }} />
+      <span onClick={()=>router.back()}><ArrowBackIcon/></span>
+        <CardHeader title='Customer Audit Records' titleTypographyProps={{ variant: 'h6' }} />
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
           <TableContainer sx={{ maxHeight: 440 }}>
           {adStatus ? <Spinner/>: !myAuditData.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :

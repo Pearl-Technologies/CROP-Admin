@@ -15,6 +15,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import Rating from '@mui/material/Rating';
 import ThumbUp from 'mdi-material-ui/ThumbUp';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const Offers = () => {
   const router = useRouter()
   const { q } = router.query
@@ -39,6 +40,7 @@ const Offers = () => {
   //   }, [])
   return (
     <Card>
+             <span onClick={()=>router.back()}><ArrowBackIcon/></span>
       <TableContainer style={{ height: 600, overflow: 'auto' }}>
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>

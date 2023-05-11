@@ -13,6 +13,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TablePagination from '@mui/material/TablePagination'
 import Spinner from '../databaseManagement/spinner'
 import axios from 'axios'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const CropDetails = ({}) => {
   // const productData = require('../../db/orders_customers.json')
@@ -23,7 +24,7 @@ const CropDetails = ({}) => {
   //   console.log(productData);
   // const myCropData = orderData.filter(data => data.user === q)
   const myCropData = orderData
-  console.log(myCropData)
+
   const columns = [
     { id: 'order id', label: 'Order_Id', minWidth: 170 },
     { id: 'Date', label: 'Date', minWidth: 100 },
@@ -111,43 +112,10 @@ const CropDetails = ({}) => {
   },[q])
 
   return (
-    // <Grid item xs={12}>
-    //   <Card>
-    //     <CardHeader title='Customer Crop Details' titleTypographyProps={{ variant: 'h6' }} />
-    //     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-    //       <TableContainer sx={{ maxHeight: 440 }}>
-    //       {odStatus ? <Spinner/>: !myCropData.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :
-    //         <Table stickyHeader aria-label='sticky table'>
-    //           <TableHead>
-    //             <TableRow>
-    //               {columns.map(column => (
-    //                 <TableCell key={column.id} align={column.align} sx={{ minWidth: column.minWidth }}>
-    //                   {column.label}
-    //                 </TableCell>
-    //               ))}
-    //             </TableRow>
-    //           </TableHead>
-    //           <TableBody>
-    //             {myCropData.map(row => {
-    //               return (
-    //                 <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
-    //                   <TableCell>{row.invoice}</TableCell>
-    //                   <TableCell>{new Date(Date(row.createdAt.$date)).toDateString()}</TableCell>
-    //                   <TableCell style={{textAlign:"right"}}>{row.status}</TableCell>
-    //                   <TableCell style={{textAlign:"right"}}>{row.points}</TableCell>
-    //                   <TableCell style={{textAlign:"right"}}>{row.totalAmount}</TableCell>
-    //                   <TableCell style={{textAlign:"right", cursor:"pointer"}}>invoice</TableCell>
-    //                 </TableRow>
-    //               )
-    //             })}
-    //           </TableBody>
-    //         </Table>}
-    //       </TableContainer>
-    //     </Paper>
-    //   </Card>
-    // </Grid>
         <Grid item xs={12}>
         <Card>
+          <span onClick={()=>router.back()}><ArrowBackIcon/></span>
+        
           <CardHeader title='Customer Crop Details' titleTypographyProps={{ variant: 'h6' }} />
           <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>

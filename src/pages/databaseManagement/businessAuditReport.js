@@ -12,6 +12,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import Spinner from '../databaseManagement/spinner';
 import axios from 'axios'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const BusinessAuditReport = ({}) => {
   const router = useRouter()
@@ -53,6 +54,7 @@ const BusinessAuditReport = ({}) => {
   return (
     <Grid item xs={12}>
       <Card>
+      <span onClick={()=>router.back()}><ArrowBackIcon/></span>
         <CardHeader title='Business Audit Records' titleTypographyProps={{ variant: 'h6' }} />
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
           <TableContainer sx={{ maxHeight: 440 }}>

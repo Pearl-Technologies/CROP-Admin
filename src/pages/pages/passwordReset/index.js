@@ -91,14 +91,16 @@ const PasswordReset = () => {
     event.preventDefault()
   }
     // Get the query string from the current URL
-const queryString = window.location.search;
+// const queryString = window.location.search;
 
 // Create a URLSearchParams object from the query string
-const urlParams = new URLSearchParams(queryString);
+// const urlParams = new URLSearchParams(queryString);
 
 // Retrieve the value of a specific query parameter
-const email = urlParams.get('email');
-const passkey = urlParams.get('passkey');
+// const email = urlParams.get('email');
+// const passkey = urlParams.get('passkey');
+let email = "";
+let passkey="";
   const resetPassword = () => {
    
     setLoginStatus(true)
@@ -128,9 +130,10 @@ const passkey = urlParams.get('passkey');
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
   })
 
-
   useEffect(() => {
     setValues({ ...values, ['email']: router?.query?.email })
+    email = router?.query?.email
+    passkey= router?.query?.passkey
   }, [])
   return (
     <Box className='content-center'>

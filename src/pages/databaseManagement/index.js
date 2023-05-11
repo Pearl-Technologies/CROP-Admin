@@ -19,8 +19,12 @@ import Input from '@mui/material/Input'
 import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField'
 import Eye from 'mdi-material-ui/Eye'
+import ViewTimelineIcon from '@mui/icons-material/ViewTimeline';
+import Close from 'mdi-material-ui/Close'
+import ArrowBottomLeft from 'mdi-material-ui/ArrowBottomLeft'
 import { useRouter } from 'next/router'
 import Spinner from './spinner'
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -128,7 +132,9 @@ const Database = () => {
   const [bdStatus, setBDStatus] = useState(false)
   const showCustomerCrop = x => {
     router.push(`/accountManagement/cropDetails?q=${x}`)
-    // return<CropDetails id={x}/>
+  }
+  const showCustomerProp = x => {
+    router.push(`/accountManagement/propDetails?q=${x}`)
   }
   const showCustomerAuditReport = x => {
     router.push(`/databaseManagement/auditReport?q=${x}`)
@@ -164,7 +170,7 @@ const Database = () => {
     return (
       <div>
         <Button onClick={handleOpen}>
-          <Eye />
+          <ViewTimelineIcon />
         </Button>
         <Modal
           open={open}
@@ -173,6 +179,9 @@ const Database = () => {
           aria-describedby='modal-modal-description'
         >
           <Box sx={style}>
+          <Button onClick={handleClose}>
+          <Close />
+        </Button>
           <h2 style={{textAlign:"center"}}>Profile Details</h2>
             <Grid container spacing={2}>
               <Grid item sm={4} style={{alignItems:"center",alignContent:"center",textAlign:"center"}}>
@@ -262,7 +271,7 @@ const Database = () => {
     return (
       <div>
         <Button onClick={handleOpen}>
-          <Eye />
+          <ViewTimelineIcon />
         </Button>
         <Modal
           open={open}
@@ -272,6 +281,9 @@ const Database = () => {
         >
          
         <Box sx={style}>
+        <Button onClick={handleClose}>
+          <Close />
+        </Button>
             <h2 style={{textAlign:"center"}}>Profile Details</h2>
             <Grid container spacing={2}>
               <Grid item sm={4} style={{alignItems:"center",alignContent:"center",textAlign:"center"}}>
@@ -280,10 +292,10 @@ const Database = () => {
                   src='https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
                 />
                 <div>
-                  <span>{user.UserTitle}</span>
-                  <span>{user.name.fName}</span>
-                  <span>{user.name.mName}</span>
-                  <span>{user.name.lName}</span>
+                  <span>{user.UserTitle}{" "}</span>
+                  <span>{user.name.fName}{" "}</span>
+                  <span>{user.name.mName}{" "}</span>
+                  <span>{user.name.lName}{" "}</span>
                 </div>
                   {/* <span style={{ margin:"auto"}}>{user.UserTitle}{" "}{user.name.fName}{" "}{user.name.mName}{" "}{user.name.lName}</span> */}
               </Grid>
@@ -306,11 +318,8 @@ const Database = () => {
                     
                   </Grid>
                 </Grid>
-              </Grid>
-             
-            </Grid>
-          
-             
+              </Grid>             
+            </Grid>        
           
         
                  
@@ -411,7 +420,7 @@ const Database = () => {
                         <CustomerModal user={row} />
                       </TableCell>
                       <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerInvoice(row._id)}>
-                        {'invoices'}
+                        <ReceiptLongIcon/>
                       </TableCell>
                       <TableCell onClick={() => showCustomerCrop(row._id)}>
                         <Chip
@@ -427,7 +436,7 @@ const Database = () => {
                           }}
                         />
                       </TableCell>
-                      <TableCell sx={{ cursor: 'pointer' }}>
+                      <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerProp(row._id)}>
                       <Chip
                           label={row.proppoints}
                           // color={statusObj[row.status].color}
@@ -521,8 +530,8 @@ const Database = () => {
                       <TableCell>
                         <BusinessModal user={row} />
                       </TableCell>
-                      <TableCell onClick={() => showBusinessInvoice(row._id)} sx={{ cursor: 'pointer' }}>
-                        {'invoices'}
+                      <TableCell  onClick={() => showBusinessInvoice(row._id)} sx={{ cursor: 'pointer'}}>
+                        <ReceiptLongIcon/>
                       </TableCell>
                       <TableCell>{row.croppoint}</TableCell>
                       <TableCell>

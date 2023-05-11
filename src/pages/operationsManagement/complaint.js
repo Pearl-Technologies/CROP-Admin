@@ -11,6 +11,8 @@ import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
 import CardMedia from '@mui/material/CardMedia'
 import axios from 'axios'
+import IconButton from '@mui/material/IconButton'
+import CardHeader from '@mui/material/CardHeader'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import Modal from '@mui/material/Modal'
@@ -209,7 +211,7 @@ const Complaint = () => {
     }
     return (
       <div>
-        <Button onClick={handleOpen}>{data.complainNumber}</Button>
+        <Button onClick={handleOpen}>{data.complainNumber.toLocaleString('en-US', { maximumFractionDigits: 0, maximumSignificantDigits: 7 }).slice(0, 7)}</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -302,7 +304,7 @@ const Complaint = () => {
     }
     return (
       <div>
-        <Button onClick={handleOpen}>{data.complainNumber}</Button>
+        <Button onClick={handleOpen}>{data.complainNumber.toLocaleString('en-US', { maximumFractionDigits: 0, maximumSignificantDigits: 7 }).slice(0, 7)}</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -363,30 +365,33 @@ const Complaint = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Card>
-          <h4 style={{ marginLeft: '20px' }}>Customer Complaint</h4>
-          <ToastContainer
-            position='top-right'
-            autoClose={5000}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            rtl={true}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme='colored'
+      <Card>
+          <CardHeader
+            title='Customer Complaint'
+            titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
+            action={
+              <IconButton
+                size='small'
+                aria-label='settings'
+                className='card-more-options'
+                sx={{ color: 'text.secondary' }}
+              >
+                {/* <DotsVertical /> */}
+              </IconButton>
+            }
           />
-          <TableContainer sx={{ height: 400 }}>
-            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+      
+           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
+            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
               <TableHead>
-                <TableRow>
+              
+              <TableRow>
                   <TableCell>Number</TableCell>
                   <TableCell>Date</TableCell>
-                  <TableCell>Description</TableCell>
-                  <TableCell>Exp Outcoms</TableCell>
+                  <TableCell title="DESCRIPTION">DESC</TableCell>
+                  <TableCell  title="Expectation Outcomes">Exp OC</TableCell>
                   <TableCell>Type</TableCell>
-                  <TableCell>Preferred Contact Medium</TableCell>
+                  <TableCell  title="Preferred Contact Medium">PCM</TableCell>
                   <TableCell>Modified</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Response</TableCell>
@@ -407,13 +412,13 @@ const Complaint = () => {
                         </Typography>
                       </Box>
                     </TableCell>
-                    <TableCell>{new Date(Date(row.createdAt)).toDateString()}</TableCell>
+                    <TableCell>{new Date(Date(row.createdAt)).toLocaleDateString()}</TableCell>
                     <TableCell>{row.description}</TableCell>
                     <TableCell>{row.expectedOutcoms}</TableCell>
                     <TableCell>{row.complainType}</TableCell>
                     <TableCell>{row.preferredMediumContact}</TableCell>
 
-                    <TableCell>{new Date(Date(row.complainUpdateDate)).toDateString()}</TableCell>
+                    <TableCell>{new Date(Date(row.complainUpdateDate)).toLocaleDateString()}</TableCell>
                     <TableCell>{row.complainStatus}</TableCell>
                     <TableCell>{row.complainResponse}</TableCell>
                   </TableRow>
@@ -421,22 +426,38 @@ const Complaint = () => {
               </TableBody>
             </Table>
           </TableContainer>
+        
         </Card>
       </Grid>
       <Grid item xs={12}>
-        <Card>
-          <TableContainer>
-            <h3 style={{ marginLeft: '20px' }}>Business Complaint</h3>
-            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+      <Card>
+          <CardHeader
+            title='Business Complaint'
+            titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
+            action={
+              <IconButton
+                size='small'
+                aria-label='settings'
+                className='card-more-options'
+                sx={{ color: 'text.secondary' }}
+              >
+                {/* <DotsVertical /> */}
+              </IconButton>
+            }
+          />
+      
+           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
+            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
               <TableHead>
-                <TableRow>
+              
+              <TableRow>
                   <TableCell>Number</TableCell>
                   <TableCell>Date</TableCell>
-                  <TableCell>Description</TableCell>
-                  <TableCell>Exp Outcoms</TableCell>
+                  <TableCell title="DESCRIPTION">DESC</TableCell>
+                  <TableCell  title="Expectation Outcomes">Exp OC</TableCell>
                   <TableCell>Type</TableCell>
-                  <TableCell>Pre Contact Medium</TableCell>
-                  <TableCell>Date</TableCell>
+                  <TableCell  title="Preferred Contact Medium">PCM</TableCell>
+                  <TableCell>Modified</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Response</TableCell>
                 </TableRow>
@@ -458,12 +479,12 @@ const Complaint = () => {
                         {/* <Typography variant='caption'>{row.designation}</Typography> */}
                       </Box>
                     </TableCell>
-                    <TableCell>{new Date(Date(row.createdAt)).toDateString()}</TableCell>
+                    <TableCell>{new Date(Date(row.createdAt)).toLocaleDateString()}</TableCell>
                     <TableCell>{row.description}</TableCell>
                     <TableCell>{row.expectedOutcoms}</TableCell>
                     <TableCell>{row.complainType}</TableCell>
                     <TableCell>{row.preferredMediumContact}</TableCell>
-                    <TableCell>{new Date(Date(row.complainUpdateDate)).toDateString()}</TableCell>
+                    <TableCell>{new Date(Date(row.complainUpdateDate)).toLocaleDateString()}</TableCell>
                     <TableCell>{row.complainStatus}</TableCell>
                     <TableCell>{row.complainResponse}</TableCell>
                   </TableRow>
@@ -471,6 +492,7 @@ const Complaint = () => {
               </TableBody>
             </Table>
           </TableContainer>
+        
         </Card>
       </Grid>
     </Grid>

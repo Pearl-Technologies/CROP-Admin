@@ -12,6 +12,9 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TablePagination from '@mui/material/TablePagination'
 import Spinner from '../databaseManagement/spinner'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import axios from 'axios'
 
 const CustomerInvoiceDetails = ({}) => {
@@ -50,6 +53,7 @@ const CustomerInvoiceDetails = ({}) => {
   return (
         <Grid item xs={12}>
         <Card>
+        <span onClick={()=>router.back()}><ArrowBackIcon/></span>
           <CardHeader title='Customer invoice Details' titleTypographyProps={{ variant: 'h6' }} />
           <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
@@ -60,8 +64,8 @@ const CustomerInvoiceDetails = ({}) => {
                       <TableCell> Date</TableCell>
                       <TableCell> Amount</TableCell>
                       <TableCell> CROPs</TableCell>
-                      <TableCell> Invoice View</TableCell>
-                      <TableCell> invoice</TableCell>
+                      <TableCell> View</TableCell>
+                      <TableCell> Download</TableCell>
                                             
                   </TableRow>
                 </TableHead>
@@ -72,8 +76,8 @@ const CustomerInvoiceDetails = ({}) => {
                         <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
                         <TableCell>{row.amount}</TableCell>
                         <TableCell>{row.crop.toFixed(2)}</TableCell>
-                        <TableCell><a href={row.pt.invoice_url}>View Invoice</a></TableCell>
-                        <TableCell><a href={row.pt.invoice_pdf}>Download</a></TableCell>
+                        <TableCell><a href={row.pt.invoice_url}><ReceiptLongIcon/></a></TableCell>
+                        <TableCell><a href={row.pt.invoice_pdf}><FileDownloadIcon/></a></TableCell>
                       </TableRow>
                     )
                   })}

@@ -13,7 +13,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TablePagination from '@mui/material/TablePagination'
 import Spinner from '../databaseManagement/spinner'
 import axios from 'axios'
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const PropDetails = ({}) => {
   // const productData = require('../../db/orders_customers.json')
   const [orderData, setOrderData] = useState([]);
@@ -21,8 +21,8 @@ const PropDetails = ({}) => {
   const router = useRouter()
   const { q } = router.query
   //   console.log(productData);
-  const myCropData = orderData.filter(data => data.user === q)
-  console.log(myCropData)
+  // const myCropData = orderData.filter(data => data.user === q)
+  // console.log(myCropData)
   
   function createData(name, code, population, size) {
     const density = population / size
@@ -62,27 +62,28 @@ const PropDetails = ({}) => {
   const getAllOrders=()=>{
     setODStatus(true);
     axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomerProp`)
-      .then(function (response) {
-        // handle success
-        // console.log(response);
-        setOrderData(response.data.propDetails)
-        setODStatus(false)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
-        setODStatus(false)
-      })
+    .get(`${process.env.HOST}/api/crop_trasaction/getMyPropTrasaction?user=${q}`)
+    .then(function (response) {
+      // handle success
+      // console.log(response);
+      setOrderData(response.data.trasactionDetails)
+      setODStatus(false)
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error)
+      setODStatus(false)
+    })
   }
   useEffect(()=>{
     getAllOrders()
-  },[])
-
+  },[q])
+  const myCropData = orderData
   return (
           <Grid item xs={12}>
         <Card>
-          <CardHeader title='Customer Crop Details' titleTypographyProps={{ variant: 'h6' }} />
+        <span onClick={()=>router.back()}><ArrowBackIcon/></span>
+          <CardHeader title='Customer PROPs Details' titleTypographyProps={{ variant: 'h6' }} />
           <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
             {odStatus ? <Spinner/>: !myCropData.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :
@@ -99,10 +100,10 @@ const PropDetails = ({}) => {
                   {myCropData.map(row => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
-                        <TableCell>{new Date(row.date).toLocaleDateString()}</TableCell>
+                        <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
                         <TableCell>{row.description}</TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row.debit}</TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row.credit}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{row.transactionType=="debit"? row.prop:""}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{row.transactionType=="credit"? row.prop:""}</TableCell>
                       </TableRow>
                     )
                   })}

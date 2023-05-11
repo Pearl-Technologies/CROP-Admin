@@ -13,6 +13,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TablePagination from '@mui/material/TablePagination'
 import Spinner from '../databaseManagement/spinner'
 import axios from 'axios'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const businessCropDetails = ({}) => {
   // const productData = require('../../db/orders_customers.json')
@@ -66,7 +67,8 @@ const businessCropDetails = ({}) => {
   return (
           <Grid item xs={12}>
         <Card>
-          <CardHeader title='Customer Crop Details' titleTypographyProps={{ variant: 'h6' }} />
+        <span onClick={()=>router.back()}><ArrowBackIcon/></span>
+          <CardHeader title='Business Crop Details' titleTypographyProps={{ variant: 'h6' }} />
           <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
             {odStatus ? <Spinner/>: !myCropData.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :

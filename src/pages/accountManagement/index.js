@@ -217,11 +217,11 @@ const AccountManagement = () => {
   }
 
   return (
-    <Grid container spacing={2} xs={10} margin={'auto'}>
-      <Grid item xs={12}>
+    <Grid container spacing={2}>
+      <Grid item sm={12}>
         <Card>
           <CardHeader
-            title='Customer Crops'
+            title='Customer CROPs'
             titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
             action={
               <IconButton
@@ -234,107 +234,38 @@ const AccountManagement = () => {
               </IconButton>
             }
           />
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              padding: '22px'
-            }}
-          >
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
-            >
-              <Box width='100px'>
-                <Typography variant='body2' sx={{ mb: 0.5, mr: 5, fontWeight: 600, color: 'text.primary' }}>
-                  CROP_ID
-                </Typography>
-              </Box>
-              <Box>
-                <Typography variant='body2' sx={{ mb: 0.5, fontWeight: 600, color: 'text.primary', cursor: 'pointer' }}>
-                  Customer Name
-                </Typography>
-              </Box>
-
-              <Box sx={{ minWidth: 85, display: 'flex', flexDirection: 'column' }}>
-                <Typography variant='body2' sx={{ mb: 2, fontWeight: 600, color: 'text.primary', cursor: 'pointer' }}>
-                  {'CROP'}
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-          <CardContent sx={{ pt: theme => `${theme.spacing(2.25)} !important`, height: '300px', overflow: 'auto' }}>
-            {customerCropData.map((item, index) => {
+           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
+            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
+              <TableHead>
+              
+                <TableRow>
+                  <TableCell>CROP_ID</TableCell>
+                  <TableCell>Customer Name</TableCell>
+                  <TableCell>{'CROP'}</TableCell>
+            
+                </TableRow>
+              </TableHead>
+              <TableBody>
+              {customerCropData.map((item, index) => {
               return (
-                <Box
-                  key={'customerCropBalance' + item.cropid}
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    ...(index !== item.length - 1 ? { mb: 8.5 } : {})
-                  }}
-                >
-                  <Avatar
-                    variant='rounded'
-                    sx={{
-                      mr: 3,
-                      width: 40,
-                      height: 40,
-                      // backgroundColor: theme => `rgba(${theme.palette.customColors.main}, 0.04)`
-                    }}
-                  >
-                    {/* <img src={item.imgSrc} alt={item.title} height={item.imgHeight} /> */}
-                  </Avatar>
-                  <Box
-                    sx={{
-                      width: '100%',
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      alignItems: 'center',
-                      justifyContent: 'space-between'
-                    }}                    
-                  >
-                    <Box width='100px'>
-                      <Typography variant='body2' sx={{ mb: 0.5, mr: 5, fontWeight: 600, color: 'text.primary' }}>
-                        {item.cropid}
-                      </Typography>
-                    </Box>
-                    <Box component="span" sx={{width: 200 }}>
-                      <Typography
-                        variant='body2'
-                        sx={{ mb: 0.5, fontWeight: 600, color: 'text.primary', cursor: 'pointer'}}
-                        onClick={() => showCustomerCrop(item._id)}
-                      >
-                        {item?.name?.fName??" "}{" "}{item?.name?.mName??" "}{" "}{item?.name?.lName??" "}
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ minWidth: 85, display: 'flex', flexDirection: 'column' }}>
-                      <Typography
-                        variant='body2'
-                        sx={{ mb: 2, fontWeight: 600, color: 'text.primary', cursor: 'pointer' }}
-                        onClick={() => showCustomerCrop(item._id)}
-                      >
-                        <img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoints.toFixed(2)}
-                      </Typography>
-                      <LinearProgress color={item.color} value={item.progress} variant='determinate' />
-                    </Box>
-                  </Box>
-                </Box>
-              )
-            })}
-          </CardContent>
+               
+                    <TableRow hover  sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                      <TableCell ><p style={{display:"flex",alignItems:"center",marginLeft:"10px"}}><Avatar variant='rounded'></Avatar>{item.cropid}</p></TableCell>
+                      <TableCell sx={{cursor:'pointer'}} onClick={() => showCustomerCrop(item._id)}>{item?.name?.fName??" "}{" "}{item?.name?.mName??" "}{" "}{item?.name?.lName??" "}</TableCell>
+                      <TableCell sx={{cursor:'pointer'}} onClick={() => showCustomerCrop(item._id)}><img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoints.toFixed(2)}
+                      <LinearProgress color={item.color} value={item.progress} variant='determinate' style={{width:"80px"}}/></TableCell>
+                    </TableRow>
+                )}
+                  )}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Card>
       </Grid>
       <Grid item xs={12}>
-        <Card>
+      <Card>
           <CardHeader
-            title='Customer Props'
+            title='Customer PROPs'
             titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
             action={
               <IconButton
@@ -347,108 +278,38 @@ const AccountManagement = () => {
               </IconButton>
             }
           />
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              padding: '22px'
-            }}
-          >
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
-            >
-              <Box width='100px'>
-                <Typography variant='body2' sx={{ mb: 0.5, mr: 5, fontWeight: 600, color: 'text.primary' }}>
-                  CROP_ID
-                </Typography>
-              </Box>
-              <Box>
-                <Typography variant='body2' sx={{ mb: 0.5, fontWeight: 600, color: 'text.primary', cursor: 'pointer' }}>
-                  Customer Name
-                </Typography>
-              </Box>
-
-              <Box sx={{ minWidth: 85, display: 'flex', flexDirection: 'column' }}>
-                <Typography variant='body2' sx={{ mb: 2, fontWeight: 600, color: 'text.primary', cursor: 'pointer' }}>
-                  {'PROP'}
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-          <CardContent sx={{ pt: theme => `${theme.spacing(2.25)} !important`, height: '300px', overflow: 'auto' }}>
-            {customerCropData.map((item, index) => {
+           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
+            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
+              <TableHead>
+              
+                <TableRow>
+                  <TableCell>CROP_ID</TableCell>
+                  <TableCell>Customer Name</TableCell>
+                  <TableCell>{'PROP'}</TableCell>
+            
+                </TableRow>
+              </TableHead>
+              <TableBody>
+              {customerCropData.map((item, index) => {
               return (
-                <Grid item xs={12} sx={{ gap: '2px' }}>
-                  <Box
-                    key={'customerPropBalance' + item._id}
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      ...(index !== item.length - 1 ? { mb: 8.5 } : {})
-                    }}
-                  >
-                    <Avatar
-                      variant='rounded'
-                      sx={{
-                        mr: 3,
-                        width: 40,
-                        height: 40,
-                        // backgroundColor: theme => `rgba(${theme.palette.customColors.main}, 0.04)`
-                      }}
-                    >
-                      {/* <img src={item.imgSrc} alt={item.title} height={item.imgHeight} /> */}
-                    </Avatar>
-                    <Box
-                      sx={{
-                        width: '100%',
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                      }}
-                    >
-                      <Box>
-                        <Typography variant='body2' sx={{ mb: 0.5, mr: 5, fontWeight: 600, color: 'text.primary' }}>
-                          {item.cropid}
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography
-                          variant='body2'
-                          sx={{ mb: 0.5, fontWeight: 600, color: 'text.primary' }}
-                          onClick={() => showCustomerProp(item._id)}
-                        >
-                          {item?.name?.fName??" "}{" "}{item?.name?.mName??" "}{" "}{item?.name?.lName??" "}
-                        </Typography>
-                      </Box>
-
-                      <Box sx={{ minWidth: 85, display: 'flex', flexDirection: 'column' }}>
-                        <Typography variant='body2' sx={{ mb: 2, fontWeight: 600, color: 'text.primary' }}>
-                          {item?.proppoints}
-                        </Typography>
-                        <LinearProgress color={item.color} value={item.progress} variant='determinate' />
-                      </Box>
-                    </Box>
-                  </Box>
-                  {/* {Boolean(customerPropData.filter(x => x.user === item.user).length) &&
-                        <TransactionDetails item={item} data={customerPropData} />
-                      } */}
-                </Grid>
-              )
-            })}
-          </CardContent>
+               
+                    <TableRow hover  sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                      <TableCell ><p style={{display:"flex",alignItems:"center",marginLeft:"10px"}}><Avatar variant='rounded'></Avatar>{item.cropid}</p></TableCell>
+                      <TableCell sx={{cursor:'pointer'}} onClick={() => showCustomerProp(item._id)}>{item?.name?.fName??" "}{" "}{item?.name?.mName??" "}{" "}{item?.name?.lName??" "}</TableCell>
+                      <TableCell sx={{cursor:'pointer'}} onClick={() => showCustomerProp(item._id)}><img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.proppoints.toFixed(2)}
+                      <LinearProgress color={item.color} value={item.progress} variant='determinate' style={{width:"80px"}}/></TableCell>
+                    </TableRow>
+                )}
+                  )}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Card>
       </Grid>
       <Grid item xs={12}>
-        <Card>
+      <Card>
           <CardHeader
-            title='Business Crops'
+            title='Business CROPs'
             titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
             action={
               <IconButton
@@ -461,137 +322,67 @@ const AccountManagement = () => {
               </IconButton>
             }
           />
-                <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              padding: '22px'
-            }}
-          >
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
-            >
-              <Box width='100px'>
-                <Typography variant='body2' sx={{ mb: 0.5, mr: 5, fontWeight: 600, color: 'text.primary' }}>
-                  CROP_ID
-                </Typography>
-              </Box>
-              <Box>
-                <Typography variant='body2' sx={{ mb: 0.5, fontWeight: 600, color: 'text.primary', cursor: 'pointer' }}>
-                  Business Name
-                </Typography>
-              </Box>
-
-              <Box sx={{ minWidth: 85, display: 'flex', flexDirection: 'column' }}>
-                <Typography variant='body2' sx={{ mb: 2, fontWeight: 600, color: 'text.primary', cursor: 'pointer' }}>
-                  {'CROP'}
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-          <CardContent sx={{ pt: theme => `${theme.spacing(2.25)} !important`, height: '300px', overflow: 'auto' }}>
-            {businessCropData.map((item, index) => {
+           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
+           <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
+              <TableHead>
+              
+                <TableRow>
+                  <TableCell>CROP_ID</TableCell>
+                  <TableCell>Business Name</TableCell>
+                  <TableCell>{'CROP'}</TableCell>
+            
+                </TableRow>
+              </TableHead>
+              <TableBody>
+              {businessCropData.map((item, index) => {
               return (
-                <>
-                  <Box
-                    key={'businessCrop' + item._id}
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      ...(index !== item.length - 1 ? { mb: 8.5 } : {})
-                    }}
-                  >
-                    <Avatar
-                      variant='rounded'
-                      sx={{
-                        mr: 3,
-                        width: 40,
-                        height: 40,
-                        // backgroundColor: theme => `rgba(${theme.palette.customColors.main}, 0.04)`
-                      }}
-                    >
-                      {/* <img src={item.imgSrc} alt={item.title} height={item.imgHeight} /> */}
-                    </Avatar>
-                    <Box
-                      sx={{
-                        width: '100%',
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                      }}
-                    >
-                      <Box sx={{ marginRight: 2, display: 'flex', flexDirection: 'column' }}>
-                        <Typography
-                          variant='body2'
-                          sx={{ mb: 0.5, fontWeight: 600, color: 'text.primary', cursor: 'pointer' }}
-                          onClick={() => showBusinessCrop(item._id)}
-                        >
-                          {item.cropId}
-                        </Typography>                      
-                      </Box>
-                      <Box sx={{ marginRight: 2, display: 'flex', flexDirection: 'column' }}>
-                        <Typography
-                          variant='body2'
-                          sx={{ mb: 0.5, fontWeight: 600, color: 'text.primary', cursor: 'pointer' }}
-                          onClick={() => showBusinessCrop(item._id)}
-                        >
-                          {item.businessName}
-                        </Typography>                      
-                      </Box>
-
-                      <Box sx={{ minWidth: 85, display: 'flex', flexDirection: 'column' }}>
-                        <Typography
-                          variant='body2'
-                          sx={{ mb: 2, fontWeight: 600, color: 'text.primary', cursor: 'pointer' }}
-                          onClick={() => showBusinessCrop(item._id)}
-                        >
-                          <img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoint}
-                        </Typography>
-                        <LinearProgress color={item.color} value={item.progress} variant='determinate' />
-                      </Box>
-                    </Box>
-                  </Box>
-                  {/* {Boolean(businessCropData.filter(x => x.user === item.user).length) && (
-                    <TransactionDetails item={item} data={businessCropData} />
-                  )} */}
-                </>
-              )
-            })}
-          </CardContent>
+               
+                    <TableRow hover  sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                      <TableCell ><p style={{display:"flex",alignItems:"center",marginLeft:"10px"}}><Avatar variant='rounded'></Avatar>{item.cropId}</p></TableCell>
+                      <TableCell  sx={{cursor:'pointer'}} onClick={() => showBusinessCrop(item._id)}>  {item.businessName}</TableCell>
+                      <TableCell  sx={{cursor:'pointer'}} onClick={() => showBusinessCrop(item._id)}><img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoint}
+                      <LinearProgress color={item.color} value={item.progress} variant='determinate' style={{width:"80px"}}/></TableCell>
+                    </TableRow>
+                )}
+                  )}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Card>
       </Grid>
       <Grid item xs={12}>
-        <Card>
-          <TableContainer sx={{ height: 400 }}>
-            <h4 style={{ marginLeft: '20px' }}>Customer Invoices</h4>
-            {cdStatus ? (
-              <Spinner />
-            ) : !customerData.length ? (
-              <h6 style={{ textAlign: 'center' }}>Data not found</h6>
-            ) : (
-              <Table stickyHeader aria-label='table in dashboard'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Customer Name</TableCell>
-
-                    <TableCell>Invoices</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {customerData.map(row => (
-                    <TableRow
-                      hover
-                      key={'customer' + row._id}
-                      sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
-                    >
-                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+      <Card>
+          <CardHeader
+            title='Customer Invoices'
+            titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
+            action={
+              <IconButton
+                size='small'
+                aria-label='settings'
+                className='card-more-options'
+                sx={{ color: 'text.secondary' }}
+              >
+                {/* <DotsVertical /> */}
+              </IconButton>
+            }
+          />
+           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
+           <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
+              <TableHead>
+              
+                <TableRow>
+                  <TableCell>Customer Name</TableCell>
+                  <TableCell>Invoices</TableCell>
+                
+            
+                </TableRow>
+              </TableHead>
+              <TableBody>
+              {customerData.map(row => (
+               
+                    <TableRow hover    key={'customer' + row._id}  sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                     
+                     <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                           <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
                             {row.name.fName} {row.name.mName} {row.name.lName}{' '}
@@ -599,43 +390,48 @@ const AccountManagement = () => {
                         </Box>
                       </TableCell>
 
-                      <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerInvoice(row._id)}>
-                        {'invoices'}
-                      </TableCell>
+                      <TableCell  sx={{cursor:'pointer'}} onClick={() => showCustomerInvoice(row._id)}>  {'invoices'}</TableCell>
+                    
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
+                ))}
+              </TableBody>
+            </Table>
           </TableContainer>
         </Card>
       </Grid>
       <Grid item xs={12}>
-        <Card>
-          <TableContainer sx={{ height: 400 }}>
-            <h3 style={{ marginLeft: '20px' }}>Business Invoices</h3>
-            {bdStatus ? (
-              <Spinner />
-            ) : !businessData.length ? (
-              <h6 style={{ textAlign: 'center' }}>Data not found</h6>
-            ) : (
-              <Table stickyHeader aria-label='table in dashboard'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Business Name</TableCell>
-
-                    <TableCell>Invoices</TableCell>
-                  </TableRow>
-                </TableHead>
-
-                <TableBody>
-                  {businessData.map(row => (
-                    <TableRow
-                      hover
-                      key={'business' + row._id}
-                      sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
-                    >
-                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+      <Card>
+          <CardHeader
+            title='Business Invoices'
+            titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
+            action={
+              <IconButton
+                size='small'
+                aria-label='settings'
+                className='card-more-options'
+                sx={{ color: 'text.secondary' }}
+              >
+                {/* <DotsVertical /> */}
+              </IconButton>
+            }
+          />
+           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
+           <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
+              <TableHead>
+              
+                <TableRow>
+                  <TableCell>Business Name</TableCell>
+                  <TableCell>Invoices</TableCell>
+                
+            
+                </TableRow>
+              </TableHead>
+              <TableBody>
+              {businessData.map(row => (
+               
+                    <TableRow hover    key={'business' + row._id}  sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                     
+                     <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                           <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
                             {row?.businessName}
@@ -644,14 +440,13 @@ const AccountManagement = () => {
                           <Typography variant='caption'>{row.designation}</Typography>
                         </Box>
                       </TableCell>
-                      <TableCell sx={{ cursor: 'pointer' }} onClick={() => showBusinessInvoice(row._id)}>
-                        {'invoices'}
-                      </TableCell>
+
+                      <TableCell  sx={{cursor:'pointer'}} onClick={() => showBusinessInvoice(row._id)}>  {'invoices'}</TableCell>
+                    
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
+                ))}
+              </TableBody>
+            </Table>
           </TableContainer>
         </Card>
       </Grid>
