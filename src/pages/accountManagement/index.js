@@ -25,6 +25,7 @@ import CropDetails from './cropDetails'
 import Spinner from '../databaseManagement/spinner'
 import DotsVertical from 'mdi-material-ui/DotsVertical'
 import { useRouter } from 'next/router'
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 
 const AccountManagement = () => {
   const router = useRouter()
@@ -390,7 +391,7 @@ const AccountManagement = () => {
                         </Box>
                       </TableCell>
 
-                      <TableCell  sx={{cursor:'pointer'}} onClick={() => showCustomerInvoice(row._id)}>  {'invoices'}</TableCell>
+                      <TableCell  sx={{cursor:'pointer'}} onClick={() => showCustomerInvoice(row._id)}>  <ReceiptLongIcon/></TableCell>
                     
                     </TableRow>
                 ))}
@@ -441,7 +442,7 @@ const AccountManagement = () => {
                         </Box>
                       </TableCell>
 
-                      <TableCell  sx={{cursor:'pointer'}} onClick={() => showBusinessInvoice(row._id)}>  {'invoices'}</TableCell>
+                      <TableCell  sx={{cursor:'pointer'}} onClick={() => showBusinessInvoice(row._id)}>  <ReceiptLongIcon/></TableCell>
                     
                     </TableRow>
                 ))}

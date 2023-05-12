@@ -148,7 +148,6 @@ const PayToCustomer = () => {
                     <TableCell>Tier</TableCell>
                     <TableCell>Tier Changed Date</TableCell>
                     <TableCell>CROPs</TableCell>
-                    <TableCell>Action</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -173,7 +172,6 @@ const PayToCustomer = () => {
                       <TableCell>{row.UserTier}</TableCell>
                       <TableCell>{new Date(row.TierChangeDate).toLocaleDateString()}</TableCell>
                       <TableCell>{row.total}</TableCell>
-                      <TableCell>Pay</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -202,130 +200,7 @@ const PayToCustomer = () => {
                   {businessData.map((row, x) => {
                     let value_pay_to_business = 0
                     return (
-                      <TreeView id={row._id} data={row}/>
-                      // <TableRow key={'business' + row._id}>
-                      //   <Accordion expanded={expanded === `pannel${x}`} onChange={handleChange(`pannel${x}`, row._id)}>
-                      //     <AccordionSummary
-                      //       expandIcon={<ExpandMoreIcon />}
-                      //       aria-controls='panel1bh-content'
-                      //       id='panel1bh-header'
-                      //     >
-                      //       <Typography sx={{ width: '33%', flexShrink: 0 }}>{row.businessName}</Typography>
-                      //       {/* <Typography sx={{ color: 'text.secondary' }}>{result}</Typography> */}
-                      //     </AccordionSummary>
-                      //     <AccordionDetails>
-                      //       <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
-                      //         <TableHead>
-                      //           <TableRow>
-                      //             <TableCell>Date</TableCell>
-                      //             <TableCell>Title</TableCell>
-                      //             {/* <TableCell>Txn Id</TableCell> */}
-                      //             <TableCell>Price</TableCell>
-                      //             <TableCell>CROP</TableCell>
-                      //             <TableCell>Quantity</TableCell>
-                      //             <TableCell>Total CROP</TableCell>
-                      //             <TableCell>Total</TableCell>
-                      //             <TableCell>CROPs Values</TableCell>
-                      //             <TableCell>Crop Retaintion %5</TableCell>
-                      //             <TableCell>ToPay</TableCell>
-                      //           </TableRow>
-                      //         </TableHead>
-                      //         <TableBody>
-                      //           {soleData.map((data, i) => {
-                      //             value_pay_to_business =
-                      //               data.item.price * data.item.cartQuantity -
-                      //               ((data.item.price * data.item.cartQuantity -
-                      //                 data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1) *
-                      //                 5) /
-                      //                 100 +
-                      //               value_pay_to_business
-                      //             return (
-                      //               <TableRow key={'dorder' + i}>
-                      //                 <TableCell>
-                      //                   <Typography>{new Date(data.createdAt).toLocaleDateString()}</Typography>
-                      //                 </TableCell>
-                      //                 <TableCell>
-                      //                   <Typography>{data.item.title}</Typography>
-                      //                 </TableCell>
-                      //                 {/* <TableCell><Typography>{data.payment.transactionId}</Typography></TableCell> */}
-                      //                 <TableCell>
-                      //                   <Typography>{data.item.price}</Typography>
-                      //                 </TableCell>
-                      //                 <TableCell>
-                      //                   <Typography>{data.item.cropRulesWithBonus.toFixed(2)}</Typography>
-                      //                 </TableCell>
-                      //                 <TableCell>
-                      //                   <Typography>{data.item.cartQuantity}</Typography>
-                      //                 </TableCell>
-                      //                 <TableCell>
-                      //                   <Typography>
-                      //                     {(data.item.cartQuantity * data.item.cropRulesWithBonus).toFixed(2)}
-                      //                   </Typography>
-                      //                 </TableCell>
-                      //                 <TableCell>
-                      //                   <Typography>{data.item.price * data.item.cartQuantity}</Typography>
-                      //                 </TableCell>
-                      //                 <TableCell>
-                      //                   <Typography>
-                      //                     {(data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1).toFixed(2)}
-                      //                   </Typography>
-                      //                 </TableCell>
-                      //                 <TableCell>
-                      //                   <Typography>
-                      //                     {(
-                      //                       ((data.item.price * data.item.cartQuantity -
-                      //                         data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1) *
-                      //                         5) /
-                      //                       100
-                      //                     ).toFixed(2)}
-                      //                   </Typography>
-                      //                 </TableCell>
-                      //                 <TableCell>
-                      //                   <Typography>
-                      //                     {(
-                      //                       data.item.price * data.item.cartQuantity -
-                      //                       ((data.item.price * data.item.cartQuantity -
-                      //                         data.item.cartQuantity * data.item.cropRulesWithBonus * 0.1) *
-                      //                         5) /
-                      //                         100
-                      //                     ).toFixed(2)}
-                      //                   </Typography>
-                      //                 </TableCell>
-                      //               </TableRow>
-                      //             )
-                      //           })}
-                      //           <TableRow>
-                      //             <TableCell colSpan={8}>
-                      //               <Typography></Typography>
-                      //             </TableCell>
-                      //             <TableCell>
-                      //               <Typography>Total ToPay</Typography>
-                      //             </TableCell>
-                      //             <TableCell>
-                      //               <Typography>{value_pay_to_business.toFixed(2)}</Typography>
-                      //             </TableCell>
-                      //           </TableRow>
-                      //           <TableRow>
-                      //             <TableCell colSpan={9}>
-                      //               <Typography></Typography>
-                      //             </TableCell>
-                      //             <TableCell>
-                      //               <Link
-                      //                 component='button'
-                      //                 variant='body2'
-                      //                 onClick={() => {
-                      //                   console.log(data);
-                      //                 }}
-                      //               >
-                      //                 Pay Now
-                      //               </Link>
-                      //             </TableCell>
-                      //           </TableRow>
-                      //         </TableBody>
-                      //       </Table>
-                      //     </AccordionDetails>
-                      //   </Accordion>
-                      // </TableRow>
+                      <TreeView id={row._id} data={row}/>                     
                     )
                   })}
                 </TableBody>

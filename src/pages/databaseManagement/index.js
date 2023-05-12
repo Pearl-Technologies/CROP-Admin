@@ -533,7 +533,20 @@ const Database = () => {
                       <TableCell  onClick={() => showBusinessInvoice(row._id)} sx={{ cursor: 'pointer'}}>
                         <ReceiptLongIcon/>
                       </TableCell>
-                      <TableCell>{row.croppoint}</TableCell>
+                      <TableCell>
+                      <Chip
+                          label={row.croppoint}
+                          // color={statusObj[row.status].color}
+                          color={'primary'}
+                          sx={{
+                            height: 24,
+                            fontSize: '0.75rem',
+                            textTransform: 'capitalize',
+                            '& .MuiChip-label': { fontWeight: 500 },
+                            cursor: 'pointer'
+                          }}
+                        />
+                      </TableCell>
                       <TableCell>
                         <Chip
                           label={'Active Offers'}

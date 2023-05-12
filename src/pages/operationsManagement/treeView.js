@@ -70,7 +70,7 @@ const TreeView = ({ id, data}) => {
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
           <Typography sx={{ width: '25%', flexShrink: 0 }}>{row?.businessName}</Typography>
           <Typography sx={{ width: '25%', flexShrink: 0, color: 'text.secondary' }}>{"AUD "}{pay_to_business.toFixed(2)}</Typography>
-          <Typography sx={{ width: '25%', flexShrink: 0, color: 'text.primary' }}>{"Pending"}</Typography>
+          
         </AccordionSummary>
         <AccordionDetails>
           <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
