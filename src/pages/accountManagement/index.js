@@ -251,7 +251,7 @@ const AccountManagement = () => {
               return (
                
                     <TableRow hover  sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                      <TableCell ><p style={{display:"flex",alignItems:"center",marginLeft:"10px"}}><Avatar variant='rounded'></Avatar>{item.cropid}</p></TableCell>
+                      <TableCell ><p style={{display:"flex",alignItems:"center", gap:"10px"}}><Avatar variant='rounded-circle' src='/images/avatars/1.png'></Avatar>{item.cropid}</p></TableCell>
                       <TableCell sx={{cursor:'pointer'}} onClick={() => showCustomerCrop(item._id)}>{item?.name?.fName??" "}{" "}{item?.name?.mName??" "}{" "}{item?.name?.lName??" "}</TableCell>
                       <TableCell sx={{cursor:'pointer'}} onClick={() => showCustomerCrop(item._id)}><img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoints.toFixed(2)}
                       <LinearProgress color={item.color} value={item.progress} variant='determinate' style={{width:"80px"}}/></TableCell>
@@ -295,7 +295,7 @@ const AccountManagement = () => {
               return (
                
                     <TableRow hover  sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                      <TableCell ><p style={{display:"flex",alignItems:"center",marginLeft:"10px"}}><Avatar variant='rounded'></Avatar>{item.cropid}</p></TableCell>
+                      <TableCell ><p style={{display:"flex",alignItems:"center",marginLeft:"10px", gap:"10px"}}><Avatar src='/images/avatars/1.png' variant='rounded-circle' m={2}/>{item.cropid}</p></TableCell>
                       <TableCell sx={{cursor:'pointer'}} onClick={() => showCustomerProp(item._id)}>{item?.name?.fName??" "}{" "}{item?.name?.mName??" "}{" "}{item?.name?.lName??" "}</TableCell>
                       <TableCell sx={{cursor:'pointer'}} onClick={() => showCustomerProp(item._id)}><img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.proppoints.toFixed(2)}
                       <LinearProgress color={item.color} value={item.progress} variant='determinate' style={{width:"80px"}}/></TableCell>
@@ -339,7 +339,7 @@ const AccountManagement = () => {
               return (
                
                     <TableRow hover  sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                      <TableCell ><p style={{display:"flex",alignItems:"center",marginLeft:"10px"}}><Avatar variant='rounded'></Avatar>{item.cropId}</p></TableCell>
+                      <TableCell ><p style={{display:"flex",alignItems:"center",marginLeft:"10px", gap:"10px"}}><Avatar variant='rounded-circle' src={item?.avatar ? `${process.env.HOST}/api/products/image/${item?.avatar}` : "/images/logos/slack.png"}></Avatar>{item.cropId}</p></TableCell>
                       <TableCell  sx={{cursor:'pointer'}} onClick={() => showBusinessCrop(item._id)}>  {item.businessName}</TableCell>
                       <TableCell  sx={{cursor:'pointer'}} onClick={() => showBusinessCrop(item._id)}><img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoint}
                       <LinearProgress color={item.color} value={item.progress} variant='determinate' style={{width:"80px"}}/></TableCell>
@@ -384,8 +384,10 @@ const AccountManagement = () => {
                     <TableRow hover    key={'customer' + row._id}  sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
                      
                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
+
+                        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                        <Avatar variant='rounded-circle' src={row?.avatar ? `${process.env.HOST}/api/products/image/${row?.avatar}` : "/images/avatars/1.png"}></Avatar>
+                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', alignSelf:"center", marginLeft:"10px"}}>
                             {row.name.fName} {row.name.mName} {row.name.lName}{' '}
                           </Typography>
                         </Box>
@@ -433,8 +435,10 @@ const AccountManagement = () => {
                     <TableRow hover    key={'business' + row._id}  sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
                      
                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                     <Avatar variant='rounded-circle' src={row?.avatar ? `${process.env.HOST}/api/products/image/${row?.avatar}` : "/images/logos/slack.png"}></Avatar>
+                          
+                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', alignSelf:"center", marginLeft:"10px"}}>
                             {row?.businessName}
                           </Typography>
                           {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}

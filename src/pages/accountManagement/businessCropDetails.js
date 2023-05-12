@@ -68,7 +68,7 @@ const businessCropDetails = ({}) => {
           <Grid item xs={12}>
         <Card>
         <span onClick={()=>router.back()}><ArrowBackIcon/></span>
-          <CardHeader title='Business Crop Details' titleTypographyProps={{ variant: 'h6' }} />
+          <CardHeader title='Business CROPs Details' titleTypographyProps={{ variant: 'h6' }} />
           <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
             {odStatus ? <Spinner/>: !myCropData.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :

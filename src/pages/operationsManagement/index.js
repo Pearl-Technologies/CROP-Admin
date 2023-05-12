@@ -80,13 +80,13 @@ const OperationsManagement = () => {
               <path d="M12 12v6a2 2 0 0 1 -4 0v-6m0 2a2 2 0 1 1 -2 -2h6" />
               <path d="M12 12h-6a2 2 0 0 1 0 -4h6m-2 0a2 2 0 1 1 2 -2v6" />
             </svg>
-            <p style={{color:"#9155FD",height:"50px",cursor:"pointer",fontWeight:"bold",fontSize:"15px"}}>Pay to Customer</p>
+            <p style={{color:"#9155FD",height:"50px",cursor:"pointer",fontWeight:"bold",fontSize:"15px"}}>Payment Process</p>
           </Card>
        
        
       </Grid>
       <Grid item sm={3}>
-          <Card   onClick={()=>router.push("/operationsManagement/payToBusiness")} style={{alignItems:"center",textAlign:"center",cursor:"pointer",backgroundColor:"#dcd8e3",height:"120px"}}>
+          {/* <Card   onClick={()=>router.push("/operationsManagement/payToBusiness")} style={{alignItems:"center",textAlign:"center",cursor:"pointer",backgroundColor:"#dcd8e3",height:"120px"}}>
              
               <svg xmlns="http://www.w3.org/2000/svg" style={{marginTop:"20px"}} class="icon icon-tabler icon-tabler-brand-slack" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -96,9 +96,9 @@ const OperationsManagement = () => {
               <path d="M12 12h-6a2 2 0 0 1 0 -4h6m-2 0a2 2 0 1 1 2 -2v6" />
             </svg>
             <p style={{color:"#9155FD",height:"50px",cursor:"pointer",fontWeight:"bold",fontSize:"15px"}}>Pay to Business</p>
-          </Card>
+          </Card> */}
         
-          <Card  onClick={()=>router.push("/operationsManagement/offerAndPromoManagement")} style={{alignItems:"center",textAlign:"center",cursor:"pointer",marginTop:"10px",backgroundColor:"#dcd8e3",height:"120px"}}>
+          <Card  onClick={()=>router.push("/operationsManagement/offerAndPromoManagement")} style={{alignItems:"center",textAlign:"center",cursor:"pointer",backgroundColor:"#dcd8e3",height:"250px"}}>
              
              <svg xmlns="http://www.w3.org/2000/svg"  style={{marginTop:"20px"}} class="icon icon-tabler icon-tabler-chart-donut-2" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>

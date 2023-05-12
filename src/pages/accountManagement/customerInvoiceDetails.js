@@ -49,7 +49,7 @@ const CustomerInvoiceDetails = ({}) => {
       getAllOrders()
     }
   },[q])
-
+console.log(myInvoiceData);
   return (
         <Grid item xs={12}>
         <Card>
@@ -63,6 +63,7 @@ const CustomerInvoiceDetails = ({}) => {
                   <TableRow>                  
                       <TableCell> Date</TableCell>
                       <TableCell> Amount</TableCell>
+                      <TableCell> Description</TableCell>
                       <TableCell> CROPs</TableCell>
                       <TableCell> View</TableCell>
                       <TableCell> Download</TableCell>
@@ -75,6 +76,7 @@ const CustomerInvoiceDetails = ({}) => {
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
                         <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
                         <TableCell>{row.amount}</TableCell>
+                        <TableCell>{row.description}</TableCell>
                         <TableCell>{row.crop.toFixed(2)}</TableCell>
                         <TableCell><a href={row.pt.invoice_url}><ReceiptLongIcon/></a></TableCell>
                         <TableCell><a href={row.pt.invoice_pdf}><FileDownloadIcon/></a></TableCell>

@@ -182,6 +182,7 @@ const DashboardTable = () => {
                       height='50'
                       image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
                       alt='Paella dish'
+                      style={{borderRadius:"5px"}}
                     />
                     <Typography variant='caption'>{row.designation}</Typography>
                   </Box>
@@ -264,6 +265,8 @@ const DashboardTable = () => {
                       height='50'
                       image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
                       alt='Paella dish'
+                      style={{borderRadius:"5px"}}
+                      
                     />
                     <Typography variant='caption'>{row.designation}</Typography>
                   </Box>
@@ -346,6 +349,7 @@ const DashboardTable = () => {
                       height='50'
                       image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
                       alt='Paella dish'
+                      style={{borderRadius:"5px"}}
                     />
                     <Typography variant='caption'>{row.designation}</Typography>
                   </Box>
@@ -428,7 +432,7 @@ const DashboardTable = () => {
                       height='50'
                       image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
                       alt='Paella dish'
-                    />
+                      style={{borderRadius:"5px"}}                    />
                     <Typography variant='caption'>{row.designation}</Typography>
                   </Box>
                 </TableCell>
@@ -505,6 +509,7 @@ const DashboardTable = () => {
                       height='50'
                       image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
                       alt='Paella dish'
+                      style={{borderRadius:"5px"}}
                     />
                     <Typography variant='caption'>{row.designation}</Typography>
                   </Box>

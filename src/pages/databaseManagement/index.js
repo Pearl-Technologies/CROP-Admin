@@ -187,7 +187,7 @@ const Database = () => {
               <Grid item sm={4} style={{alignItems:"center",alignContent:"center",textAlign:"center"}}>
               <img style={{margin:"auto"}}
                 width='150px'
-                src={`${process.env.HOST}/api/products/image/${user?.avatar}`}
+                src={user?.avatar ? `${process.env.HOST}/api/products/image/${user?.avatar}` : "/images/logos/slack.png"}
               />
                 <div>
                   <span>{user.UserTitle}</span>
