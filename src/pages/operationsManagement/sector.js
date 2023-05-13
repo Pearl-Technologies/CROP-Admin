@@ -22,7 +22,7 @@ import 'react-toastify/dist/ReactToastify.css'
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
 
-const CropMilestone = () => {
+const Sector = () => {
   const [open, setOpen] = useState(false)
   const [updateStatus, setUpdateStatus] = useState(false)
   const [message, setMessage] = useState([])
@@ -250,23 +250,23 @@ const CropMilestone = () => {
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
           <Card>
-            <CardHeader title='PROP' titleTypographyProps={{ variant: 'h6' }} />
+            <CardHeader title='New Sector' titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <h5 style={{ marginLeft: 'auto' }}> 1PROP (default)</h5>
+                    <h5 style={{ marginLeft: 'auto' }}> Sector Name</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
                     <TextField
-                      label={'AUD'}
+                      label={'Name'}
                       value={values?.defaultProp}
                       style={{ marginBottom: '8px' }}
                       onChange={handleChange('defaultProp')}
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <h5 style={{ marginLeft: 'auto' }}> 1PROP (purchase)</h5>
+                    <h5 style={{ marginLeft: 'auto' }}> Image</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
                     <TextField
@@ -297,157 +297,9 @@ const CropMilestone = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardHeader title='Milestone data' titleTypographyProps={{ variant: 'h6' }} />
-            {milestoneValue && (
-              <CardContent>
-                <form onSubmit={e => e.preventDefault()} style={{height:"190px", overflow:"auto", padding:"10px"}}>
-                  <Grid container spacing={5}>
-                    <Grid item xs={6}>
-                      <h5 style={{ marginLeft: 'auto' }}> CROP 5k</h5>
-                    </Grid>
-                    <Grid item xs={6} spacing={2}>
-                      <TextField
-                        label='Base'
-                        value={milestoneValue.first.base}
-                        style={{ marginBottom: '8px' }}
-                        onChange={handleMileStoneDataChange('first', 'base')}
-                      />
-                      <TextField
-                        label='Silver'
-                        style={{ marginBottom: '8px' }}
-                        value={milestoneValue.first.silver}
-                        onChange={handleMileStoneDataChange('first', 'silver')}
-                      />
-                      <TextField
-                        label='Gold'
-                        value={milestoneValue.first.gold}
-                        style={{ marginBottom: '8px' }}
-                        onChange={handleMileStoneDataChange('first', 'gold')}
-                      />
-                      <TextField
-                        label='Platinum'
-                        value={milestoneValue.first.platinum}
-                        onChange={handleMileStoneDataChange('first', 'platinum')}
-                      />
-                    </Grid>
-
-                    <Grid item xs={6}>
-                      <h5 style={{ marginLeft: 'auto' }}> CROP 10k</h5>
-                    </Grid>
-                    <Grid item xs={6} spacing={2}>
-                      <TextField
-                        label='Base'
-                        value={milestoneValue.second.base}
-                        style={{ marginBottom: '8px' }}
-                        onChange={handleMileStoneDataChange('second', 'base')}
-                      />
-                      <TextField
-                        label='Silver'
-                        value={milestoneValue.second.silver}
-                        style={{ marginBottom: '8px' }}
-                        onChange={handleMileStoneDataChange('second', 'silver')}
-                      />
-                      <TextField
-                        label='Gold'
-                        value={milestoneValue.second.gold}
-                        style={{ marginBottom: '8px' }}
-                        onChange={handleMileStoneDataChange('second', 'gold')}
-                      />
-                      <TextField
-                        label='Platinum'
-                        value={milestoneValue.second.platinum}
-                        onChange={handleMileStoneDataChange('second', 'platinum')}
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <h5 style={{ marginLeft: 'auto' }}> CROP 25k</h5>
-                    </Grid>
-
-                    <Grid item xs={6} spacing={2}>
-                      <TextField
-                        label='Base'
-                        value={milestoneValue.third.base}
-                        style={{ marginBottom: '8px' }}
-                        onChange={handleMileStoneDataChange('third', 'base')}
-                      />
-                      <TextField
-                        label='Silver'
-                        value={milestoneValue.third.silver}
-                        style={{ marginBottom: '8px' }}
-                        onChange={handleMileStoneDataChange('third', 'silver')}
-                      />
-                      <TextField
-                        label='Gold'
-                        value={milestoneValue.third.gold}
-                        style={{ marginBottom: '8px' }}
-                        onChange={handleMileStoneDataChange('third', 'gold')}
-                      />
-                      <TextField
-                        label='Platinum'
-                        value={milestoneValue.third.platinum}
-                        style={{ marginBottom: '8px' }}
-                        onChange={handleMileStoneDataChange('third', 'platinum')}
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <h5 style={{ marginLeft: 'auto' }} xs={6} title='multiple of props/5k crops after 25k crops'>
-                        {' '}
-                        CROP 25k Plus{' '}
-                      </h5>
-                    </Grid>
-
-                    <Grid item xs={6} spacing={6}>
-                      <TextField
-                        label='Base'
-                        value={milestoneValue.fourth.base}
-                        style={{ marginBottom: '8px' }}
-                        onChange={handleMileStoneDataChange('fourth', 'base')}
-                      />
-                      <TextField
-                        label='Silver'
-                        value={milestoneValue.fourth.silver}
-                        style={{ marginBottom: '8px' }}
-                        onChange={handleMileStoneDataChange('fourth', 'silver')}
-                      />
-                      <TextField
-                        label='Gold'
-                        value={milestoneValue.fourth.gold}
-                        style={{ marginBottom: '8px' }}
-                        onChange={handleMileStoneDataChange('fourth', 'gold')}
-                      />
-                      <TextField
-                        label='Platinum'
-                        value={milestoneValue.fourth.platinum}
-                        onChange={handleMileStoneDataChange('fourth', 'platinum')}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <Box
-                        sx={{
-                          gap: 5,
-                          display: 'flex',
-                          flexWrap: 'wrap',
-                          alignItems: 'center',
-                          justifyContent: 'space-between'
-                        }}
-                      >
-                        <Button type='submit' variant='contained' size='large' onClick={handelMileStoneUpdate}>
-                          Update
-                        </Button>
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </form>
-              </CardContent>
-            )}
-          </Card>
-        </Grid>
       </Grid>
     </DatePickerWrapper>
   )
 }
 
-export default CropMilestone
+export default Sector
