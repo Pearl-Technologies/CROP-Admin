@@ -1,6 +1,9 @@
 // ** React Imports
 import { useState, useEffect } from 'react'
 
+import Typography from '@mui/material/Typography'
+import TableContainer from '@mui/material/TableContainer'
+
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -15,6 +18,16 @@ import axios from 'axios'
 import LinearProgress from '@mui/material/LinearProgress'
 import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
+import { styled } from '@mui/material/styles'
+import Table from '@mui/material/Table'
+import TableHead from '@mui/material/TableHead'
+import TableCell from '@mui/material/TableCell'
+import TableBody from '@mui/material/TableBody'
+import ArrowUpDropCircleOutline from 'mdi-material-ui/ArrowUpDropCircleOutline'
+import EditIcon from '@mui/icons-material/Edit';
+import TableRow from '@mui/material/TableRow'
+import Avatar from '@mui/material/Avatar';
+import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 // ** Demo Components Imports
@@ -22,183 +35,51 @@ import 'react-toastify/dist/ReactToastify.css'
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
 
+const ImgStyled = styled('img')(({ theme }) => ({
+  width: 120,
+  height: 120,
+  marginRight: theme.spacing(6.25),
+  borderRadius: theme.shape.borderRadius
+}))
+const ButtonStyled = styled(Button)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    textAlign: 'center'
+  }
+}))
+
 const Sector = () => {
-  const [open, setOpen] = useState(false)
   const [updateStatus, setUpdateStatus] = useState(false)
-  const [message, setMessage] = useState([])
-  const [reponseCode, setResponseCode] = useState(null)
-  const [values, setValues] = useState({
-    defaultProp: '',
-    purchaseProp: ''
-  })
-  const [milestoneValue, setMileStoneValue] = useState({
-    first: {
-      base: 40,
-      silver: 50,
-      gold: 55,
-      platinum: 60
-    },
-    second: {
-      base: 120,
-      silver: 120,
-      gold: 132,
-      platinum: 144
-    },
-    third: {
-      base: 300,
-      silver: 300,
-      gold: 330,
-      platinum: 360
-    },
-    fourth: {
-      base: 60,
-      silver: 60,
-      gold: 66,
-      platinum: 72
-    }
-  })
-  const [confirmPassValues, setConfirmPassValues] = useState({
-    password: '',
-    showPassword: false
-  })
-
-  const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value })
-  }
-  const handleMileStoneDataChange = (obj, prop) => event => {
-    event.preventDefault()
-    if (obj === 'first') {
-      setMileStoneValue(milestoneValue => ({
-        ...milestoneValue,
-        first: { ...milestoneValue.first, [prop]: event.target.value }
-      }))
-    }
-    if (obj === 'second') {
-      setMileStoneValue(milestoneValue => ({
-        ...milestoneValue,
-        second: { ...milestoneValue.second, [prop]: event.target.value }
-      }))
-    }
-    if (obj === 'third') {
-      setMileStoneValue(milestoneValue => ({
-        ...milestoneValue,
-        third: { ...milestoneValue.third, [prop]: event.target.value }
-      }))
-    }
-    if (obj === 'fourth') {
-      setMileStoneValue(milestoneValue => ({
-        ...milestoneValue,
-        fourth: { ...milestoneValue.fourth, [prop]: event.target.value }
-      }))
-    }
-  }
-
-  const handleConfirmPassChange = propValuationDataprop => event => {
-    setConfirmPassValues({ ...confirmPassValues, [prop]: parseInt(event.target.value) })
-  }
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
-  }
-
-  const handleClickConfirmPassShow = () => {
-    setConfirmPassValues({ ...confirmPassValues, showPassword: !confirmPassValues.showPassword })
-  }
-
-  const handleMouseDownPassword = event => {
-    event.preventDefault()
-  }
-  const handleClick = () => {
-    setOpen(true)
-  }
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setOpen(false)
-  }
-
-  const fetchPropData = () => {
+  const [imageFile, setImageFile] = useState(null);
+  const [profileImg, setProfileImg] = useState(null);
+  const [sectorName, setSectorName] = useState('')
+  const [category, setCategory] = useState([])
+  const [message, setMessage] =useState('')
+  const getAllSector = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getPropValuation`)
+      .get(`${process.env.HOST}/api/admin/getCategories`)
       .then(function (response) {
-        setValues(response.data.propValuationData[0])
+        setCategory(response.data.categories)
       })
       .catch(function (error) {
         // handle error
         console.log(error)
       })
   }
-  const fetchDefaultMileStoneData = () => {
-    axios
-      .post(`${process.env.HOST}/api/admin/getMilestoneData`)
-      .then(function (response) {
-        setMileStoneValue(response.data.milestoneReport[0])
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
-      })
-  }
-  const handelUpdate = e => {
-    setUpdateStatus(true)
+  const handleSubmit = async(e) => {
     e.preventDefault()
- 
-    let body={'defaultProp': parseInt(values.defaultProp),
-    'purchaseProp': parseFloat(values.purchaseProp),
-    '_id': values._id,
-    'user': values.user}
-    axios({
-      method: 'post',
-      url: `${process.env.HOST}/api/admin/updatePropValuation`,
-      data: body
-    })
-      .then(function (response) {
-        setUpdateStatus(false)
-        setMessage(response.data)
-        setResponseCode(response.status)
-        toast.success(response.data.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
-        })
-      })
-      .catch(function (error) {
-        setUpdateStatus(false)
-        console.log(error)
-        setMessage(error.response.data)
-        setResponseCode(error.response.status)
-        toast.success(response.data.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
-        })
-      })
-  }
-  const handelMileStoneUpdate = e => {
     setUpdateStatus(true)
-    e.preventDefault()
-    axios({
-      method: 'post',
-      url: `${process.env.HOST}/api/admin/updateMilestoneData`,
-      data: milestoneValue
-    })
+    const formData = new FormData()
+    formData.append('sectorName', sectorName)
+    formData.append('image', imageFile);
+    await axios
+      .post(`${process.env.HOST}/api/admin/createCategory`, formData, {
+        headers: {
+          "authorization": `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": 'multipart/form-data'
+        }
+      })
       .then(function (response) {
-        setUpdateStatus(false)
-        console.log(response)
-        setMessage(response.data)
-        setResponseCode(response.status)
         toast.success(response.data.msg, {
           position: 'top-right',
           autoClose: 5000,
@@ -209,13 +90,15 @@ const Sector = () => {
           progress: undefined,
           theme: 'colored'
         })
+        // setMessage(response.data.msg);
+        setUpdateStatus(false)
       })
       .catch(function (error) {
-        setUpdateStatus(false)
         console.log(error)
-        setMessage(error.response.data)
-        setResponseCode(error.response.status)
-        toast.success(error.response.data.msg, {
+        setUpdateStatus(false)
+        let msg = error?.response?.data?.msg
+        setMessage(msg);
+        toast.error(msg, {
           position: 'top-right',
           autoClose: 5000,
           hideProgressBar: false,
@@ -227,14 +110,107 @@ const Sector = () => {
         })
       })
   }
+  const handleEdit = async(e) => {
+    alert("comming soon")
+    return
+    e.preventDefault()
+    setUpdateStatus(true)
+    const formData = new FormData()
+    formData.append('sectorName', sectorName)
+    formData.append('image', imageFile);
+    await axios
+      .post(`${process.env.HOST}/api/admin/createCategory`, formData, {
+        headers: {
+          "authorization": `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": 'multipart/form-data'
+        }
+      })
+      .then(function (response) {
+        toast.success(response.data.msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
+        // setMessage(response.data.msg);
+        setUpdateStatus(false)
+      })
+      .catch(function (error) {
+        console.log(error)
+        setUpdateStatus(false)
+        let msg = error?.response?.data?.msg
+        setMessage(msg);
+        toast.error(msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
+      })
+  }
+  const handleDelete = async(e) => {
+    alert("comming soon")
+    return 
+    e.preventDefault()
+    setUpdateStatus(true)
+    const formData = new FormData()
+    formData.append('sectorName', sectorName)
+    formData.append('image', imageFile);
+    await axios
+      .post(`${process.env.HOST}/api/admin/createCategory`, formData, {
+        headers: {
+          "authorization": `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": 'multipart/form-data'
+        }
+      })
+      .then(function (response) {
+        toast.success(response.data.msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
+        // setMessage(response.data.msg);
+        setUpdateStatus(false)
+      })
+      .catch(function (error) {
+        console.log(error)
+        setUpdateStatus(false)
+        let msg = error?.response?.data?.msg
+        setMessage(msg);
+        toast.error(msg, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
+      })
+  }
+
   useEffect(() => {
-    fetchPropData()
-    fetchDefaultMileStoneData()
-  }, [])
-  
+    getAllSector();
+    // addASector()
+  }, [message])
+
   return (
     <DatePickerWrapper>
-      {updateStatus && <LinearProgress/>}
+      {updateStatus && <LinearProgress />}
       <ToastContainer
         position='top-right'
         autoClose={5000}
@@ -245,9 +221,38 @@ const Sector = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="colored"
+        theme='colored'
       />
       <Grid container spacing={6}>
+        <Grid item xs={12} md={6}>
+          <Card>
+            <TableContainer sx={{height:355}} >
+              <Table sx={{ minWidth: 300 }} aria-label='table in dashboard' stickyHeader>
+                <TableHead>
+                  {/* <button onClick={() => setShow(x => !x)}>
+                    <ArrowUpDropCircleOutline />
+                  </button> */}
+                  <TableRow>
+                    <TableCell>Icon</TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Edit</TableCell>
+                    <TableCell>Delete</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {category.map(row => (
+                      <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                        <TableCell><Avatar src={`${process.env.HOST}/api/products/image/${row.image}`}/></TableCell>
+                        <TableCell>{row.categoryName}</TableCell>
+                        <TableCell onClick={handleEdit}><EditIcon/></TableCell>
+                        <TableCell onClick={handleDelete}><DeleteForeverSharpIcon/></TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Card>
+        </Grid>
         <Grid item xs={12} md={6}>
           <Card>
             <CardHeader title='New Sector' titleTypographyProps={{ variant: 'h6' }} />
@@ -258,23 +263,37 @@ const Sector = () => {
                     <h5 style={{ marginLeft: 'auto' }}> Sector Name</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
-                    <TextField
-                      label={'Name'}
-                      value={values?.defaultProp}
-                      style={{ marginBottom: '8px' }}
-                      onChange={handleChange('defaultProp')}
-                    />
+                    <TextField label={'Name'} style={{ marginBottom: '8px' }} value={sectorName} onChange={(e)=>setSectorName(e.target.value)}/>
                   </Grid>
-                  <Grid item xs={6}>
-                    <h5 style={{ marginLeft: 'auto' }}> Image</h5>
-                  </Grid>
-                  <Grid item xs={6} spacing={2}>
-                    <TextField
-                      label={'AUD'}
-                      value={values?.purchaseProp}
-                      style={{ marginBottom: '8px' }}
-                      onChange={handleChange('purchaseProp')}
-                    />
+
+                  <Grid item xs={12} sx={{ marginTop: 4.8, marginBottom: 3 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <ImgStyled src={profileImg ? profileImg : '/images/logos/slack.png'} alt='Profile Pic' />
+                      {/* {`${process.env.HOST}/api/products/image/${data?.filename}`} */}
+                      <Box>
+                        <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
+                          Upload New Photo
+                          <input
+                            hidden
+                            type='file'
+                            onChange={e => {
+                              setImageFile(e.target.files[0]);
+                              let reader =new FileReader();
+                              let file = e.target.files[0];
+                              reader.onloadend = () => {
+                                setProfileImg(reader.result)
+                              }
+                              reader.readAsDataURL(file)
+                            }}
+                            accept='image/png, image/jpeg'
+                            id='account-settings-upload-image'
+                          />
+                        </ButtonStyled>
+                        <Typography variant='body2' sx={{ marginTop: 5 }}>
+                          Allowed PNG or JPEG. Max size of 800K.
+                        </Typography>
+                      </Box>
+                    </Box>
                   </Grid>
 
                   <Grid item xs={12}>
@@ -287,8 +306,8 @@ const Sector = () => {
                         justifyContent: 'space-between'
                       }}
                     >
-                      <Button type='submit' variant='contained' size='large' onClick={handelUpdate}>
-                        Update
+                      <Button type='submit' variant='contained' size='large' onClick={handleSubmit}>
+                        Add
                       </Button>
                     </Box>
                   </Grid>

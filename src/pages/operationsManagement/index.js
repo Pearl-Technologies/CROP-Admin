@@ -6,9 +6,7 @@ import { useRouter } from 'next/router'
 
 const OperationsManagement = () => {
   const router = useRouter()  
-  return (
-
-      
+  return (     
     
     <Grid container spacing={2}>
       <Grid item sm={3} style={{paddingBottom:"36px"}}>

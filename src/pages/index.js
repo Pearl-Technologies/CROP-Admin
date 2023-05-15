@@ -111,6 +111,7 @@ const everyDayRender=()=>{
     if(!localStorage.getItem('token')){
       router.push('/pages/login')
     }
+    // router.push('/databaseManagement')
   },[])
 
   return (

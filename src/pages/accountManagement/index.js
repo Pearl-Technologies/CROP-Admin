@@ -31,143 +31,56 @@ const AccountManagement = () => {
   const router = useRouter()
   const [businessData, setBusinessData] = useState([])
   const [customerData, setCustomerData] = useState([])
-  const [bdStatus, setBDStatus] = useState(false)
-  const [cdStatus, setCDStatus] = useState(false)
+  const [ccStatus, setccStatus] = useState(false)
+  const [cpStatus, setcpStatus] = useState(false)
+  const [bcStatus, setbcStatus] = useState(false)
+  const [ciStatus, setciStatus] = useState(false)
+  const [biStatus, setbiStatus] = useState(false)
   const [customerCropData, setCustomerCropData] = useState([])
   const [customerPropData, setCustomerPropData] = useState([])
   const [businessCropData, setBusinessCropData] = useState([])
   const [customerAccountBalanceData, setCustomerAccountBalanceData] = useState([])
   const [businessAccountBalanceData, setBusinessAccountBalanceData] = useState([])
   const fetchCustomerCropTrasaction = () => {
+    setccStatus(true)
     axios
       .post(`${process.env.HOST}/api/admin/getAllCustomer`)
       .then(function (response) {
         // handle success
         // console.log(response);
         setCustomerCropData(response.data.customers)
+        setccStatus(false)
       })
       .catch(function (error) {
         // handle error
         console.log(error)
-      })
-  }
-  const fetchCustomerPropTrasaction = () => {
-    axios
-      .post(`${process.env.HOST}/api/customer/getAllCustomerProp`)
-      .then(function (response) {
-        // handle success
-        // console.log(response);
-        console.log(response.data.propData)
-        setCustomerPropData(response.data.propData)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
+        setccStatus(false)
       })
   }
   const fetchBusinessCropTrasaction = () => {
+    setbcStatus(true)
     axios
       .post(`${process.env.HOST}/api/admin/getAllBusiness`)
       .then(function (response) {
         // handle success
         // console.log(response);
         setBusinessCropData(response.data.businesses)
+        setbcStatus(false)
       })
       .catch(function (error) {
         // handle error
         console.log(error)
+        setbcStatus(false)
       })
   }
-  const fetchCustomerAccountBalance = () => {
-    axios
-      .post(`${process.env.HOST}/api/customer/getCustomerAccountBalance`)
-      .then(function (response) {
-        // handle success
-        // console.log(response);
-        setCustomerAccountBalanceData(response.data.availBalance)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
-      })
-  }
-  const fetchBusinessAccountBalance = () => {
-    axios
-      .post(`${process.env.HOST}/api/business/getBusinessAccountBalance`)
-      .then(function (response) {
-        // handle success
-        // console.log(response);
-        setBusinessAccountBalanceData(response.data.availBalance)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
-      })
-  }
+
   useEffect(() => {
     fetchCustomerCropTrasaction()
-    // fetchCustomerPropTrasaction()
     fetchBusinessCropTrasaction()
     fetchBusinessDetails()
     fetchCustomerDetails()
-    // fetchCustomerAccountBalance()
-    // fetchBusinessAccountBalance()
   }, [])
 
-  const TransactionDetails = ({ item, data }) => {
-    const [show, setShow] = useState(false)
-
-    return show ? (
-      <Grid item xs={12} style={{ border: '1px solid blue' }}>
-        <Card>
-          <TableContainer>
-            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
-              <TableHead>
-                <button onClick={() => setShow(x => !x)}>
-                  <ArrowUpDropCircleOutline />
-                </button>
-                <TableRow>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Order No</TableCell>
-                  <TableCell>Transaction Type</TableCell>
-                  <TableCell>Amount</TableCell>
-                  <TableCell>Credit</TableCell>
-                  <TableCell>Debit</TableCell>
-                  <TableCell>Actions</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data
-                  .filter(x => x.user === item.user)
-                  .map(row => (
-                    <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
-                            {new Date(row.createdAt).toDateString()}
-                          </Typography>
-                          <Typography variant='caption'>{row.designation}</Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell>{row.orderNo}</TableCell>
-                      <TableCell>{row.transactionType}</TableCell>
-                      <TableCell>{row.transactionAmount}</TableCell>
-                      <TableCell>{row?.credit}</TableCell>
-                      <TableCell>{row?.debit}</TableCell>
-                      <TableCell>{'view'}</TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Card>
-      </Grid>
-    ) : (
-      <span onClick={() => setShow(x => !x)}>
-        <ArrowDownDropCircleOutline />
-      </span>
-    )
-  }
 
   const showCustomerCrop = x => {
     router.push(`/accountManagement/cropDetails?q=${x}`)
@@ -179,35 +92,35 @@ const AccountManagement = () => {
     router.push(`/accountManagement/businessCropDetails?q=${x}`)
   }
   const fetchBusinessDetails = () => {
-    setBDStatus(true)
+    setbiStatus(true)
     axios
       .post(`${process.env.HOST}/api/admin/getAllBusiness`)
       .then(function (response) {
         // handle success
         // console.log(response);
         setBusinessData(response.data.businesses)
-        setBDStatus(false)
+        setbiStatus(false)
       })
       .catch(function (error) {
         // handle error
         console.log(error)
-        setBDStatus(false)
+        setbiStatus(false)
       })
   }
   const fetchCustomerDetails = () => {
-    setCDStatus(true)
+    setciStatus(true)
     axios
       .post(`${process.env.HOST}/api/admin/getAllCustomer`)
       .then(function (response) {
         // handle success
         // console.log(response);
         setCustomerData(response.data.customers)
-        setCDStatus(false)
+        setciStatus(false)
       })
       .catch(function (error) {
         // handle error
         console.log(error)
-        setCDStatus(false)
+        setciStatus(false)
       })
   }
   const showCustomerInvoice = x => {
@@ -219,6 +132,7 @@ const AccountManagement = () => {
 
   return (
     <Grid container spacing={2}>
+      {/* cutomer crop */}
       <Grid item sm={12}>
         <Card>
           <CardHeader
@@ -235,7 +149,8 @@ const AccountManagement = () => {
               </IconButton>
             }
           />
-           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
+          {ccStatus && <Spinner/>}
+           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}} sx={{ height: 400 }}>
             <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
               <TableHead>
               
@@ -263,6 +178,7 @@ const AccountManagement = () => {
           </TableContainer>
         </Card>
       </Grid>
+      {/* customer prop */}
       <Grid item xs={12}>
       <Card>
           <CardHeader
@@ -279,7 +195,8 @@ const AccountManagement = () => {
               </IconButton>
             }
           />
-           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
+          {ccStatus && <Spinner/>}
+           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}} sx={{ height: 400 }}>
             <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
               <TableHead>
               
@@ -307,6 +224,7 @@ const AccountManagement = () => {
           </TableContainer>
         </Card>
       </Grid>
+      {/* business crop */}
       <Grid item xs={12}>
       <Card>
           <CardHeader
@@ -323,7 +241,8 @@ const AccountManagement = () => {
               </IconButton>
             }
           />
-           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
+          {bcStatus && <Spinner/>}
+           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}} sx={{ height: 400 }}>
            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
               <TableHead>
               
@@ -351,6 +270,7 @@ const AccountManagement = () => {
           </TableContainer>
         </Card>
       </Grid>
+      {/* customer invoice */}
       <Grid item xs={12}>
       <Card>
           <CardHeader
@@ -367,7 +287,8 @@ const AccountManagement = () => {
               </IconButton>
             }
           />
-           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
+          {ciStatus && <Spinner/>}
+           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}} sx={{ height: 400 }}>
            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
               <TableHead>
               
@@ -402,6 +323,7 @@ const AccountManagement = () => {
           </TableContainer>
         </Card>
       </Grid>
+      {/* business invoice */}
       <Grid item xs={12}>
       <Card>
           <CardHeader
@@ -418,7 +340,8 @@ const AccountManagement = () => {
               </IconButton>
             }
           />
-           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
+          {biStatus &&<Spinner/>}
+           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}} sx={{ height: 400 }}>
            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
               <TableHead>
               
