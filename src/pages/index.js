@@ -75,39 +75,39 @@ const Dashboard = () => {
     
   }
 
-  let datas = [{
-    "publishedAs":"promo",
-    "publishingSlot":"monthly"
-  },
-   {
-    "publishedAs":"promo",
-    "publishingSlot":"weekday"
-  },
-  {
-    "publishedAs":"promo",
-    "publishingSlot":"weekly"
-  },
-  {
-    "publishedAs":"topRank",
-    "publishingSlot":"monthly"
-  },
-  {
-    "publishedAs":"topRank",
-    "publishingSlot":"weekday"
-  },
-  {
-    "publishedAs":"topRank",
-    "publishingSlot":"weekly"
-  }
-]
-const everyDayRender=()=>{
-  datas.map(data=>{makeSlot(data)})
-}
+//   let datas = [{
+//     "publishedAs":"promo",
+//     "publishingSlot":"monthly"
+//   },
+//    {
+//     "publishedAs":"promo",
+//     "publishingSlot":"weekday"
+//   },
+//   {
+//     "publishedAs":"promo",
+//     "publishingSlot":"weekly"
+//   },
+//   {
+//     "publishedAs":"topRank",
+//     "publishingSlot":"monthly"
+//   },
+//   {
+//     "publishedAs":"topRank",
+//     "publishingSlot":"weekday"
+//   },
+//   {
+//     "publishedAs":"topRank",
+//     "publishingSlot":"weekly"
+//   }
+// ]
+// const everyDayRender=()=>{
+//   datas.map(data=>{makeSlot(data)})
+// }
 
   useEffect(()=>{
     // fetchCustomerCount();
     // fetchBusinessCount();
-    everyDayRender()
+    // everyDayRender()
     if(!localStorage.getItem('token')){
       router.push('/pages/login')
     }
@@ -127,7 +127,7 @@ const everyDayRender=()=>{
           <Table />
         </Grid>
       </Grid> */}
-      <Grid container spacing={6}>
+      {/* <Grid container spacing={6}>
         <Grid item xs={12} md={4}>
           <Trophy />
         </Grid>
@@ -194,8 +194,9 @@ const everyDayRender=()=>{
         </Grid>
         <Grid item xs={12}>
           <Table />
-        </Grid>
-      </Grid>
+        </Grid> 
+      </Grid>*/}
+      Comming Soon
     </ApexChartWrapper>
   )
 }

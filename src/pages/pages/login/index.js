@@ -115,14 +115,8 @@ const LoginPage = () => {
         console.log(error)
         let msg = error?.response?.data?.msg
         toast.error(msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
       })
   }
@@ -137,18 +131,7 @@ const LoginPage = () => {
   }, [])
   return (
     <Box className='content-center'>
-      <ToastContainer
-        position='top-right'
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={true}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      <ToastContainer/>
       <Card sx={{ zIndex: 1 }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(12, 9, 7)} !important` }}>
           <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

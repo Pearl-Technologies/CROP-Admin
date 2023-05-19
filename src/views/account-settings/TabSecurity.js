@@ -104,28 +104,16 @@ const TabSecurity = () => {
         setStatusCode(response.status);
         setMessage(response.data)
         toast.success(response.data.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
         setUpdateStatus(false)
       })
       .catch(function (error) {
         setMessage(error.response.data)
         toast.error(error.response.data.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
         console.log(error)
         setUpdateStatus(false)
@@ -134,18 +122,7 @@ const TabSecurity = () => {
   
   return (
     <form>
-            <ToastContainer
-        position='top-right'
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={true}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+            <ToastContainer/>
       {updateStatus && <LinearProgress />}
       <CardContent sx={{ paddingBottom: 0 }}>
         <Grid container spacing={5}>

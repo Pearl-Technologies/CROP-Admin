@@ -81,14 +81,8 @@ const Sector = () => {
       })
       .then(function (response) {
         toast.success(response.data.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
         // setMessage(response.data.msg);
         setUpdateStatus(false)
@@ -99,14 +93,8 @@ const Sector = () => {
         let msg = error?.response?.data?.msg
         setMessage(msg);
         toast.error(msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
       })
   }
@@ -127,14 +115,8 @@ const Sector = () => {
       })
       .then(function (response) {
         toast.success(response.data.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
         // setMessage(response.data.msg);
         setUpdateStatus(false)
@@ -145,14 +127,8 @@ const Sector = () => {
         let msg = error?.response?.data?.msg
         setMessage(msg);
         toast.error(msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
       })
   }
@@ -173,14 +149,8 @@ const Sector = () => {
       })
       .then(function (response) {
         toast.success(response.data.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
         // setMessage(response.data.msg);
         setUpdateStatus(false)
@@ -191,14 +161,8 @@ const Sector = () => {
         let msg = error?.response?.data?.msg
         setMessage(msg);
         toast.error(msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
       })
   }

@@ -96,26 +96,20 @@ const ForgotPassword = () => {
     axios
       .post(`${process.env.HOST}/api/admin/passwordResetEmail`, values)
       .then(function (response) {        
+        console.log(response)
           setLoginStatus(false);
-          toast.success(error.response.data.msg, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored'
+          toast.success(response.data.msg, {
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: "Toastify__progress-bar--animated",
           })        
       })
       .catch(function (error) {
         setLoginStatus(false);
-        console.log(error);
-        let {errors} = error.response.data;
-        console.log(errors)
-        // console.log(error)
-          handleClick()
-          // console.log(message);
+
+        toast.error(error.response.data.msg, {
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
+        })        
         
       })
   }
@@ -124,18 +118,7 @@ const ForgotPassword = () => {
   })
   return (
     <Box className='content-center'>
-      <ToastContainer
-        position='top-right'
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={true}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      <ToastContainer/>
       <Card sx={{ zIndex: 1 }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(12, 9, 7)} !important` }}>
           <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

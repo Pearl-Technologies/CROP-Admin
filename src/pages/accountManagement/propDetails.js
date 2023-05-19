@@ -62,7 +62,7 @@ const PropDetails = ({}) => {
   const getAllOrders=()=>{
     setODStatus(true);
     axios
-    .get(`${process.env.HOST}/api/crop_trasaction/getMyPropTrasaction?user=${q}`)
+    .get(`${process.env.HOST}/api/admin/getAllPropTrasactionByAdmin?user=${q}`)
     .then(function (response) {
       // handle success
       // console.log(response);
@@ -91,6 +91,7 @@ const PropDetails = ({}) => {
                 <TableHead>
                   <TableRow>                  
                       <TableCell> Date</TableCell>
+                      <TableCell>Order Number</TableCell>
                       <TableCell> Description</TableCell>
                       <TableCell> Debit</TableCell>                  
                       <TableCell> Credit</TableCell>                  
@@ -101,6 +102,7 @@ const PropDetails = ({}) => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
                         <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
+                        <TableCell>{row.orderNumber}</TableCell>
                         <TableCell>{row.description}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType=="debit"? row.prop:""}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType=="credit"? row.prop:""}</TableCell>

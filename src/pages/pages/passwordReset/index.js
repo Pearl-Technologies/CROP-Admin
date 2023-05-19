@@ -52,7 +52,6 @@ const PasswordReset = () => {
   if (typeof window !== 'undefined') {
     // Perform localStorage action
   }
-  
 
   // ** State
   const [values, setValues] = useState({
@@ -90,33 +89,43 @@ const PasswordReset = () => {
   const handleMouseDownPassword = event => {
     event.preventDefault()
   }
-    // Get the query string from the current URL
-// const queryString = window.location.search;
+  // Get the query string from the current URL
+  // const queryString = window.location.search;
 
-// Create a URLSearchParams object from the query string
-// const urlParams = new URLSearchParams(queryString);
+  // Create a URLSearchParams object from the query string
+  // const urlParams = new URLSearchParams(queryString);
 
-// Retrieve the value of a specific query parameter
-// const email = urlParams.get('email');
-// const passkey = urlParams.get('passkey');
-let email = "";
-let passkey="";
+  // Retrieve the value of a specific query parameter
+  // const email = urlParams.get('email');
+  // const passkey = urlParams.get('passkey');
+  let email = router.query.email
+  let passkey = router.query.passkey
   const resetPassword = () => {
-   
     setLoginStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/adminPasswordReset`, values,   {headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${passkey}`
-      }})
+      .post(`${process.env.HOST}/api/admin/adminPasswordReset`, values, {
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${passkey}`
+        }
+      })
       .then(function (response) {
-          setLoginStatus(false)
-          setMessage(response.data)
-          router.push('pages/login')
+        setLoginStatus(false)
+        setMessage(response.data)
+        toast.success(response.data.msg, {
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
+        })        
+
+        // router.push('/pages/login')
       })
       .catch(function (error) {
         setLoginStatus(false)
         console.log(error)
+        toast.error(error.response.data.msg, {
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
+        })        
       })
     setValues({
       password: '',
@@ -124,17 +133,15 @@ let passkey="";
       c_password: '',
       showPassword: false
     })
-    
   }
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
   })
 
-  useEffect(() => {
-    setValues({ ...values, ['email']: router?.query?.email })
-    email = router?.query?.email
-    passkey= router?.query?.passkey
-  }, [])
+  useEffect(()=>{
+    setValues({ ...values, ['email']: router.query.email })
+  },[])
+
   return (
     <Box className='content-center'>
       <Card sx={{ zIndex: 1 }}>

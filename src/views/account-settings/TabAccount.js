@@ -115,14 +115,8 @@ const TabAccount = () => {
       })
       .then(function (response) {
         toast.success(response.data.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
         setMessage(response.data.msg);
         setUpdateStatus(false)
@@ -133,14 +127,8 @@ const TabAccount = () => {
         let msg = error?.response?.data?.msg
         setMessage(msg);
         toast.error(msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
       })
   }
@@ -162,18 +150,7 @@ const TabAccount = () => {
   return (
     <CardContent>
       {updateStatus && <LinearProgress />}
-      <ToastContainer
-        position='top-right'
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={true}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      <ToastContainer/>
       <form encType='multipart/form-data'>
         <Grid container spacing={7}>
           <Grid item xs={12} sx={{ marginTop: 4.8, marginBottom: 3 }}>

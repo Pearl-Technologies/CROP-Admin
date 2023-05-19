@@ -21,9 +21,9 @@ const businessCropDetails = ({}) => {
   const [odStatus, setODStatus] = useState(false);
   const router = useRouter()
   const { q } = router.query
-  //   console.log(productData);
-  const myCropData = orderData.filter(data => data.user === q)
-  console.log(myCropData)
+    console.log(router.query);
+  const myCropData = orderData
+  // console.log(myCropData)
   
   function createData(name, code, population, size) {
     const density = population / size
@@ -47,11 +47,11 @@ const businessCropDetails = ({}) => {
   const getAllOrders=()=>{
     setODStatus(true);
     axios
-      .post(`${process.env.HOST}/api/admin/getAllBusinessCrop`)
+      .post(`${process.env.HOST}/api/admin/getBusinessCropStatement`, {businessId:q})
       .then(function (response) {
         // handle success
-        // console.log(response);
-        setOrderData(response.data.cropDetails)
+        console.log(response);
+        setOrderData(response.data.statement)
         setODStatus(false)
       })
       .catch(function (error) {
@@ -62,8 +62,7 @@ const businessCropDetails = ({}) => {
   }
   useEffect(()=>{
     getAllOrders()
-  },[])
-
+  },[q])
   return (
           <Grid item xs={12}>
         <Card>
@@ -71,11 +70,12 @@ const businessCropDetails = ({}) => {
           <CardHeader title='Business CROPs Details' titleTypographyProps={{ variant: 'h6' }} />
           <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
-            {odStatus ? <Spinner/>: !myCropData.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :
+            {odStatus ? <Spinner/>: !myCropData?.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :
               <Table stickyHeader aria-label='sticky table'>
                 <TableHead>
                   <TableRow>                  
                       <TableCell> Date</TableCell>
+                      <TableCell> Order Number</TableCell>
                       <TableCell> Description</TableCell>
                       <TableCell> Debit</TableCell>                  
                       <TableCell> Credit</TableCell>                  
@@ -85,10 +85,11 @@ const businessCropDetails = ({}) => {
                   {myCropData.map(row => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
-                        <TableCell>{new Date(row.date).toLocaleDateString()}</TableCell>
-                        <TableCell>{row.description}</TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row.debit}</TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row.credit}</TableCell>
+                        <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
+                        <TableCell>{row.payment.transactionId}</TableCell>
+                        <TableCell>{row.desc}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{(row.type === "Earn Crop") ? row.item.cropRulesWithBonus.toFixed(2):""}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{(row.type === "Redeem Crop") ? row.item.cropRulesWithBonus.toFixed(2):""}</TableCell>
                       </TableRow>
                     )
                   })}

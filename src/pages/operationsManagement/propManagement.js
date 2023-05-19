@@ -159,14 +159,8 @@ const CropMilestone = () => {
         setMessage(response.data)
         setResponseCode(response.status)
         toast.success(response.data.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
       })
       .catch(function (error) {
@@ -175,14 +169,8 @@ const CropMilestone = () => {
         setMessage(error.response.data)
         setResponseCode(error.response.status)
         toast.success(response.data.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
       })
   }
@@ -200,14 +188,8 @@ const CropMilestone = () => {
         setMessage(response.data)
         setResponseCode(response.status)
         toast.success(response.data.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
       })
       .catch(function (error) {
@@ -216,14 +198,8 @@ const CropMilestone = () => {
         setMessage(error.response.data)
         setResponseCode(error.response.status)
         toast.success(error.response.data.msg, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored'
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: "Toastify__progress-bar--animated",
         })
       })
   }
@@ -235,18 +211,7 @@ const CropMilestone = () => {
   return (
     <DatePickerWrapper>
       {updateStatus && <LinearProgress/>}
-      <ToastContainer
-        position='top-right'
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={true}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      <ToastContainer/>
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
           <Card>

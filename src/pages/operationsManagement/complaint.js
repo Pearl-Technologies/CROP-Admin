@@ -181,14 +181,8 @@ const Complaint = () => {
           setMessage(response.data)
           setResponseCode(response.status)
           toast.success(response.data.msg, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored'
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: "Toastify__progress-bar--animated",
           })
         })
         .catch(function (error) {
@@ -197,14 +191,8 @@ const Complaint = () => {
           setMessage(error?.response?.data)
           setResponseCode(error?.response?.status)
           toast.error(error.response.data.msg, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored'
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: "Toastify__progress-bar--animated",
           })
         })
       handleClose()
@@ -274,14 +262,8 @@ const Complaint = () => {
           setMessage(response.data)
           setResponseCode(response.status)
           toast.success(response.data.msg, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored'
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: "Toastify__progress-bar--animated",
           })
         })
         .catch(function (error) {
@@ -290,14 +272,8 @@ const Complaint = () => {
           setMessage(error?.response?.data)
           setResponseCode(error?.response?.status)
           toast.error(error.response.data.msg, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored'
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: "Toastify__progress-bar--animated",
           })
         })
       handleClose()

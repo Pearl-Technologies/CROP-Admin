@@ -166,6 +166,7 @@ const Database = () => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
+    
     return (
       <div>
         <Button onClick={handleOpen}>
@@ -198,20 +199,24 @@ const Database = () => {
               <Grid item sm={8}>
                 <Grid container spacing={2}>
                   <Grid item sm={6}>
-                    <TextField style={{marginTop:"10px"}} id='outlined-basic' label='email' variant='outlined' value={user.email} />
-                  
+                    <TextField style={{marginTop:"10px"}} id='outlined-basic' label='Owner Name' variant='outlined' value={user?.fName+" "+user?.mName+" "+user?.lName} />                  
+                    <TextField style={{marginTop:"10px"}} id='outlined-basic' label='Email' variant='outlined' value={user.email} />                  
                     <TextField style={{marginTop:"15px"}} label='Message Notification' variant='outlined' value={user.smsNotification} />
                     <TextField style={{marginTop:"15px"}} label='Refferal Code' variant='outlined' value={user.referalCode} />
                     <TextField style={{marginTop:"15px"}} label='CROP ID' variant='outlined' value={user.cropId} />
                     <TextField style={{marginTop:"15px"}} label='Tier' variant='outlined' value={user.Tier} />
+                    <TextField style={{marginTop:"15px"}} label='Signup Date' variant='outlined' value={new Date(user.createdAt).toLocaleDateString()} />
                   </Grid>
                   <Grid item sm={6}>
+                  <TextField style={{marginTop:"10px"}}  label='Nature of Business' variant='outlined' value={user?.natureOfBusiness} />
+                  <TextField style={{marginTop:"10px"}}  label='Number of Outlets' variant='outlined' value={user?.outletCount} />
                   <TextField style={{marginTop:"10px"}}  label='Email Notification' variant='outlined' value={user.emailNotification} />
                     <TextField style={{marginTop:"15px"}} label='Market Notification' variant='outlined' value={user.mktNotification} />
                     <TextField style={{marginTop:"15px"}} label='Biometric status' variant='outlined' value={user.bio} />
                     <TextField style={{marginTop:"15px"}} label='Interests' variant='outlined' value={user.interestList?.valueOf()} />
+                    <TextField style={{marginTop:"15px"}} label='NewsLetter Subscription' variant='outlined' value={user.newsLetterSubscription} />
+                    <TextField style={{marginTop:"15px"}} label='Last Tier Change Date' variant='outlined' value={new Date(user.TierChangeDate).toLocaleDateString()} />
 
-                    
                   </Grid>
                 </Grid>
               </Grid>
@@ -221,7 +226,7 @@ const Database = () => {
                   {user.address &&
                           user.address.map((data, i) => (
                             <div  key={'address' + data._id} >
-                              <h3>Address 1</h3>
+                              <h3>Address {i+1}</h3>
                                  
                                   <Grid container spacing={2} >
                                     <Grid item sm={6}>
@@ -288,7 +293,7 @@ const Database = () => {
               <Grid item sm={4} style={{alignItems:"center",alignContent:"center",textAlign:"center"}}>
                 <img style={{margin:"auto"}}
                   width='150px'
-                  src='https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
+                  src={user.avatar?`${process.env.HOST}/api/products/images/${user.avatar}`:`/images/avatars/1.png`}
                 />
                 <div>
                   <span>{user.UserTitle}{" "}</span>
@@ -301,24 +306,66 @@ const Database = () => {
               <Grid item sm={8}>
                 <Grid container spacing={2}>
                   <Grid item sm={6}>
-                    <TextField style={{marginTop:"10px"}} id='outlined-basic' label='email' variant='outlined' value={user.email} />
-                  
+                    <TextField style={{marginTop:"10px"}} id='outlined-basic' label='Email' variant='outlined' value={user.email} />                  
+                    <TextField style={{marginTop:"15px"}} label='Message Notification' variant='outlined' value={user.gender} />
                     <TextField style={{marginTop:"15px"}} label='Message Notification' variant='outlined' value={user.smsNotification} />
                     <TextField style={{marginTop:"15px"}} label='Refferal Code' variant='outlined' value={user.refercode} />
                     <TextField style={{marginTop:"15px"}} label='CROP ID' variant='outlined' value={user.cropid} />
                     <TextField style={{marginTop:"15px"}} label='Tier' variant='outlined' value={user.UserTier} />
+                    <TextField style={{marginTop:"15px"}} label='Customer Signup date' variant='outlined' value={user.signUpDate} />
+                    <TextField style={{marginTop:"15px"}} label='Mobile Number' variant='outlined' value={user?.mobileNumber} />
+                    <TextField style={{marginTop:"15px"}} label='Last Tier Change Date' variant='outlined' value={new Date(user?.TierChangeDate).toLocaleDateString()} />
                   </Grid>
                   <Grid item sm={6}>
                   <TextField style={{marginTop:"10px"}}  label='Email Notification' variant='outlined' value={user.emailNotification} />
                     <TextField style={{marginTop:"15px"}} label='Market Notification' variant='outlined' value={user.mktNotification} />
                     <TextField style={{marginTop:"15px"}} label='Biometric status' variant='outlined' value={user.biometricterms} />
                     <TextField style={{marginTop:"15px"}} label='Interests' variant='outlined' value={user.interestList?.valueOf()} />
-                    <TextField style={{marginTop:"15px"}} label='CROP ID' variant='outlined' value={user.cropid} />
+                    <TextField style={{marginTop:"15px"}} label='CROP ID' variant='outlined' value={user.propid} />
+                    <TextField style={{marginTop:"15px"}} label='DOB' variant='outlined' value={`${new Date(user.dob).getDate()}/${new Date(user.dob).getMonth()}`} />
+                    <TextField style={{marginTop:"15px"}} label='AgeGroup' variant='outlined' value={user?.agegroup} />
+                    <TextField style={{marginTop:"15px"}} label='Loyalty' variant='outlined' value={user?.loyaltyList} />
                     
                   </Grid>
                 </Grid>
               </Grid>             
-            </Grid>        
+            </Grid>    
+            {user.address &&
+                          user.address.map((data, i) => (
+                            <div  key={'address' + data._id} >
+                              <h3>Address 1</h3>
+                                 
+                                  <Grid container spacing={2} >
+                                    <Grid item sm={6}>
+                                      <Grid container spacing={2} style={{width:"350px",lineHeight:"10px",borderRadius:"10px",border:"1px solid #c1c1c1"}}>
+                                        <Grid item sm={2}>
+                                            <p style={{fontWeight:"bold"}}>Line1 </p> 
+                                            <p style={{fontWeight:"bold"}}>Line2 </p>
+                                           <p style={{fontWeight:"bold"}}>Line3 </p>
+                                            <p style={{fontWeight:"bold"}}>State </p>
+                                            <p style={{fontWeight:"bold"}}>Pin  </p>
+                                        </Grid>
+                                        <Grid item sm={10}>
+                                            <p>:{data.line1}</p>
+                                            <p>:{data.line2}</p>
+                                            <p>:{data.line3}</p>
+                                            <p>:{data.state}</p>
+                                            <p>:{data.pin}</p>
+                                        </Grid>
+                                      </Grid>
+                                     
+                                    </Grid>
+                                    <Grid item sm={6}>
+                                       
+                                       
+                                    </Grid>
+                                
+                                    
+                                         
+                                </Grid>          
+                            </div>
+
+                          ))}    
           
         
                  

@@ -85,14 +85,8 @@ const Notifications = () => {
     }).then(function (response) {
       setMessage(response.data.msg)
       toast.success(response.data.msg, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored'
+        position: toast.POSITION.TOP_CENTER,
+        progressClassName: "Toastify__progress-bar--animated",
       })
     })
   }
@@ -104,14 +98,8 @@ const Notifications = () => {
     }).then(function (response) {
       setMessage(response.data.msg)
       toast.success(response.data.msg, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored'
+        position: toast.POSITION.TOP_CENTER,
+        progressClassName: "Toastify__progress-bar--animated",
       })
     })
   }
@@ -123,14 +111,8 @@ const Notifications = () => {
     }).then(function (response) {
       setMessage(response.data.msg)
       toast.success(response.data.msg, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored'
+        position: toast.POSITION.TOP_CENTER,
+        progressClassName: "Toastify__progress-bar--animated",
       })
     })
   }
@@ -142,14 +124,8 @@ const Notifications = () => {
     }).then(function (response) {
       setMessage(response.data.msg)
       toast.success(response.data.msg, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored'
+        position: toast.POSITION.TOP_CENTER,
+        progressClassName: "Toastify__progress-bar--animated",
       })
     })
   }
@@ -162,14 +138,8 @@ const Notifications = () => {
     }).then(function (response) {
       setMessage(response.data.msg)
       toast.success(response.data.msg, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored'
+        position: toast.POSITION.TOP_CENTER,
+        progressClassName: "Toastify__progress-bar--animated",
       })
     })
   }
@@ -181,14 +151,8 @@ const Notifications = () => {
     }).then(function (response) {
       setMessage(response.data.msg)
       toast.success(response.data.msg, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored'
+        position: toast.POSITION.TOP_CENTER,
+        progressClassName: "Toastify__progress-bar--animated",
       })
     })
   }
@@ -200,14 +164,8 @@ const Notifications = () => {
     }).then(function (response) {
       setMessage(response.data.msg)
       toast.success(response.data.msg, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored'
+        position: toast.POSITION.TOP_CENTER,
+        progressClassName: "Toastify__progress-bar--animated",
       })
     })
   }
@@ -219,14 +177,8 @@ const Notifications = () => {
     }).then(function (response) {
       setMessage(response.data.msg)
       toast.success(response.data.msg, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored'
+        position: toast.POSITION.TOP_CENTER,
+        progressClassName: "Toastify__progress-bar--animated",
       })
     })
   }
@@ -292,18 +244,7 @@ const Notifications = () => {
   console.log(businessAccountNotification)
   return (
     <div>
-      <ToastContainer
-        position='top-right'
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={true}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme='colored'
-      />
+      <ToastContainer/>
       <div>
         <h3 style={{ marginLeft: '10px' }}>Customer notification</h3>
         <Accordion>

@@ -97,7 +97,7 @@ const CropDetails = ({}) => {
       .get(`${process.env.HOST}/api/admin/getAllCropTrasactionByAdmin?user=${q}`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+        console.log(response);
         setOrderData(response.data.trasactionDetails)
         setODStatus(false)
       })
@@ -124,7 +124,7 @@ const CropDetails = ({}) => {
                 <TableHead>
                   <TableRow>                  
                       <TableCell> Date</TableCell>
-                      {/* <TableCell> Order Number</TableCell> */}
+                      <TableCell> Order Number</TableCell>
                       {/* <TableCell>status</TableCell> */}
                       <TableCell> Description</TableCell>
                       <TableCell> Debit</TableCell>                  
@@ -136,7 +136,7 @@ const CropDetails = ({}) => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
                         <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
-                        {/* <TableCell>{row?.orderNumber}</TableCell> */}
+                        <TableCell>{row?.orderNumber}</TableCell>
                         {/* <TableCell>{row?.pt.status}</TableCell> */}
                         <TableCell>{row?.description}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType === 'debit'? row.crop.toFixed(2):""}</TableCell>

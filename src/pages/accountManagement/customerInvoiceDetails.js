@@ -21,6 +21,8 @@ const CustomerInvoiceDetails = ({}) => {
   // const productData = require('../../db/orders_customers.json')
   const [invoiceData, setInvoiceData] = useState([]);
   const [invoiceStatus, setInvoiceStatus] = useState(false);
+  const [invoiceStatus2, setInvoiceStatus2] = useState(false);
+  const [pointPurchaseData, setPointPurchaseData] = useState([]);
   const router = useRouter()
   const { q } = router.query
   // const myInvoiceData = invoiceData.filter(data => data.user === q)
@@ -30,12 +32,11 @@ const CustomerInvoiceDetails = ({}) => {
   const getAllOrders=()=>{
     setInvoiceStatus(true);
     axios
-      // .post(`${process.env.HOST}/api/admin/getAllCustomerInvoice`)
-      .get(`${process.env.HOST}/api/admin/getAllCropTrasactionByAdmin?user=${router.query.q}`)
+      .get(`${process.env.HOST}/api/admin/productPurchaseTrasaction?user=${router.query.q}`)
       .then(function (response) {
         // handle success
-        // console.log(response);
-        setInvoiceData(response.data.trasactionDetails)
+        console.log(response);
+        setInvoiceData(response.data.data)
         setInvoiceStatus(false)
       })
       .catch(function (error) {
@@ -44,17 +45,34 @@ const CustomerInvoiceDetails = ({}) => {
         setInvoiceStatus(false)
       })
   }
+  const getAllPointPurchase=()=>{
+    setInvoiceStatus2(true);
+    axios
+      .get(`${process.env.HOST}/api/admin/pointPurchaseTrasaction?user=${router.query.q}`)
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        setPointPurchaseData(response.data.data)
+        setInvoiceStatus2(false)
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error)
+        setInvoiceStatus2(false)
+      })
+  }
   useEffect(()=>{
     if(q != undefined) {
       getAllOrders()
+      getAllPointPurchase()
     }
   },[q])
-console.log(myInvoiceData);
+
   return (
         <Grid item xs={12}>
         <Card>
         <span onClick={()=>router.back()}><ArrowBackIcon/></span>
-          <CardHeader title='Customer invoice Details' titleTypographyProps={{ variant: 'h6' }} />
+          <CardHeader title='Customer Purchase Details and Invoice' titleTypographyProps={{ variant: 'h6' }} />
           <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
             {invoiceStatus ? <Spinner/>: !myInvoiceData?.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :
@@ -62,29 +80,70 @@ console.log(myInvoiceData);
                 <TableHead>
                   <TableRow>                  
                       <TableCell> Date</TableCell>
-                      <TableCell> Amount</TableCell>
-                      <TableCell> Description</TableCell>
-                      <TableCell> CROPs</TableCell>
+                      <TableCell> Product</TableCell>
+                      <TableCell> Name</TableCell>
+                      <TableCell> Price</TableCell>
+                      <TableCell> Quatity</TableCell>
+                      <TableCell> Total</TableCell>
+                      <TableCell> Total CROPs</TableCell>
+                      <TableCell> Invoice Number</TableCell>
                       <TableCell> View</TableCell>
-                      <TableCell> Download</TableCell>
-                                            
+                      <TableCell> Download</TableCell>                                            
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {myInvoiceData.map(row => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
-                        <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
-                        <TableCell>{row.amount}</TableCell>
-                        <TableCell>{row.description}</TableCell>
-                        <TableCell>{row.crop.toFixed(2)}</TableCell>
-                        <TableCell><a href={row.pt.invoice_url}><ReceiptLongIcon/></a></TableCell>
-                        <TableCell><a href={row.pt.invoice_pdf}><FileDownloadIcon/></a></TableCell>
+                        <TableCell>{new Date(row.updatedAt).toLocaleDateString()}</TableCell>
+                        <TableCell><img style={{width:"20px"}} src={`${process.env.HOST}/api/products/image/${row?.cartDetails.cartItems.image[0]}`}/></TableCell>
+                        <TableCell>{row?.cartDetails.cartItems.title}</TableCell>
+                        <TableCell>{row?.cartDetails.cartItems.price}</TableCell>
+                        <TableCell>{row?.cartDetails.cartItems.cartQuantity}</TableCell>
+                        <TableCell>{(row?.cartDetails.cartItems.cartQuantity *row?.cartDetails.cartItems.price)}</TableCell>
+                        <TableCell>{(row?.cartDetails.cartItems.cartQuantity) * (row?.cartDetails.cartItems.cropRulesWithBonus)}</TableCell>
+                        <TableCell>{row?.number}</TableCell>
+                        <TableCell><a href={row?.invoice_url}><ReceiptLongIcon/></a></TableCell>
+                        <TableCell><a href={row?.invoice_pdf}><FileDownloadIcon/></a></TableCell>
                       </TableRow>
                     )
                   })}
                 </TableBody>
-              </Table>}
+              </Table>}            
+            </TableContainer>
+          </Paper>
+          <CardHeader title='Customer Point Purchase Details and Invoice' titleTypographyProps={{ variant: 'h6' }} />
+          <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <TableContainer sx={{ maxHeight: 440 }}>
+            {invoiceStatus2 ? <Spinner/>: !pointPurchaseData?.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :
+              <Table stickyHeader aria-label='sticky table'>
+                <TableHead>
+                  <TableRow>                  
+                      <TableCell> Date</TableCell>
+                      <TableCell> Product</TableCell>
+                      <TableCell> Price</TableCell>
+                      <TableCell> Quatity</TableCell>
+                      <TableCell> Total</TableCell>
+                      <TableCell> View</TableCell>
+                      <TableCell> Download</TableCell>                                            
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {pointPurchaseData.map(row => {
+                    return (
+                      <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
+                        <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
+                        <TableCell>{row?.type}</TableCell>          
+                        <TableCell>{row?.amount/row?.quantity}</TableCell>
+                        <TableCell>{row?.quantity}</TableCell>
+                        <TableCell>{row?.amount}</TableCell>
+                        <TableCell><a href={row?.invoice_url}><ReceiptLongIcon/></a></TableCell>
+                        <TableCell><a href={row?.invoice_pdf}><FileDownloadIcon/></a></TableCell>
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
+              </Table>}        
             </TableContainer>
           </Paper>
         </Card>

@@ -94,28 +94,16 @@ const services = () => {
           setMessage(response.data)
           SetUpdateStatus(false)
           toast.success(response.data.msg, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored'
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: "Toastify__progress-bar--animated",
           })
         })
         .catch(function (error) {
           console.log(error.message)
           SetUpdateStatus(false)
           toast.error(error.response.data.msg, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored'
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: "Toastify__progress-bar--animated",
           })
         })
       handleClose()
@@ -242,28 +230,16 @@ const services = () => {
           setMessage(response.data)
           SetUpdateStatus(false)
           toast.success(response.data.msg, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored'
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: "Toastify__progress-bar--animated",
           })
         })
         .catch(function (error) {
           console.log(error.message)
           SetUpdateStatus(false)
           toast.error(error.response.data.msg, {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored'
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: "Toastify__progress-bar--animated",
           })
         })
       handleClose()
@@ -382,18 +358,7 @@ const services = () => {
 
   return (
     <Grid container spacing={2}>
-      <ToastContainer
-        position='top-right'
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={true}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme='colored'
-      />
+      <ToastContainer/>
       <Grid item xs={12}>
         <Card>
           <TableContainer sx={{ height: 400 }}>
