@@ -22,16 +22,3 @@ code:not([class*='language-']):after {
 code[class*='language-'] {
   padding: 0;
 }
-.Toastify__progress-bar--animated {
-  animation: Toastify__progress-bar-animation 5s linear;
-  width: 100%;
-}
-
-@keyframes Toastify__progress-bar-animation {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
-}

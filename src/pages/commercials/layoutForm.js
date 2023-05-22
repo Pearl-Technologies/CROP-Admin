@@ -19,7 +19,6 @@ import InputAdornment from '@mui/material/InputAdornment'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-// import '../tostify.css'
 // ** Icons Imports
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
@@ -70,13 +69,14 @@ const layoutFrom = () => {
         toast.success(response.data.message, {
           position: toast.POSITION.TOP_CENTER,
           progressClassName: "Toastify__progress-bar--animated",
+          
         })
-      })
+      })  
       .catch(function (error) {
         console.log(error.message)
         toast.success(error.response.data.message, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: "Toastify__progress-bar--animated",       
         })
       })
   }

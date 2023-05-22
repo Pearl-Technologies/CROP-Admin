@@ -314,7 +314,7 @@ const DashboardTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <TableContainer style={{ height: 600, overflow: 'auto' }}>
+{false &&      <TableContainer style={{ height: 600, overflow: 'auto' }}>
             <h1 style={{paddingLeft:"20px"}}>Near Me</h1>
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
@@ -396,7 +396,7 @@ const DashboardTable = () => {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer>}
       <TableContainer style={{ height: 600, overflow: 'auto' }}>
             <h1 style={{paddingLeft:"20px"}}>Promo Product</h1>
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>

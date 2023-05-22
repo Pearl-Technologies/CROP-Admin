@@ -25,7 +25,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 
 // ** Global css styles
 import '../../styles/globals.css'
-import './tostify.css'
+import './toastify.css'
 
 const clientSideEmotionCache = createEmotionCache()
 
