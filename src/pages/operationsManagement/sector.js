@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
@@ -8,7 +8,6 @@ import TableContainer from '@mui/material/TableContainer'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
@@ -34,6 +33,14 @@ import 'react-toastify/dist/ReactToastify.css'
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+
 
 const ImgStyled = styled('img')(({ theme }) => ({
   width: 120,
@@ -55,6 +62,80 @@ const Sector = () => {
   const [sectorName, setSectorName] = useState('')
   const [category, setCategory] = useState([])
   const [message, setMessage] =useState('')
+  const [update, setUpdate] = useState(false);
+  const [categoryId, setCategoryId] = useState('');
+  const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
+  
+  function AlertDialogSlide({id, categoryName}) {
+    const [open, setOpen] = React.useState(false);
+    
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+    const handleDelete = async(id, sectorName) => {
+      handleClose()
+      // setUpdateStatus(true)
+      const formData = new FormData()
+      formData.append('sectorName', sectorName)
+      formData.append('id', id);
+      await axios
+        .post(`${process.env.HOST}/api/admin/deleteCategory`, formData, {
+          headers: {
+            "authorization": `Bearer ${localStorage.getItem('token')}`,
+            "Content-Type": 'application/json'
+          }
+        })
+        .then(function (response) {
+          toast.success(response.data.msg, {
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: "Toastify__progress-bar--animated",
+          })
+          setMessage(response.data.msg);
+          // setUpdateStatus(false)
+        })
+        .catch(function (error) {
+          console.log(error)
+          setUpdateStatus(false)
+          let msg = error?.response?.data?.msg
+          setMessage(msg);
+          toast.error(msg, {
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: "Toastify__progress-bar--animated",
+          })
+        })
+    }
+    return (
+      <div>
+        <Button onClick={handleClickOpen}>
+        <DeleteForeverSharpIcon/>
+        </Button>
+        <Dialog
+          open={open}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Are you really want to delete?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Disagree</Button>
+            <Button onClick={()=>handleDelete(id, categoryName)}>Delete</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
   const getAllSector = () => {
     axios
       .get(`${process.env.HOST}/api/admin/getCategories`)
@@ -84,7 +165,7 @@ const Sector = () => {
           position: toast.POSITION.TOP_CENTER,
           progressClassName: "Toastify__progress-bar--animated",
         })
-        // setMessage(response.data.msg);
+        setMessage(response.data.msg);
         setUpdateStatus(false)
       })
       .catch(function (error) {
@@ -98,16 +179,50 @@ const Sector = () => {
         })
       })
   }
-  const handleEdit = async(e) => {
-    alert("comming soon")
-    return
+  const handleEdit = async(id) => {
+    setUpdate(true);
+    setUpdateStatus(true)
+    const postData={
+      id:id
+    }
+    await axios
+      .post(`${process.env.HOST}/api/admin/getCategoryById`, postData,{
+        headers: {
+          "authorization": `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": 'application/json'
+        }        
+      })
+      .then(function (response) {
+        console.log(response);
+        setSectorName(response.data.categories.categoryName);
+        setCategoryId(response.data.categories._id);
+        // toast.success(response.data.msg, {
+        //   position: toast.POSITION.TOP_CENTER,
+        //   progressClassName: "Toastify__progress-bar--animated",
+        // })
+        // setMessage(response.data.msg);
+        setUpdateStatus(false)
+      })
+      .catch(function (error) {
+        console.log(error)
+        setUpdateStatus(false)
+        // let msg = error?.response?.data?.msg
+        // setMessage(msg);
+        // toast.error(msg, {
+        //   position: toast.POSITION.TOP_CENTER,
+        //   progressClassName: "Toastify__progress-bar--animated",
+        // })
+      })
+  }
+  const handleUpdate=async(e)=>{
     e.preventDefault()
     setUpdateStatus(true)
     const formData = new FormData()
     formData.append('sectorName', sectorName)
     formData.append('image', imageFile);
+    formData.append('id', categoryId);
     await axios
-      .post(`${process.env.HOST}/api/admin/createCategory`, formData, {
+      .post(`${process.env.HOST}/api/admin/updateCategory`, formData, {
         headers: {
           "authorization": `Bearer ${localStorage.getItem('token')}`,
           "Content-Type": 'multipart/form-data'
@@ -118,12 +233,14 @@ const Sector = () => {
           position: toast.POSITION.TOP_CENTER,
           progressClassName: "Toastify__progress-bar--animated",
         })
-        // setMessage(response.data.msg);
+        setMessage(response.data.msg);
         setUpdateStatus(false)
+        setUpdate(false)
       })
       .catch(function (error) {
         console.log(error)
         setUpdateStatus(false)
+        setUpdate(false)
         let msg = error?.response?.data?.msg
         setMessage(msg);
         toast.error(msg, {
@@ -132,41 +249,12 @@ const Sector = () => {
         })
       })
   }
-  const handleDelete = async(e) => {
-    alert("comming soon")
-    return 
-    e.preventDefault()
-    setUpdateStatus(true)
-    const formData = new FormData()
-    formData.append('sectorName', sectorName)
-    formData.append('image', imageFile);
-    await axios
-      .post(`${process.env.HOST}/api/admin/createCategory`, formData, {
-        headers: {
-          "authorization": `Bearer ${localStorage.getItem('token')}`,
-          "Content-Type": 'multipart/form-data'
-        }
-      })
-      .then(function (response) {
-        toast.success(response.data.msg, {
-          position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
-        })
-        // setMessage(response.data.msg);
-        setUpdateStatus(false)
-      })
-      .catch(function (error) {
-        console.log(error)
-        setUpdateStatus(false)
-        let msg = error?.response?.data?.msg
-        setMessage(msg);
-        toast.error(msg, {
-          position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
-        })
-      })
-  }
-
+  
+const handleCancle=()=>{
+  setUpdate(false);
+  setCategoryId('');
+  setSectorName('');
+}
   useEffect(() => {
     getAllSector();
     // addASector()
@@ -208,8 +296,8 @@ const Sector = () => {
                       <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
                         <TableCell><Avatar src={`${process.env.HOST}/api/products/image/${row.image}`}/></TableCell>
                         <TableCell>{row.categoryName}</TableCell>
-                        <TableCell onClick={handleEdit}><EditIcon/></TableCell>
-                        <TableCell onClick={handleDelete}><DeleteForeverSharpIcon/></TableCell>
+                        <TableCell onClick={()=>handleEdit(row._id)}><EditIcon/></TableCell>
+                        <TableCell><AlertDialogSlide id={row._id} categoryName={row.categoryName}/></TableCell>
                       </TableRow>
                     ))}
                 </TableBody>
@@ -219,7 +307,7 @@ const Sector = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Card>
-            <CardHeader title='New Sector' titleTypographyProps={{ variant: 'h6' }} />
+            <CardHeader title={`${update ? "Update Sector":"New Sector"}`} titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
                 <Grid container spacing={2}>
@@ -270,9 +358,15 @@ const Sector = () => {
                         justifyContent: 'space-between'
                       }}
                     >
-                      <Button type='submit' variant='contained' size='large' onClick={handleSubmit}>
+                      {!update && <Button type='submit' variant='contained' size='large' onClick={handleSubmit}>
                         Add
+                      </Button>}
+                      {update && <><Button type='submit' variant='contained' size='large' onClick={handleUpdate}>
+                        Update
                       </Button>
+                      <Button type='submit' variant='contained' size='large' onClick={handleCancle}>
+                      Cancle
+                    </Button></>}
                     </Box>
                   </Grid>
                 </Grid>
