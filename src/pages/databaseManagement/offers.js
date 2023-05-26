@@ -26,7 +26,7 @@ const Offers = () => {
       .post(`${process.env.HOST}/api/admin/getAllProduct`, { businessId: q })
       .then(function (response) {
         // handle success
-        // console.log(response);
+        console.log(response);
         setProductData(response.data.productList)
       })
       .catch(function (error) {
@@ -38,7 +38,30 @@ const Offers = () => {
   useEffect(() => {
     fetchDetails()
   }, [q])
-  console.log(productData)
+  const likeCount=(data)=>{
+    let y=0;
+    if(data[0]?.product_likes.length){
+      data[0].product_likes.map((x)=>{
+        if(x.like){
+          y++
+        }
+      })
+    }
+  }
+    const ratingCount=(data)=>{
+      let y=0;
+      let index=0
+      if(data[0]?.details.length){
+        data[0].details.map((x)=>{          
+          if(x.rating){
+            y = y + x.rating;
+            index ++;
+          }
+        })
+      }
+
+    return y/index
+  }
   return (
     <Card>
       <span onClick={() => router.back()}>
@@ -52,7 +75,7 @@ const Offers = () => {
               <TableCell>Title</TableCell>
               <TableCell>Star Rating</TableCell>
               <TableCell>Likes</TableCell>
-              <TableCell>Dollar Value</TableCell>
+              {/* <TableCell>Dollar Value</TableCell> */}
               
             </TableRow>
           </TableHead>
@@ -75,7 +98,7 @@ const Offers = () => {
                   </TableCell>
                   <TableCell>
                     <Rating
-                      value={row?.rating}
+                      value={ratingCount(row.pd)}
                       // onChange={(event, newValue) => {
                       //   setValue(newValue);
                       // }}
@@ -83,12 +106,11 @@ const Offers = () => {
                   </TableCell>
                   <TableCell>
                     <Typography style={{ width: '50px' }}>
-                      {' '}
-                      {row?.likes}
+                    {likeCount(row.pd)}
                       <ThumbUp />
                     </Typography>
                   </TableCell>
-                  <TableCell><Typography style={{ width: '100px' }}>AUD {row?.price}</Typography></TableCell>
+                  {/* <TableCell><Typography style={{ width: '100px' }}>AUD {row?.price}</Typography></TableCell> */}
                 
 
                 </TableRow>

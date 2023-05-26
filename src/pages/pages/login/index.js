@@ -191,7 +191,7 @@ const LoginPage = () => {
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             >
               <FormControlLabel
-                control={<Checkbox />}
+                control={<Checkbox style={{color:"#5d53d4"}}/>}
                 label='Remember Me'
                 onClick={() => setRememberMe(remember => !remember)}
               />
@@ -202,7 +202,8 @@ const LoginPage = () => {
             <Button
               fullWidth
               size='large'
-              variant='contained'
+              // variant='contained'
+              style={{backgroundColor:"#5d53d4", color:"white"}}
               sx={{ marginBottom: 7 }}
               onClick={login}
               disabled={loginStatus}

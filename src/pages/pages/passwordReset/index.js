@@ -31,7 +31,8 @@ import themeConfig from 'src/configs/themeConfig'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 import LinearProgress from '@mui/material/LinearProgress'
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 const Card = styled(MuiCard)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: '28rem' }
 }))
@@ -112,15 +113,16 @@ const PasswordReset = () => {
       .then(function (response) {
         setLoginStatus(false)
         setMessage(response.data)
+        console.log(response);
         toast.success(response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
           progressClassName: "Toastify__progress-bar--animated",
         })        
 
-        // router.push('/pages/login')
+        router.push('/pages/passwordReset/passwordResetSuccess')
       })
       .catch(function (error) {
-        setLoginStatus(false)
+        setLoginStatus(false) 
         console.log(error)
         toast.error(error.response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
@@ -144,10 +146,11 @@ const PasswordReset = () => {
 
   return (
     <Box className='content-center'>
+      <ToastContainer/>
       <Card sx={{ zIndex: 1 }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(12, 9, 7)} !important` }}>
-          <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img src='images/logo.png' alt='logo' width='150px' />
+          <Box sx={{ mb: 3, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img src='/images/logo.png' alt='logo' width='150px' />
             <Typography
               variant='h6'
               sx={{
@@ -160,33 +163,37 @@ const PasswordReset = () => {
             >
               {/* {themeConfig.templateName} */}
             </Typography>
+
           </Box>
           <Typography variant='h5' component='h2' textAlign={'center'}>
             Set New Password
           </Typography>
 
-          <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()} style={{ alignContent: 'center' }}>
-            <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
+<div>
+          <FormControl noValidate autoComplete='off' onSubmit={e => e.preventDefault()} sx={{ mx: 15, width: '25ch', my:1}} variant="outlined">
+          <InputLabel >Password</InputLabel>
             <OutlinedInput
               type={showPassword ? 'text' : 'password'}
               endAdornment={
                 <InputAdornment position='end'>
                   <IconButton
                     aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
+                    onClick={()=>handleClickShowPassword()}
                     onMouseDown={handleMouseDownPassword}
                     edge='end'
                   >
                     {showPassword ? <EyeOffOutline /> : <EyeOutline />}
                   </IconButton>
-                </InputAdornment>
+                 </InputAdornment>
               }
               label='Password'
               onChange={handleChange('password')}
               value={values.password}
             />
-            <InputLabel htmlFor='outlined-adornment-password'>Confirm Password</InputLabel>
-            <OutlinedInput
+            </FormControl>
+            <FormControl noValidate autoComplete='off' onSubmit={e => e.preventDefault()} sx={{ mx: 15, width: '25ch', my:1}} variant="outlined">
+            <InputLabel >Confirm Password</InputLabel>
+            <OutlinedInput             
               type={showPassword ? 'text' : 'password'}
               endAdornment={
                 <InputAdornment position='end'>
@@ -204,21 +211,26 @@ const PasswordReset = () => {
               onChange={handleChange('c_password')}
               value={values.c_password}
             />
+            
+            </FormControl>
+            <FormControl noValidate autoComplete='off' onSubmit={e => e.preventDefault()} sx={{ mx: 15, width: '25ch', my:1}} variant="outlined">
+            
             <Button
               fullWidth
               size='large'
               variant='contained'
-              sx={{ margin: 2 }}
               onClick={resetPassword}
               disabled={loginStatus}
+              sx={{backgroundColor:"#5d53d4", color:"white"}}
             >
               submit
             </Button>
             <Link passHref href='/pages/login'>
-              <LinkStyled>go to login</LinkStyled>
+              <LinkStyled>Back to Login</LinkStyled>
             </Link>
             {loginStatus && <LinearProgress />}
-          </form>
+          </FormControl>
+          </div>
         </CardContent>
         <Stack spacing={2} sx={{ width: '100%' }}>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} style={{ border: '1px solid blue' }}>

@@ -19,12 +19,13 @@ import Input from '@mui/material/Input'
 import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField'
 import Eye from 'mdi-material-ui/Eye'
-import ViewTimelineIcon from '@mui/icons-material/ViewTimeline';
+import ViewTimelineIcon from '@mui/icons-material/ViewTimeline'
 import Close from 'mdi-material-ui/Close'
-import ArrowBottomLeft from 'mdi-material-ui/ArrowBottomLeft'
 import { useRouter } from 'next/router'
 import Spinner from './spinner'
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
+import Avatar from '@mui/material/Avatar'
+import ThumbUp from 'mdi-material-ui/ThumbUp'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -36,8 +37,7 @@ const style = {
   bgcolor: 'background.paper',
   borderRadius: '10px',
   boxShadow: 24,
-  p: 4,
-
+  p: 4
 }
 const rows = [
   {
@@ -133,6 +133,15 @@ const Database = () => {
   const showCustomerCrop = x => {
     router.push(`/accountManagement/cropDetails?q=${x}`)
   }
+  const showCustomerLikeProduct = x => {
+    router.push(`/databaseManagement/customerLikeProducts?q=${x}`)
+  }
+  const showCustomerRatedProduct = x => {
+    router.push(`/databaseManagement/customerRatedProducts?q=${x}`)
+  }
+  const showBusinessCrop = x => {
+    router.push(`/accountManagement/businessCropDetails?q=${x}`)
+  }
   const showCustomerProp = x => {
     router.push(`/accountManagement/propDetails?q=${x}`)
   }
@@ -166,7 +175,7 @@ const Database = () => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
-    
+
     return (
       <div>
         <Button onClick={handleOpen}>
@@ -179,90 +188,155 @@ const Database = () => {
           aria-describedby='modal-modal-description'
         >
           <Box sx={style}>
-          <Button onClick={handleClose}>
-          <Close />
-        </Button>
-          <h2 style={{textAlign:"center"}}>Profile Details</h2>
+            <Button onClick={handleClose}>
+              <Close />
+            </Button>
+            <h2 style={{ textAlign: 'center' }}>Profile Details</h2>
             <Grid container spacing={2}>
-              <Grid item sm={4} style={{alignItems:"center",alignContent:"center",textAlign:"center"}}>
-              <img style={{margin:"auto"}}
-                width='150px'
-                src={user?.avatar ? `${process.env.HOST}/api/products/image/${user?.avatar}` : "/images/logos/slack.png"}
-              />
+              <Grid item sm={4} style={{ alignItems: 'center', alignContent: 'center', textAlign: 'center' }}>
+                <img
+                  style={{ margin: 'auto' }}
+                  width='150px'
+                  src={
+                    user?.avatar ? `${process.env.HOST}/api/products/image/${user?.avatar}` : '/images/logos/slack.png'
+                  }
+                />
                 <div>
-                  <span>{user.UserTitle}</span>
+                  {/* <span>{user.UserTitle}</span> */}
                   <span>{user?.businessName}</span>
-                
                 </div>
-                  {/* <span style={{ margin:"auto"}}>{user.UserTitle}{" "}{user.name.fName}{" "}{user.name.mName}{" "}{user.name.lName}</span> */}
+                {/* <span style={{ margin:"auto"}}>{user.UserTitle}{" "}{user.name.fName}{" "}{user.name.mName}{" "}{user.name.lName}</span> */}
               </Grid>
               <Grid item sm={8}>
                 <Grid container spacing={2}>
                   <Grid item sm={6}>
-                    <TextField style={{marginTop:"10px"}} id='outlined-basic' label='Owner Name' variant='outlined' value={user?.fName+" "+user?.mName+" "+user?.lName} />                  
-                    <TextField style={{marginTop:"10px"}} id='outlined-basic' label='Email' variant='outlined' value={user.email} />                  
-                    <TextField style={{marginTop:"15px"}} label='Message Notification' variant='outlined' value={user.smsNotification} />
-                    <TextField style={{marginTop:"15px"}} label='Refferal Code' variant='outlined' value={user.referalCode} />
-                    <TextField style={{marginTop:"15px"}} label='CROP ID' variant='outlined' value={user.cropId} />
-                    <TextField style={{marginTop:"15px"}} label='Tier' variant='outlined' value={user.Tier} />
-                    <TextField style={{marginTop:"15px"}} label='Signup Date' variant='outlined' value={new Date(user.createdAt).toLocaleDateString()} />
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      id='outlined-basic'
+                      label='Business Name'
+                      variant='outlined'
+                      value={user?.businessName}
+                    />
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      id='outlined-basic'
+                      label='Owner Name'
+                      variant='outlined'
+                      value={user?.fName + ' ' + user?.mName + ' ' + user?.lName}
+                    />
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      label='Nature of Business'
+                      variant='outlined'
+                      value={user?.natureOfBusiness}
+                    />
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      label='Mobile Number'
+                      variant='outlined'
+                      value={user?.mobile}
+                    />
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      id='outlined-basic'
+                      label='Email'
+                      variant='outlined'
+                      value={user.email}
+                    />
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      id='outlined-basic'
+                      label='Number of Outlet'
+                      variant='outlined'
+                      value={user.outletCount}
+                    />
+                    <TextField style={{ marginTop: '10px' }} label='CROP ID' variant='outlined' value={user.cropId} />
+                    <TextField style={{ marginTop: '10px' }} label='Active Loyalty Program' variant='outlined' value={user?.activeLoyaltyProgram} />
+                    <TextField style={{ marginTop: '10px' }} label='Active Loyalty Program' variant='outlined' value={user?.activeLoyaltyProgram} />
+                    Active Loyalty Program
+Name of Loyalty Program
+
                   </Grid>
                   <Grid item sm={6}>
-                  <TextField style={{marginTop:"10px"}}  label='Nature of Business' variant='outlined' value={user?.natureOfBusiness} />
-                  <TextField style={{marginTop:"10px"}}  label='Number of Outlets' variant='outlined' value={user?.outletCount} />
-                  <TextField style={{marginTop:"10px"}}  label='Email Notification' variant='outlined' value={user.emailNotification} />
-                    <TextField style={{marginTop:"15px"}} label='Market Notification' variant='outlined' value={user.mktNotification} />
-                    <TextField style={{marginTop:"15px"}} label='Biometric status' variant='outlined' value={user.bio} />
-                    <TextField style={{marginTop:"15px"}} label='Interests' variant='outlined' value={user.interestList?.valueOf()} />
-                    <TextField style={{marginTop:"15px"}} label='NewsLetter Subscription' variant='outlined' value={user.newsLetterSubscription} />
-                    <TextField style={{marginTop:"15px"}} label='Last Tier Change Date' variant='outlined' value={new Date(user.TierChangeDate).toLocaleDateString()} />
-
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      label='Market Notification'
+                      variant='outlined'
+                      value={user.mktNotification}
+                    />
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      label='Newsletter Subscription Status'
+                      variant='outlined'
+                      value={user?.newsLetterSubscription}
+                    />
+                    <TextField style={{ marginTop: '10px' }} label='Tier' variant='outlined' value={user.Tier} />
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      label='Promo Code'
+                      variant='outlined'
+                      value={user?.prompcode}
+                    />
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      label='Refferal Code'
+                      variant='outlined'
+                      value={user.referalCode}
+                    />
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      label='Signup Date'
+                      variant='outlined'
+                      value={new Date(user.createdAt).toLocaleDateString()}
+                    />
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      label='Last Tier Change Date'
+                      variant='outlined'
+                      value={new Date(user.TierChangeDate).toLocaleDateString()}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
-             
             </Grid>
-          
-                  {user.address &&
-                          user.address.map((data, i) => (
-                            <div  key={'address' + data._id} >
-                              <h3>Address {i+1}</h3>
-                                 
-                                  <Grid container spacing={2} >
-                                    <Grid item sm={6}>
-                                      <Grid container spacing={2} style={{width:"350px",lineHeight:"10px",borderRadius:"10px",border:"1px solid #c1c1c1"}}>
-                                        <Grid item sm={2}>
-                                            <p style={{fontWeight:"bold"}}>Line1 </p> 
-                                            <p style={{fontWeight:"bold"}}>Line2 </p>
-                                           <p style={{fontWeight:"bold"}}>Line3 </p>
-                                            <p style={{fontWeight:"bold"}}>State </p>
-                                            <p style={{fontWeight:"bold"}}>Pin  </p>
-                                        </Grid>
-                                        <Grid item sm={10}>
-                                            <p>:{data.line1}</p>
-                                            <p>:{data.line2}</p>
-                                            <p>:{data.line3}</p>
-                                            <p>:{data.state}</p>
-                                            <p>:{data.pin}</p>
-                                        </Grid>
-                                      </Grid>
-                                     
-                                    </Grid>
-                                    <Grid item sm={6}>
-                                       
-                                       
-                                    </Grid>
-                                
-                                    
-                                         
-                                </Grid>          
-                            </div>
+            <div style={{ marginLeft: '327px' }}>
+              {user.address &&
+                user.address.map((data, i) => (
+                  <div key={'address' + data._id}>
+                    <h3>Address {i + 1}</h3>
 
-                          ))}
-             
-          
-        
-
+                    <Grid container spacing={2}>
+                      <Grid item sm={6}>
+                        <Grid
+                          container
+                          spacing={2}
+                          style={{
+                            width: '350px',
+                            lineHeight: '10px',
+                            borderRadius: '10px',
+                            border: '1px solid #c1c1c1'
+                          }}
+                        >
+                          <Grid item sm={2}>
+                            <p style={{ fontWeight: 'bold' }}>Line1 </p>
+                            <p style={{ fontWeight: 'bold' }}>Line2 </p>
+                            <p style={{ fontWeight: 'bold' }}>Line3 </p>
+                            <p style={{ fontWeight: 'bold' }}>State </p>
+                            <p style={{ fontWeight: 'bold' }}>Pin </p>
+                          </Grid>
+                          <Grid item sm={10}>
+                            <p>:{data.line1}</p>
+                            <p>:{data.line2}</p>
+                            <p>:{data.line3}</p>
+                            <p>:{data.state}</p>
+                            <p>:{data.pin}</p>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </div>
+                ))}
+            </div>
           </Box>
         </Modal>
       </div>
@@ -283,95 +357,186 @@ const Database = () => {
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'
         >
-         
-        <Box sx={style}>
-        <Button onClick={handleClose}>
-          <Close />
-        </Button>
-            <h2 style={{textAlign:"center"}}>Profile Details</h2>
+          <Box sx={style}>
+            <Button onClick={handleClose}>
+              <Close />
+            </Button>
+            <h2 style={{ textAlign: 'center' }}>Profile Details</h2>
             <Grid container spacing={2}>
-              <Grid item sm={4} style={{alignItems:"center",alignContent:"center",textAlign:"center"}}>
-                <img style={{margin:"auto"}}
+              <Grid item sm={4} style={{ alignItems: 'center', alignContent: 'center', textAlign: 'center' }}>
+                <img
+                  style={{ margin: 'auto' }}
                   width='150px'
-                  src={user.avatar?`${process.env.HOST}/api/products/images/${user.avatar}`:`/images/avatars/1.png`}
+                  src={user.avatar ? `${process.env.HOST}/api/products/images/${user.avatar}` : `/images/avatars/1.png`}
                 />
                 <div>
-                  <span>{user.UserTitle}{" "}</span>
-                  <span>{user.name.fName}{" "}</span>
-                  <span>{user.name.mName}{" "}</span>
-                  <span>{user.name.lName}{" "}</span>
+                  <span>{user.UserTitle} </span>
+                  <span>{user.name.fName} </span>
+                  <span>{user.name.mName} </span>
+                  <span>{user.name.lName} </span>
                 </div>
-                  {/* <span style={{ margin:"auto"}}>{user.UserTitle}{" "}{user.name.fName}{" "}{user.name.mName}{" "}{user.name.lName}</span> */}
+                {/* <span style={{ margin:"auto"}}>{user.UserTitle}{" "}{user.name.fName}{" "}{user.name.mName}{" "}{user.name.lName}</span> */}
               </Grid>
               <Grid item sm={8}>
                 <Grid container spacing={2}>
                   <Grid item sm={6}>
-                    <TextField style={{marginTop:"10px"}} id='outlined-basic' label='Email' variant='outlined' value={user.email} />                  
-                    <TextField style={{marginTop:"15px"}} label='Message Notification' variant='outlined' value={user.gender} />
-                    <TextField style={{marginTop:"15px"}} label='Message Notification' variant='outlined' value={user.smsNotification} />
-                    <TextField style={{marginTop:"15px"}} label='Refferal Code' variant='outlined' value={user.refercode} />
-                    <TextField style={{marginTop:"15px"}} label='CROP ID' variant='outlined' value={user.cropid} />
-                    <TextField style={{marginTop:"15px"}} label='Tier' variant='outlined' value={user.UserTier} />
-                    <TextField style={{marginTop:"15px"}} label='Customer Signup date' variant='outlined' value={user.signUpDate} />
-                    <TextField style={{marginTop:"15px"}} label='Mobile Number' variant='outlined' value={user?.mobileNumber} />
-                    <TextField style={{marginTop:"15px"}} label='Last Tier Change Date' variant='outlined' value={new Date(user?.TierChangeDate).toLocaleDateString()} />
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      label='Customer Name'
+                      variant='outlined'
+                      value={user.name?.fName + ' ' + user.name?.mName + ' ' + user.name?.lName}
+                    />
+                    <TextField style={{ marginTop: '15px' }} label='Gender' variant='outlined' value={user.gender} />
+                    <TextField
+                      style={{ marginTop: '15px' }}
+                      label='DOB'
+                      variant='outlined'
+                      value={`${new Date(user.dob).getDate()}/${new Date(user.dob).getMonth()}`}
+                    />
+                    <TextField
+                      style={{ marginTop: '15px' }}
+                      label='AgeGroup'
+                      variant='outlined'
+                      value={user?.agegroup}
+                    />
+                    <TextField
+                      style={{ marginTop: '15px' }}
+                      label='Mobile Number'
+                      variant='outlined'
+                      value={user?.mobileNumber}
+                    />
+                    <TextField style={{ marginTop: '10px' }} label='Email' variant='outlined' value={user.email} />
+                    <TextField style={{ marginTop: '15px' }} label='CROP ID' variant='outlined' value={user.cropid} />
+                    <TextField
+                      style={{ marginTop: '15px' }}
+                      label='Promo Code'
+                      variant='outlined'
+                      value={user.promocode}
+                    />
                   </Grid>
                   <Grid item sm={6}>
-                  <TextField style={{marginTop:"10px"}}  label='Email Notification' variant='outlined' value={user.emailNotification} />
-                    <TextField style={{marginTop:"15px"}} label='Market Notification' variant='outlined' value={user.mktNotification} />
-                    <TextField style={{marginTop:"15px"}} label='Biometric status' variant='outlined' value={user.biometricterms} />
-                    <TextField style={{marginTop:"15px"}} label='Interests' variant='outlined' value={user.interestList?.valueOf()} />
-                    <TextField style={{marginTop:"15px"}} label='CROP ID' variant='outlined' value={user.propid} />
-                    <TextField style={{marginTop:"15px"}} label='DOB' variant='outlined' value={`${new Date(user.dob).getDate()}/${new Date(user.dob).getMonth()}`} />
-                    <TextField style={{marginTop:"15px"}} label='AgeGroup' variant='outlined' value={user?.agegroup} />
-                    <TextField style={{marginTop:"15px"}} label='Loyalty' variant='outlined' value={user?.loyaltyList} />
-                    
+                    <TextField style={{ marginTop: '10px' }} label='Loyalty' variant='outlined' value={user?.loyalty} />
+                    <TextField
+                      style={{ marginTop: '15px' }}
+                      label='Interests'
+                      variant='outlined'
+                      value={user?.interest}
+                    />
+                    <TextField
+                      style={{ marginTop: '15px' }}
+                      label='Marketing Notification Status'
+                      variant='outlined'
+                      value={user.mktNotification}
+                    />
+                    <TextField
+                      style={{ marginTop: '15px' }}
+                      label='Newsletter Subscription Status'
+                      variant='outlined'
+                      value={user?.newsLetterSubscription}
+                    />
+                    <TextField style={{ marginTop: '15px' }} label='Tier' variant='outlined' value={user.UserTier} />
+                    <TextField
+                      style={{ marginTop: '15px' }}
+                      label='Refferal Code'
+                      variant='outlined'
+                      value={user.refercode}
+                    />
+                    <TextField
+                      style={{ marginTop: '15px' }}
+                      label='Customer Signup date'
+                      variant='outlined'
+                      value={user.signUpDate}
+                    />
+                    <TextField
+                      style={{ marginTop: '15px' }}
+                      label='Last Tier Change Date'
+                      variant='outlined'
+                      value={new Date(user?.TierChangeDate).toLocaleDateString()}
+                    />
                   </Grid>
                 </Grid>
-              </Grid>             
-            </Grid>    
+              </Grid>
+            </Grid>
             {user.address &&
-                          user.address.map((data, i) => (
-                            <div  key={'address' + data._id} >
-                              <h3>Address 1</h3>
-                                 
-                                  <Grid container spacing={2} >
-                                    <Grid item sm={6}>
-                                      <Grid container spacing={2} style={{width:"350px",lineHeight:"10px",borderRadius:"10px",border:"1px solid #c1c1c1"}}>
-                                        <Grid item sm={2}>
-                                            <p style={{fontWeight:"bold"}}>Line1 </p> 
-                                            <p style={{fontWeight:"bold"}}>Line2 </p>
-                                           <p style={{fontWeight:"bold"}}>Line3 </p>
-                                            <p style={{fontWeight:"bold"}}>State </p>
-                                            <p style={{fontWeight:"bold"}}>Pin  </p>
-                                        </Grid>
-                                        <Grid item sm={10}>
-                                            <p>:{data.line1}</p>
-                                            <p>:{data.line2}</p>
-                                            <p>:{data.line3}</p>
-                                            <p>:{data.state}</p>
-                                            <p>:{data.pin}</p>
-                                        </Grid>
-                                      </Grid>
-                                     
-                                    </Grid>
-                                    <Grid item sm={6}>
-                                       
-                                       
-                                    </Grid>
-                                
-                                    
-                                         
-                                </Grid>          
-                            </div>
-
-                          ))}    
-          
-        
-                 
+              user.address.map((data, i) => (
+                <div key={'address' + data._id} style={{ marginLeft: '327px' }}>
+                  <h3>Address {i + 1}</h3>
+                  <Grid container spacing={2}>
+                    <Grid item sm={6}>
+                      <Grid
+                        container
+                        spacing={2}
+                        style={{
+                          width: '280px',
+                          lineHeight: '10px',
+                          borderRadius: '10px',
+                          border: '1px solid #c1c1c1'
+                        }}
+                      >
+                        <Grid item sm={2}>
+                          <p style={{ fontWeight: 'bold' }}>Line1 </p>
+                          <p style={{ fontWeight: 'bold' }}>Line2 </p>
+                          <p style={{ fontWeight: 'bold' }}>Line3 </p>
+                          <p style={{ fontWeight: 'bold' }}>State </p>
+                          <p style={{ fontWeight: 'bold' }}>Pin </p>
+                        </Grid>
+                        <Grid item sm={10}>
+                          <p>:{data.line1}</p>
+                          <p>:{data.line2}</p>
+                          <p>:{data.line3}</p>
+                          <p>:{data.state}</p>
+                          <p>:{data.pin}</p>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </div>
+              ))}
+            <div style={{display:'flex', flexDirection:"start", marginLeft: '327px', gap:"5px"}}>
+              <div>
+                <h3>Loyalty</h3>
+                <div
+                  style={{
+                    border: '1px solid #c1c1c1',
+                    width: '250px',
+                    lineHeight: '10px',
+                    borderRadius: '10px',
+                    padding: '5px'
+                  }}
+                >
+                  {user.interestList?.length &&
+                    user.interestList?.map((data, i) => (
+                      <div key={'interest' + data._id}>
+                        <p>
+                          {i + 1}: {data}{' '}
+                        </p>
+                      </div>
+                    ))}
+                </div>
+              </div>
+              <div>
+                <h3>Loyalty</h3>
+                <div
+                  style={{
+                    border: '1px solid #c1c1c1',
+                    width: '250px',
+                    lineHeight: '10px',
+                    borderRadius: '10px',
+                    padding: '5px'
+                  }}
+                >
+                  {user.loyaltyList?.length &&
+                    user.loyaltyList?.map((data, i) => (
+                      <div key={'interest' + data._id}>
+                        <p>
+                          {i + 1}: {data}{' '}
+                        </p>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
           </Box>
-          
-
         </Modal>
       </div>
     )
@@ -425,7 +590,9 @@ const Database = () => {
                     <TableCell>Invoices</TableCell>
                     <TableCell>CROPs</TableCell>
                     <TableCell>PROPs</TableCell>
-                    <TableCell>Audit Report</TableCell>
+                    <TableCell>Liked Product</TableCell>
+                    <TableCell>Rated Product</TableCell>
+                    <TableCell>Audit Trail</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -437,17 +604,15 @@ const Database = () => {
                     >
                       <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
+                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', minWidth: '160px' }}>
                             {row.name.fName} {row.name.mName} {row.name.lName}{' '}
                           </Typography>
                           {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
                           {/* <Typography variant='caption'>{row.designation}</Typography> */}
                         </Box>
                       </TableCell>
-                      <TableCell onClick={() => showCustomerCrop(row._id)} sx={{ cursor: 'pointer' }}>
-                        {row.cropid}
-                      </TableCell>
-                      <TableCell>
+                      <TableCell sx={{ minWidth: '100px' }}>{row.cropid}</TableCell>
+                      <TableCell sx={{ minWidth: '100px' }}>
                         <Chip
                           label={row.status}
                           color={statusObj[row.status]?.color}
@@ -461,14 +626,17 @@ const Database = () => {
                           }}
                         />
                       </TableCell>
-                      <TableCell>{row.UserTier}</TableCell>
-                      <TableCell>
+                      <TableCell sx={{ minWidth: '100px' }}>{row.UserTier}</TableCell>
+                      <TableCell sx={{ minWidth: '100px' }}>
                         <CustomerModal user={row} />
                       </TableCell>
-                      <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerInvoice(row._id)}>
-                        <ReceiptLongIcon/>
+                      <TableCell
+                        sx={{ cursor: 'pointer', minWidth: '100px' }}
+                        onClick={() => showCustomerInvoice(row._id)}
+                      >
+                        <ReceiptLongIcon />
                       </TableCell>
-                      <TableCell onClick={() => showCustomerCrop(row._id)}>
+                      <TableCell onClick={() => showCustomerCrop(row._id)} sx={{ minWidth: '100px' }}>
                         <Chip
                           label={row.croppoints.toFixed(2)}
                           // color={statusObj[row.status].color}
@@ -482,8 +650,11 @@ const Database = () => {
                           }}
                         />
                       </TableCell>
-                      <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerProp(row._id)}>
-                      <Chip
+                      <TableCell
+                        sx={{ cursor: 'pointer', minWidth: '100px' }}
+                        onClick={() => showCustomerProp(row._id)}
+                      >
+                        <Chip
                           label={row.proppoints}
                           // color={statusObj[row.status].color}
                           color={'secondary'}
@@ -496,18 +667,30 @@ const Database = () => {
                           }}
                         />
                       </TableCell>
-                      <TableCell onClick={() => showCustomerAuditReport(row._id)}>
-                        <Chip
-                          label={'Audit report'}
-                          // color={statusObj[row.status].color}
-                          color={'info'}
-                          sx={{
-                            height: 24,
-                            fontSize: '0.75rem',
-                            textTransform: 'capitalize',
-                            '& .MuiChip-label': { fontWeight: 500 },
-                            cursor: 'pointer'
-                          }}
+                      <TableCell
+                        onClick={() => showCustomerLikeProduct(row._id)}
+                        sx={{ cursor: 'pointer', minWidth: '100px' }}
+                      >
+                        <ThumbUp />
+                      </TableCell>
+                      <TableCell
+                        onClick={() => showCustomerRatedProduct(row._id)}
+                        sx={{ cursor: 'pointer', minWidth: '100px' }}
+                      >
+                        <Avatar
+                          style={{ width: '20px', height: '20px' }}
+                          alt='rating product'
+                          src='/images/rating.png'
+                        />
+                      </TableCell>
+                      <TableCell
+                        onClick={() => showCustomerAuditReport(row._id)}
+                        sx={{ cursor: 'pointer', minWidth: '100px' }}
+                      >
+                        <Avatar
+                          style={{ width: '20px', height: '20px' }}
+                          alt='audit trail'
+                          src='/images/icons8-audit-48.png'
                         />
                       </TableCell>
                     </TableRow>
@@ -521,7 +704,7 @@ const Database = () => {
       <Grid item xs={12}>
         <Card>
           <TableContainer sx={{ height: 400 }}>
-            <h3 style={{ marginLeft: '20px' }}>Business Data</h3>
+            <h4 style={{ marginLeft: '20px' }}>Business Data</h4>
             {bdStatus ? (
               <Spinner />
             ) : !businessData.length ? (
@@ -538,7 +721,7 @@ const Database = () => {
                     <TableCell>Invoices</TableCell>
                     <TableCell>CROPs</TableCell>
                     <TableCell>Active Offers</TableCell>
-                    <TableCell>Audit Report</TableCell>
+                    <TableCell>Audit Trail</TableCell>
                   </TableRow>
                 </TableHead>
 
@@ -551,15 +734,15 @@ const Database = () => {
                     >
                       <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
+                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', minWidth: '160px' }}>
                             {row.businessName}
                           </Typography>
                           {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
                           {/* <Typography variant='caption'>{row.designation}</Typography> */}
                         </Box>
                       </TableCell>
-                      <TableCell>{row.cropId}</TableCell>
-                      <TableCell>
+                      <TableCell sx={{ minWidth: '100px' }}>{row.cropId}</TableCell>
+                      <TableCell sx={{ minWidth: '100px' }}>
                         <Chip
                           label={row.status}
                           // color={statusObj[row.status].color}
@@ -572,16 +755,19 @@ const Database = () => {
                           }}
                         />
                       </TableCell>
-                      <TableCell>{row.tier}</TableCell>
-                      <TableCell>
+                      <TableCell sx={{ minWidth: '100px' }}>{row.tier}</TableCell>
+                      <TableCell sx={{ minWidth: '100px' }}>
                         <BusinessModal user={row} />
                       </TableCell>
-                      <TableCell  onClick={() => showBusinessInvoice(row._id)} sx={{ cursor: 'pointer'}}>
-                        <ReceiptLongIcon/>
+                      <TableCell
+                        onClick={() => showBusinessInvoice(row._id)}
+                        sx={{ cursor: 'pointer', minWidth: '100px' }}
+                      >
+                        <ReceiptLongIcon />
                       </TableCell>
-                      <TableCell>
-                      <Chip
-                          label={row.croppoint}
+                      <TableCell sx={{ minWidth: '100px' }} onClick={() => showBusinessCrop(row._id)}>
+                        <Chip
+                          label={row.croppoint.toFixed(2)}
                           // color={statusObj[row.status].color}
                           color={'primary'}
                           sx={{
@@ -607,19 +793,14 @@ const Database = () => {
                           onClick={() => showActiveOffers(row._id)}
                         />
                       </TableCell>
-                      <TableCell>
-                        <Chip
-                          label={'Audit Report'}
-                          // color={statusObj[row.status].color}
-                          color={'info'}
-                          sx={{
-                            height: 24,
-                            fontSize: '0.75rem',
-                            textTransform: 'capitalize',
-                            '& .MuiChip-label': { fontWeight: 500 },
-                            cursor: 'pointer'
-                          }}
-                          onClick={() => showBusinessAuditReport(row._id)}
+                      <TableCell
+                        onClick={() => showBusinessAuditReport(row._id)}
+                        sx={{ cursor: 'pointer', minWidth: '100px' }}
+                      >
+                        <Avatar
+                          style={{ width: '20px', height: '20px' }}
+                          alt='audit trail'
+                          src='/images/icons8-audit-48.png'
                         />
                       </TableCell>
                     </TableRow>

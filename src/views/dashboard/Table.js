@@ -98,14 +98,14 @@ const statusObj = {
 
 const DashboardTable = () => {
   const [productData, setProductData] = useState([])
-  const product = require("../../db/products2.json");
+  // const product = require("../../db/products2.json");
   const fetchDetails = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getAllProducts`)
+      .post(`${process.env.HOST}/api/admin/getAllProduct`)
       .then(function (response) {
         // handle success
         // console.log(response);
-        setProductData(response.data.allProduct)
+        setProductData(response.data.productList)
       })
       .catch(function (error) {
         // handle error
@@ -113,41 +113,37 @@ const DashboardTable = () => {
       })
   }
   useEffect(() => {
-    // fetchDetails()
+    fetchDetails()
   }, [])
   // console.log(product)
   return (
     <Card>
+      <h3 style={{marginLeft:"18px"}}>Performing Products</h3>
       <TableContainer>
         <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
+            <TableCell>Sector</TableCell>
               <TableCell>Product</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Price</TableCell>
-              <TableCell>From</TableCell>
-              <TableCell>To</TableCell>
-              <TableCell>Market For</TableCell>
-              <TableCell>Sector</TableCell>
               <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {product.map((row, i) => (
+            {productData.map((row, i) => (
               <TableRow hover key={"product_table"+i} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                <TableCell>{row.sector}</TableCell>
                 <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
-                    <CardMedia component='img' height='50' image={row.image} alt='Paella dish' />
+                    <CardMedia component='img' height='50' image={`${process.env.HOST}/api/products/image/${row?.image[0]}`} alt='Paella dish' />
                     <Typography variant='caption'>{row.designation}</Typography>
                   </Box>
                 </TableCell>
                 <TableCell>{row?.title}</TableCell>
                 <TableCell>{row?.price}</TableCell>
-                <TableCell>{"march/15/2023"}</TableCell>
-                <TableCell>{"march/30/2023"}</TableCell>
-                <TableCell>{"top rank"}</TableCell>
-                <TableCell>{"electronic"}</TableCell>
+                
                 <TableCell>
                   <Chip
                     label={row.status}

@@ -16,7 +16,7 @@ const data = [
   {
     progress: 75,
     imgHeight: 20,
-    title: 'Zipcar',
+    title: 'Business A',
     color: 'primary',
     amount: '$24,895.65',
     subtitle: 'Vuejs, React & HTML',
@@ -26,7 +26,7 @@ const data = [
     progress: 50,
     color: 'info',
     imgHeight: 27,
-    title: 'Bitbank',
+    title: 'Business B',
     amount: '$8,650.20',
     subtitle: 'Sketch, Figma & XD',
     imgSrc: '/images/cards/logo-bitbank.png'
@@ -34,10 +34,10 @@ const data = [
   {
     progress: 20,
     imgHeight: 20,
-    title: 'Aviato',
+    title: 'Business C',
     color: 'secondary',
     amount: '$1,245.80',
-    subtitle: 'HTML & Angular',
+    subtitle: 'HTML & Angular & XD',
     imgSrc: '/images/cards/logo-aviato.png'
   }
 ]
@@ -46,7 +46,7 @@ const TotalEarning = () => {
   return (
     <Card>
       <CardHeader
-        title='Total Earning'
+        title='Total Sales'
         titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
         action={
           <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}>
@@ -54,7 +54,7 @@ const TotalEarning = () => {
           </IconButton>
         }
       />
-      <CardContent sx={{ pt: theme => `${theme.spacing(2.25)} !important` }}>
+      <CardContent sx={{ pt: theme => `${theme.spacing(2.25)} !important`, height:"355px"}}>
         <Box sx={{ mb: 1.5, display: 'flex', alignItems: 'center' }}>
           <Typography variant='h4' sx={{ fontWeight: 600, fontSize: '2.125rem !important' }}>
             $24,895
@@ -67,7 +67,7 @@ const TotalEarning = () => {
           </Box>
         </Box>
 
-        <Typography component='p' variant='caption' sx={{ mb: 10 }}>
+        <Typography component='p' variant='caption' sx={{ mb: 5}}>
           Compared to $84,325 last year
         </Typography>
 
@@ -78,7 +78,7 @@ const TotalEarning = () => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                ...(index !== data.length - 1 ? { mb: 8.5 } : {})
+                ...(index !== data.length - 1 ? { mb: 3.5 } : {})
               }}
             >
               <Avatar

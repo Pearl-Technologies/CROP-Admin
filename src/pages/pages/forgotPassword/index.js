@@ -106,7 +106,7 @@ const ForgotPassword = () => {
       .catch(function (error) {
         setLoginStatus(false);
 
-        toast.error(error.response.data.msg, {
+        toast.error(error.response?.data.msg, {
           position: toast.POSITION.TOP_CENTER,
           progressClassName: "Toastify__progress-bar--animated",
         })        
@@ -121,7 +121,7 @@ const ForgotPassword = () => {
       <ToastContainer/>
       <Card sx={{ zIndex: 1 }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(12, 9, 7)} !important` }}>
-          <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <img src='/images/logo.png' alt='logo' width='150px' />
             <Typography
               variant='h6'
@@ -136,22 +136,22 @@ const ForgotPassword = () => {
               {/* {themeConfig.templateName} */}
             </Typography>
           </Box>
-          <Typography variant="h5" component="h2" textAlign={"center"}>Forgot Password</Typography>
+          <Typography variant="h6" component="h6" sx={{mb:4}} textAlign={"center"}>Forgot Password</Typography>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
             <TextField
               autoFocus
               fullWidth
-              focused
-              label='Email'
+              label='Enter Your Email'
               sx={{ marginBottom: 4 }}
               onChange={handleChange('email')}
               value={values.email}
+              // placeholder='Enter your email'
             />
-            <Button fullWidth size='large' variant='contained' sx={{ marginBottom: 7 }} onClick={login} disabled={loginStatus}>
+            <Button fullWidth size='large' sx={{ marginBottom: 7, backgroundColor:"#5d53d4", color:"white" }} onClick={login} disabled={loginStatus} variant='contained'>
               submit
             </Button>
             <Link passHref href='/pages/login'>
-                <LinkStyled>Go to Login</LinkStyled>
+                <LinkStyled>Back to Login</LinkStyled>
               </Link>
             {loginStatus &&<LinearProgress/>}
           

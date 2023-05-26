@@ -50,19 +50,9 @@ const statusObj = {
 
 const TierManagement = () => {
   const router = useRouter()
-  const users = require('../../db/users_customers.json')
-  const business = require('../../db/businesses.json')
   const [customerData, setCustomerData] = useState([])
   const [businessData, setBusinessData] = useState([])
   const [message, setMessage] = useState('');
-  const showCustomerCrop =(x)=>{
-    router.push(`accountManagement/cropDetails?q=${x}`)
-    // return<CropDetails id={x}/>
-  }
-  const showCustomerAuditReport =(x)=>{
-    router.push(`databaseManagement/auditReport?q=${x}`)
-    
-  }
 
   const fetchCustomerDetails = () => {
     axios
@@ -317,7 +307,7 @@ const TierManagement = () => {
       <Grid item xs={12}>
         <Card>
           <TableContainer sx={{ height: 400 }}>
-            <h4>Customer Data</h4>
+            <h4 style={{marginLeft:"15px"}}>Customer Data</h4>
             <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
               <TableHead>
                 <TableRow>
@@ -327,7 +317,7 @@ const TierManagement = () => {
                   <TableCell>Tier</TableCell>
                   {/* <TableCell>Profile</TableCell> */}
                   {/* <TableCell>Invoices</TableCell> */}
-                  <TableCell>Last Tier Changed date</TableCell>
+                  <TableCell>Last Change date</TableCell>
                   <TableCell>Change Tier</TableCell>
                 </TableRow>
               </TableHead>
@@ -382,7 +372,7 @@ const TierManagement = () => {
       <Grid item xs={12}>
         <Card>
           <TableContainer>
-            <h3>Business Data</h3>
+            <h4 style={{marginLeft:"15px"}}>Business Data</h4>
             <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
               <TableHead>
                 <TableRow>
@@ -390,7 +380,7 @@ const TierManagement = () => {
                   <TableCell>CROP Id</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Tier</TableCell>
-                  <TableCell>Last Tier Change Date</TableCell>            
+                  <TableCell>Last Change Date</TableCell>            
                   <TableCell>Change Tier</TableCell>
                 </TableRow>
               </TableHead>
