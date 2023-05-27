@@ -12,7 +12,7 @@ import TableContainer from '@mui/material/TableContainer'
 import IconButton from '@mui/material/IconButton'
 import CardHeader from '@mui/material/CardHeader'
 
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from '@mui/material/Tooltip'
 import CardMedia from '@mui/material/CardMedia'
 import axios from 'axios'
 import Avatar from '@mui/material/Avatar'
@@ -106,7 +106,7 @@ const Request = () => {
           setResponseCode(response.status)
           toast.success(response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
         .catch(function (error) {
@@ -116,13 +116,17 @@ const Request = () => {
           setResponseCode(error?.response?.status)
           toast.error(error.response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
     }
     return (
       <div>
-        <Button onClick={handleOpen}>{user.requestNumber.toLocaleString('en-US', { maximumFractionDigits: 0, maximumSignificantDigits: 7 }).slice(0, 7)}</Button>
+        <Button onClick={handleOpen}>
+          {user.requestNumber
+            .toLocaleString('en-US', { maximumFractionDigits: 0, maximumSignificantDigits: 7 })
+            .slice(0, 7)}
+        </Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -153,7 +157,9 @@ const Request = () => {
                 onChange={handleChange('requestResponse')}
               />
             </Typography>
-            <Button onClick={updateBusinessRequest} variant="contained" style={{float:"right", margin:"2px"}}>Update</Button>
+            <Button onClick={updateBusinessRequest} variant='contained' style={{ float: 'right', margin: '2px' }}>
+              Update
+            </Button>
             {updateStatus && <CircularProgress />}
           </Box>
         </Modal>
@@ -302,7 +308,7 @@ const Request = () => {
     const handleChange = prop => event => {
       setData({ ...data, [prop]: event.target.value })
     }
- 
+
     const updateRequest = () => {
       setUpdateStatus(true)
       axios({
@@ -317,7 +323,7 @@ const Request = () => {
           setResponseCode(response.status)
           toast.success(response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
         .catch(function (error) {
@@ -327,14 +333,17 @@ const Request = () => {
           setResponseCode(error?.response?.status)
           toast.error(error.response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
-      
     }
     return (
       <div>
-        <Button onClick={handleOpen}>{user.requestNumber.toLocaleString('en-US', { maximumFractionDigits: 0, maximumSignificantDigits: 7 }).slice(0, 7)}</Button>
+        <Button onClick={handleOpen}>
+          {user.requestNumber
+            .toLocaleString('en-US', { maximumFractionDigits: 0, maximumSignificantDigits: 7 })
+            .slice(0, 7)}
+        </Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -404,9 +413,8 @@ const Request = () => {
 
   return (
     <Grid container spacing={2}>
-      <ToastContainer/>
+      <ToastContainer />
       <Grid item xs={12}>
-   
         <Card>
           <CardHeader
             title='Customer Request'
@@ -438,28 +446,28 @@ const Request = () => {
               </Alert>
             )}
           </Snackbar>
-           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
-            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
+          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }}>
+            <Table
+              sx={{ minWidth: 800 }}
+              aria-label='table in dashboard'
+              stickyHeader
+              style={{ border: '1px solid #F4F5FA' }}
+            >
               <TableHead>
-              
                 <TableRow>
-                <TableCell>Number</TableCell>
-                  <TableCell>Date</TableCell>
-                  
-                  
-
-                  <TableCell title="DESCRIPTION">DESC</TableCell>
-                  <TableCell  title="Expectation Outcomes">Exp OC</TableCell>
+                  <TableCell>Number</TableCell>
+                  <TableCell>Raised</TableCell>
                   <TableCell>Type</TableCell>
-                  <TableCell  title="Preferred Contact Medium">PCM</TableCell>
-                  <TableCell>Modified</TableCell>
+                  <TableCell>Details</TableCell>
+                  <TableCell>PCM</TableCell>
+                  <TableCell>Actioned</TableCell>
                   <TableCell>Status</TableCell>
-                  <TableCell>Response</TableCell>
-            
+                  <TableCell>Resolution</TableCell>
+                  <TableCell>SLA</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-              {customerRequest.map(row => (
+                {customerRequest.map(row => (
                   <TableRow
                     hover
                     key={'complain' + row._id}
@@ -474,22 +482,28 @@ const Request = () => {
                     </TableCell>
                     <TableCell>{new Date(Date(row.createdAt)).toLocaleDateString()}</TableCell>
                     <TableCell>{row.description}</TableCell>
-                    <TableCell>{row.expectedOutcoms}</TableCell>
                     <TableCell>{row.requestType}</TableCell>
                     <TableCell>{row.preferredMediumContact}</TableCell>
                     <TableCell>{new Date(Date(row.requestUpdateDate)).toLocaleDateString()}</TableCell>
                     <TableCell>{row.requestStatus}</TableCell>
                     <TableCell>{row.requestResponse}</TableCell>
+                    <TableCell style={{ gap: '5px' }}>
+                      <Button size='small' variant='contained' style={{ margin: '2px' }}>
+                        Yes
+                      </Button>
+                      <Button size='small' variant='contained' style={{ margin: '2px' }}>
+                        No
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
-        
         </Card>
       </Grid>
       <Grid item xs={12}>
-      <Card>
+        <Card>
           <CardHeader
             title='Business Request'
             titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
@@ -504,21 +518,25 @@ const Request = () => {
               </IconButton>
             }
           />
-      
-           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
-            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
+
+          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }}>
+            <Table
+              sx={{ minWidth: 800 }}
+              aria-label='table in dashboard'
+              stickyHeader
+              style={{ border: '1px solid #F4F5FA' }}
+            >
               <TableHead>
-              
-              <TableRow>
+                <TableRow>
                   <TableCell>Number</TableCell>
-                  <TableCell>Date</TableCell>
-                  <TableCell title="DESCRIPTION">DESC</TableCell>
-                  <TableCell  title="Expectation Outcomes">Exp OC</TableCell>
+                  <TableCell>Raised</TableCell>
                   <TableCell>Type</TableCell>
-                  <TableCell  title="Preferred Contact Medium">PCM</TableCell>
-                  <TableCell>Modified</TableCell>
+                  <TableCell>Details</TableCell>
+                  <TableCell>PCM</TableCell>
+                  <TableCell>Actioned</TableCell>
                   <TableCell>Status</TableCell>
-                  <TableCell>Response</TableCell>
+                  <TableCell>Resolution</TableCell>
+                  <TableCell>SLA</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -531,25 +549,31 @@ const Request = () => {
                     <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', cursor: 'pointer' }}>
-                          <BusinessModal user={row}/>
+                          <BusinessModal user={row} />
                         </Typography>
                       </Box>
                     </TableCell>
-                   
+
                     <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
                     <TableCell>{row.description}</TableCell>
-                    <TableCell>{row.expectedOutcoms}</TableCell>
                     <TableCell>{row.requestType}</TableCell>
                     <TableCell>{row.preferredMediumContact}</TableCell>
                     <TableCell>{new Date(row.requestUpdateDate).toLocaleDateString()}</TableCell>
                     <TableCell>{row.requestStatus}</TableCell>
                     <TableCell>{row.requestResponse}</TableCell>
+                    <TableCell style={{ gap: '5px' }}>
+                      <Button size='small' variant='contained' style={{ margin: '2px' }}>
+                        Yes
+                      </Button>
+                      <Button size='small' variant='contained' style={{ margin: '2px' }}>
+                        No
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
-        
         </Card>
       </Grid>
     </Grid>
