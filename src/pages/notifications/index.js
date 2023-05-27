@@ -498,7 +498,7 @@ const Notifications = () => {
           </AccordionDetails>
         </Accordion>
       </div>
-      <h5>Business notification</h5>
+      <h3 style={{ marginLeft: '10px' }}>Business notification</h3>
       <div>
         <Accordion>
           <AccordionSummary expandIcon={<ArrowDownBoldCircle />} aria-controls='panel1a-content' id='panel1a-header'>
@@ -689,7 +689,7 @@ const Notifications = () => {
         </Accordion>{' '}
         <Accordion>
           <AccordionSummary expandIcon={<ArrowDownBoldCircle />} aria-controls='panel3a-content' id='panel3a-header'>
-            <Typography>Purchase and Redemption Notifications</Typography>
+            <Typography>Invoice and Payment Notifications</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <TextField
@@ -784,8 +784,8 @@ const Notifications = () => {
           </AccordionDetails>
         </Accordion>
       </div>
-      <h5>Notification</h5>
-      <NotificationTable />
+      {/* <h5>Notification</h5>
+      <NotificationTable /> */}
       <div>
         {/* {notificationData && notificationData.map((data)=>(
           <div key={data._id+"nitification"}>

@@ -215,9 +215,9 @@ const Complaint = () => {
             </Typography>
             <Typography sx={{ mt: 2, width: '100%' }}>
               <Select value={data.complainStatus} onChange={handleChange('complainStatus')}>
-                <MenuItem value={'received'}>Received</MenuItem>
-                <MenuItem value={'process'}>Process</MenuItem>
-                <MenuItem value={'completed'}>Completed</MenuItem>
+                <MenuItem value={'open'}>Open</MenuItem>
+                <MenuItem value={'progress'}>Progress</MenuItem>
+                <MenuItem value={'Closed'}>Closed</MenuItem>
               </Select>
             </Typography>
             <Typography sx={{ mt: 2 }}>
@@ -296,9 +296,9 @@ const Complaint = () => {
             </Typography>
             <Typography sx={{ mt: 2, width: '100%' }}>
               <Select value={data.complainStatus} onChange={handleChange('complainStatus')}>
-                <MenuItem value={'received'}>Received</MenuItem>
-                <MenuItem value={'process'}>Process</MenuItem>
-                <MenuItem value={'completed'}>Completed</MenuItem>
+                <MenuItem value={'open'}>Open</MenuItem>
+                <MenuItem value={'progress'}>Progress</MenuItem>
+                <MenuItem value={'closed'}>Closed</MenuItem>
               </Select>
             </Typography>
             <Typography sx={{ mt: 2 }}>
