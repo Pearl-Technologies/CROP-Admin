@@ -28,7 +28,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Avatar from '@mui/material/Avatar'
 
 const statusObj = {
-  presuspend: { color: 'info' },
+  presuspended: { color: 'info' },
   deactivated: { color: 'error' },
   current: { color: 'primary' },
   suspended: { color: 'warning' },
@@ -131,9 +131,9 @@ const services = () => {
         >
           <Box sx={style}>
             <Chip
-              label={'suspended'}
+              label={'Suspended'}
               // color={statusObj[row.status].color}
-              color={'info'}
+              color={'warning'}
               sx={{
                 height: 24,
                 fontSize: '0.75rem',
@@ -143,7 +143,7 @@ const services = () => {
                 margin: '3px'
               }}
               onClick={() => {
-                ChangeStatus('suspended')
+                ChangeStatus('suspended') 
               }}
             />
             <Chip
@@ -163,9 +163,9 @@ const services = () => {
               }}
             />
             <Chip
-              label={'presuspend'}
+              label={'Presuspended'}
               // color={statusObj[row.status].color}
-              color={'warning'}
+              color={'info'}
               sx={{
                 height: 24,
                 fontSize: '0.75rem',
@@ -175,13 +175,13 @@ const services = () => {
                 margin: '3px'
               }}
               onClick={() => {
-                ChangeStatus('presuspend')
+                ChangeStatus('presuspended')
               }}
             />
             <Chip
               label={'Active'}
               // color={statusObj[row.status].color}
-              color={'primary'}
+              color={'success'}
               sx={{
                 height: 24,
                 fontSize: '0.75rem',
@@ -269,7 +269,7 @@ const services = () => {
             <Chip
               label={'suspended'}
               // color={statusObj[row.status].color}
-              color={'info'}
+              color={'warning'}
               sx={{
                 height: 24,
                 fontSize: '0.75rem',
@@ -299,9 +299,9 @@ const services = () => {
               }}
             />
             <Chip
-              label={'presuspend'}
+              label={'Presuspended'}
               // color={statusObj[row.status].color}
-              color={'warning'}
+              color={'info'}
               sx={{
                 height: 24,
                 fontSize: '0.75rem',
@@ -311,13 +311,13 @@ const services = () => {
                 margin: '3px'
               }}
               onClick={() => {
-                ChangeStatus('presuspend')
+                ChangeStatus('presuspended')
               }}
             />
             <Chip
               label={'Active'}
               // color={statusObj[row.status].color}
-              color={'primary'}
+              color={'success'}
               sx={{
                 height: 24,
                 fontSize: '0.75rem',
@@ -368,7 +368,7 @@ const services = () => {
                   <TableCell>CROP Id</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Tier</TableCell>
-                  <TableCell>Change Account Status</TableCell>
+                  <TableCell>Change Status</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -436,7 +436,7 @@ const services = () => {
                   <TableCell>CROP Id</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Tier</TableCell>
-                  <TableCell>CHANGE ACCOUNT STATUS</TableCell>
+                  <TableCell>CHANGE STATUS</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

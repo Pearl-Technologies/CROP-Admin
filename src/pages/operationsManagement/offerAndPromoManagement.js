@@ -152,6 +152,7 @@ const DashboardTable = () => {
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
+              <TableCell>Sector</TableCell>
               <TableCell>Product</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Rating</TableCell>
@@ -162,7 +163,6 @@ const DashboardTable = () => {
               <TableCell>From</TableCell>
               <TableCell>To</TableCell>
               <TableCell>Market For</TableCell>
-              <TableCell>Sector</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Slot</TableCell>
               <TableCell>Action</TableCell>
@@ -171,6 +171,7 @@ const DashboardTable = () => {
           <TableBody>
             {mostPopularProductData.map(row => (
               <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                <TableCell>{row?.sector}</TableCell>
                 <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
@@ -196,7 +197,6 @@ const DashboardTable = () => {
                 <TableCell>{row?.mktDate?.fromDate}</TableCell>
                 <TableCell>{row?.mktDate?.toDate}</TableCell>
                 <TableCell>{row?.mktOfferFor}</TableCell>
-                <TableCell>{row?.sector}</TableCell>
                 <TableCell>
                   <Chip
                     label={row.status}
@@ -235,6 +235,7 @@ const DashboardTable = () => {
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
+              <TableCell>Sector</TableCell>
               <TableCell>Product</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Rating</TableCell>
@@ -245,7 +246,6 @@ const DashboardTable = () => {
               <TableCell>From</TableCell>
               <TableCell>To</TableCell>
               <TableCell>Market For</TableCell>
-              <TableCell>Sector</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Slot</TableCell>
               <TableCell>Action</TableCell>
@@ -254,6 +254,7 @@ const DashboardTable = () => {
           <TableBody>
             {productData.map(row => (
               <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                <TableCell>{row?.sector}</TableCell>
                 <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
@@ -280,7 +281,7 @@ const DashboardTable = () => {
                 <TableCell>{row?.mktDate?.fromDate}</TableCell>
                 <TableCell>{row?.mktDate?.toDate}</TableCell>
                 <TableCell>{row?.mktOfferFor}</TableCell>
-                <TableCell>{row?.sector}</TableCell>
+                
                 <TableCell>
                   <Chip
                     label={row.status}
@@ -319,6 +320,7 @@ const DashboardTable = () => {
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
+              <TableCell>Sector</TableCell>
               <TableCell>Product</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Rating</TableCell>
@@ -329,7 +331,6 @@ const DashboardTable = () => {
               <TableCell>From</TableCell>
               <TableCell>To</TableCell>
               <TableCell>Market For</TableCell>
-              <TableCell>Sector</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Slot</TableCell>
               <TableCell>Action</TableCell>
@@ -338,6 +339,7 @@ const DashboardTable = () => {
           <TableBody>
             {productData.map(row => (
               <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                    <TableCell>{row?.sector}</TableCell>
                 <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
@@ -363,7 +365,6 @@ const DashboardTable = () => {
                 <TableCell>{row?.mktDate?.fromDate}</TableCell>
                 <TableCell>{row?.mktDate?.toDate}</TableCell>
                 <TableCell>{row?.mktOfferFor}</TableCell>
-                <TableCell>{row?.sector}</TableCell>
                 <TableCell>
                   <Chip
                     label={row.status}
@@ -402,6 +403,7 @@ const DashboardTable = () => {
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
+              <TableCell>Sector</TableCell>
               <TableCell>Product</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Rating</TableCell>
@@ -412,7 +414,6 @@ const DashboardTable = () => {
               <TableCell>From</TableCell>
               <TableCell>To</TableCell>
               <TableCell>Market For</TableCell>
-              <TableCell>Sector</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Slot</TableCell>
               <TableCell>Action</TableCell>
@@ -421,6 +422,7 @@ const DashboardTable = () => {
           <TableBody>
             {promoProductData.map(row => (
               <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                <TableCell>{row?.sector}</TableCell>
                 <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
@@ -445,7 +447,7 @@ const DashboardTable = () => {
                 <TableCell>{row?.mktDate?.fromDate}</TableCell>
                 <TableCell>{row?.mktDate?.toDate}</TableCell>
                 <TableCell>{row?.mktOfferFor}</TableCell>
-                <TableCell>{row?.sector}</TableCell>
+                
                 <TableCell>
                   <Chip
                     label={row.status}
@@ -484,13 +486,13 @@ const DashboardTable = () => {
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
+            <TableCell>Sector</TableCell>
               <TableCell>Product</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Rating</TableCell>
               <TableCell>Likes</TableCell>
               <TableCell>AUD</TableCell>
-              <TableCell>CROPs</TableCell>
-              <TableCell>Sector</TableCell>
+              <TableCell>CROPs</TableCell>              
               <TableCell>Status</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
@@ -498,6 +500,7 @@ const DashboardTable = () => {
           <TableBody>
             {productData.map(row => (
               <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                <TableCell>{row?.sector}</TableCell>
                 <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
@@ -519,7 +522,7 @@ const DashboardTable = () => {
                 <TableCell>{row?.likes}</TableCell>
                 <TableCell>{row?.price}</TableCell>
                 <TableCell>{row?.croppoints}</TableCell>
-                <TableCell>{row?.sector}</TableCell>
+                
                 <TableCell>
                   <Chip
                     label={row.status}

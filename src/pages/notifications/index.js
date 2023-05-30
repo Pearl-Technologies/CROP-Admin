@@ -13,6 +13,7 @@ import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Switch from '@mui/material/Switch';
 
 const Notifications = () => {
   const [notificationData, setNotificationData] = useState([])
@@ -25,6 +26,8 @@ const Notifications = () => {
   const [businessPurchaseAndRedeemptionNotification, setBusinessPurchaseAndRedeemptionNotification] = useState([])
   const [BusinessRequestAndComplaintNotification, setBusinessRequestAndComplaintNotification] = useState([])
   const [message, setMessage] = useState('')
+  const [notificationCategory, setNotificationCategory] = useState("Customer");
+  const label = { inputProps: { 'aria-label': 'Switch demo' } };
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
   })
@@ -241,12 +244,13 @@ const Notifications = () => {
     fetchBusinessPurchaseAndRedeemtionNotification()
     fetchBusinessRequestAndComplaintNotification()
   }, [])
-  console.log(businessAccountNotification)
+
   return (
     <div>
       <ToastContainer/>
-      <div>
-        <h3 style={{ marginLeft: '10px' }}>Customer notification</h3>
+      <Switch {...label} defaultChecked onChange={()=>setNotificationCategory((x)=> (x==="Customer"? "Business":"Customer") )}/>{notificationCategory}
+     {notificationCategory==="Customer" && <div>
+        <h3 style={{ marginLeft: '10px' }}>Customer Notification</h3>
         <Accordion>
           <AccordionSummary expandIcon={<ArrowDownBoldCircle />} aria-controls='panel1a-content' id='panel1a-header'>
             <Typography>Account Notifications</Typography>
@@ -497,9 +501,9 @@ const Notifications = () => {
             </Button>
           </AccordionDetails>
         </Accordion>
-      </div>
-      <h5>Business notification</h5>
-      <div>
+      </div>}
+ {  notificationCategory==="Business"  && <div>
+      <h3 style={{ marginLeft: '10px' }}>Business Notification</h3>
         <Accordion>
           <AccordionSummary expandIcon={<ArrowDownBoldCircle />} aria-controls='panel1a-content' id='panel1a-header'>
             <Typography>Account Notifications</Typography>
@@ -689,7 +693,7 @@ const Notifications = () => {
         </Accordion>{' '}
         <Accordion>
           <AccordionSummary expandIcon={<ArrowDownBoldCircle />} aria-controls='panel3a-content' id='panel3a-header'>
-            <Typography>Purchase and Redemption Notifications</Typography>
+            <Typography>Invoice and Payment Notifications</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <TextField
@@ -783,18 +787,7 @@ const Notifications = () => {
             </Button>
           </AccordionDetails>
         </Accordion>
-      </div>
-      <h5>Notification</h5>
-      <NotificationTable />
-      <div>
-        {/* {notificationData && notificationData.map((data)=>(
-          <div key={data._id+"nitification"}>
-            <p>{data.createAt}</p>
-            <p>{data.type}</p>
-            <p>{data.description}</p>            
-          </div>
-        ))} */}
-      </div>
+      </div>}
     </div>
   )
 }

@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import Typography from '@mui/material/Typography'
+import { Select, MenuItem, InputLabel } from '@mui/material'
 import TableContainer from '@mui/material/TableContainer'
 import CardMedia from '@mui/material/CardMedia'
 import axios from 'axios'
@@ -26,6 +27,7 @@ import Spinner from './spinner'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import Avatar from '@mui/material/Avatar'
 import ThumbUp from 'mdi-material-ui/ThumbUp'
+import Switch from '@mui/material/Switch'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -39,6 +41,7 @@ const style = {
   boxShadow: 24,
   p: 4
 }
+const label = { inputProps: { 'aria-label': 'Switch demo' } }
 const rows = [
   {
     age: 27,
@@ -115,7 +118,7 @@ const rows = [
 ]
 
 const statusObj = {
-  presuspend: { color: 'info' },
+  presuspended: { color: 'info' },
   deactivated: { color: 'error' },
   current: { color: 'primary' },
   suspended: { color: 'warning' },
@@ -124,12 +127,11 @@ const statusObj = {
 
 const Database = () => {
   const router = useRouter()
-  const users = require('../../db/users_customers.json')
-  const business = require('../../db/businesses.json')
   const [customerData, setCustomerData] = useState([])
   const [businessData, setBusinessData] = useState([])
   const [cdStatus, setCDStatus] = useState(false)
   const [bdStatus, setBDStatus] = useState(false)
+  const [selectedOption, setSelectedOption] = useState('Customer Data')
   const showCustomerCrop = x => {
     router.push(`/accountManagement/cropDetails?q=${x}`)
   }
@@ -175,7 +177,7 @@ const Database = () => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
-
+    console.log(user)
     return (
       <div>
         <Button onClick={handleOpen}>
@@ -251,16 +253,18 @@ const Database = () => {
                       value={user.outletCount}
                     />
                     <TextField style={{ marginTop: '10px' }} label='CROP ID' variant='outlined' value={user.cropId} />
-                    <TextField style={{ marginTop: '10px' }} label='Active Loyalty Program' variant='outlined' value={user?.activeLoyaltyProgram} />
-                    <TextField style={{ marginTop: '10px' }} label='Active Loyalty Program' variant='outlined' value={user?.activeLoyaltyProgram} />
-                    Active Loyalty Program
-Name of Loyalty Program
-
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      label='Active Loyalty Program'
+                      variant='outlined'
+                      value={user?.loyaltyProgram?.length ? 'true' : 'false'}
+                    />
+                    {/* <TextField style={{ marginTop: '10px' }} label='Name Of Loyalty Program' variant='outlined' value={user?.nameOfLoyaltyProgram} /> */}
                   </Grid>
                   <Grid item sm={6}>
                     <TextField
                       style={{ marginTop: '10px' }}
-                      label='Market Notification'
+                      label='Market Notification Status'
                       variant='outlined'
                       value={user.mktNotification}
                     />
@@ -275,13 +279,13 @@ Name of Loyalty Program
                       style={{ marginTop: '10px' }}
                       label='Promo Code'
                       variant='outlined'
-                      value={user?.prompcode}
+                      value={user?.promoCode}
                     />
                     <TextField
                       style={{ marginTop: '10px' }}
-                      label='Refferal Code'
+                      label='referral Code'
                       variant='outlined'
-                      value={user.referalCode}
+                      value={user?.referelCode}
                     />
                     <TextField
                       style={{ marginTop: '10px' }}
@@ -336,6 +340,27 @@ Name of Loyalty Program
                     </Grid>
                   </div>
                 ))}
+            </div>
+            <div style={{ marginLeft: '327px' }}>
+              <h3> Name of Loyalty Programs</h3>
+              <div
+                style={{
+                  width: '350px',
+                  lineHeight: '10px',
+                  borderRadius: '10px',
+                  border: '1px solid #c1c1c1',
+                  padding: '10px',
+                  height: '200px',
+                  overflow: 'auto'
+                }}
+              >
+                {user.loyaltyProgram &&
+                  user.loyaltyProgram.map((data, i) => (
+                    <div key={'loyalty' + data._id}>
+                      <p>{data.programmeName}</p>
+                    </div>
+                  ))}
+              </div>
             </div>
           </Box>
         </Modal>
@@ -492,7 +517,7 @@ Name of Loyalty Program
                   </Grid>
                 </div>
               ))}
-            <div style={{display:'flex', flexDirection:"start", marginLeft: '327px', gap:"5px"}}>
+            <div style={{ display: 'flex', flexDirection: 'start', marginLeft: '327px', gap: '5px' }}>
               <div>
                 <h3>Loyalty</h3>
                 <div
@@ -563,6 +588,9 @@ Name of Loyalty Program
   const showBusinessInvoice = x => {
     router.push(`/accountManagement/businessInvoiceDetails?q=${x}`)
   }
+  const showBusinessProductRated = x => {
+    router.push(`/databaseManagement/businessProductRated?q=${x}`)
+  }
   useEffect(() => {
     fetchCustomerDetails()
     fetchBusinessDetails()
@@ -570,247 +598,270 @@ Name of Loyalty Program
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Card>
-          <TableContainer sx={{ height: 400 }}>
-            <h4 style={{ marginLeft: '20px' }}>Customer Data</h4>
-            {cdStatus ? (
-              <Spinner />
-            ) : !customerData.length ? (
-              <h6 style={{ textAlign: 'center' }}>Data not found</h6>
-            ) : (
-              <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Customer Name</TableCell>
-                    <TableCell>CROP Id</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Tier</TableCell>
-                    <TableCell>Profile</TableCell>
-                    <TableCell>Invoices</TableCell>
-                    <TableCell>CROPs</TableCell>
-                    <TableCell>PROPs</TableCell>
-                    <TableCell>Liked Product</TableCell>
-                    <TableCell>Rated Product</TableCell>
-                    <TableCell>Audit Trail</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {customerData.map(row => (
-                    <TableRow
-                      hover
-                      key={'customer' + row._id}
-                      sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
-                    >
-                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', minWidth: '160px' }}>
-                            {row.name.fName} {row.name.mName} {row.name.lName}{' '}
-                          </Typography>
-                          {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
-                          {/* <Typography variant='caption'>{row.designation}</Typography> */}
-                        </Box>
-                      </TableCell>
-                      <TableCell sx={{ minWidth: '100px' }}>{row.cropid}</TableCell>
-                      <TableCell sx={{ minWidth: '100px' }}>
-                        <Chip
-                          label={row.status}
-                          color={statusObj[row.status]?.color}
-                          // color={statusObj[`${row.status}`].color}
+      <div style={{ display: 'flex', gap: 2 }}>
+        <Switch
+          {...label}
+          defaultChecked
+          sx={{ marginTop: 3 }}
+          onChange={() => setSelectedOption(x => (x === 'Customer Data' ? 'Business Data' : 'Customer Data'))}
+        />
+        <h5>{selectedOption}</h5>
+      </div>
+      {selectedOption == 'Customer Data' ? (
+        <Grid item xs={12}>
+          <Card>
+            <TableContainer sx={{ height: '420px' }}>
+              {/* <h4 style={{ marginLeft: '20px' }}>Customer Data</h4> */}
 
-                          sx={{
-                            height: 24,
-                            fontSize: '0.75rem',
-                            textTransform: 'capitalize',
-                            '& .MuiChip-label': { fontWeight: 500 }
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell sx={{ minWidth: '100px' }}>{row.UserTier}</TableCell>
-                      <TableCell sx={{ minWidth: '100px' }}>
-                        <CustomerModal user={row} />
-                      </TableCell>
-                      <TableCell
-                        sx={{ cursor: 'pointer', minWidth: '100px' }}
-                        onClick={() => showCustomerInvoice(row._id)}
-                      >
-                        <ReceiptLongIcon />
-                      </TableCell>
-                      <TableCell onClick={() => showCustomerCrop(row._id)} sx={{ minWidth: '100px' }}>
-                        <Chip
-                          label={row.croppoints.toFixed(2)}
-                          // color={statusObj[row.status].color}
-                          color={'primary'}
-                          sx={{
-                            height: 24,
-                            fontSize: '0.75rem',
-                            textTransform: 'capitalize',
-                            '& .MuiChip-label': { fontWeight: 500 },
-                            cursor: 'pointer'
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        sx={{ cursor: 'pointer', minWidth: '100px' }}
-                        onClick={() => showCustomerProp(row._id)}
-                      >
-                        <Chip
-                          label={row.proppoints}
-                          // color={statusObj[row.status].color}
-                          color={'secondary'}
-                          sx={{
-                            height: 24,
-                            fontSize: '0.75rem',
-                            textTransform: 'capitalize',
-                            '& .MuiChip-label': { fontWeight: 500 },
-                            cursor: 'pointer'
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        onClick={() => showCustomerLikeProduct(row._id)}
-                        sx={{ cursor: 'pointer', minWidth: '100px' }}
-                      >
-                        <ThumbUp />
-                      </TableCell>
-                      <TableCell
-                        onClick={() => showCustomerRatedProduct(row._id)}
-                        sx={{ cursor: 'pointer', minWidth: '100px' }}
-                      >
-                        <Avatar
-                          style={{ width: '20px', height: '20px' }}
-                          alt='rating product'
-                          src='/images/rating.png'
-                        />
-                      </TableCell>
-                      <TableCell
-                        onClick={() => showCustomerAuditReport(row._id)}
-                        sx={{ cursor: 'pointer', minWidth: '100px' }}
-                      >
-                        <Avatar
-                          style={{ width: '20px', height: '20px' }}
-                          alt='audit trail'
-                          src='/images/icons8-audit-48.png'
-                        />
-                      </TableCell>
+              {cdStatus ? (
+                <Spinner />
+              ) : !customerData.length ? (
+                <h6 style={{ textAlign: 'center' }}>Data not found</h6>
+              ) : (
+                <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Customer Name</TableCell>
+                      <TableCell>CROP Id</TableCell>
+                      <TableCell>Status</TableCell>
+                      <TableCell>Tier</TableCell>
+                      <TableCell>Profile</TableCell>
+                      <TableCell>Invoices</TableCell>
+                      <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
+                      <TableCell sx={{ textTransform: 'none' }}>PROPs</TableCell>
+                      <TableCell>Liked Product</TableCell>
+                      <TableCell>Rated Product</TableCell>
+                      <TableCell>Audit Trail</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </TableContainer>
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Card>
-          <TableContainer sx={{ height: 400 }}>
-            <h4 style={{ marginLeft: '20px' }}>Business Data</h4>
-            {bdStatus ? (
-              <Spinner />
-            ) : !businessData.length ? (
-              <h6 style={{ textAlign: 'center' }}>Data not found</h6>
-            ) : (
-              <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Business Name</TableCell>
-                    <TableCell>CROP Id</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Tier</TableCell>
-                    <TableCell>Profile</TableCell>
-                    <TableCell>Invoices</TableCell>
-                    <TableCell>CROPs</TableCell>
-                    <TableCell>Active Offers</TableCell>
-                    <TableCell>Audit Trail</TableCell>
-                  </TableRow>
-                </TableHead>
+                  </TableHead>
+                  <TableBody>
+                    {customerData.map(row => (
+                      <TableRow
+                        hover
+                        key={'customer' + row._id}
+                        sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
+                      >
+                        <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', minWidth: '160px' }}>
+                              {row.name.fName} {row.name.mName} {row.name.lName}{' '}
+                            </Typography>
+                            {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
+                            {/* <Typography variant='caption'>{row.designation}</Typography> */}
+                          </Box>
+                        </TableCell>
+                        <TableCell sx={{ minWidth: '100px' }}>{row.cropid}</TableCell>
+                        <TableCell sx={{ minWidth: '100px' }}>
+                          <Chip
+                            label={row.status}
+                            color={statusObj[row.status]?.color}
+                            // color={statusObj[`${row.status}`].color}
 
-                <TableBody>
-                  {businessData.map(row => (
-                    <TableRow
-                      hover
-                      key={'business' + row._id}
-                      sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
-                    >
-                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', minWidth: '160px' }}>
-                            {row.businessName}
-                          </Typography>
-                          {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
-                          {/* <Typography variant='caption'>{row.designation}</Typography> */}
-                        </Box>
-                      </TableCell>
-                      <TableCell sx={{ minWidth: '100px' }}>{row.cropId}</TableCell>
-                      <TableCell sx={{ minWidth: '100px' }}>
-                        <Chip
-                          label={row.status}
-                          // color={statusObj[row.status].color}
-                          color={statusObj[`${row.status}`]?.color}
-                          sx={{
-                            height: 24,
-                            fontSize: '0.75rem',
-                            textTransform: 'capitalize',
-                            '& .MuiChip-label': { fontWeight: 500 }
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell sx={{ minWidth: '100px' }}>{row.tier}</TableCell>
-                      <TableCell sx={{ minWidth: '100px' }}>
-                        <BusinessModal user={row} />
-                      </TableCell>
-                      <TableCell
-                        onClick={() => showBusinessInvoice(row._id)}
-                        sx={{ cursor: 'pointer', minWidth: '100px' }}
-                      >
-                        <ReceiptLongIcon />
-                      </TableCell>
-                      <TableCell sx={{ minWidth: '100px' }} onClick={() => showBusinessCrop(row._id)}>
-                        <Chip
-                          label={row.croppoint.toFixed(2)}
-                          // color={statusObj[row.status].color}
-                          color={'primary'}
-                          sx={{
-                            height: 24,
-                            fontSize: '0.75rem',
-                            textTransform: 'capitalize',
-                            '& .MuiChip-label': { fontWeight: 500 },
-                            cursor: 'pointer'
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Chip
-                          label={'Active Offers'}
-                          // color={statusObj[row.status].color}
-                          color={'info'}
-                          sx={{
-                            height: 24,
-                            fontSize: '0.75rem',
-                            textTransform: 'capitalize',
-                            '& .MuiChip-label': { fontWeight: 500 }
-                          }}
-                          onClick={() => showActiveOffers(row._id)}
-                        />
-                      </TableCell>
-                      <TableCell
-                        onClick={() => showBusinessAuditReport(row._id)}
-                        sx={{ cursor: 'pointer', minWidth: '100px' }}
-                      >
-                        <Avatar
-                          style={{ width: '20px', height: '20px' }}
-                          alt='audit trail'
-                          src='/images/icons8-audit-48.png'
-                        />
-                      </TableCell>
+                            sx={{
+                              height: 24,
+                              fontSize: '0.75rem',
+                              textTransform: 'capitalize',
+                              '& .MuiChip-label': { fontWeight: 500 }
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell sx={{ minWidth: '100px' }}>{row.UserTier}</TableCell>
+                        <TableCell sx={{ minWidth: '100px' }}>
+                          <CustomerModal user={row} />
+                        </TableCell>
+                        <TableCell
+                          sx={{ cursor: 'pointer', minWidth: '100px' }}
+                          onClick={() => showCustomerInvoice(row._id)}
+                        >
+                          <ReceiptLongIcon />
+                        </TableCell>
+                        <TableCell onClick={() => showCustomerCrop(row._id)} sx={{ minWidth: '100px' }}>
+                          <Chip
+                            label={row.croppoints.toFixed(2)}
+                            // color={statusObj[row.status].color}
+                            color={'primary'}
+                            sx={{
+                              height: 24,
+                              fontSize: '0.75rem',
+                              textTransform: 'capitalize',
+                              '& .MuiChip-label': { fontWeight: 500 },
+                              cursor: 'pointer'
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell
+                          sx={{ cursor: 'pointer', minWidth: '100px' }}
+                          onClick={() => showCustomerProp(row._id)}
+                        >
+                          <Chip
+                            label={row.proppoints}
+                            // color={statusObj[row.status].color}
+                            color={'secondary'}
+                            sx={{
+                              height: 24,
+                              fontSize: '0.75rem',
+                              textTransform: 'capitalize',
+                              '& .MuiChip-label': { fontWeight: 500 },
+                              cursor: 'pointer'
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell
+                          onClick={() => showCustomerLikeProduct(row._id)}
+                          sx={{ cursor: 'pointer', minWidth: '100px' }}
+                        >
+                          <ThumbUp />
+                        </TableCell>
+                        <TableCell
+                          onClick={() => showCustomerRatedProduct(row._id)}
+                          sx={{ cursor: 'pointer', minWidth: '100px' }}
+                        >
+                          <Avatar
+                            style={{ width: '20px', height: '20px' }}
+                            alt='rating product'
+                            src='/images/rating.png'
+                          />
+                        </TableCell>
+                        <TableCell
+                          onClick={() => showCustomerAuditReport(row._id)}
+                          sx={{ cursor: 'pointer', minWidth: '100px' }}
+                        >
+                          <Avatar
+                            style={{ width: '20px', height: '20px' }}
+                            alt='audit trail'
+                            src='/images/icons8-audit-48.png'
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </TableContainer>
+          </Card>
+        </Grid>
+      ) : (
+        <Grid item xs={12}>
+          <Card>
+            <TableContainer sx={{ height: '480px' }}>
+              {bdStatus ? (
+                <Spinner />
+              ) : !businessData.length ? (
+                <h6 style={{ textAlign: 'center' }}>Data not found</h6>
+              ) : (
+                <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Business Name</TableCell>
+                      <TableCell>CROP Id</TableCell>
+                      <TableCell>Status</TableCell>
+                      <TableCell>Tier</TableCell>
+                      <TableCell>Profile</TableCell>
+                      <TableCell>Invoices</TableCell>
+                      <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
+                      <TableCell>Active Offers</TableCell>
+                      <TableCell>Product Rated</TableCell>
+                      <TableCell>Audit Trail</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </TableContainer>
-        </Card>
-      </Grid>
+                  </TableHead>
+
+                  <TableBody>
+                    {businessData.map(row => (
+                      <TableRow
+                        hover
+                        key={'business' + row._id}
+                        sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
+                      >
+                        <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', minWidth: '160px' }}>
+                              {row.businessName}
+                            </Typography>
+                            {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
+                            {/* <Typography variant='caption'>{row.designation}</Typography> */}
+                          </Box>
+                        </TableCell>
+                        <TableCell sx={{ minWidth: '100px' }}>{row.cropId}</TableCell>
+                        <TableCell sx={{ minWidth: '100px' }}>
+                          <Chip
+                            label={row.status}
+                            // color={statusObj[row.status].color}
+                            color={statusObj[`${row.status}`]?.color}
+                            sx={{
+                              height: 24,
+                              fontSize: '0.75rem',
+                              textTransform: 'capitalize',
+                              '& .MuiChip-label': { fontWeight: 500 }
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell sx={{ minWidth: '100px' }}>{row.tier}</TableCell>
+                        <TableCell sx={{ minWidth: '100px' }}>
+                          <BusinessModal user={row} />
+                        </TableCell>
+                        <TableCell
+                          onClick={() => showBusinessInvoice(row._id)}
+                          sx={{ cursor: 'pointer', minWidth: '100px' }}
+                        >
+                          <ReceiptLongIcon />
+                        </TableCell>
+                        <TableCell sx={{ minWidth: '100px' }} onClick={() => showBusinessCrop(row._id)}>
+                          <Chip
+                            label={row.croppoint.toFixed(2)}
+                            // color={statusObj[row.status].color}
+                            color={'primary'}
+                            sx={{
+                              height: 24,
+                              fontSize: '0.75rem',
+                              textTransform: 'capitalize',
+                              '& .MuiChip-label': { fontWeight: 500 },
+                              cursor: 'pointer'
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Chip
+                            label={'Active Offers'}
+                            // color={statusObj[row.status].color}
+                            color={'info'}
+                            sx={{
+                              height: 24,
+                              fontSize: '0.75rem',
+                              textTransform: 'capitalize',
+                              '& .MuiChip-label': { fontWeight: 500 }
+                            }}
+                            onClick={() => showActiveOffers(row._id)}
+                          />
+                        </TableCell>
+                        <TableCell
+                          onClick={() => showBusinessProductRated(row._id)}
+                          sx={{ cursor: 'pointer', minWidth: '100px' }}
+                        >
+                          <Avatar
+                            style={{ width: '20px', height: '20px' }}
+                            alt='rating product'
+                            src='/images/rating.png'
+                          />
+                        </TableCell>
+                        <TableCell
+                          onClick={() => showBusinessAuditReport(row._id)}
+                          sx={{ cursor: 'pointer', minWidth: '100px' }}
+                        >
+                          <Avatar
+                            style={{ width: '20px', height: '20px' }}
+                            alt='audit trail'
+                            src='/images/icons8-audit-48.png'
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </TableContainer>
+          </Card>
+        </Grid>
+      )}
     </Grid>
   )
 }

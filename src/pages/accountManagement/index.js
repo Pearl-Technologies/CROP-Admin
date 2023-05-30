@@ -9,6 +9,7 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
+import { Select, MenuItem, InputLabel } from '@mui/material';
 import axios from 'axios'
 import Grid from '@mui/material/Grid'
 import Avatar from '@mui/material/Avatar'
@@ -41,6 +42,9 @@ const AccountManagement = () => {
   const [businessCropData, setBusinessCropData] = useState([])
   const [customerAccountBalanceData, setCustomerAccountBalanceData] = useState([])
   const [businessAccountBalanceData, setBusinessAccountBalanceData] = useState([])
+  const [selectedOption,setSelectedOption] = useState("customerData")
+  const [selectedCustomerOpt,setSelectedCustomerOpt] = useState("")
+  const [selectedBusinessOpt,setSelectedBusinessOpt] = useState("")
   const fetchCustomerCropTrasaction = () => {
     setccStatus(true)
     axios
@@ -129,12 +133,55 @@ const AccountManagement = () => {
     router.push(`/accountManagement/businessInvoiceDetails?q=${x}`)
   }
 
+  const RenderOptions=()=>{
+    return(
+      <Select sx={{margin:5}} value={selectedOption} onChange={(e)=>{
+        // setSelectedOption()
+        console.log(e.target.value)
+        setSelectedOption(e.target.value)
+      }}>
+        <MenuItem value="customerData">Customer Data</MenuItem>
+        <MenuItem value="businessData">Business Data</MenuItem>
+      </Select>
+    )
+  }
+
+  const RenderCustomerOptions=()=>{
+    return(
+      <Select sx={{margin:5}} value={selectedCustomerOpt} onChange={(e)=>{
+        // setSelectedOption()
+        console.log(e.target.value)
+        setSelectedCustomerOpt(e.target.value)
+      }}>
+        <MenuItem value="customerCrops">Customer CROPs</MenuItem>
+        <MenuItem value="customerProps">Customer PROPs</MenuItem>
+        <MenuItem value="customerInvoices">Customer Invoices</MenuItem>
+      </Select>
+    )
+  }
+
+  const RenderBusinessOptions=()=>{
+    return(
+      <Select sx={{margin:5}} value={selectedCustomerOpt} onChange={(e)=>{
+        // setSelectedOption()
+        console.log(e.target.value)
+        setSelectedBusinessOpt(e.target.value)
+      }}>
+        <MenuItem value="businessCrops">Business CROPs</MenuItem>
+        <MenuItem value="businessInvoices">Business Invoices</MenuItem>
+      </Select>
+    )
+  }
+
   return (
     <Grid container spacing={2}>
       {/* cutomer crop */}
+      <RenderOptions/>
+      { selectedOption=="customerData" ?
+      (<>
       <Grid item sm={12}>
         <Card>
-          <CardHeader
+         { false!=false ? <CardHeader
             title='Customer CROPs'
             titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
             action={
@@ -147,7 +194,8 @@ const AccountManagement = () => {
                 {/* <DotsVertical /> */}
               </IconButton>
             }
-          />
+          /> : "" }
+          <RenderCustomerOptions/>
           {ccStatus && <Spinner />}
           <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
             <Table
@@ -196,6 +244,7 @@ const AccountManagement = () => {
       {/* customer prop */}
       <Grid item xs={12}>
         <Card>
+      { false != false ? 
           <CardHeader
             title='Customer PROPs'
             titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
@@ -209,7 +258,7 @@ const AccountManagement = () => {
                 {/* <DotsVertical /> */}
               </IconButton>
             }
-          />
+          /> : " "}
           {ccStatus && <Spinner />}
           <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
             <Table
@@ -255,80 +304,9 @@ const AccountManagement = () => {
           </TableContainer>
         </Card>
       </Grid>
-      {/* business crop */}
       <Grid item xs={12}>
         <Card>
-          <CardHeader
-            title='Business CROPs'
-            titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
-            action={
-              <IconButton
-                size='small'
-                aria-label='settings'
-                className='card-more-options'
-                sx={{ color: 'text.secondary' }}
-              >
-                {/* <DotsVertical /> */}
-              </IconButton>
-            }
-          />
-          {bcStatus && <Spinner />}
-          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
-            <Table
-              sx={{ minWidth: 800 }}
-              aria-label='table in dashboard'
-              stickyHeader
-              style={{ border: '1px solid #F4F5FA' }}
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell>CROP ID</TableCell>
-                  <TableCell>Business Name</TableCell>
-                  <TableCell>{'CROP'}</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {businessCropData.map((item, index) => {
-                  return (
-                    <TableRow hover sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                      <TableCell>
-                        <p style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', gap: '10px' }}>
-                          <Avatar
-                            variant='rounded-circle'
-                            src={
-                              item?.avatar
-                                ? `${process.env.HOST}/api/products/image/${item?.avatar}`
-                                : '/images/logos/slack.png'
-                            }
-                          ></Avatar>
-                          {item.cropId}
-                        </p>
-                      </TableCell>
-                      <TableCell sx={{ cursor: 'pointer' }} onClick={() => showBusinessCrop(item._id)}>
-                        {' '}
-                        {item.businessName}
-                      </TableCell>
-                      <TableCell sx={{ cursor: 'pointer' }} onClick={() => showBusinessCrop(item._id)}>
-                        <img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoint.toFixed(2)}
-                        <LinearProgress
-                          color={item.color}
-                          value={item.progress}
-                          variant='determinate'
-                          style={{ width: '80px' }}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Card>
-      </Grid>
-      {/* customer invoice */}
-      <Grid item xs={12}>
-        <Card>
-          <CardHeader
+        { false!=false ?  <CardHeader
             title='Customer Invoices'
             titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
             action={
@@ -341,7 +319,8 @@ const AccountManagement = () => {
                 {/* <DotsVertical /> */}
               </IconButton>
             }
-          />
+          /> : ""
+          }
           {ciStatus && <Spinner />}
           <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
             <Table
@@ -397,9 +376,84 @@ const AccountManagement = () => {
           </TableContainer>
         </Card>
       </Grid>
+      </>)
+      :
+      (<>
+      {/* business crop */}
+      <Grid item xs={12}>
+        <Card>
+          { false!=false ? <CardHeader
+            title='Business CROPs'
+            titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
+            action={
+              <IconButton
+                size='small'
+                aria-label='settings'
+                className='card-more-options'
+                sx={{ color: 'text.secondary' }}
+              >
+                {/* <DotsVertical /> */}
+              </IconButton>
+            }
+          /> : ""}
+          {bcStatus && <Spinner />}
+          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
+            <Table
+              sx={{ minWidth: 800 }}
+              aria-label='table in dashboard'
+              stickyHeader
+              style={{ border: '1px solid #F4F5FA' }}
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell>CROP ID</TableCell>
+                  <TableCell>Business Name</TableCell>
+                  <TableCell>{'CROP'}</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {businessCropData.map((item, index) => {
+                  return (
+                    <TableRow hover sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                      <TableCell>
+                        <p style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', gap: '10px' }}>
+                          <Avatar
+                            variant='rounded-circle'
+                            src={
+                              item?.avatar
+                                ? `${process.env.HOST}/api/products/image/${item?.avatar}`
+                                : '/images/logos/slack.png'
+                            }
+                          ></Avatar>
+                          {item.cropId}
+                        </p>
+                      </TableCell>
+                      <TableCell sx={{ cursor: 'pointer' }} onClick={() => showBusinessCrop(item._id)}>
+                        {' '}
+                        {item.businessName}
+                      </TableCell>
+                      <TableCell sx={{ cursor: 'pointer' }} onClick={() => showBusinessCrop(item._id)}>
+                        <img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoint.toFixed(2)}
+                        <LinearProgress
+                          color={item.color}
+                          value={item.progress}
+                          variant='determinate'
+                          style={{ width: '80px' }}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Card>
+      </Grid>
+      {/* customer invoice */}
       {/* business invoice */}
       <Grid item xs={12}>
         <Card>
+          { false!=false ?
           <CardHeader
             title='Business Invoices'
             titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
@@ -413,7 +467,7 @@ const AccountManagement = () => {
                 {/* <DotsVertical /> */}
               </IconButton>
             }
-          />
+          /> : ""}
           {biStatus && <Spinner />}
           <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
             <Table
@@ -472,6 +526,8 @@ const AccountManagement = () => {
           </TableContainer>
         </Card>
       </Grid>
+      </>)
+      }
     </Grid>
   )
 }

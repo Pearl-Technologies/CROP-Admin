@@ -87,7 +87,7 @@ const navigation = () => {
     {
       icon: Database,
       title: 'Database Management',
-      path: '/databaseManagement'
+      path: '/databaseManagement',
     },
     {
       icon: AccountCog,
@@ -104,11 +104,6 @@ const navigation = () => {
       icon: NotificationClearAll,
       title: 'Notifications',
       path: '/notifications'
-    },
-    {
-      icon: AccountArrowUpOutline,
-      title: 'Systems',
-      path: '/systems'
     },
     {
       icon: AccountGroupOutline,

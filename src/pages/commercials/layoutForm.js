@@ -33,11 +33,7 @@ const Form = styled('form')(({ theme }) => ({
 }))
 
 const layoutFrom = () => {
-  // const basePrice = require("../../db/admin_baseprices.json");
-  // ** State
-  //   const [values, setValues] = useState(
-  // basePrice[0]
-  // )
+
   const [basePrice, setBasePrice] = useState([])
 
   // Handle Password
@@ -87,14 +83,12 @@ const layoutFrom = () => {
   return (
     <Card>
       <ToastContainer/>
-      <CardHeader title='Commercial' titleTypographyProps={{ variant: 'h6' }} />
-      <CardContent sx={{ minHeight: 500, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Form onSubmit={e => e.preventDefault()} sx={{ height: '500px', overflow: 'auto' }}>
-          <Grid container spacing={5}>
-            <Grid item xs={12}>
-              <Typography variant='h5'>Update Base Prices</Typography>
+      <CardHeader title='Commercial' titleTypographyProps={{ variant: 'h5' }} />
+      <Grid item xs={4}>
+              <Typography variant='body' style={{marginLeft:"20px"}}>Update Base Prices</Typography>
             </Grid>
-            <Grid item xs={12}>
+          <Grid container spacing={3} style={{padding:"25px"}}>
+            <Grid item xs={4}>
               <TextField
                 fullWidth
                 label='Base Price for Top Ranking of Offers (AUD)'
@@ -104,7 +98,7 @@ const layoutFrom = () => {
                 focused
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
               <TextField
                 fullWidth
                 label='Base Price for Top Ranking of Promos (AUD)'
@@ -114,7 +108,7 @@ const layoutFrom = () => {
                 focused
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
               <TextField
                 fullWidth
                 label='Base Price for Top Ranking of Offers - Store (AUD)'
@@ -125,7 +119,7 @@ const layoutFrom = () => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={4}>
               <TextField
                 fullWidth
                 label='Base Price for Mass Notifications (AUD)'
@@ -135,7 +129,7 @@ const layoutFrom = () => {
                 focused
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
               <TextField
                 fullWidth
                 label='Base Price for Survey Design Assistance (AUD)'
@@ -145,7 +139,7 @@ const layoutFrom = () => {
                 focused
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={4}>
               <TextField
                 fullWidth
                 label='Set valuation for CROP for Earn CROPs (AUD)'
@@ -155,7 +149,7 @@ const layoutFrom = () => {
                 focused
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
               <TextField
                 fullWidth
                 label='Set valuation for CROP for Redeem CROPs (AUD)'
@@ -164,8 +158,8 @@ const layoutFrom = () => {
                 onChange={handleChange('redeemCropValuation')}
                 focused
               />
-            </Grid>
-            <Grid item xs={12}>
+            </Grid> */}
+            <Grid item xs={4}>
               <TextField
                 fullWidth
                 label='Weekday (AUD)'
@@ -175,7 +169,7 @@ const layoutFrom = () => {
                 onChange={handleChange('weekday')}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
               <TextField
                 fullWidth
                 label='Weekend (AUD)'
@@ -185,7 +179,7 @@ const layoutFrom = () => {
                 focused
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
               <TextField
                 fullWidth
                 label='Public Holidays (AUD)'
@@ -195,15 +189,12 @@ const layoutFrom = () => {
                 focused
               />
             </Grid>
-
-            <Grid item xs={12}>
+          </Grid>
+          <Grid item xs={12}>
               <Button size='large' type='submit' variant='contained' sx={{ width: '100%' }} onClick={updateBasePrice}>
                 update
               </Button>
             </Grid>
-          </Grid>
-        </Form>
-      </CardContent>
     </Card>
   )
 }

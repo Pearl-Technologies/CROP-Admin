@@ -55,7 +55,7 @@ const BusinessAuditReport = ({}) => {
     <Grid item xs={12}>
       <Card>
       <span onClick={()=>router.back()}><ArrowBackIcon/></span>
-        <CardHeader title='Business Audit Records' titleTypographyProps={{ variant: 'h6' }} />
+        <CardHeader title='Business Audit Trail' titleTypographyProps={{ variant: 'h6' }} />
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
           <TableContainer sx={{ maxHeight: 440 }}>
           {adStatus ? <Spinner/>: !myAuditData.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :
@@ -73,7 +73,7 @@ const BusinessAuditReport = ({}) => {
                 {myAuditData?.map(row => {
                   return (
                     <TableRow hover role='checkbox' tabIndex={-1} key={row._id}>
-                      <TableCell>{new Date(row.date).toDateString()}</TableCell>
+                      <TableCell>{new Date(row.date).toLocaleDateString()}</TableCell>
                       <TableCell>{row.description}</TableCell>
                       
                     </TableRow>

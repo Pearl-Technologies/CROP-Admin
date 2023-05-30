@@ -41,7 +41,7 @@ const style = {
 
 
 const statusObj = {
-  presuspend: { color: 'info' },
+  presuspended: { color: 'info' },
   deactivated: { color: 'error' },
   current: { color: 'primary' },
   suspended: { color: 'warning' },
@@ -157,7 +157,7 @@ const TierManagement = () => {
             <Chip
               label={'Base'}
               // color={statusObj[row.status].color}
-              color={'info'}
+              color={'primary'}
               sx={{
                 height: 24,
                 fontSize: '0.75rem',
@@ -205,7 +205,7 @@ const TierManagement = () => {
             <Chip
               label={'Platinum'}
               // color={statusObj[row.status].color}
-              color={'primary'}
+              color={'info'}
               sx={{
                 height: 24,
                 fontSize: '0.75rem',

@@ -142,9 +142,9 @@ const Request = () => {
             </Typography>
             <Typography sx={{ mt: 2, width: '100%' }}>
               <Select value={data.requestStatus} onChange={handleChange('requestStatus')}>
-                <MenuItem value={'received'}>Received</MenuItem>
-                <MenuItem value={'process'}>Process</MenuItem>
-                <MenuItem value={'completed'}>Completed</MenuItem>
+                <MenuItem value={'open'}>Open</MenuItem>
+                <MenuItem value={'progress'}>Progress</MenuItem>
+                <MenuItem value={'closed'}>Closed</MenuItem>
               </Select>
             </Typography>
             <Typography sx={{ mt: 2 }}>
@@ -359,9 +359,9 @@ const Request = () => {
             </Typography>
             <Typography sx={{ mt: 2, width: '100%' }}>
               <Select value={data.requestStatus} onChange={handleChange('requestStatus')}>
-                <MenuItem value={'received'}>Received</MenuItem>
-                <MenuItem value={'process'}>Process</MenuItem>
-                <MenuItem value={'completed'}>Completed</MenuItem>
+                <MenuItem value={'open'}>Open</MenuItem>
+                <MenuItem value={'progress'}>Progress</MenuItem>
+                <MenuItem value={'closed'}>Closed</MenuItem>
               </Select>
             </Typography>
             <Typography sx={{ mt: 2 }}>
