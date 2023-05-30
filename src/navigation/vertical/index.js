@@ -87,7 +87,7 @@ const navigation = () => {
     {
       icon: Database,
       title: 'Database Management',
-      path: '/databaseManagement'
+      path: '/databaseManagement',
     },
     {
       icon: AccountCog,
