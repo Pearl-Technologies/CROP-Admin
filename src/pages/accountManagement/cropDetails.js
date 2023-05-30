@@ -125,7 +125,7 @@ const CropDetails = ({}) => {
                   <TableRow>                  
                       <TableCell> Date</TableCell>
                       <TableCell> Order Number</TableCell>
-                      {/* <TableCell>status</TableCell> */}
+                      <TableCell>Amount</TableCell>
                       <TableCell> Description</TableCell>
                       <TableCell> Debit</TableCell>                  
                       <TableCell> Credit</TableCell>                  
@@ -137,7 +137,7 @@ const CropDetails = ({}) => {
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
                         <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
                         <TableCell>{row?.orderNumber}</TableCell>
-                        {/* <TableCell>{row?.pt.status}</TableCell> */}
+                        <TableCell>{row?.amount}</TableCell>
                         <TableCell>{row?.description}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType === 'debit'? row.crop.toFixed(2):""}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType === 'credit'? row.crop.toFixed(2):""}</TableCell>

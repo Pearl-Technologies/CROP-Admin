@@ -106,11 +106,6 @@ const navigation = () => {
       path: '/notifications'
     },
     {
-      icon: AccountArrowUpOutline,
-      title: 'Systems',
-      path: '/systems'
-    },
-    {
       icon: AccountGroupOutline,
       title: 'Commercials',
       path: '/commercials'

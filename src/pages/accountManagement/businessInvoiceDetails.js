@@ -59,10 +59,11 @@ const BusinessInvoiceDetails = ({}) => {
                   <TableRow>                  
                       <TableCell> Date</TableCell>
                       <TableCell> Invoice Number</TableCell>                                    
-                      <TableCell> Email</TableCell>                                    
+                      <TableCell> Description</TableCell>                                    
+                      <TableCell> Amount</TableCell>                                    
+                      <TableCell> Crop Offered</TableCell>                                    
                       <TableCell> Invoice Link</TableCell>                                    
-                      <TableCell> Invoice PDF</TableCell>                                    
-                      <TableCell> Payment Status</TableCell>                                    
+                      <TableCell> Invoice PDF</TableCell>                                                                        
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -70,11 +71,12 @@ const BusinessInvoiceDetails = ({}) => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id.$oid}>
                         <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row.invoice_id}</TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row.customer_email}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{row?.invoice_id}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{row?.description}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{row?.cropOffered}</TableCell>
                         <TableCell style={{textAlign:"left"}}><Link href={row.invoice_url}>Invoice View</Link></TableCell>
                         <TableCell style={{textAlign:"left"}}><Link href={row.invoice_pdf}>Download Invoice</Link></TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row.status}</TableCell>
+                        {/* <TableCell style={{textAlign:"left"}}>{row.status}</TableCell> */}
                       </TableRow>
                     )
                   })}

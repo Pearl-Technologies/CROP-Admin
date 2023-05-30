@@ -11,6 +11,8 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Link } from '@mui/material'
+import TableContainer from '@mui/material/TableContainer';
+import Paper from '@mui/material/Paper';
 const TreeView = ({ id, data}) => {
   const row = data;  
   const [expanded, setExpanded] = React.useState(false)
@@ -65,7 +67,7 @@ const TreeView = ({ id, data}) => {
   };
   
   return (
-    <TableRow>
+ <TableRow>
       <Accordion expanded={expanded === `pannel${id}`} onChange={handleChange(`pannel${id}`)}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
           <Typography sx={{ width: '25%', flexShrink: 0 }}>{row?.businessName}</Typography>
@@ -73,19 +75,20 @@ const TreeView = ({ id, data}) => {
           
         </AccordionSummary>
         <AccordionDetails>
-          <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table" stickyHeader sx={{ minWidth: 800 }}>
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>
                 <TableCell>Title</TableCell>
                 <TableCell>Price</TableCell>
-                <TableCell>CROP</TableCell>
+                <TableCell>CROPs</TableCell>
                 <TableCell>Quantity</TableCell>
-                <TableCell>Total CROP</TableCell>
+                <TableCell>Total CROPs</TableCell>
                 <TableCell>Total</TableCell>
-                <TableCell>CROPs Values</TableCell>
-                <TableCell>Crop Retaintion %5</TableCell>
-                <TableCell>ToPay</TableCell>
+                <TableCell varient='body'>CROPs Values</TableCell>
+                <TableCell>Crop Retention %5</TableCell>
+                <TableCell>To Pay</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -170,12 +173,11 @@ const TreeView = ({ id, data}) => {
               </TableRow>
             </TableBody>
           </Table>
+          </TableContainer>
         </AccordionDetails>
       </Accordion>
-    </TableRow>
+    </TableRow>    
   )
 }
-
-
-
 export default TreeView
+

@@ -131,7 +131,7 @@ const PayToCustomer = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
+      {false && <Grid item xs={12}>
         <Card>
           <TableContainer sx={{ height: 400 }}>
             <h4 style={{ marginLeft: '20px' }}>Customer Data</h4>
@@ -179,7 +179,7 @@ const PayToCustomer = () => {
             )}
           </TableContainer>
         </Card>
-      </Grid>
+      </Grid>}
       <Grid item xs={12}>
         <Card>
           <TableContainer sx={{ height: 400 }}>
