@@ -6,6 +6,12 @@ import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
+import Table from '@mui/material/Table'
+import TableRow from '@mui/material/TableRow'
+import TableHead from '@mui/material/TableHead'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
 import TextField from '@mui/material/TextField'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
@@ -144,11 +150,13 @@ const CropMilestone = () => {
   const handelUpdate = e => {
     setUpdateStatus(true)
     e.preventDefault()
- 
-    let body={'defaultProp': parseInt(values.defaultProp),
-    'purchaseProp': parseFloat(values.purchaseProp),
-    '_id': values._id,
-    'user': values.user}
+
+    let body = {
+      defaultProp: parseInt(values.defaultProp),
+      purchaseProp: parseFloat(values.purchaseProp),
+      _id: values._id,
+      user: values.user
+    }
     axios({
       method: 'post',
       url: `${process.env.HOST}/api/admin/updatePropValuation`,
@@ -160,7 +168,7 @@ const CropMilestone = () => {
         setResponseCode(response.status)
         toast.success(response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
       })
       .catch(function (error) {
@@ -170,7 +178,7 @@ const CropMilestone = () => {
         setResponseCode(error.response.status)
         toast.success(response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
       })
   }
@@ -189,7 +197,7 @@ const CropMilestone = () => {
         setResponseCode(response.status)
         toast.success(response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
       })
       .catch(function (error) {
@@ -199,7 +207,7 @@ const CropMilestone = () => {
         setResponseCode(error.response.status)
         toast.success(error.response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
       })
   }
@@ -207,20 +215,47 @@ const CropMilestone = () => {
     fetchPropData()
     fetchDefaultMileStoneData()
   }, [])
-  
+
   return (
     <DatePickerWrapper>
-      {updateStatus && <LinearProgress/>}
-      <ToastContainer/>
+      {updateStatus && <LinearProgress />}
+      <ToastContainer />
+      <Grid item xs={12} style={{ marginBottom: '20px' }}>
+        <Card>
+          <TableContainer sx={{ height: 400 }}>
+            <h3 style={{ marginLeft: '20px' }}>Milestone</h3>
+            <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Milestone /Tier</TableCell>
+                  <TableCell>Base</TableCell>
+                  <TableCell>Sliver</TableCell>
+                  <TableCell>Gold</TableCell>
+                  <TableCell>Platinum</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow hover key='1' sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                  <TableCell>10k</TableCell>
+                  <TableCell>24</TableCell>
+                  <TableCell>50</TableCell>
+                  <TableCell>50</TableCell>
+                  <TableCell>50</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Card>
+      </Grid>
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
           <Card>
-            <CardHeader title='PROP' titleTypographyProps={{ variant: 'h6' }} />
+            <CardHeader title='PROPs' titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <h5 style={{ marginLeft: 'auto' }}> 1PROP (default)</h5>
+                    <h5 style={{ marginLeft: 'auto' }}> 1 PROP (default)</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
                     <TextField
@@ -231,7 +266,7 @@ const CropMilestone = () => {
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <h5 style={{ marginLeft: 'auto' }}> 1PROP (purchase)</h5>
+                    <h5 style={{ marginLeft: 'auto' }}> 1 PROP (purchase)</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
                     <TextField
@@ -267,7 +302,7 @@ const CropMilestone = () => {
             <CardHeader title='Milestone data' titleTypographyProps={{ variant: 'h6' }} />
             {milestoneValue && (
               <CardContent>
-                <form onSubmit={e => e.preventDefault()} style={{height:"190px", overflow:"auto", padding:"10px"}}>
+                <form onSubmit={e => e.preventDefault()} style={{ height: '190px', overflow: 'auto', padding: '10px' }}>
                   <Grid container spacing={5}>
                     <Grid item xs={6}>
                       <h5 style={{ marginLeft: 'auto' }}> CROP 5k</h5>

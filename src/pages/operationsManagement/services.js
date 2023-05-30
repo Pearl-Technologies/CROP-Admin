@@ -27,7 +27,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import Avatar from '@mui/material/Avatar'
 
-
 const statusObj = {
   presuspend: { color: 'info' },
   deactivated: { color: 'error' },
@@ -46,7 +45,6 @@ const services = () => {
   const [message, setMessage] = useState([])
   const [reponseCode, setResponseCode] = useState(null)
   // const handleOpen = () => setOpen(true)
-
 
   const fetchCustomerDetails = () => {
     axios
@@ -95,7 +93,7 @@ const services = () => {
           SetUpdateStatus(false)
           toast.success(response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
         .catch(function (error) {
@@ -103,7 +101,7 @@ const services = () => {
           SetUpdateStatus(false)
           toast.error(error.response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
       handleClose()
@@ -231,7 +229,7 @@ const services = () => {
           SetUpdateStatus(false)
           toast.success(response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
         .catch(function (error) {
@@ -239,7 +237,7 @@ const services = () => {
           SetUpdateStatus(false)
           toast.error(error.response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
       handleClose()
@@ -358,7 +356,7 @@ const services = () => {
 
   return (
     <Grid container spacing={2}>
-      <ToastContainer/>
+      <ToastContainer />
       <Grid item xs={12}>
         <Card>
           <TableContainer sx={{ height: 400 }}>
@@ -382,8 +380,22 @@ const services = () => {
                   >
                     <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                       <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                      <Avatar variant='rounded-circle' src={row?.avatar ? `${process.env.HOST}/api/products/image/${row?.avatar}` : "/images/avatars/1.png"}></Avatar>
-                        <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', alignSelf:"center", marginLeft:"10px"}}>
+                        <Avatar
+                          variant='rounded-circle'
+                          src={
+                            row?.avatar
+                              ? `${process.env.HOST}/api/products/image/${row?.avatar}`
+                              : '/images/avatars/1.png'
+                          }
+                        ></Avatar>
+                        <Typography
+                          sx={{
+                            fontWeight: 500,
+                            fontSize: '0.875rem !important',
+                            alignSelf: 'center',
+                            marginLeft: '10px'
+                          }}
+                        >
                           {row.name.fName} {row.name.mName} {row.name.lName}{' '}
                         </Typography>
                       </Box>
@@ -413,7 +425,7 @@ const services = () => {
           </TableContainer>
         </Card>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} style={{ marginTop: '20px' }}>
         <Card>
           <TableContainer sx={{ height: 400 }}>
             <h3 style={{ marginLeft: '20px' }}>Business Data</h3>
@@ -436,8 +448,22 @@ const services = () => {
                   >
                     <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                       <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                      <Avatar variant='rounded-circle' src={row?.avatar ? `${process.env.HOST}/api/products/image/${row?.avatar}` : "/images/logos/slack.png"}></Avatar>
-                        <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', alignSelf:"center", marginLeft:"10px" }}>
+                        <Avatar
+                          variant='rounded-circle'
+                          src={
+                            row?.avatar
+                              ? `${process.env.HOST}/api/products/image/${row?.avatar}`
+                              : '/images/logos/slack.png'
+                          }
+                        ></Avatar>
+                        <Typography
+                          sx={{
+                            fontWeight: 500,
+                            fontSize: '0.875rem !important',
+                            alignSelf: 'center',
+                            marginLeft: '10px'
+                          }}
+                        >
                           {row?.businessName}
                         </Typography>
                         {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
