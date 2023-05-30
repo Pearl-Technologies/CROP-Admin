@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import Typography from '@mui/material/Typography'
+import { Select, MenuItem, InputLabel } from '@mui/material';
 import TableContainer from '@mui/material/TableContainer'
 import CardMedia from '@mui/material/CardMedia'
 import axios from 'axios'
@@ -130,6 +131,7 @@ const Database = () => {
   const [businessData, setBusinessData] = useState([])
   const [cdStatus, setCDStatus] = useState(false)
   const [bdStatus, setBDStatus] = useState(false)
+  const [selectedOption,setSelectedOption] = useState("customerData")
   const showCustomerCrop = x => {
     router.push(`/accountManagement/cropDetails?q=${x}`)
   }
@@ -569,11 +571,21 @@ Name of Loyalty Program
   }, [])
 
   return (
-    <Grid container spacing={2}>
+    <Grid container  spacing={2}>
+      {
+        selectedOption=="customerData" ? 
       <Grid item xs={12}>
         <Card>
-          <TableContainer sx={{ height: 400 }}>
-            <h4 style={{ marginLeft: '20px' }}>Customer Data</h4>
+          <TableContainer sx={{ height: 400,minHeight:'100vh'}}>
+            {/* <h4 style={{ marginLeft: '20px' }}>Customer Data</h4> */}
+            <Select sx={{margin:10}} value={selectedOption} onChange={(e)=>{
+                // setSelectedOption()
+                console.log(e.target.value)
+                setSelectedOption(e.target.value)
+              }}>
+              <MenuItem value="customerData">Customer Data</MenuItem>
+              <MenuItem value="businessData">Business Data</MenuItem>
+            </Select>
             {cdStatus ? (
               <Spinner />
             ) : !customerData.length ? (
@@ -588,8 +600,8 @@ Name of Loyalty Program
                     <TableCell>Tier</TableCell>
                     <TableCell>Profile</TableCell>
                     <TableCell>Invoices</TableCell>
-                    <TableCell>CROPs</TableCell>
-                    <TableCell>PROPs</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>CROPs</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>PROPs</TableCell>
                     <TableCell>Liked Product</TableCell>
                     <TableCell>Rated Product</TableCell>
                     <TableCell>Audit Trail</TableCell>
@@ -700,11 +712,19 @@ Name of Loyalty Program
             )}
           </TableContainer>
         </Card>
-      </Grid>
+      </Grid> :
       <Grid item xs={12}>
         <Card>
-          <TableContainer sx={{ height: 400 }}>
-            <h4 style={{ marginLeft: '20px' }}>Business Data</h4>
+          <TableContainer sx={{ height: 400,minHeight:'100vh'}}>
+            {/* <h4 style={{ marginLeft: '20px' }}>Business Data</h4> */}
+            <Select sx={{margin:10}} value={selectedOption} onChange={(e)=>{
+                // setSelectedOption()
+                console.log(e.target.value)
+                setSelectedOption(e.target.value)
+              }}>
+              <MenuItem value="customerData">Customer Data</MenuItem>
+              <MenuItem value="businessData">Business Data</MenuItem>
+            </Select>
             {bdStatus ? (
               <Spinner />
             ) : !businessData.length ? (
@@ -719,7 +739,7 @@ Name of Loyalty Program
                     <TableCell>Tier</TableCell>
                     <TableCell>Profile</TableCell>
                     <TableCell>Invoices</TableCell>
-                    <TableCell>CROPs</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>CROPs</TableCell>
                     <TableCell>Active Offers</TableCell>
                     <TableCell>Audit Trail</TableCell>
                   </TableRow>
@@ -811,6 +831,7 @@ Name of Loyalty Program
           </TableContainer>
         </Card>
       </Grid>
+      }
     </Grid>
   )
 }
