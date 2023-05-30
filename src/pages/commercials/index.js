@@ -17,11 +17,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 const Commercials = () => {
   return (
     <DatePickerWrapper>
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
         <FormLayoutsAlignment />
-      </Grid>
-    </Grid>
   </DatePickerWrapper>
   )
 }

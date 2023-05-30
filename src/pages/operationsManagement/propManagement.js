@@ -29,7 +29,9 @@ const CropMilestone = () => {
   const [reponseCode, setResponseCode] = useState(null)
   const [values, setValues] = useState({
     defaultProp: '',
-    purchaseProp: ''
+    purchaseProp: '',
+    defaultCrop: '',
+    purchaseCrop: '',
   })
   const [milestoneValue, setMileStoneValue] = useState({
     first: {
@@ -123,6 +125,7 @@ const CropMilestone = () => {
     axios
       .post(`${process.env.HOST}/api/admin/getPropValuation`)
       .then(function (response) {
+        console.log(response, "prop valueation data");
         setValues(response.data.propValuationData[0])
       })
       .catch(function (error) {
@@ -147,11 +150,16 @@ const CropMilestone = () => {
  
     let body={'defaultProp': parseInt(values.defaultProp),
     'purchaseProp': parseFloat(values.purchaseProp),
+    'defaultCrop': parseFloat(values.defaultCrop),
+    'purchaseCrop': parseFloat(values.purchaseCrop),
     '_id': values._id,
     'user': values.user}
     axios({
       method: 'post',
       url: `${process.env.HOST}/api/admin/updatePropValuation`,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      },
       data: body
     })
       .then(function (response) {
@@ -168,7 +176,7 @@ const CropMilestone = () => {
         console.log(error)
         setMessage(error.response.data)
         setResponseCode(error.response.status)
-        toast.success(response.data.msg, {
+        toast.error(error.response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
           progressClassName: "Toastify__progress-bar--animated",
         })
@@ -274,9 +282,9 @@ const CropMilestone = () => {
                   <Grid item xs={6} spacing={2}>
                     <TextField
                       label={'AUD'}
-                      value={values?.defaultProp}
+                      value={values?.defaultCrop}
                       style={{ marginBottom: '8px' }}
-                      onChange={handleChange('defaultProp')}
+                      onChange={handleChange('defaultCrop')}
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -285,9 +293,9 @@ const CropMilestone = () => {
                   <Grid item xs={6} spacing={2}>
                     <TextField
                       label={'AUD'}
-                      value={values?.purchaseProp}
+                      value={values?.purchaseCrop}
                       style={{ marginBottom: '8px' }}
-                      onChange={handleChange('purchaseProp')}
+                      onChange={handleChange('purchaseCrop')}
                     />
                   </Grid>
 
