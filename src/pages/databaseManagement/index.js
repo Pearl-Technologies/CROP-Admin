@@ -115,7 +115,7 @@ const rows = [
 ]
 
 const statusObj = {
-  presuspend: { color: 'info' },
+  presuspended: { color: 'info' },
   deactivated: { color: 'error' },
   current: { color: 'primary' },
   suspended: { color: 'warning' },
@@ -175,7 +175,7 @@ const Database = () => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
-
+    console.log(user)
     return (
       <div>
         <Button onClick={handleOpen}>
@@ -251,16 +251,18 @@ const Database = () => {
                       value={user.outletCount}
                     />
                     <TextField style={{ marginTop: '10px' }} label='CROP ID' variant='outlined' value={user.cropId} />
-                    <TextField style={{ marginTop: '10px' }} label='Active Loyalty Program' variant='outlined' value={user?.activeLoyaltyProgram} />
-                    <TextField style={{ marginTop: '10px' }} label='Active Loyalty Program' variant='outlined' value={user?.activeLoyaltyProgram} />
-                    Active Loyalty Program
-Name of Loyalty Program
-
+                    <TextField
+                      style={{ marginTop: '10px' }}
+                      label='Active Loyalty Program'
+                      variant='outlined'
+                      value={user?.loyaltyProgram?.length ? 'true' : 'false'}
+                    />
+                    {/* <TextField style={{ marginTop: '10px' }} label='Name Of Loyalty Program' variant='outlined' value={user?.nameOfLoyaltyProgram} /> */}
                   </Grid>
                   <Grid item sm={6}>
                     <TextField
                       style={{ marginTop: '10px' }}
-                      label='Market Notification'
+                      label='Market Notification Status'
                       variant='outlined'
                       value={user.mktNotification}
                     />
@@ -275,13 +277,13 @@ Name of Loyalty Program
                       style={{ marginTop: '10px' }}
                       label='Promo Code'
                       variant='outlined'
-                      value={user?.prompcode}
+                      value={user?.promoCode}
                     />
                     <TextField
                       style={{ marginTop: '10px' }}
-                      label='Refferal Code'
+                      label='referral Code'
                       variant='outlined'
-                      value={user.referalCode}
+                      value={user?.referelCode}
                     />
                     <TextField
                       style={{ marginTop: '10px' }}
@@ -336,6 +338,27 @@ Name of Loyalty Program
                     </Grid>
                   </div>
                 ))}
+            </div>
+            <div style={{ marginLeft: '327px' }}>
+              <h3> Name of Loyalty Programs</h3>
+              <div
+                style={{
+                  width: '350px',
+                  lineHeight: '10px',
+                  borderRadius: '10px',
+                  border: '1px solid #c1c1c1',
+                  padding:"10px",
+                  height:'200px',
+                  overflow:"auto"
+                }}
+              >
+                {user.loyaltyProgram &&
+                  user.loyaltyProgram.map((data, i) => (
+                    <div key={'loyalty' + data._id}>
+                      <p>{data.programmeName}</p>
+                    </div>
+                  ))}
+              </div>
             </div>
           </Box>
         </Modal>
@@ -492,7 +515,7 @@ Name of Loyalty Program
                   </Grid>
                 </div>
               ))}
-            <div style={{display:'flex', flexDirection:"start", marginLeft: '327px', gap:"5px"}}>
+            <div style={{ display: 'flex', flexDirection: 'start', marginLeft: '327px', gap: '5px' }}>
               <div>
                 <h3>Loyalty</h3>
                 <div
