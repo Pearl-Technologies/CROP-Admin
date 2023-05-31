@@ -21,7 +21,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import Spinner from '../databaseManagement/spinner'
 
 export default function Loyalty() {
-  const [loyalityList, setLoyaltyList] = React.useState([]);
+  const [loyalityList, setLoyaltyList] = React.useState([])
   const [msg, setMsg] = React.useState('')
   const [status, setStatus] = React.useState(false)
 
@@ -42,7 +42,7 @@ export default function Loyalty() {
         setStatus(false)
       })
   }
-  const handleDelete=(id)=>{
+  const handleDelete = id => {
     setStatus(true)
     axios
       .post(
@@ -57,22 +57,22 @@ export default function Loyalty() {
       )
       .then(function (response) {
         toast.success(response.data.msg, {
-            position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
-          })
-        setMsg(response.data.msg);
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: 'Toastify__progress-bar--animated'
+        })
+        setMsg(response.data.msg)
         setStatus(false)
       })
       .catch(function (error) {
         console.log(error)
         toast.error(error.response.data.msg, {
-            position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
-          })
-          setMsg(error.response.data.msg);
-          setStatus(false)
+          position: toast.POSITION.TOP_CENTER,
+          progressClassName: 'Toastify__progress-bar--animated'
+        })
+        setMsg(error.response.data.msg)
+        setStatus(false)
       })
-}
+  }
   const Fade = React.forwardRef(function Fade(props, ref) {
     const { children, in: open, onClick, onEnter, onExited, ownerState, ...other } = props
     const style = useSpring({
@@ -117,74 +117,78 @@ export default function Loyalty() {
     boxShadow: 24,
     p: 4
   }
-  function SpringModal({id, programName}) {
+  function SpringModal({ id, programName }) {
     const [open, setOpen] = React.useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
     const [loyalityName, setLoyaltyName] = React.useState(programName)
     const handleSave = e => {
-        e.preventDefault()
-        axios
-          .post(
-            `${process.env.HOST}/api/admin/addLoyaltyProgramme`,
-            { program_name: loyalityName },
-            {
-              headers: {
-                authorization: `Bearer ${localStorage.getItem('token')}`,
-                'Content-Type': 'application/json'
-              }
+      e.preventDefault()
+      axios
+        .post(
+          `${process.env.HOST}/api/admin/addLoyaltyProgramme`,
+          { program_name: loyalityName },
+          {
+            headers: {
+              authorization: `Bearer ${localStorage.getItem('token')}`,
+              'Content-Type': 'application/json'
             }
-          )
-          .then(function (response) {
-            toast.success(response.data.msg, {
-                position: toast.POSITION.TOP_CENTER,
-                progressClassName: "Toastify__progress-bar--animated",
-              })
-            setMsg(response.data.msg);
-            setLoyaltyName('')
+          }
+        )
+        .then(function (response) {
+          toast.success(response.data.msg, {
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: 'Toastify__progress-bar--animated'
           })
-          .catch(function (error) {
-            console.log(error)
-            toast.error(error.response.data.msg, {
-                position: toast.POSITION.TOP_CENTER,
-                progressClassName: "Toastify__progress-bar--animated",
-              })
-              setMsg(error.response.data.msg);
+          setMsg(response.data.msg)
+          setLoyaltyName('')
+        })
+        .catch(function (error) {
+          console.log(error)
+          toast.error(error.response.data.msg, {
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: 'Toastify__progress-bar--animated'
           })
-      }
-    const handleUpdate=()=>{
-        axios
-          .post(
-            `${process.env.HOST}/api/admin/updateLoyaltyProgramme`,
-            { programme_name: loyalityName, id },
-            {
-              headers: {
-                authorization: `Bearer ${localStorage.getItem('token')}`,
-                'Content-Type': 'application/json'
-              }
+          setMsg(error.response.data.msg)
+        })
+    }
+    const handleUpdate = () => {
+      axios
+        .post(
+          `${process.env.HOST}/api/admin/updateLoyaltyProgramme`,
+          { programme_name: loyalityName, id },
+          {
+            headers: {
+              authorization: `Bearer ${localStorage.getItem('token')}`,
+              'Content-Type': 'application/json'
             }
-          )
-          .then(function (response) {
-            toast.success(response.data.msg, {
-                position: toast.POSITION.TOP_CENTER,
-                progressClassName: "Toastify__progress-bar--animated",
-              })
-            setMsg(response.data.msg);
-            setLoyaltyName('')
+          }
+        )
+        .then(function (response) {
+          toast.success(response.data.msg, {
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: 'Toastify__progress-bar--animated'
           })
-          .catch(function (error) {
-            console.log(error)
-            toast.error(error.response.data.msg, {
-                position: toast.POSITION.TOP_CENTER,
-                progressClassName: "Toastify__progress-bar--animated",
-              })
-              setMsg(error.response.data.msg);
+          setMsg(response.data.msg)
+          setLoyaltyName('')
+        })
+        .catch(function (error) {
+          console.log(error)
+          toast.error(error.response.data.msg, {
+            position: toast.POSITION.TOP_CENTER,
+            progressClassName: 'Toastify__progress-bar--animated'
           })
+          setMsg(error.response.data.msg)
+        })
     }
     return (
       <div>
         {!id && <Button onClick={handleOpen}>Add A Loyalty</Button>}
-        {id && <Button onClick={handleOpen}><EditIcon/></Button>}
+        {id && (
+          <Button onClick={handleOpen}>
+            <EditIcon />
+          </Button>
+        )}
         <Modal
           aria-labelledby='spring-modal-title'
           aria-describedby='spring-modal-description'
@@ -201,22 +205,29 @@ export default function Loyalty() {
           <Fade in={open}>
             <Box sx={style}>
               <Typography variant='h6' component='h2'>
-                {id ? "Update Loyalty":"Add Loyalty"}
+                {id ? 'Update Loyalty' : 'Add Loyalty'}
               </Typography>
-              <Typography id='spring-modal-description' sx={{ mt: 2, display:'flex', justifyContent:"space-between"}}>
-                  <TextField
-                    id='standard-basic'
-                    label='Loyalty Name'
-                    value={loyalityName}
-                    variant='standard'
-                    onChange={e => setLoyaltyName(e.target.value)}
-                  />
-               {!id &&  <Button variant='contained' onClick={handleSave}>
+              <Typography
+                id='spring-modal-description'
+                sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}
+              >
+                <TextField
+                  id='standard-basic'
+                  label='Loyalty Name'
+                  value={loyalityName}
+                  variant='standard'
+                  onChange={e => setLoyaltyName(e.target.value)}
+                />
+                {!id && (
+                  <Button variant='contained' onClick={handleSave}>
                     Save
-                  </Button> }           
-               {id &&  <Button variant='contained' onClick={handleUpdate}>
+                  </Button>
+                )}
+                {id && (
+                  <Button variant='contained' onClick={handleUpdate}>
                     Update
-                  </Button> }           
+                  </Button>
+                )}
               </Typography>
             </Box>
           </Fade>
@@ -230,40 +241,53 @@ export default function Loyalty() {
 
   return (
     <>
-    {status && <Spinner/>}
-          <ToastContainer/>
+      {status && <Spinner />}
+      <ToastContainer />
       <h4>Loyalty Programmes</h4>
       <List
         sx={{
           width: '50%',
           maxWidth: 760,
-        //   display:'flex',
-        //   justifyContent:'space-between',
+          //   display:'flex',
+          //   justifyContent:'space-between',
           bgcolor: 'background.paper',
           position: 'relative',
           overflow: 'auto',
-        //   maxHeight: 'screen',
+          //   maxHeight: 'screen',
           '& ul': { padding: 0 }
         }}
-       
       >
-        
-          <ul>
-            {loyalityList.map(item => (
-              <ListItem key={`${item._id}`} >
-                <ListItemText primary={`${item.programmeName}`} sx={{width:500}}/>
-                <ListItemText sx={{ textAlign:'right'}}>                  
-                  <SpringModal id={item._id} programName={item.programmeName}/>
-       
-                </ListItemText>
-                <ListItemText sx={{textAlign:'right'}}>                  
-                         <Button onClick={()=>handleDelete(item._id)}><DeleteForeverIcon /></Button>
-                </ListItemText>
-              </ListItem>
-            ))}
-            <SpringModal />
-          </ul>
-        
+        <ul>
+          <ListItem>
+            {/* <ListItemText sx={{ width: 500 }} /> */}
+            <ListItemText sx={{ textAlign: 'left' }}>
+              <span style={{ fontWeight: 'bold' }}> Loyality</span>
+
+              {/* <SpringModal programName='Loyality' /> */}
+            </ListItemText>
+            <ListItemText sx={{ textAlign: 'right', color: 'bold' }}>
+              <span style={{ fontWeight: 'bold' }}> Action</span>
+            </ListItemText>
+          </ListItem>
+
+          {/* <SpringModal /> */}
+        </ul>
+        <ul>
+          {loyalityList.map(item => (
+            <ListItem key={`${item._id}`}>
+              <ListItemText primary={`${item.programmeName}`} sx={{ width: 500 }} />
+              <ListItemText sx={{ textAlign: 'right' }}>
+                <SpringModal id={item._id} programName={item.programmeName} />
+              </ListItemText>
+              <ListItemText sx={{ textAlign: 'right' }}>
+                <Button onClick={() => handleDelete(item._id)}>
+                  <DeleteForeverIcon />
+                </Button>
+              </ListItemText>
+            </ListItem>
+          ))}
+          <SpringModal />
+        </ul>
       </List>
     </>
   )
