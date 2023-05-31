@@ -4,6 +4,8 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import { styled, useTheme } from '@mui/material/styles'
+import { useState,useEffect } from 'react'
+import axios from 'axios'
 
 // Styled component for the triangle shaped background image
 const TriangleImg = styled('img')({
@@ -14,17 +16,59 @@ const TriangleImg = styled('img')({
 })
 
 // Styled component for the trophy image
-const TrophyImg = styled('img')({
-  right: 36,
-  bottom: 20,
-  height: 98,
-  position: 'absolute'
-})
+const TrophyImg = styled('img')`
+  height: 98px;
+  position: absolute;
+  right: 36px;
+  bottom: 20px;
+
+  @media (min-width: 768px) {
+    /* Styles for screens with a maximum width of 768px */
+    height: 64px;
+    right: 24px;
+    display:none;
+    bottom: 16px;
+  }
+
+  @media (max-width: 768px) {
+    /* Styles for screens with a maximum width of 768px */
+    height: 64px;
+    right: 24px;
+    bottom: 16px;
+    transform: translate(-50%,-50%);
+  }
+
+  @media (max-width: 480px) {
+    /* Styles for screens with a maximum width of 480px */
+    height: 48px;
+    right: 16px;
+    bottom: 12px;
+    display:none;
+  }
+`;
 
 const Trophy = () => {
   // ** Hook
   const theme = useTheme()
+  const [userName,setUserName] = useState("");
+  let HOST = process.env.HOST
   const imageSrc = theme.palette.mode === 'light' ? 'triangle-light.png' : 'triangle-dark.png'
+
+  useEffect(()=>{
+    axios({
+      url: `${HOST}/api/admin/getDashboard`,
+      method: 'get',
+    })
+      .then(function (response) {
+        // handle success
+        // console.log(response);
+        setUserName(response?.data?.data[0]?.fName+" "+response?.data?.data[0]?.mName+" "+response?.data?.data[0]?.lName)
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error)
+      })
+  },[])
 
   return (
     <Card sx={{ position: 'relative' }}>
@@ -34,7 +78,8 @@ const Trophy = () => {
         Employee of the Month
         </Typography>
         <Typography variant='h5' sx={{ my: 4, color: 'primary.main' }}>
-          98% SLA
+          {/* 98% SLA */}
+          {userName}
         </Typography>
         <Button size='small' variant='contained'>
         View Performance

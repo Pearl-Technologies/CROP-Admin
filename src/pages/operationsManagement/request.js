@@ -33,6 +33,7 @@ import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Switch from '@mui/material/Switch'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -47,6 +48,8 @@ const style = {
   boxShadow: 24,
   p: 4
 }
+
+const label = { inputProps: { 'aria-label': 'Switch demo' } }
 
 const statusObj = {
   presuspend: { color: 'info' },
@@ -64,6 +67,7 @@ const Request = () => {
   const [customerRequest, setCustomerRequest] = useState([])
   const [status, setStatus] = useState('')
   const [requestResponse, setRequestResponse] = useState('')
+  const [selectedOption, setSelectedOption] = useState('Customer Data')
   const showCustomerCrop = x => {
     router.push(`/accountManagement/cropDetails?q=${x}`)
     // return<CropDetails id={x}/>
@@ -414,6 +418,17 @@ const Request = () => {
   return (
     <Grid container spacing={2}>
       <ToastContainer />
+      <div style={{ display: 'flex', gap: 2 }}>
+        <Switch
+            {...label}
+            defaultChecked
+            sx={{ marginTop: 3 }}
+            onChange={() => setSelectedOption(x => (x === 'Customer Data' ? 'Business Data' : 'Customer Data'))}
+          />
+          <h5>{selectedOption}</h5>
+      </div>
+      { 
+      selectedOption == 'Customer Data' ? 
       <Grid item xs={12}>
         <Card>
           <CardHeader
@@ -446,7 +461,7 @@ const Request = () => {
               </Alert>
             )}
           </Snackbar>
-          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }}>
+          <TableContainer>
             <Table
               sx={{ minWidth: 800 }}
               aria-label='table in dashboard'
@@ -502,6 +517,7 @@ const Request = () => {
           </TableContainer>
         </Card>
       </Grid>
+        :
       <Grid item xs={12}>
         <Card>
           <CardHeader
@@ -519,7 +535,7 @@ const Request = () => {
             }
           />
 
-          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }}>
+          <TableContainer>
             <Table
               sx={{ minWidth: 800 }}
               aria-label='table in dashboard'
@@ -575,7 +591,8 @@ const Request = () => {
             </Table>
           </TableContainer>
         </Card>
-      </Grid>
+      </Grid> 
+      }
     </Grid>
   )
 }
