@@ -129,7 +129,7 @@ console.log(myCropData,"crop data");
                       <TableCell> Description</TableCell>
                       <TableCell> Debit</TableCell>                  
                       <TableCell> Credit</TableCell>
-                      <TableCell> Invoice</TableCell>
+                      {/* <TableCell> Invoice</TableCell> */}
 
                   </TableRow>
                 </TableHead>
@@ -143,7 +143,7 @@ console.log(myCropData,"crop data");
                         <TableCell>{row?.description}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType === 'debit'? row.crop.toFixed(2):""}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType === 'credit'? row.crop.toFixed(2):""}</TableCell>
-                        <TableCell>{row?.invoiceUrl}</TableCell>
+                        {/* <TableCell>{row?.invoiceUrl}</TableCell> */}
                       </TableRow>
                     )
                   })}

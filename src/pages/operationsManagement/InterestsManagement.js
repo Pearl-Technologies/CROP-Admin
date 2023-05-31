@@ -19,7 +19,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import { ToastContainer, toast } from 'react-toastify'
 import Spinner from '../databaseManagement/spinner'
-
+import router, { useRouter } from 'next/router'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 export default function InterestsManagement() {
   const [interestsList, setInterestsList] = React.useState([])
   const [msg, setMsg] = React.useState('')
@@ -243,11 +244,13 @@ export default function InterestsManagement() {
     <>
       {status && <Spinner />}
       <ToastContainer />
+      <span onClick={()=>router.back()}><ArrowBackIcon/></span>
       <h4>Interest List</h4>
       <List
         sx={{
-          width: '50%',
+          width: '55%',
           maxWidth: 760,
+          maxHeight:420,
           //   display:'flex',
           //   justifyContent:'space-between',
           bgcolor: 'background.paper',
@@ -273,6 +276,7 @@ export default function InterestsManagement() {
           {/* <SpringModal /> */}
         </ul>
         <ul>
+        <SpringModal/>
           {interestsList.map(item => (
             <ListItem key={`${item._id}`}>
               <ListItemText primary={`${item.interestName}`} sx={{ width: 500 }} />
@@ -286,7 +290,7 @@ export default function InterestsManagement() {
               </ListItemText>
             </ListItem>
           ))}
-          <SpringModal />
+          
         </ul>
       </List>
     </>

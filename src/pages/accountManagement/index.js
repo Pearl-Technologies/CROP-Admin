@@ -47,7 +47,7 @@ const AccountManagement = () => {
   const [businessCropData, setBusinessCropData] = useState([])
   const [customerAccountBalanceData, setCustomerAccountBalanceData] = useState([])
   const [businessAccountBalanceData, setBusinessAccountBalanceData] = useState([])
-  const [selectedOption, setSelectedOption] = useState('Customer Account')
+  const [selectedOption, setSelectedOption] = useState('Customer Transactions')
   const [selectedCustomerOpt, setSelectedCustomerOpt] = useState('')
   const [selectedBusinessOpt, setSelectedBusinessOpt] = useState('')
   const fetchCustomerCropTrasaction = () => {
@@ -184,11 +184,11 @@ const AccountManagement = () => {
       <Switch
         {...label}
         defaultChecked
-        onChange={() => setSelectedOption(x => (x === 'Customer Account' ? 'Business Account' : 'Customer Account'))}
+        onChange={() => setSelectedOption(x => (x === 'Customer Transactions' ? 'Business Transactions' : 'Customer Transactions'))}
       />
       {selectedOption}
 
-      {selectedOption === 'Customer Account' ? (
+      {selectedOption === 'Customer Transactions' ? (
         <>
           <Grid item sm={12}>
             {ccStatus && value === 'one' && <Spinner />}
@@ -513,7 +513,7 @@ const AccountManagement = () => {
                           </TableCell>
 
                           <TableCell sx={{ cursor: 'pointer'}} onClick={() => showBusinessInvoice(row._id)}>                            
-                            <ReceiptLongIcon sx={{height:"18px"}}/>
+                            <ReceiptLongIcon sx={{height:"18.3px"}}/>
                           </TableCell>
                         </TableRow>
                       ))}

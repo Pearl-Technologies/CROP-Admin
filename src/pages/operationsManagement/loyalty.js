@@ -19,7 +19,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import { ToastContainer, toast } from 'react-toastify'
 import Spinner from '../databaseManagement/spinner'
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import router, { useRouter } from 'next/router'
 export default function Loyalty() {
   const [loyalityList, setLoyaltyList] = React.useState([])
   const [msg, setMsg] = React.useState('')
@@ -243,11 +244,14 @@ export default function Loyalty() {
     <>
       {status && <Spinner />}
       <ToastContainer />
+      <span onClick={() => router.back()}>
+        <ArrowBackIcon />
+      </span>
       <h4>Loyalty Programmes</h4>
       <List
         sx={{
-          width: '50%',
-          maxWidth: 760,
+          width: '55%',
+          maxHeight: 420,
           //   display:'flex',
           //   justifyContent:'space-between',
           bgcolor: 'background.paper',
@@ -261,7 +265,7 @@ export default function Loyalty() {
           <ListItem>
             {/* <ListItemText sx={{ width: 500 }} /> */}
             <ListItemText sx={{ textAlign: 'left' }}>
-              <span style={{ fontWeight: 'bold' }}> Loyality</span>
+              <span style={{ fontWeight: 'bold'}} > Loyality</span>
 
               {/* <SpringModal programName='Loyality' /> */}
             </ListItemText>
@@ -273,6 +277,7 @@ export default function Loyalty() {
           {/* <SpringModal /> */}
         </ul>
         <ul>
+          <SpringModal />
           {loyalityList.map(item => (
             <ListItem key={`${item._id}`}>
               <ListItemText primary={`${item.programmeName}`} sx={{ width: 500 }} />
@@ -286,7 +291,6 @@ export default function Loyalty() {
               </ListItemText>
             </ListItem>
           ))}
-          <SpringModal />
         </ul>
       </List>
     </>

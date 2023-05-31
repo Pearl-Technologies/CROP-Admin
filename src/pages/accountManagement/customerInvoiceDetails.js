@@ -16,6 +16,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import axios from 'axios'
+import Switch from '@mui/material/Switch';
+import Typography from '@mui/material/Typography'
+
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
 
 const CustomerInvoiceDetails = ({}) => {
   // const productData = require('../../db/orders_customers.json')
@@ -23,6 +28,7 @@ const CustomerInvoiceDetails = ({}) => {
   const [invoiceStatus, setInvoiceStatus] = useState(false);
   const [invoiceStatus2, setInvoiceStatus2] = useState(false);
   const [pointPurchaseData, setPointPurchaseData] = useState([]);
+  const [data, setData] = useState('one');
   const router = useRouter()
   const { q } = router.query
   // const myInvoiceData = invoiceData.filter(data => data.user === q)
@@ -70,11 +76,16 @@ const CustomerInvoiceDetails = ({}) => {
 
   return (
         <Grid item xs={12}>
-        <Card>
         <span onClick={()=>router.back()}><ArrowBackIcon/></span>
-          <CardHeader title='Customer Purchase Details and Invoice' titleTypographyProps={{ variant: 'h6' }} />
-          <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TableContainer sx={{ maxHeight: 440 }}>
+        <div style={{display:"flex"}}>
+        <Switch {...label} defaultChecked onChange={()=>setData(x=> x === "one" ? "two": "one")}/>
+        <Typography variant='h5'>
+        {`${data==='one' ? 'Customer Purchase Details and Invoice' : 'Customer Point Purchase Details and Invoice'}`}
+        </Typography>
+        </div>
+        <Card>
+          {data==="one" && <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <TableContainer sx={{height:400, overflow:"auto"}}>
             {invoiceStatus ? <Spinner/>: !myInvoiceData?.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :
               <Table stickyHeader aria-label='sticky table'>
                 <TableHead>
@@ -111,10 +122,9 @@ const CustomerInvoiceDetails = ({}) => {
                 </TableBody>
               </Table>}            
             </TableContainer>
-          </Paper>
-          <CardHeader title='Customer Point Purchase Details and Invoice' titleTypographyProps={{ variant: 'h6' }} />
-          <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TableContainer sx={{ maxHeight: 440 }}>
+          </Paper>}
+          {data === "two"&& <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <TableContainer sx={{height:400, overflow:"auto"}}>
             {invoiceStatus2 ? <Spinner/>: !pointPurchaseData?.length ? <h6 style={{textAlign:'center'}}>Data not found</h6> :
               <Table stickyHeader aria-label='sticky table'>
                 <TableHead>
@@ -145,7 +155,7 @@ const CustomerInvoiceDetails = ({}) => {
                 </TableBody>
               </Table>}        
             </TableContainer>
-          </Paper>
+          </Paper>}
         </Card>
       </Grid>
   )
