@@ -1,73 +1,69 @@
-// ** MUI Imports
-import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
-import IconButton from '@mui/material/IconButton'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import InputAdornment from '@mui/material/InputAdornment'
+import React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import InputAdornment from '@mui/material/InputAdornment';
+import Menu from 'mdi-material-ui/Menu';
+import Magnify from 'mdi-material-ui/Magnify';
+import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler';
+import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown';
+import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown';
 
-// ** Icons Imports
-import Menu from 'mdi-material-ui/Menu'
-import Magnify from 'mdi-material-ui/Magnify'
-
-// ** Components
-import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
-import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
-import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
-
-const AppBarContent = props => {
-  // ** Props
-  const { hidden, settings, saveSettings, toggleNavVisibility } = props
-
-  // ** Hook
-  const hiddenSm = useMediaQuery(theme => theme.breakpoints.down('sm'))
+const AppBarContent = (props) => {
+  const { hidden, settings, saveSettings, toggleNavVisibility } = props;
+  const hiddenSm = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   return (
-    <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'end' }}>
-      {/* search component */}
-      {/* <Box className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
-        {hidden ? (
-          <IconButton
-            color='inherit'
-            onClick={toggleNavVisibility}
-            sx={{ ml: -2.75, ...(hiddenSm ? {} : { mr: 3.5 }) }}
-          >
-            <Menu />
-          </IconButton>
-        ) : null}
-        <TextField
-          size='small'
-          sx={{ '& .MuiOutlinedInput-root': { borderRadius: 4 } }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <Magnify fontSize='small' />
-              </InputAdornment>
-            )
-          }}
-        />
-      </Box> */}
-      <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
-        {/* {hiddenSm ? null : (
-          <Box
-            component='a'
-            target='_blank'
-            rel='noreferrer'
-            sx={{ mr: 4, display: 'flex' }}
-            href='https://github.com/themeselection/materio-mui-react-nextjs-admin-template-free'
-          >
-            <img
-              height={24}
-              alt='github stars'
-              src='https://img.shields.io/github/stars/themeselection/materio-mui-react-nextjs-admin-template-free?style=social'
-            />
-          </Box>
-        )} */}
-        <ModeToggler settings={settings} saveSettings={saveSettings} />
-        <NotificationDropdown />
-        <UserDropdown />
+    <Box
+      sx={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 999,
+        backgroundColor: '#F4F5FA',
+        // boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+      }}
+    >
+      <Box
+        sx={{
+          width: '100%',
+          alignItems: 'center',
+          px: 2, // Adjust the padding as needed
+          py: 1, // Adjust the padding as needed
+        }}
+      >
+        {/* <Box className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
+          {hidden ? (
+            <IconButton
+              color='inherit'
+              onClick={toggleNavVisibility}
+              sx={{ ml: -2.75, ...(hiddenSm ? {} : { mr: 3.5 }) }}
+            >
+              <Menu />
+            </IconButton>
+          ) : null}
+          <TextField
+            size='small'
+            sx={{ '& .MuiOutlinedInput-root': { borderRadius: 4 } }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position='start'>
+                  <Magnify fontSize='small' />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box> */}
+        <Box className='actions-right' sx={{ alignItems: 'center', float: "right" }}>
+          <ModeToggler settings={settings} saveSettings={saveSettings} />
+          <NotificationDropdown />
+          <UserDropdown />
+        </Box>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default AppBarContent
+export default AppBarContent;
