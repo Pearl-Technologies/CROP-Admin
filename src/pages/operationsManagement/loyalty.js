@@ -259,12 +259,14 @@ export default function Loyalty() {
       >
         <ul>
           <ListItem>
-            <ListItemText sx={{ width: 500 }} />
-            <ListItemText>
-              <SpringModal programName='Loyality' />
+            {/* <ListItemText sx={{ width: 500 }} /> */}
+            <ListItemText sx={{ textAlign: 'left' }}>
+              <span style={{ fontWeight: 'bold' }}> Loyality</span>
+
+              {/* <SpringModal programName='Loyality' /> */}
             </ListItemText>
-            <ListItemText sx={{ textAlign: 'right' }}>
-              <Button>Action</Button>
+            <ListItemText sx={{ textAlign: 'right', color: 'bold' }}>
+              <span style={{ fontWeight: 'bold' }}> Action</span>
             </ListItemText>
           </ListItem>
 
