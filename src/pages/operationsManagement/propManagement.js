@@ -6,6 +6,12 @@ import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
+import Table from '@mui/material/Table'
+import TableRow from '@mui/material/TableRow'
+import TableHead from '@mui/material/TableHead'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
 import TextField from '@mui/material/TextField'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
@@ -150,8 +156,6 @@ const CropMilestone = () => {
  
     let body={'defaultProp': parseInt(values.defaultProp),
     'purchaseProp': parseFloat(values.purchaseProp),
-    'defaultCrop': parseFloat(values.defaultCrop),
-    'purchaseCrop': parseFloat(values.purchaseCrop),
     '_id': values._id,
     'user': values.user}
     axios({
@@ -168,7 +172,7 @@ const CropMilestone = () => {
         setResponseCode(response.status)
         toast.success(response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
       })
       .catch(function (error) {
@@ -178,7 +182,7 @@ const CropMilestone = () => {
         setResponseCode(error.response.status)
         toast.error(error.response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
       })
   }
@@ -197,7 +201,7 @@ const CropMilestone = () => {
         setResponseCode(response.status)
         toast.success(response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
       })
       .catch(function (error) {
@@ -207,7 +211,7 @@ const CropMilestone = () => {
         setResponseCode(error.response.status)
         toast.success(error.response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
       })
   }
@@ -215,15 +219,15 @@ const CropMilestone = () => {
     fetchPropData()
     fetchDefaultMileStoneData()
   }, [])
-  
+
   return (
     <DatePickerWrapper>
       {updateStatus && <LinearProgress/>}
       <ToastContainer/>
-      <Grid container spacing={3}>
+      <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
           <Card>
-            <CardHeader title='PROP' titleTypographyProps={{ variant: 'h6' }} />
+            <CardHeader title='PROPs' titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
                 <Grid container spacing={2}>
@@ -324,12 +328,12 @@ const CropMilestone = () => {
             <CardHeader title='Milestone data' titleTypographyProps={{ variant: 'h6' }} />
             {milestoneValue && (
               <CardContent>
-                <form onSubmit={e => e.preventDefault()} style={{height:"380px", overflow:"auto", padding:"10px"}}>
-                  <Grid container spacing={2}>
-                    {/* <Grid item xs={6}> */}
-                    
-                    <Grid item xs={12} spacing={2}>
-                      <h5 style={{display:"inline-block", marginLeft: 'auto', width:"80px" }}>CROP 5K</h5>
+                <form onSubmit={e => e.preventDefault()} style={{height:"190px", overflow:"auto", padding:"10px"}}>
+                  <Grid container spacing={5}>
+                    <Grid item xs={6}>
+                      <h5 style={{ marginLeft: 'auto' }}> CROP 5k</h5>
+                    </Grid>
+                    <Grid item xs={6} spacing={2}>
                       <TextField
                         label='Base'
                         value={milestoneValue.first.base}
