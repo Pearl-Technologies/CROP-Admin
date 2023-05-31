@@ -228,7 +228,7 @@ const CropMilestone = () => {
               <form onSubmit={e => e.preventDefault()}>
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <h5 style={{ marginLeft: 'auto' }}> 1PROP (default)</h5>
+                    <h5 style={{ marginLeft: 'auto' }}> 1 PROP (default)</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
                     <TextField
@@ -239,7 +239,7 @@ const CropMilestone = () => {
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <h5 style={{ marginLeft: 'auto' }}> 1PROP (purchase)</h5>
+                    <h5 style={{ marginLeft: 'auto' }}> 1 PROP (purchase)</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
                     <TextField

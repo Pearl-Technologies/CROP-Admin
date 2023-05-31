@@ -315,7 +315,7 @@ const handleCancle=()=>{
                     <h5 style={{ marginLeft: 'auto' }}> Sector Name</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
-                    <TextField label={'sector'} style={{ marginBottom: '8px' }} value={sectorName} onChange={(e)=>setSectorName(e.target.value)}/>
+                    <TextField label={'Sector'} style={{ marginBottom: '8px' }} value={sectorName} onChange={(e)=>setSectorName(e.target.value)}/>
                   </Grid>
 
                   <Grid item xs={12} sx={{ marginTop: 4.8, marginBottom: 3 }}>

@@ -26,6 +26,9 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import Avatar from '@mui/material/Avatar'
+import Switch from '@mui/material/Switch';
+
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 
 const statusObj = {
@@ -45,6 +48,7 @@ const services = () => {
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState([])
   const [reponseCode, setResponseCode] = useState(null)
+  const [data, setData] = useState("Customer");
   // const handleOpen = () => setOpen(true)
 
 
@@ -358,10 +362,11 @@ const services = () => {
 
   return (
     <Grid container spacing={2}>
+      <Switch {...label} defaultChecked onChange={()=>setData(x=> x === "Customer" ? "Business":"Customer")}/>{data}
       <ToastContainer/>
       <Grid item xs={12}>
         <Card>
-          <TableContainer sx={{ height: 400 }}>
+          {data === "Customer" && <TableContainer sx={{ height: 450 }}>
             <h3 style={{ marginLeft: '20px' }}>Customer Data</h3>
             <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
               <TableHead>
@@ -410,12 +415,8 @@ const services = () => {
                 ))}
               </TableBody>
             </Table>
-          </TableContainer>
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Card>
-          <TableContainer sx={{ height: 400 }}>
+          </TableContainer>}
+          {data === "Business" &&<TableContainer sx={{ height: 450 }}>
             <h3 style={{ marginLeft: '20px' }}>Business Data</h3>
             <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
               <TableHead>
@@ -458,7 +459,7 @@ const services = () => {
                         }}
                       />
                     </TableCell>
-                    <TableCell>{row.Tier}</TableCell>
+                    <TableCell>{row.tier}</TableCell>
                     {/* <TableCell>
                      <BusinessModal user={row} />                      
                     </TableCell> */}
@@ -469,7 +470,7 @@ const services = () => {
                 ))}
               </TableBody>
             </Table>
-          </TableContainer>
+          </TableContainer>}
         </Card>
       </Grid>
     </Grid>

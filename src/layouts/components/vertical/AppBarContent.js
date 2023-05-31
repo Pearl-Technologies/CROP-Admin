@@ -22,8 +22,9 @@ const AppBarContent = props => {
   const hiddenSm = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
   return (
-    <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      <Box className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
+    <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'end' }}>
+      {/* search component */}
+      {/* <Box className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
         {hidden ? (
           <IconButton
             color='inherit'
@@ -44,7 +45,7 @@ const AppBarContent = props => {
             )
           }}
         />
-      </Box>
+      </Box> */}
       <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
         {/* {hiddenSm ? null : (
           <Box

@@ -743,7 +743,7 @@ const Database = () => {
       ) : (
         <Grid item xs={12}>
           <Card>
-            <TableContainer sx={{ height: '480px' }}>
+            <TableContainer sx={{ height: '420px' }}>
               {bdStatus ? (
                 <Spinner />
               ) : !businessData.length ? (
