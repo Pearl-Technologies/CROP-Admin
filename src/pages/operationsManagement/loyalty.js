@@ -251,7 +251,7 @@ export default function Loyalty() {
       <List
         sx={{
           width: '55%',
-          maxHeight: 420,
+          maxHeight: 400,
           //   display:'flex',
           //   justifyContent:'space-between',
           bgcolor: 'background.paper',
@@ -259,7 +259,7 @@ export default function Loyalty() {
           overflow: 'auto',
           //   maxHeight: 'screen',
           '& ul': { padding: 0 }
-        }}
+        }}        
       >
         <ul>
           <ListItem>
