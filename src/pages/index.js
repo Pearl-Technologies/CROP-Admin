@@ -32,6 +32,10 @@ const Dashboard = () => {
   let HOST = process.env.HOST
   const [customerCount, setCustomerCount] = useState('')
   const [businessCount, setBusinessCount] = useState('')
+  const [activeCustomers,setActiveCustomers] = useState("");
+  const [activeBusiness,setActiveBusiness] = useState("");
+  const [totalCustomers,setTotalCustomers] = useState("");
+  const [totalBusiness,setTotalBusiness] = useState("");
   const fetchCustomerCount = () => {
     axios
       .post(`${HOST}/api/customer/getAllCustomer`)
@@ -111,6 +115,36 @@ const Dashboard = () => {
     if (!localStorage.getItem('token')) {
       router.push('/pages/login')
     }
+
+    axios({
+      url: `${HOST}/api/admin/getDetailsCount`,
+      method: 'get',
+    })
+    .then(function (response) {
+        console.log(response)
+        let data = response.data.data;
+
+        data.business.filter((data)=>{
+          if(data.status=="active"){
+            setActiveBusiness(data.count)
+          }
+        })
+        setTotalBusiness(data.TotalBusiness)
+
+        data.customer.filter((data)=>{
+          if(data.status=="active"){
+            setActiveCustomers(data.count)
+          }
+        })
+
+        setTotalCustomers(data.TotalCustomer)
+
+    })
+    .catch(function (error) {
+        // handle error
+        console.log(error)
+    })
+
     // router.push('/databaseManagement')
   }, [])
 
@@ -144,30 +178,30 @@ const Dashboard = () => {
           <Grid container spacing={6}>
             <Grid item xs={6}>
               <CardStatisticsVerticalComponent
-                stats='255.6k'
+                stats={totalCustomers}
                 icon={<AccountCircle />}
                 color='info'
-                trendNumber='+42%'
+                // trendNumber='+42%'
                 title='Total Customers'
                 // subtitle='Weekly Profit'
               />
             </Grid>
             <Grid item xs={6}>
               <CardStatisticsVerticalComponent
-                stats='155.6k'
+                stats={activeCustomers}
                 title='Active Customers'
                 trend='negative'
                 color='success'
-                trendNumber='-15%'
+                // trendNumber='-15%'
                 // subtitle='Past Month'
                 icon={<AccountCircle />}
               />
             </Grid>
             <Grid item xs={6}>
               <CardStatisticsVerticalComponent
-                stats='355.6k'
+                stats={totalBusiness}
                 trend='negative'
-                trendNumber='-18%'
+                // trendNumber='-18%'
                 title='Total Businesses'
                 color='info'
                 // subtitle='Yearly Project'
@@ -176,10 +210,10 @@ const Dashboard = () => {
             </Grid>
             <Grid item xs={6}>
               <CardStatisticsVerticalComponent
-                stats='188.2k'
+                stats={activeBusiness}
                 color='success'
                 trend='negative'
-                trendNumber='-18%'
+                // trendNumber='-18%'
                 // subtitle='from start'
                 title='Active Businesses'
                 icon={<GoogleMyBusiness />}
