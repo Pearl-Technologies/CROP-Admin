@@ -95,6 +95,7 @@ const PropDetails = ({}) => {
                       <TableCell> Description</TableCell>
                       <TableCell> Debit</TableCell>                  
                       <TableCell> Credit</TableCell>                  
+                      <TableCell> Invoice</TableCell>                  
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -106,6 +107,7 @@ const PropDetails = ({}) => {
                         <TableCell>{row.description}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType=="debit"? row.prop:""}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType=="credit"? row.prop:""}</TableCell>
+                        <TableCell>{row?.invoiceUrl}</TableCell>
                       </TableRow>
                     )
                   })}

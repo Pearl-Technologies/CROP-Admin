@@ -110,7 +110,7 @@ const CropDetails = ({}) => {
   useEffect(()=>{
     getAllOrders()
   },[q])
-
+console.log(myCropData,"crop data");
   return (
         <Grid item xs={12}>
         <Card>
@@ -128,7 +128,9 @@ const CropDetails = ({}) => {
                       <TableCell>Amount</TableCell>
                       <TableCell> Description</TableCell>
                       <TableCell> Debit</TableCell>                  
-                      <TableCell> Credit</TableCell>                  
+                      <TableCell> Credit</TableCell>
+                      <TableCell> Invoice</TableCell>
+
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -141,6 +143,7 @@ const CropDetails = ({}) => {
                         <TableCell>{row?.description}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType === 'debit'? row.crop.toFixed(2):""}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType === 'credit'? row.crop.toFixed(2):""}</TableCell>
+                        <TableCell>{row?.invoiceUrl}</TableCell>
                       </TableRow>
                     )
                   })}
