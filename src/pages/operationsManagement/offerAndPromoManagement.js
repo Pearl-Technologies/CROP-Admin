@@ -484,7 +484,6 @@ const DashboardTable = () => {
                   <TableCell>{row?.mktDate?.fromDate}</TableCell>
                   <TableCell>{row?.mktDate?.toDate}</TableCell>
                   <TableCell>{row?.mktOfferFor}</TableCell>
-
                   <TableCell>
                     <Chip
                       label={row.status}
