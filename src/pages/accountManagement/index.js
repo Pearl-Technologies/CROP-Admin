@@ -22,16 +22,11 @@ import ArrowDownDropCircleOutline from 'mdi-material-ui/ArrowDownDropCircleOutli
 import CustomerTransitionsModal from './customerMotal'
 import CardMedia from '@mui/material/CardMedia'
 import CropDetails from './cropDetails'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
 // ** Icons Imports
 import Spinner from '../databaseManagement/spinner'
 import DotsVertical from 'mdi-material-ui/DotsVertical'
 import { useRouter } from 'next/router'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
-import Switch from '@mui/material/Switch'
-
-const label = { inputProps: { 'aria-label': 'Switch demo' } }
 
 const AccountManagement = () => {
   const router = useRouter()
@@ -47,8 +42,8 @@ const AccountManagement = () => {
   const [businessCropData, setBusinessCropData] = useState([])
   const [customerAccountBalanceData, setCustomerAccountBalanceData] = useState([])
   const [businessAccountBalanceData, setBusinessAccountBalanceData] = useState([])
-  const [selectedOption, setSelectedOption] = useState('Customer Account')
-  const [selectedCustomerOpt, setSelectedCustomerOpt] = useState('')
+  const [selectedOption, setSelectedOption] = useState('customerData')
+  const [selectedCustomerOpt, setSelectedCustomerOpt] = useState('Select')
   const [selectedBusinessOpt, setSelectedBusinessOpt] = useState('')
   const fetchCustomerCropTrasaction = () => {
     setccStatus(true)
@@ -166,6 +161,7 @@ const AccountManagement = () => {
           setSelectedCustomerOpt(e.target.value)
         }}
       >
+        <MenuItem value='Select'>Select</MenuItem>
         <MenuItem value='customerCrops'>Customer CROPs</MenuItem>
         <MenuItem value='customerProps'>Customer PROPs</MenuItem>
         <MenuItem value='customerInvoices'>Customer Invoices</MenuItem>
@@ -173,212 +169,234 @@ const AccountManagement = () => {
     )
   }
 
-  const [value, setValue] = React.useState('one')
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
+  const RenderBusinessOptions = () => {
+    return (
+      <Select
+        sx={{ margin: 5 }}
+        value={selectedCustomerOpt}
+        onChange={e => {
+          // setSelectedOption()
+          console.log(e.target.value)
+          setSelectedBusinessOpt(e.target.value)
+        }}
+      >
+        <MenuItem value='businessCrops'>Business CROPs</MenuItem>
+        <MenuItem value='businessInvoices'>Business Invoices</MenuItem>
+      </Select>
+    )
   }
 
   return (
     <Grid container spacing={2}>
-      <Switch
-        {...label}
-        defaultChecked
-        onChange={() => setSelectedOption(x => (x === 'Customer Account' ? 'Business Account' : 'Customer Account'))}
-      />
-      {selectedOption}
-
-      {selectedOption === 'Customer Account' ? (
+      {/* cutomer crop */}
+      <RenderOptions />
+      {selectedOption == 'customerData' ? (
         <>
           <Grid item sm={12}>
-            {ccStatus && value === 'one' && <Spinner />}
-            {ccStatus && value === 'two' && <Spinner />}
-            {ciStatus && value === 'three' && <Spinner />}
             <Card>
-              <Box sx={{ width: '100%' }}>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  textColor='secondary'
-                  indicatorColor='secondary'
-                  aria-label='secondary tabs example'
+              {false != false ? (
+                <CardHeader
+                  title='Customer CROPs'
+                  titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
+                  action={
+                    <IconButton
+                      size='small'
+                      aria-label='settings'
+                      className='card-more-options'
+                      sx={{ color: 'text.secondary' }}
+                    >
+                      {/* <DotsVertical /> */}
+                    </IconButton>
+                  }
+                />
+              ) : (
+                ''
+              )}
+              <RenderCustomerOptions />
+              {ccStatus && <Spinner />}
+              <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
+                <Table
+                  sx={{ minWidth: 800 }}
+                  aria-label='table in dashboard'
+                  stickyHeader
+                  style={{ border: '1px solid #F4F5FA' }}
                 >
-                  <Tab value='one' label='CROP' />
-                  <Tab value='two' label='PROP' />
-                  <Tab value='three' label='Invoice' />
-                </Tabs>
-              </Box>
-              {value === 'one' && (
-                <TableContainer sx={{ height: 400 }}>
-                  <Table
-                    sx={{ minWidth: 800 }}
-                    aria-label='table in dashboard'
-                    stickyHeader
-                    style={{ border: '1px solid #F4F5FA' }}
-                  >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Customer Name</TableCell>
-                        <TableCell>CROP ID</TableCell>
-                        <TableCell>{'CROP'}</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {customerCropData.map((item, index) => {
-                        return (
-                          <TableRow hover sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                            <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important`}}>
-                              <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                                <Avatar variant='rounded-circle' 
-                                src={
-                                  item?.avatar
-                                    ? `${process.env.HOST}/api/products/image/${item?.avatar}`
-                                    : '/images/avatars/1.png'
-                                }
-                                ></Avatar>
-                                <Typography
-                                sx={{
-                                  fontWeight: 500,
-                                  fontSize: '0.875rem !important',
-                                  alignSelf: 'center',
-                                  marginLeft: '10px'
-                                }}
-                              >
-                                 {item?.name?.fName ?? ''} {item?.name?.mName ?? ''} {item?.name?.lName ?? ''}
-                                </Typography>
-                              </Box>
-                            </TableCell>
-                            <TableCell>
-                            {item?.cropid} 
-                            </TableCell>
-                            <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerCrop(item._id)}>
-                              <img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoints.toFixed(2)}
-                              <LinearProgress
-                                color={item.color}
-                                value={item.progress}
-                                variant='determinate'
-                                style={{ width: '80px' }}
-                              />
-                            </TableCell>
-                          </TableRow>
-                        )
-                      })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )}
-              {value === 'two' && (
-                <TableContainer sx={{ height: 400 }}>
-                  <Table
-                    sx={{ minWidth: 800 }}
-                    aria-label='table in dashboard'
-                    stickyHeader
-                    style={{ border: '1px solid #F4F5FA' }}
-                  >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Customer Name</TableCell>
-                        <TableCell>CROP ID</TableCell>
-                        <TableCell>{'PROP'}</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {customerCropData.map((item, index) => {
-                        return (
-                          <TableRow hover sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                            <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                              <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                                <Avatar variant='rounded-circle'
-                                src={
-                                  item?.avatar
-                                    ? `${process.env.HOST}/api/products/image/${item?.avatar}`
-                                    : '/images/avatars/1.png'
-                                } />
-                                <Typography
-                                sx={{
-                                  fontWeight: 500,
-                                  fontSize: '0.875rem !important',
-                                  alignSelf: 'center',
-                                  marginLeft: '10px'
-                                }}
-                              >
-                                 {item.name.fName} {item.name.mName} {item.name.lName}
-                                </Typography>
-                              </Box>
-                            </TableCell>
-                            <TableCell>
-                              {item?.cropid} 
-                            </TableCell>
-                            <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerProp(item._id)}>
-                              <img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.proppoints.toFixed(2)}
-                              <LinearProgress
-                                color={item.color}
-                                value={item.progress}
-                                variant='determinate'
-                                style={{ width: '80px' }}
-                              />
-                            </TableCell>
-                          </TableRow>
-                        )
-                      })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )}
-              {value === 'three' && (
-                <TableContainer sx={{ height: 400 }}>
-                  <Table
-                    sx={{ minWidth: 800 }}
-                    aria-label='table in dashboard'
-                    stickyHeader
-                    style={{ border: '1px solid #F4F5FA' }}
-                  >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Customer Name</TableCell>
-                        <TableCell>Invoices</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {customerData.map(row => (
-                        <TableRow
-                          hover
-                          key={'customer' + row._id}
-                          sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
-                        >
-                          <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                              <Avatar
-                                variant='rounded-circle'
-                                src={
-                                  row?.avatar
-                                    ? `${process.env.HOST}/api/products/image/${row?.avatar}`
-                                    : '/images/avatars/1.png'
-                                }
-                              ></Avatar>
-                              <Typography
-                                sx={{
-                                  fontWeight: 500,
-                                  fontSize: '0.875rem !important',
-                                  alignSelf: 'center',
-                                  marginLeft: '10px'
-                                }}
-                              >
-                                {row.name.fName} {row.name.mName} {row.name.lName}{' '}
-                              </Typography>
-                            </Box>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>CROP ID</TableCell>
+                      <TableCell>Customer Name</TableCell>
+                      <TableCell>{'CROP'}</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {customerCropData.map((item, index) => {
+                      return (
+                        <TableRow hover sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                          <TableCell>
+                            <p style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                              <Avatar variant='rounded-circle' src='/images/avatars/1.png'></Avatar>
+                              {item.cropid}
+                            </p>
                           </TableCell>
-
-                          <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerInvoice(row._id)}>
-                            {' '}
-                            <ReceiptLongIcon sx={{height:"19.4px"}}/>
+                          <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerCrop(item._id)}>
+                            {item?.name?.fName ?? ' '} {item?.name?.mName ?? ' '} {item?.name?.lName ?? ' '}
+                          </TableCell>
+                          <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerCrop(item._id)}>
+                            <img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoints.toFixed(2)}
+                            <LinearProgress
+                              color={item.color}
+                              value={item.progress}
+                              variant='determinate'
+                              style={{ width: '80px' }}
+                            />
                           </TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                      )
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Card>
+          </Grid>
+          {/* customer prop */}
+          <Grid item xs={12}>
+            <Card>
+              {false != false ? (
+                <CardHeader
+                  title='Customer PROPs'
+                  titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
+                  action={
+                    <IconButton
+                      size='small'
+                      aria-label='settings'
+                      className='card-more-options'
+                      sx={{ color: 'text.secondary' }}
+                    >
+                      {/* <DotsVertical /> */}
+                    </IconButton>
+                  }
+                />
+              ) : (
+                ' '
               )}
+              {ccStatus && <Spinner />}
+              <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
+                <Table
+                  sx={{ minWidth: 800 }}
+                  aria-label='table in dashboard'
+                  stickyHeader
+                  style={{ border: '1px solid #F4F5FA' }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>CROP ID</TableCell>
+                      <TableCell>Customer Name</TableCell>
+                      <TableCell>{'PROP'}</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {customerCropData.map((item, index) => {
+                      return (
+                        <TableRow hover sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                          <TableCell>
+                            <p style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', gap: '10px' }}>
+                              <Avatar src='/images/avatars/1.png' variant='rounded-circle' m={2} />
+                              {item.cropid}
+                            </p>
+                          </TableCell>
+                          <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerProp(item._id)}>
+                            {item?.name?.fName ?? ' '} {item?.name?.mName ?? ' '} {item?.name?.lName ?? ' '}
+                          </TableCell>
+                          <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerProp(item._id)}>
+                            <img width='15px' src={'/images/PROP.png'} alt='crop logo' /> {item.proppoints.toFixed(2)}
+                            <LinearProgress
+                              color={item.color}
+                              value={item.progress}
+                              variant='determinate'
+                              style={{ width: '80px' }}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Card>
+          </Grid>
+          <Grid item xs={12}>
+            <Card>
+              {false != false ? (
+                <CardHeader
+                  title='Customer Invoices'
+                  titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
+                  action={
+                    <IconButton
+                      size='small'
+                      aria-label='settings'
+                      className='card-more-options'
+                      sx={{ color: 'text.secondary' }}
+                    >
+                      {/* <DotsVertical /> */}
+                    </IconButton>
+                  }
+                />
+              ) : (
+                ''
+              )}
+              {ciStatus && <Spinner />}
+              <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
+                <Table
+                  sx={{ minWidth: 800 }}
+                  aria-label='table in dashboard'
+                  stickyHeader
+                  style={{ border: '1px solid #F4F5FA' }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Customer Name</TableCell>
+                      <TableCell>Invoices</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {customerData.map(row => (
+                      <TableRow
+                        hover
+                        key={'customer' + row._id}
+                        sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
+                      >
+                        <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                            <Avatar
+                              variant='rounded-circle'
+                              src={
+                                row?.avatar
+                                  ? `${process.env.HOST}/api/products/image/${row?.avatar}`
+                                  : '/images/avatars/1.png'
+                              }
+                            ></Avatar>
+                            <Typography
+                              sx={{
+                                fontWeight: 500,
+                                fontSize: '0.875rem !important',
+                                alignSelf: 'center',
+                                marginLeft: '10px'
+                              }}
+                            >
+                              {row.name.fName} {row.name.mName} {row.name.lName}{' '}
+                            </Typography>
+                          </Box>
+                        </TableCell>
+
+                        <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerInvoice(row._id)}>
+                          {' '}
+                          <ReceiptLongIcon />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </Card>
           </Grid>
         </>
@@ -386,141 +404,156 @@ const AccountManagement = () => {
         <>
           {/* business crop */}
           <Grid item xs={12}>
-            {bcStatus && value === 'four' && <Spinner />}
-            {biStatus && value === 'five' && <Spinner />}
             <Card>
-              <Box sx={{ width: '100%' }}>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  textColor='secondary'
-                  indicatorColor='secondary'
-                  aria-label='secondary tabs example'
-                >
-                  <Tab value='four' label='CROP' />
-                  <Tab value='five' label='Invoice' />
-                </Tabs>
-              </Box>
-
-              {value === 'four' && (
-                <TableContainer  sx={{ height: 400 }}>
-                  <Table
-                    sx={{ minWidth: 800 }}
-                    aria-label='table in dashboard'
-                    stickyHeader
-                    style={{ border: '1px solid #F4F5FA' }}
-                  >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Business Name</TableCell>
-                        <TableCell> CROP ID</TableCell>
-                        <TableCell>{'CROP'}</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {businessCropData.map((item, index) => {
-                        return (
-                          <TableRow hover 
-                          key={'businessCrop' + item._id}
-                          sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                            <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                              <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                                <Avatar
-                                  variant='rounded-circle'
-                                  src={
-                                    item?.avatar
-                                      ? `${process.env.HOST}/api/products/image/${item?.avatar}`
-                                      : '/images/logos/slack.png'
-                                  }
-                                ></Avatar>
-                                <Typography
-                                sx={{
-                                  fontWeight: 500,
-                                  fontSize: '0.875rem !important',
-                                  alignSelf: 'center',
-                                  marginLeft: '10px'
-                                }}
-                              >
-                                {item.businessName}
-                                </Typography>
-                              </Box>
-                            </TableCell>
-                            <TableCell >          
-                              {item.cropId}
-                            </TableCell>
-                            <TableCell sx={{ cursor: 'pointer', display:"flex", gap:2 }} onClick={() => showBusinessCrop(item._id)}>
-                              <img height='20px' src={'/images/crop.png'} alt='crop logo' />
-                              <Typography>{item.croppoint.toFixed(2)}</Typography> 
-                              {/* <LinearProgress
-                                color={item.color}
-                                value={item.progress}
-                                variant='determinate'
-                                style={{ width: '80px' }}
-                              /> */}
-                            </TableCell>
-                          </TableRow>
-                        )
-                      })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+              {false != false ? (
+                <CardHeader
+                  title='Business CROPs'
+                  titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
+                  action={
+                    <IconButton
+                      size='small'
+                      aria-label='settings'
+                      className='card-more-options'
+                      sx={{ color: 'text.secondary' }}
+                    >
+                      {/* <DotsVertical /> */}
+                    </IconButton>
+                  }
+                />
+              ) : (
+                ''
               )}
-              {value === 'five' && (
-                <TableContainer sx={{ height: 400 }}>
-                  <Table
-                    sx={{ minWidth: 800 }}
-                    aria-label='table in dashboard'
-                    stickyHeader
-                    style={{ border: '1px solid #F4F5FA' }}
-                  >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Business Name</TableCell>
-                        <TableCell>Invoices</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {businessData.map(row => (
-                        <TableRow
-                          hover
-                          key={'business' + row._id}
-                          sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
-                        >
-                          <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+              {bcStatus && <Spinner />}
+              <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
+                <Table
+                  sx={{ minWidth: 800 }}
+                  aria-label='table in dashboard'
+                  stickyHeader
+                  style={{ border: '1px solid #F4F5FA' }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>CROP ID</TableCell>
+                      <TableCell>Business Name</TableCell>
+                      <TableCell>{'CROP'}</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {businessCropData.map((item, index) => {
+                      return (
+                        <TableRow hover sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                          <TableCell>
+                            <p style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', gap: '10px' }}>
                               <Avatar
                                 variant='rounded-circle'
                                 src={
-                                  row?.avatar
-                                    ? `${process.env.HOST}/api/products/image/${row?.avatar}`
+                                  item?.avatar
+                                    ? `${process.env.HOST}/api/products/image/${item?.avatar}`
                                     : '/images/logos/slack.png'
                                 }
                               ></Avatar>
-
-                              <Typography
-                                sx={{
-                                  fontWeight: 500,
-                                  fontSize: '0.875rem !important',
-                                  alignSelf: 'center',
-                                  marginLeft: '10px'
-                                }}
-                              >
-                                {row?.businessName}
-                              </Typography>
-                              {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
-                              {/* <Typography variant='caption'>{row.designation}</Typography> */}
-                            </Box>
+                              {item.cropId}
+                            </p>
                           </TableCell>
-
-                          <TableCell sx={{ cursor: 'pointer'}} onClick={() => showBusinessInvoice(row._id)}>                            
-                            <ReceiptLongIcon sx={{height:"18px"}}/>
+                          <TableCell sx={{ cursor: 'pointer' }} onClick={() => showBusinessCrop(item._id)}>
+                            {' '}
+                            {item.businessName}
+                          </TableCell>
+                          <TableCell sx={{ cursor: 'pointer' }} onClick={() => showBusinessCrop(item._id)}>
+                            <img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoint.toFixed(2)}
+                            <LinearProgress
+                              color={item.color}
+                              value={item.progress}
+                              variant='determinate'
+                              style={{ width: '80px' }}
+                            />
                           </TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                      )
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Card>
+          </Grid>
+          {/* customer invoice */}
+          {/* business invoice */}
+          <Grid item xs={12}>
+            <Card>
+              {false != false ? (
+                <CardHeader
+                  title='Business Invoices'
+                  titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
+                  action={
+                    <IconButton
+                      size='small'
+                      aria-label='settings'
+                      className='card-more-options'
+                      sx={{ color: 'text.secondary' }}
+                    >
+                      {/* <DotsVertical /> */}
+                    </IconButton>
+                  }
+                />
+              ) : (
+                ''
               )}
+              {biStatus && <Spinner />}
+              <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
+                <Table
+                  sx={{ minWidth: 800 }}
+                  aria-label='table in dashboard'
+                  stickyHeader
+                  style={{ border: '1px solid #F4F5FA' }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Business Name</TableCell>
+                      <TableCell>Invoices</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {businessData.map(row => (
+                      <TableRow
+                        hover
+                        key={'business' + row._id}
+                        sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
+                      >
+                        <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                            <Avatar
+                              variant='rounded-circle'
+                              src={
+                                row?.avatar
+                                  ? `${process.env.HOST}/api/products/image/${row?.avatar}`
+                                  : '/images/logos/slack.png'
+                              }
+                            ></Avatar>
+
+                            <Typography
+                              sx={{
+                                fontWeight: 500,
+                                fontSize: '0.875rem !important',
+                                alignSelf: 'center',
+                                marginLeft: '10px'
+                              }}
+                            >
+                              {row?.businessName}
+                            </Typography>
+                            {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
+                            <Typography variant='caption'>{row.designation}</Typography>
+                          </Box>
+                        </TableCell>
+
+                        <TableCell sx={{ cursor: 'pointer' }} onClick={() => showBusinessInvoice(row._id)}>
+                          {' '}
+                          <ReceiptLongIcon />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </Card>
           </Grid>
         </>

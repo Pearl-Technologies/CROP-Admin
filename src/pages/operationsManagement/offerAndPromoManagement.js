@@ -148,7 +148,7 @@ const DashboardTable = () => {
   return (
     <Card>
       <TableContainer style={{ height: 600, overflow: 'auto' }}>
-      <h1 style={{paddingLeft:"20px"}}>Most Popular</h1>
+        <h1 style={{ paddingLeft: '20px' }}>Most Popular</h1>
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
@@ -183,7 +183,7 @@ const DashboardTable = () => {
                       height='50'
                       image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
                       alt='Paella dish'
-                      style={{borderRadius:"5px"}}
+                      style={{ borderRadius: '5px' }}
                     />
                     <Typography variant='caption'>{row.designation}</Typography>
                   </Box>
@@ -196,7 +196,7 @@ const DashboardTable = () => {
                 <TableCell>{row?.bidPrice}</TableCell>
                 <TableCell>{row?.mktDate?.fromDate}</TableCell>
                 <TableCell>{row?.mktDate?.toDate}</TableCell>
-                <TableCell>{row?.mktOfferFor}</TableCell>
+                <TableCell>{row?.mktOfferFor === 'topRank' ? 'Top Rank' : row?.mktOfferFor}</TableCell>
                 <TableCell>
                   <Chip
                     label={row.status}
@@ -231,7 +231,7 @@ const DashboardTable = () => {
         </Table>
       </TableContainer>
       <TableContainer style={{ height: 600, overflow: 'auto' }}>
-            <h1 style={{paddingLeft:"20px"}}>Star Rating</h1>
+        <h1 style={{ paddingLeft: '20px' }}>Star Rating</h1>
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
@@ -266,8 +266,7 @@ const DashboardTable = () => {
                       height='50'
                       image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
                       alt='Paella dish'
-                      style={{borderRadius:"5px"}}
-                      
+                      style={{ borderRadius: '5px' }}
                     />
                     <Typography variant='caption'>{row.designation}</Typography>
                   </Box>
@@ -281,7 +280,7 @@ const DashboardTable = () => {
                 <TableCell>{row?.mktDate?.fromDate}</TableCell>
                 <TableCell>{row?.mktDate?.toDate}</TableCell>
                 <TableCell>{row?.mktOfferFor}</TableCell>
-                
+
                 <TableCell>
                   <Chip
                     label={row.status}
@@ -315,91 +314,93 @@ const DashboardTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-{false &&      <TableContainer style={{ height: 600, overflow: 'auto' }}>
-            <h1 style={{paddingLeft:"20px"}}>Near Me</h1>
-        <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
-          <TableHead>
-            <TableRow>
-              <TableCell>Sector</TableCell>
-              <TableCell>Product</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Rating</TableCell>
-              <TableCell>Likes</TableCell>
-              <TableCell>AUD</TableCell>
-              <TableCell>CROPs</TableCell>
-              <TableCell>Bid AUD</TableCell>
-              <TableCell>From</TableCell>
-              <TableCell>To</TableCell>
-              <TableCell>Market For</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Slot</TableCell>
-              <TableCell>Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {productData.map(row => (
-              <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                    <TableCell>{row?.sector}</TableCell>
-                <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
-                    {/* {row?.image?.letght && row.image.map((product)=>(
+      {false && (
+        <TableContainer style={{ height: 600, overflow: 'auto' }}>
+          <h1 style={{ paddingLeft: '20px' }}>Near Me</h1>
+          <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+            <TableHead>
+              <TableRow>
+                <TableCell>Sector</TableCell>
+                <TableCell>Product</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Rating</TableCell>
+                <TableCell>Likes</TableCell>
+                <TableCell>AUD</TableCell>
+                <TableCell>CROPs</TableCell>
+                <TableCell>Bid AUD</TableCell>
+                <TableCell>From</TableCell>
+                <TableCell>To</TableCell>
+                <TableCell>Market For</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Slot</TableCell>
+                <TableCell>Action</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {productData.map(row => (
+                <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                  <TableCell>{row?.sector}</TableCell>
+                  <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                      {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
+                      {/* {row?.image?.letght && row.image.map((product)=>(
                       <CardMedia component='img' height='50' image={`${process.env.HOST}/api/products/image/${product}`} alt='Paella dish' />
                     ))} */}
-                    <CardMedia
-                      component='img'
-                      height='50'
-                      image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
-                      alt='Paella dish'
-                      style={{borderRadius:"5px"}}
+                      <CardMedia
+                        component='img'
+                        height='50'
+                        image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
+                        alt='Paella dish'
+                        style={{ borderRadius: '5px' }}
+                      />
+                      <Typography variant='caption'>{row.designation}</Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>{row?.title}</TableCell>
+                  <TableCell>{row?.rating}</TableCell>
+                  <TableCell>{row?.likes}</TableCell>
+                  <TableCell>{row?.price}</TableCell>
+                  <TableCell>{row?.croppoints}</TableCell>
+                  <TableCell>{row?.bidPrice}</TableCell>
+                  <TableCell>{row?.mktDate?.fromDate}</TableCell>
+                  <TableCell>{row?.mktDate?.toDate}</TableCell>
+                  <TableCell>{row?.mktOfferFor}</TableCell>
+                  <TableCell>
+                    <Chip
+                      label={row.status}
+                      color={statusObj[row.status]?.color}
+                      // color={'success'}
+                      sx={{
+                        height: 24,
+                        fontSize: '0.75rem',
+                        textTransform: 'capitalize',
+                        '& .MuiChip-label': { fontWeight: 500 }
+                      }}
                     />
-                    <Typography variant='caption'>{row.designation}</Typography>
-                  </Box>
-                </TableCell>
-                <TableCell>{row?.title}</TableCell>
-                <TableCell>{row?.rating}</TableCell>
-                <TableCell>{row?.likes}</TableCell>
-                <TableCell>{row?.price}</TableCell>
-                <TableCell>{row?.croppoints}</TableCell>
-                <TableCell>{row?.bidPrice}</TableCell>
-                <TableCell>{row?.mktDate?.fromDate}</TableCell>
-                <TableCell>{row?.mktDate?.toDate}</TableCell>
-                <TableCell>{row?.mktOfferFor}</TableCell>
-                <TableCell>
-                  <Chip
-                    label={row.status}
-                    color={statusObj[row.status]?.color}
-                    // color={'success'}
-                    sx={{
-                      height: 24,
-                      fontSize: '0.75rem',
-                      textTransform: 'capitalize',
-                      '& .MuiChip-label': { fontWeight: 500 }
-                    }}
-                  />
-                </TableCell>
-                <TableCell>{row?.slot}</TableCell>
-                <TableCell sx={{ cursor: 'pointer' }}>
-                  <Chip
-                    label={'Delete'}
-                    // color={statusObj[row.status].color}
-                    color={'error'}
-                    sx={{
-                      height: 24,
-                      fontSize: '0.75rem',
-                      textTransform: 'capitalize',
-                      '& .MuiChip-label': { fontWeight: 500 },
-                      cursor: 'pointer'
-                    }}
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>}
+                  </TableCell>
+                  <TableCell>{row?.slot}</TableCell>
+                  <TableCell sx={{ cursor: 'pointer' }}>
+                    <Chip
+                      label={'Delete'}
+                      // color={statusObj[row.status].color}
+                      color={'error'}
+                      sx={{
+                        height: 24,
+                        fontSize: '0.75rem',
+                        textTransform: 'capitalize',
+                        '& .MuiChip-label': { fontWeight: 500 },
+                        cursor: 'pointer'
+                      }}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
       <TableContainer style={{ height: 600, overflow: 'auto' }}>
-            <h1 style={{paddingLeft:"20px"}}>Promo Product</h1>
+        <h1 style={{ paddingLeft: '20px' }}>Promo Product</h1>
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
@@ -434,7 +435,8 @@ const DashboardTable = () => {
                       height='50'
                       image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
                       alt='Paella dish'
-                      style={{borderRadius:"5px"}}                    />
+                      style={{ borderRadius: '5px' }}
+                    />
                     <Typography variant='caption'>{row.designation}</Typography>
                   </Box>
                 </TableCell>
@@ -447,7 +449,7 @@ const DashboardTable = () => {
                 <TableCell>{row?.mktDate?.fromDate}</TableCell>
                 <TableCell>{row?.mktDate?.toDate}</TableCell>
                 <TableCell>{row?.mktOfferFor}</TableCell>
-                
+
                 <TableCell>
                   <Chip
                     label={row.status}
@@ -482,17 +484,17 @@ const DashboardTable = () => {
         </Table>
       </TableContainer>
       <TableContainer style={{ height: 600, overflow: 'auto' }}>
-            <h1 style={{paddingLeft:"20px"}}>All Other Product</h1>
+        <h1 style={{ paddingLeft: '20px' }}>All Other Product</h1>
         <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
-            <TableCell>Sector</TableCell>
+              <TableCell>Sector</TableCell>
               <TableCell>Product</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Rating</TableCell>
               <TableCell>Likes</TableCell>
               <TableCell>AUD</TableCell>
-              <TableCell>CROPs</TableCell>              
+              <TableCell>CROPs</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
@@ -512,7 +514,7 @@ const DashboardTable = () => {
                       height='50'
                       image={`${process.env.HOST}/api/products/image/${row?.image[0]}`}
                       alt='Paella dish'
-                      style={{borderRadius:"5px"}}
+                      style={{ borderRadius: '5px' }}
                     />
                     <Typography variant='caption'>{row.designation}</Typography>
                   </Box>
@@ -522,7 +524,7 @@ const DashboardTable = () => {
                 <TableCell>{row?.likes}</TableCell>
                 <TableCell>{row?.price}</TableCell>
                 <TableCell>{row?.croppoints}</TableCell>
-                
+
                 <TableCell>
                   <Chip
                     label={row.status}
