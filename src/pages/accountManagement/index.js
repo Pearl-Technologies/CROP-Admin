@@ -43,8 +43,8 @@ const AccountManagement = () => {
   const [customerAccountBalanceData, setCustomerAccountBalanceData] = useState([])
   const [businessAccountBalanceData, setBusinessAccountBalanceData] = useState([])
   const [selectedOption,setSelectedOption] = useState("customerData")
-  const [selectedCustomerOpt,setSelectedCustomerOpt] = useState("")
-  const [selectedBusinessOpt,setSelectedBusinessOpt] = useState("")
+  const [selectedCustomerOpt,setSelectedCustomerOpt] = useState("customerCrops")
+  const [selectedBusinessOpt,setSelectedBusinessOpt] = useState("businessCrops")
   const fetchCustomerCropTrasaction = () => {
     setccStatus(true)
     axios
@@ -153,22 +153,22 @@ const AccountManagement = () => {
         console.log(e.target.value)
         setSelectedCustomerOpt(e.target.value)
       }}>
-        <MenuItem value="customerCrops">Customer CROPs</MenuItem>
-        <MenuItem value="customerProps">Customer PROPs</MenuItem>
-        <MenuItem value="customerInvoices">Customer Invoices</MenuItem>
+        <MenuItem value="customerCrops">CROPs</MenuItem>
+        <MenuItem value="customerProps">PROPs</MenuItem>
+        <MenuItem value="customerInvoices">Invoices</MenuItem>
       </Select>
     )
   }
 
   const RenderBusinessOptions=()=>{
     return(
-      <Select sx={{margin:5}} value={selectedCustomerOpt} onChange={(e)=>{
+      <Select sx={{margin:5}} value={selectedBusinessOpt} onChange={(e)=>{
         // setSelectedOption()
         console.log(e.target.value)
         setSelectedBusinessOpt(e.target.value)
       }}>
-        <MenuItem value="businessCrops">Business CROPs</MenuItem>
-        <MenuItem value="businessInvoices">Business Invoices</MenuItem>
+        <MenuItem value="businessCrops">CROPs</MenuItem>
+        <MenuItem value="businessInvoices">Invoices</MenuItem>
       </Select>
     )
   }
@@ -176,9 +176,9 @@ const AccountManagement = () => {
   return (
     <Grid container spacing={2}>
       {/* cutomer crop */}
-      <RenderOptions/>
       { selectedOption=="customerData" ?
       (<>
+      { selectedCustomerOpt=="customerCrops" ?
       <Grid item sm={12}>
         <Card>
          { false!=false ? <CardHeader
@@ -195,9 +195,10 @@ const AccountManagement = () => {
               </IconButton>
             }
           /> : "" }
+          <RenderOptions/>
           <RenderCustomerOptions/>
           {ccStatus && <Spinner />}
-          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
+          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px', minHeight:'100vh' }} sx={{ height: 400 }}>
             <Table
               sx={{ minWidth: 800 }}
               aria-label='table in dashboard'
@@ -240,8 +241,9 @@ const AccountManagement = () => {
             </Table>
           </TableContainer>
         </Card>
-      </Grid>
+      </Grid> : ""}
       {/* customer prop */}
+      { selectedCustomerOpt=="customerProps" ? 
       <Grid item xs={12}>
         <Card>
       { false != false ? 
@@ -259,8 +261,10 @@ const AccountManagement = () => {
               </IconButton>
             }
           /> : " "}
+          <RenderOptions/>
+          <RenderCustomerOptions/>
           {ccStatus && <Spinner />}
-          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
+          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px', minHeight:'100vh' }} sx={{ height: 400 }}>
             <Table
               sx={{ minWidth: 800 }}
               aria-label='table in dashboard'
@@ -303,7 +307,8 @@ const AccountManagement = () => {
             </Table>
           </TableContainer>
         </Card>
-      </Grid>
+       </Grid> : ""}
+      { selectedCustomerOpt=="customerInvoices" ? 
       <Grid item xs={12}>
         <Card>
         { false!=false ?  <CardHeader
@@ -321,8 +326,10 @@ const AccountManagement = () => {
             }
           /> : ""
           }
+          <RenderOptions/>
+          <RenderCustomerOptions/>
           {ciStatus && <Spinner />}
-          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
+          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px', minHeight:'100vh' }} sx={{ height: 400 }}>
             <Table
               sx={{ minWidth: 800 }}
               aria-label='table in dashboard'
@@ -375,11 +382,12 @@ const AccountManagement = () => {
             </Table>
           </TableContainer>
         </Card>
-      </Grid>
+      </Grid> : ""}
       </>)
       :
       (<>
       {/* business crop */}
+      { selectedBusinessOpt=="businessCrops" ?
       <Grid item xs={12}>
         <Card>
           { false!=false ? <CardHeader
@@ -396,8 +404,10 @@ const AccountManagement = () => {
               </IconButton>
             }
           /> : ""}
+          <RenderOptions/>
+          <RenderBusinessOptions/>
           {bcStatus && <Spinner />}
-          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
+          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px', minHeight:'100vh' }} sx={{ height: 400 }}>
             <Table
               sx={{ minWidth: 800 }}
               aria-label='table in dashboard'
@@ -448,9 +458,10 @@ const AccountManagement = () => {
             </Table>
           </TableContainer>
         </Card>
-      </Grid>
+      </Grid> : ""}
       {/* customer invoice */}
       {/* business invoice */}
+      { selectedBusinessOpt=="businessInvoices" ? 
       <Grid item xs={12}>
         <Card>
           { false!=false ?
@@ -468,8 +479,10 @@ const AccountManagement = () => {
               </IconButton>
             }
           /> : ""}
+          <RenderOptions/>
+          <RenderBusinessOptions/>
           {biStatus && <Spinner />}
-          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px' }} sx={{ height: 400 }}>
+          <TableContainer style={{ paddingLeft: '50px', paddingRight: '50px', minHeight:'100vh' }} sx={{ height: 400 }}>
             <Table
               sx={{ minWidth: 800 }}
               aria-label='table in dashboard'
@@ -525,7 +538,7 @@ const AccountManagement = () => {
             </Table>
           </TableContainer>
         </Card>
-      </Grid>
+      </Grid> : ""}
       </>)
       }
     </Grid>

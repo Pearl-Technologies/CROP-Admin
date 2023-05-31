@@ -601,7 +601,7 @@ const Database = () => {
         <Card>
           <TableContainer sx={{ height: 400,minHeight:'100vh'}}>
             {/* <h4 style={{ marginLeft: '20px' }}>Customer Data</h4> */}
-            <Select sx={{margin:10}} value={selectedOption} onChange={(e)=>{
+            <Select sx={{margin:2}} value={selectedOption} onChange={(e)=>{
                 // setSelectedOption()
                 console.log(e.target.value)
                 setSelectedOption(e.target.value)
@@ -616,7 +616,7 @@ const Database = () => {
             ) : (
               <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
                 <TableHead>
-                  <TableRow>
+                  <TableRow sx={{textAlign:"center"}}>
                     <TableCell>Customer Name</TableCell>
                     <TableCell>CROP Id</TableCell>
                     <TableCell>Status</TableCell>
