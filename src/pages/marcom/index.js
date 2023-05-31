@@ -31,7 +31,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 const FormLayouts = () => {
   return (
     <>
-      <Accordion>
+      {/* <Accordion>
         <AccordionSummary expandIcon={<ArrowDownBoldCircle />} aria-controls='panel1a-content' id='panel1a-header'>
           <Typography>Account Notifications</Typography>
         </AccordionSummary>
@@ -54,7 +54,7 @@ const FormLayouts = () => {
             Update
           </Button>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
       <FormLayoutsSeparator />
     </>
   )
