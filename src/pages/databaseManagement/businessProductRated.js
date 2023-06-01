@@ -81,6 +81,7 @@ const businessProductRated = () => {
     </TableCell>
   </TableRow>
 ))}
+{!productData.length && <TableRow><p>No Record Found</p></TableRow>}
 </TableBody>
 </Table>
 </TableContainer>

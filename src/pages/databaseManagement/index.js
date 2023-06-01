@@ -610,7 +610,7 @@ const Database = () => {
       {selectedOption == 'Customer Data' ? (
         <Grid item xs={12}>
           <Card>
-            <TableContainer sx={{ height: '420px' }}>
+            <TableContainer sx={{ height: '420px'}}>
               {/* <h4 style={{ marginLeft: '20px' }}>Customer Data</h4> */}
 
               {cdStatus ? (
@@ -618,7 +618,7 @@ const Database = () => {
               ) : !customerData.length ? (
                 <h6 style={{ textAlign: 'center' }}>Data not found</h6>
               ) : (
-                <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+                <Table stickyHeader aria-label='table in dashboard'>
                   <TableHead>
                     <TableRow>
                       <TableCell>Customer Name</TableCell>
@@ -650,7 +650,7 @@ const Database = () => {
                             {/* <Typography variant='caption'>{row.designation}</Typography> */}
                           </Box>
                         </TableCell>
-                        <TableCell sx={{ minWidth: '100px' }}>{row.cropid}</TableCell>
+                        <TableCell sx={{paddingRight:"64px"}}>{row.cropid}</TableCell>
                         <TableCell sx={{ minWidth: '100px' }}>
                           <Chip
                             label={row.status}
@@ -675,7 +675,7 @@ const Database = () => {
                         >
                           <ReceiptLongIcon />
                         </TableCell>
-                        <TableCell onClick={() => showCustomerCrop(row._id)} sx={{ minWidth: '100px' }}>
+                        <TableCell onClick={() => showCustomerCrop(row._id)} sx={{ paddingRight: '30px' }}>
                           <Chip
                             label={row.croppoints.toFixed(2)}
                             // color={statusObj[row.status].color}
@@ -749,7 +749,7 @@ const Database = () => {
               ) : !businessData.length ? (
                 <h6 style={{ textAlign: 'center' }}>Data not found</h6>
               ) : (
-                <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+                <Table stickyHeader aria-label='table in dashboard'>
                   <TableHead>
                     <TableRow>
                       <TableCell>Business Name</TableCell>
@@ -770,7 +770,7 @@ const Database = () => {
                       <TableRow
                         hover
                         key={'business' + row._id}
-                        sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
+                        sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 }}}
                       >
                         <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -781,7 +781,7 @@ const Database = () => {
                             {/* <Typography variant='caption'>{row.designation}</Typography> */}
                           </Box>
                         </TableCell>
-                        <TableCell sx={{ minWidth: '100px' }}>{row.cropId}</TableCell>
+                        <TableCell>{row.cropId}</TableCell>
                         <TableCell sx={{ minWidth: '100px' }}>
                           <Chip
                             label={row.status}

@@ -140,7 +140,7 @@ const AuditReport = ({}) => {
                       
                     </TableRow>
                   )
-                })}
+                })}                
               </TableBody>
             </Table>}
           </TableContainer>

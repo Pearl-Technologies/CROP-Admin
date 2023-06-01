@@ -153,7 +153,7 @@ export default function BasicTable() {
       </div>
       {selectedOption == 'Customer Account' ? (
         <TableContainer component={Paper} sx={{ height: 380 }}>
-          <h3 style={{ marginLeft: '20px' }}>Customer Account</h3>
+          {/* <h3 style={{ marginLeft: '20px' }}>Customer Account</h3> */}
           <Box margin={2}>
             <OutlinedInput
               placeholder='Customer Name'
@@ -239,7 +239,7 @@ export default function BasicTable() {
         </TableContainer>
       ) : (
         <TableContainer component={Paper} sx={{ height: 380 }}>
-          <h3 style={{ marginLeft: '20px' }}>Business Account</h3>
+          {/* <h3 style={{ marginLeft: '20px' }}>Business Account</h3> */}
           <Box margin={2}>
             <OutlinedInput
               placeholder='business name'

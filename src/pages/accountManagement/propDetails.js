@@ -14,6 +14,9 @@ import TablePagination from '@mui/material/TablePagination'
 import Spinner from '../databaseManagement/spinner'
 import axios from 'axios'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
+import Link from '@mui/material/Link';
+
 const PropDetails = ({}) => {
   // const productData = require('../../db/orders_customers.json')
   const [orderData, setOrderData] = useState([]);
@@ -95,7 +98,7 @@ const PropDetails = ({}) => {
                       <TableCell> Description</TableCell>
                       <TableCell> Debit</TableCell>                  
                       <TableCell> Credit</TableCell>                  
-                      <TableCell> Invoice</TableCell>                  
+                      {/* <TableCell> Invoice</TableCell>                   */}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -107,7 +110,8 @@ const PropDetails = ({}) => {
                         <TableCell>{row.description}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType=="debit"? row.prop:""}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row.transactionType=="credit"? row.prop:""}</TableCell>
-                        <TableCell>{row?.invoiceUrl}</TableCell>
+                        {/* {row.invoiceUrl} */}
+                        {/* {row?.invoiceUrl && <TableCell>  <a href={row?.invoiceUrl} target='_blank'><ReceiptLongIcon sx={{height:"18.3px"}}/></a></TableCell>} */}
                       </TableRow>
                     )
                   })}

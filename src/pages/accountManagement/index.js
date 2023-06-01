@@ -47,7 +47,7 @@ const AccountManagement = () => {
   const [businessCropData, setBusinessCropData] = useState([])
   const [customerAccountBalanceData, setCustomerAccountBalanceData] = useState([])
   const [businessAccountBalanceData, setBusinessAccountBalanceData] = useState([])
-  const [selectedOption, setSelectedOption] = useState('Customer Account')
+  const [selectedOption, setSelectedOption] = useState('Customer Transactions')
   const [selectedCustomerOpt, setSelectedCustomerOpt] = useState('')
   const [selectedBusinessOpt, setSelectedBusinessOpt] = useState('')
   const fetchCustomerCropTrasaction = () => {
@@ -180,15 +180,19 @@ const AccountManagement = () => {
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid container >
+       <div style={{ display: 'flex', gap: 2, margin:0}}>
       <Switch
         {...label}
         defaultChecked
-        onChange={() => setSelectedOption(x => (x === 'Customer Account' ? 'Business Account' : 'Customer Account'))}
+        onChange={() => setSelectedOption(x => {
+          x==="Customer Transactions"? setValue('four'):setValue("one")
+          return(x === 'Customer Transactions' ? 'Business Transactions' : 'Customer Transactions')})}
       />
-      {selectedOption}
+      <p style={{marginTop:8, fontWeight:"bold"}}>{selectedOption}</p>
+      </div>
 
-      {selectedOption === 'Customer Account' ? (
+      {selectedOption === 'Customer Transactions' ? (
         <>
           <Grid item sm={12}>
             {ccStatus && value === 'one' && <Spinner />}
@@ -513,7 +517,7 @@ const AccountManagement = () => {
                           </TableCell>
 
                           <TableCell sx={{ cursor: 'pointer'}} onClick={() => showBusinessInvoice(row._id)}>                            
-                            <ReceiptLongIcon sx={{height:"18px"}}/>
+                            <ReceiptLongIcon sx={{height:"18.3px"}}/>
                           </TableCell>
                         </TableRow>
                       ))}

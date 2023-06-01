@@ -324,19 +324,19 @@ const TierManagement = () => {
       {selectedOption == 'Customer Data' ? (
         <Grid item xs={12}>
           <Card>
-            <TableContainer sx={{ height: 400 }}>
+            <TableContainer sx={{ height: 420 }}>
               <h4 style={{ marginLeft: '15px' }}>Customer Data</h4>
               <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Customer Name</TableCell>
-                    <TableCell>CROP Id</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Tier</TableCell>
-                    {/* <TableCell>Profile</TableCell> */}
+                    <TableCell sx={{textTransform:"none"}}>Customer Name</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>CROP Id</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>Status</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>Tier</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>Earn CROPs</TableCell>
                     {/* <TableCell>Invoices</TableCell> */}
-                    <TableCell>Last Change date</TableCell>
-                    <TableCell>Change Tier</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>Last Change date</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>Change Tier</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -370,13 +370,13 @@ const TierManagement = () => {
                         />
                       </TableCell>
                       <TableCell>{row.UserTier}</TableCell>
+                      <TableCell>{row.croppoints.toFixed(2)}</TableCell>
                       <TableCell>
                         {/* <CustomerModal user={row} /> */}
                         {new Date(row.TierChangeDate).toLocaleDateString()}
                       </TableCell>
-                      {/* <TableCell onClick={
-                          ()=>showCustomerCrop(row._id.$oid)}>{row.croppoints}</TableCell>
-                    <TableCell>{'PROP Info'}</TableCell> */}
+                      
+                    {/* <TableCell>{'PROP Info'}</TableCell> */}
                       <TableCell>
                         <ChangeAccountTier user={row._id} type='customer' />
                       </TableCell>
@@ -390,17 +390,18 @@ const TierManagement = () => {
       ) : (
         <Grid item xs={12}>
           <Card>
-            <TableContainer>
+            <TableContainer sx={{height:420}}>
               <h4 style={{ marginLeft: '15px' }}>Business Data</h4>
               <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Business Name</TableCell>
-                    <TableCell>CROP Id</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Tier</TableCell>
-                    <TableCell>Last Change Date</TableCell>
-                    <TableCell>Change Tier</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>Business Name</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>CROP Id</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>Status</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>Tier</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>Offered CROPS</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>Last Change Date</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>Change Tier</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -434,9 +435,9 @@ const TierManagement = () => {
                         />
                       </TableCell>
                       <TableCell>{row.tier}</TableCell>
-                      {/* <TableCell>
-                     <BusinessModal user={row} />                      
-                    </TableCell> */}
+                      <TableCell>
+                     {row?.croppoint}                     
+                    </TableCell>
                       <TableCell>{new Date(row.tierChangeDate).toLocaleDateString()}</TableCell>
 
                       <TableCell>
