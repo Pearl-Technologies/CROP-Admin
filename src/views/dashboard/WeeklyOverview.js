@@ -7,6 +7,8 @@ import CardHeader from '@mui/material/CardHeader'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 // ** Icons Imports
 import DotsVertical from 'mdi-material-ui/DotsVertical'
@@ -17,6 +19,8 @@ import ReactApexcharts from 'src/@core/components/react-apexcharts'
 const WeeklyOverview = () => {
   // ** Hook
   const theme = useTheme()
+  const [weekData,setWeekData] = useState([]);
+  let HOST = process.env.HOST
 
   const options = {
     chart: {
@@ -64,7 +68,7 @@ const WeeklyOverview = () => {
       }
     },
     xaxis: {
-      categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      categories: ['Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',],
       tickPlacement: 'on',
       labels: { show: false },
       axisTicks: { show: false },
@@ -75,10 +79,22 @@ const WeeklyOverview = () => {
       tickAmount: 4,
       labels: {
         offsetX: -17,
-        formatter: value => `${value > 999 ? `${(value / 1000).toFixed(0)}` : value}k`
+        formatter: value => `$${value}`
       }
     }
   }
+
+  useEffect(()=>{
+    axios.get(`${HOST}/api/admin/getWeeklyDetails`)
+    .then((response)=>{
+      let datum=response.data.data;
+      let tempData=[];
+      datum.forEach((resData)=>{
+        tempData.push(resData.price)
+      })
+      setWeekData(tempData)
+    })
+  },[])
 
   return (
     <Card>
@@ -89,12 +105,12 @@ const WeeklyOverview = () => {
         }}
         action={
           <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}>
-            <DotsVertical />
+            {/* <DotsVertical /> */}
           </IconButton>
         }
       />
       <CardContent sx={{ '& .apexcharts-xcrosshairs.apexcharts-active': { opacity: 0 } }}>
-        <ReactApexcharts type='bar' height={205} options={options} series={[{ data: [37, 57, 45, 75, 57, 40, 65] }]} />
+        <ReactApexcharts type='bar' height={205} options={options} series={[{ data: weekData }]} />
         <Box sx={{ mb: 7, display: 'flex', alignItems: 'center' }}>
           <Typography variant='h5' sx={{ mr: 4 }}>
             45%
