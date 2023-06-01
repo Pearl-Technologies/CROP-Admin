@@ -62,7 +62,12 @@ const Trophy = () => {
       .then(function (response) {
         // handle success
         // console.log(response);
-        setUserName(response?.data?.data[0]?.fName+" "+response?.data?.data[0]?.mName+" "+response?.data?.data[0]?.lName)
+        if(response?.data?.data?.length == 0){
+          setUserName("No business Found")
+        }
+        else{
+         setUserName(response?.data?.data[0]?.fName+" "+response?.data?.data[0]?.mName+" "+response?.data?.data[0]?.lName)
+        }
       })
       .catch(function (error) {
         // handle error
