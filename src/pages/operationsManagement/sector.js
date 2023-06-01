@@ -1,6 +1,6 @@
 // ** React Imports
 import React, { useState, useEffect } from 'react'
-
+import { useRouter } from 'next/router'
 import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
 
@@ -29,6 +29,7 @@ import Avatar from '@mui/material/Avatar';
 import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // ** Demo Components Imports
 
 // ** Third Party Styles Imports
@@ -64,6 +65,7 @@ const Sector = () => {
   const [message, setMessage] =useState('')
   const [update, setUpdate] = useState(false);
   const [categoryId, setCategoryId] = useState('');
+  const router = useRouter()
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
@@ -262,6 +264,7 @@ const handleCancle=()=>{
 
   return (
     <DatePickerWrapper>
+              <span onClick={()=>router.back()}><ArrowBackIcon/></span>
       {updateStatus && <LinearProgress />}
       <ToastContainer
         position='top-right'

@@ -360,18 +360,19 @@ const services = () => {
 
   return (
     <Grid container spacing={2}>
-      <Switch {...label} defaultChecked onChange={()=>setData(x=> x === "Customer" ? "Business":"Customer")}/>{data}
+      <Switch {...label} defaultChecked onChange={()=>setData(x=> x === "Customer" ? "Business":"Customer")}/>
+      <p style={{fontWeight:"bold", marginTop:8}}>{data} Services</p>
       <ToastContainer/>
       <Grid item xs={12}>
         <Card>
           {data === "Customer" && <TableContainer sx={{ height: 450 }}>
-            <h3 style={{ marginLeft: '20px' }}>Customer Data</h3>
+            {/* <h3 style={{ marginLeft: '20px' }}>Customer Data</h3> */}
             <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
               <TableHead>
                 <TableRow>
-                  <TableCell>Customer Name</TableCell>
+                  <TableCell>Name</TableCell>
                   <TableCell>CROP Id</TableCell>
-                  <TableCell>Status</TableCell>
+                  <TableCell >Status</TableCell>
                   <TableCell>Tier</TableCell>
                   <TableCell>Change Status</TableCell>
                 </TableRow>
@@ -383,7 +384,7 @@ const services = () => {
                     key={'customer' + row._id}
                     sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
                   >
-                    <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                    <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important`, width:350}}>
                       <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                         <Avatar
                           variant='rounded-circle'
@@ -405,8 +406,8 @@ const services = () => {
                         </Typography>
                       </Box>
                     </TableCell>
-                    <TableCell>{row.cropid}</TableCell>
-                    <TableCell>
+                    <TableCell sx={{width:150}}>{row.cropid}</TableCell>
+                    <TableCell sx={{width:130}}>
                       <Chip
                         label={row.status}
                         // color={statusObj[row.status].color}
@@ -419,7 +420,7 @@ const services = () => {
                         }}
                       />
                     </TableCell>
-                    <TableCell>{row.UserTier}</TableCell>
+                    <TableCell sx={{width:70}}>{row.UserTier}</TableCell>
                     <TableCell>
                       <ChangeAccountStatus user={row._id} />
                     </TableCell>
@@ -429,11 +430,11 @@ const services = () => {
             </Table>
           </TableContainer>}
           {data === "Business" &&<TableContainer sx={{ height: 450 }}>
-            <h3 style={{ marginLeft: '20px' }}>Business Data</h3>
+            {/* <h3 style={{ marginLeft: '20px' }}>Business Data</h3> */}
             <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
               <TableHead>
                 <TableRow>
-                  <TableCell>Business Name</TableCell>
+                  <TableCell>Name</TableCell>
                   <TableCell>CROP Id</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Tier</TableCell>
@@ -447,7 +448,7 @@ const services = () => {
                     key={'business' + row._id}
                     sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
                   >
-                    <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                    <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important`, width:350}}>
                       <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                         <Avatar
                           variant='rounded-circle'
@@ -468,11 +469,11 @@ const services = () => {
                           {row?.businessName}
                         </Typography>
                         {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
-                        <Typography variant='caption'>{row.designation}</Typography>
+                        {/* <Typography variant='caption'>{row.designation}</Typography> */}
                       </Box>
                     </TableCell>
-                    <TableCell>{row.cropId}</TableCell>
-                    <TableCell>
+                    <TableCell sx={{width:150}}>{row.cropId}</TableCell>
+                    <TableCell sx={{width:130}}>
                       <Chip
                         label={row.status}
                         // color={statusObj[row.status].color}
@@ -485,7 +486,7 @@ const services = () => {
                         }}
                       />
                     </TableCell>
-                    <TableCell>{row.tier}</TableCell>
+                    <TableCell sx={{width:70}}>{row.tier}</TableCell>
                     {/* <TableCell>
                      <BusinessModal user={row} />                      
                     </TableCell> */}

@@ -180,13 +180,17 @@ const AccountManagement = () => {
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid container >
+       <div style={{ display: 'flex', gap: 2, margin:0}}>
       <Switch
         {...label}
         defaultChecked
-        onChange={() => setSelectedOption(x => (x === 'Customer Transactions' ? 'Business Transactions' : 'Customer Transactions'))}
+        onChange={() => setSelectedOption(x => {
+          x==="Customer Transactions"? setValue('four'):setValue("one")
+          return(x === 'Customer Transactions' ? 'Business Transactions' : 'Customer Transactions')})}
       />
-      {selectedOption}
+      <p style={{marginTop:8, fontWeight:"bold"}}>{selectedOption}</p>
+      </div>
 
       {selectedOption === 'Customer Transactions' ? (
         <>

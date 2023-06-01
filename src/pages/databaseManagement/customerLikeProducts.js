@@ -69,6 +69,7 @@ const customerLikeProducts = () => {
             
           </TableRow>
         ))}
+        {!productData.length &&<p>No Record Found</p>}
       </TableBody>
     </Table>
   </TableContainer>

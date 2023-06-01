@@ -16,80 +16,6 @@ import Tabs from '@mui/material/Tabs'
 import axios from 'axios'
 import { left } from '@popperjs/core'
 import Switch from '@mui/material/Switch'
-const rows = [
-  {
-    age: 27,
-    status: 'current',
-    date: '09/27/2018',
-    name: 'Sally Quinn',
-    salary: '$19586.23',
-    email: 'eebsworth2m@sbwire.com',
-    designation: 'Human Resources Assistant'
-  },
-  {
-    age: 61,
-    date: '09/23/2016',
-    salary: '$23896.35',
-    status: 'professional',
-    name: 'Margaret Bowers',
-    email: 'kocrevy0@thetimes.co.uk',
-    designation: 'Nuclear Power Engineer'
-  },
-  {
-    age: 59,
-    date: '10/15/2017',
-    name: 'Minnie Roy',
-    status: 'rejected',
-    salary: '$18991.67',
-    email: 'ediehn6@163.com',
-    designation: 'Environmental Specialist'
-  },
-  {
-    age: 30,
-    date: '06/12/2018',
-    status: 'resigned',
-    salary: '$19252.12',
-    name: 'Ralph Leonard',
-    email: 'dfalloona@ifeng.com',
-    designation: 'Sales Representative'
-  },
-  {
-    age: 66,
-    status: 'applied',
-    date: '03/24/2018',
-    salary: '$13076.28',
-    name: 'Annie Martin',
-    designation: 'Operator',
-    email: 'sganderton2@tuttocitta.it'
-  },
-  {
-    age: 33,
-    date: '08/25/2017',
-    salary: '$10909.52',
-    name: 'Adeline Day',
-    status: 'professional',
-    email: 'hnisius4@gnu.org',
-    designation: 'Senior Cost Accountant'
-  },
-  {
-    age: 61,
-    status: 'current',
-    date: '06/01/2017',
-    salary: '$17803.80',
-    name: 'Lora Jackson',
-    designation: 'Geologist',
-    email: 'ghoneywood5@narod.ru'
-  },
-  {
-    age: 22,
-    date: '12/03/2017',
-    salary: '$12336.17',
-    name: 'Rodney Sharp',
-    status: 'professional',
-    designation: 'Cost Accountant',
-    email: 'dcrossman3@google.co.jp'
-  }
-]
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } }
 
@@ -102,7 +28,7 @@ const statusObj = {
   published: { color: 'success' }
 }
 
-const DashboardTable = () => {
+const OfferAndPromoManagement = () => {
   const [productData, setProductData] = useState([])
   const [mostPopularProductData, setMostPopularProductData] = useState([])
   const [promoProductData, setPromoProductData] = useState([])
@@ -160,13 +86,17 @@ const DashboardTable = () => {
   }, [])
   return (
     <>
-       <h5 style={{margin:"2px 2px 0px 10px"}}>Offer and Promo Management</h5>
-      <Switch
+      <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
+      <h3 style={{margin:"2px 2px 0px 10px"}}>Offer and Promo Management</h3>
+       <div style={{display:"flex"}}>
+       <Switch
           {...label}
           defaultChecked
           onChange={() => setSelectedOption(x => (x === 'Earn CROPs' ? 'Redeem CROPs' : 'Earn CROPs'))}
         />
-       {selectedOption}
+       <p style={{fontWeight:"bold", marginTop:8}}>{selectedOption}</p>
+        </div> 
+      </div>
       <Card>
       <Box sx={{ width: '100%' }}>
                 <Tabs
@@ -182,7 +112,7 @@ const DashboardTable = () => {
                   <Tab value='four' label='All Other Product' />
                 </Tabs>
       </Box>
-       {value == 'one' && (<TableContainer style={{ height: 600, overflow: 'auto' }}>
+       {value == 'one' && (<TableContainer style={{ height: 400, overflow: 'auto' }}>
           {/* <h1 style={{ paddingLeft: '20px' }}>Most Popular</h1> */}
           <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
             <TableHead>
@@ -193,7 +123,7 @@ const DashboardTable = () => {
                 <TableCell>Rating</TableCell>
                 <TableCell>Likes</TableCell>
                 <TableCell>AUD</TableCell>
-                <TableCell>CROPs</TableCell>
+                <TableCell sx={{textTransform:"none"}}>CROPs</TableCell>
                 <TableCell>Bid AUD</TableCell>
                 <TableCell>From</TableCell>
                 <TableCell>To</TableCell>
@@ -209,10 +139,6 @@ const DashboardTable = () => {
                   <TableCell>{row?.sector}</TableCell>
                   <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                      {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
-                      {/* {row?.image?.letght && row.image.map((product)=>(
-                        <CardMedia component='img' height='50' image={`${process.env.HOST}/api/products/image/${product}`} alt='Paella dish' />
-                      ))} */}
                       <CardMedia
                         component='img'
                         height='50'
@@ -231,7 +157,7 @@ const DashboardTable = () => {
                   <TableCell>{row?.bidPrice}</TableCell>
                   <TableCell>{row?.mktDate?.fromDate}</TableCell>
                   <TableCell>{row?.mktDate?.toDate}</TableCell>
-                  <TableCell>{row?.mktOfferFor === 'topRank' ? 'Top Rank' : row?.mktOfferFor}</TableCell>
+                  <TableCell sx={{width:20}}>{row?.mktOfferFor === 'topRank' ? 'Top Rank' : row?.mktOfferFor}</TableCell>
                   <TableCell>
                     <Chip
                       label={row.status}
@@ -265,7 +191,7 @@ const DashboardTable = () => {
             </TableBody>
           </Table>
         </TableContainer>)}
-       { value == 'two' && (<TableContainer style={{ height: 600, overflow: 'auto' }}>
+       { value == 'two' && (<TableContainer style={{ height: 400, overflow: 'auto' }}>
           {/* <h1 style={{ paddingLeft: '20px' }}>Star Rating</h1> */}
           <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
             <TableHead>
@@ -314,7 +240,7 @@ const DashboardTable = () => {
                   <TableCell>{row?.bidPrice}</TableCell>
                   <TableCell>{row?.mktDate?.fromDate}</TableCell>
                   <TableCell>{row?.mktDate?.toDate}</TableCell>
-                  <TableCell>{row?.mktOfferFor}</TableCell>
+                  <TableCell sx={{width: 100}}>{row?.mktOfferFor}</TableCell>
 
                   <TableCell>
                     <Chip
@@ -350,7 +276,7 @@ const DashboardTable = () => {
           </Table>
         </TableContainer>) }
         {false && (
-          <TableContainer style={{ height: 600, overflow: 'auto' }}>
+          <TableContainer style={{ height: 400, overflow: 'auto' }}>
             <h1 style={{ paddingLeft: '20px' }}>Near Me</h1>
             <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
               <TableHead>
@@ -434,7 +360,7 @@ const DashboardTable = () => {
             </Table>
           </TableContainer>
         )}
-        { value == 'three' && (<TableContainer style={{ height: 600, overflow: 'auto' }}>
+        { value == 'three' && (<TableContainer style={{ height: 400, overflow: 'auto' }}>
           {/* <h1 style={{ paddingLeft: '20px' }}>Promo Product</h1> */}
           <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
             <TableHead>
@@ -517,7 +443,7 @@ const DashboardTable = () => {
             </TableBody>
           </Table>
         </TableContainer>)}
-        {value == 'four' && (<TableContainer style={{ height: 600, overflow: 'auto' }}>
+        {value == 'four' && (<TableContainer style={{ height: 400, overflow: 'auto' }}>
           {/* <h1 style={{ paddingLeft: '20px' }}>All Other Product</h1> */}
           <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
             <TableHead>
@@ -596,4 +522,4 @@ const DashboardTable = () => {
   )
 }
 
-export default DashboardTable
+export default OfferAndPromoManagement

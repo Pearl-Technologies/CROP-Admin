@@ -248,9 +248,10 @@ const Notifications = () => {
   return (
     <div>
       <ToastContainer/>
-      <Switch {...label} defaultChecked onChange={()=>setNotificationCategory((x)=> (x==="Customer"? "Business":"Customer") )}/>{notificationCategory}
+      <Switch {...label} defaultChecked onChange={()=>setNotificationCategory((x)=> (x==="Customer"? "Business":"Customer") )}/>
+      <span style={{fontWeight:"bold"}}>{notificationCategory} {"Notification"}</span>
      {notificationCategory==="Customer" && <div>
-        <h3 style={{ marginLeft: '10px' }}>Customer Notification</h3>
+        {/* <h3 style={{ marginLeft: '10px' }}>Customer Notification</h3> */}
         <Accordion>
           <AccordionSummary expandIcon={<ArrowDownBoldCircle />} aria-controls='panel1a-content' id='panel1a-header'>
             <Typography>Account Notifications</Typography>
@@ -503,7 +504,7 @@ const Notifications = () => {
         </Accordion>
       </div>}
  {  notificationCategory==="Business"  && <div>
-      <h3 style={{ marginLeft: '10px' }}>Business Notification</h3>
+      {/* <h3 style={{ marginLeft: '10px' }}>Business Notification</h3> */}
         <Accordion>
           <AccordionSummary expandIcon={<ArrowDownBoldCircle />} aria-controls='panel1a-content' id='panel1a-header'>
             <Typography>Account Notifications</Typography>
