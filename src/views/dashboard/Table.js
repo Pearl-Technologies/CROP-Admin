@@ -11,6 +11,8 @@ import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
 import CardMedia from '@mui/material/CardMedia';
 import React, { useState, useEffect } from 'react'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
 import axios from 'axios'
 const rows = [
   {
@@ -97,68 +99,71 @@ const statusObj = {
 }
 
 const DashboardTable = () => {
-  const [productData, setProductData] = useState([])
+  const [productData, setProductData] = useState([]);
+  const [performanceVal,setPerformanceVal] = useState("high");
   // const product = require("../../db/products2.json");
   const fetchDetails = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getAllProduct`)
+      .get(`${process.env.HOST}/api/admin/getPerformingProducts?filter=${performanceVal}`)
       .then(function (response) {
         // handle success
-        // console.log(response);
-        setProductData(response.data.productList)
+        console.log(response);
+        setProductData(response.data.data)
       })
       .catch(function (error) {
         // handle error
         console.log(error)
       })
   }
+
+  function handleChange(e){
+    console.log(e.target.value);
+    setPerformanceVal(e.target.value);
+  }
+
   useEffect(() => {
     fetchDetails()
-  }, [])
+  }, [performanceVal])
   // console.log(product)
   return (
     <Card>
       <h3 style={{marginLeft:"18px"}}>Performing Products</h3>
+      <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={performanceVal}
+          label="select market"
+          onChange={handleChange}
+        >
+          <MenuItem value="high">High performance</MenuItem>
+          <MenuItem value="low">Low performance</MenuItem>
+        </Select>
       <TableContainer>
         <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
-            <TableCell>Sector</TableCell>
-              <TableCell>Product</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Status</TableCell>
+            <TableCell>Product</TableCell>
+              <TableCell>Total Sale Price</TableCell>
+              <TableCell>Quantities</TableCell>
+              <TableCell>Business Name</TableCell>
+              <TableCell>Business Owner</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {productData.map((row, i) => (
+            {productData.map((row, i) =>{
+              console.log(row)
+              return(
               <TableRow hover key={"product_table"+i} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                <TableCell>{row.sector}</TableCell>
-                <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    {/* <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>{row.name}</Typography> */}
-                    <CardMedia component='img' height='50' image={`${process.env.HOST}/api/products/image/${row?.image[0]}`} alt='Paella dish' />
-                    <Typography variant='caption'>{row.designation}</Typography>
-                  </Box>
-                </TableCell>
-                <TableCell>{row?.title}</TableCell>
+                <TableCell>{row.productName}</TableCell>
+                {/* <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                  {row?.productDetails[0]?.businessName}
+                </TableCell> */}
                 <TableCell>{row?.price}</TableCell>
-                
-                <TableCell>
-                  <Chip
-                    label={row.status}
-                    // color={statusObj[row.status].color}
-                    color={'success'}
-                    sx={{
-                      height: 24,
-                      fontSize: '0.75rem',
-                      textTransform: 'capitalize',
-                      '& .MuiChip-label': { fontWeight: 500 }
-                    }}
-                  />
-                </TableCell>
+                <TableCell>{row?.quantity}</TableCell>
+                <TableCell>{row?.productDetails[0]?.businessName}</TableCell>
+                <TableCell>{row?.productDetails[0]?.fName+" "+row?.productDetails[0]?.mName+" "+row?.productDetails[0]?.lName}</TableCell>
               </TableRow>
-            ))}
+            )})}
           </TableBody>
         </Table>
       </TableContainer>

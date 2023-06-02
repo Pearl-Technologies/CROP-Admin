@@ -20,6 +20,10 @@ const WeeklyOverview = () => {
   // ** Hook
   const theme = useTheme()
   const [weekData,setWeekData] = useState([]);
+  const [currentStats,setCurrentStats]=useState(0);
+  const [prevStats,setPrevStats]=useState("");
+  const [gain,setGain] = useState(false);
+  const [percentage,setPercentage] = useState(0);
   let HOST = process.env.HOST
 
   const options = {
@@ -89,12 +93,35 @@ const WeeklyOverview = () => {
     .then((response)=>{
       let datum=response.data.data;
       let tempData=[];
-      datum.forEach((resData)=>{
+      console.log(datum)
+      datum.weeklyDetails[0].weeklySales.forEach((resData)=>{
+        console.log(resData)
         tempData.push(resData.price)
+      })
+
+      datum.weeklyPercentage.forEach((resData)=>{
+        if(resData._id=="Current Week"){
+            setCurrentStats(resData.totalPrice)
+        }
+        else if(resData._id=="Previous Week"){
+            setPrevStats(resData.totalPrice)
+        }
       })
       setWeekData(tempData)
     })
   },[])
+
+  useEffect(()=>{
+    if(((currentStats/prevStats)*100)>=100){
+      setGain(true)
+      setPercentage(((currentStats/prevStats)*100)-100)
+    }
+    else{
+      setGain(false)
+      console.log(100-((currentStats/prevStats)*100))
+      setPercentage(100-((currentStats/prevStats)*100))
+    }
+  },[currentStats,prevStats])
 
   return (
     <Card>
@@ -113,9 +140,9 @@ const WeeklyOverview = () => {
         <ReactApexcharts type='bar' height={205} options={options} series={[{ data: weekData }]} />
         <Box sx={{ mb: 7, display: 'flex', alignItems: 'center' }}>
           <Typography variant='h5' sx={{ mr: 4 }}>
-            45%
+            ${ Number(currentStats).toFixed(2) }
           </Typography>
-          <Typography variant='body2'>Your sales performance is 45% 😎 better compared to last month</Typography>
+          <Typography variant='body2'>Your sales performance is { Math.floor(percentage) }% { gain ? "better" : "lower" } compared to last week</Typography>
         </Box>
         <Button fullWidth variant='contained'>
           Details

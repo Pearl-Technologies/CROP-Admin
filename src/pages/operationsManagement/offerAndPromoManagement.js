@@ -35,19 +35,19 @@ const OfferAndPromoManagement = () => {
   const [ccStatus, setccStatus] = useState(false)
   const [value, setValue] = React.useState('one')
   const [selectedOption, setSelectedOption] = useState('Earn CROPs')
-  const fetchDetails = () => {
-    axios
-      .post(`${process.env.HOST}/api/admin/getAllProduct`)
-      .then(function (response) {
-        // handle success
-        // console.log(response);
-        setProductData(response.data.productList)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
-      })
-  }
+  // const fetchDetails = () => {
+  //   axios
+  //     .post(`${process.env.HOST}/api/admin/getAllProduct`)
+  //     .then(function (response) {
+  //       // handle success
+  //       // console.log(response);
+  //       setProductData(response.data.productList)
+  //     })
+  //     .catch(function (error) {
+  //       // handle error
+  //       console.log(error)
+  //     })
+  // }
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -55,7 +55,7 @@ const OfferAndPromoManagement = () => {
 
   const fetchMostPopularProductDetails = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getAllMostPopularProduct`)
+      .post(`${process.env.HOST}/api/admin/getAllMostPopularProduct?applyType=topRank`)
       .then(function (response) {
         // handle success
         // console.log(response);
@@ -81,11 +81,19 @@ const OfferAndPromoManagement = () => {
   }
 
   const fetchStarRatingProducts = () => {
+    let type="";
+    if(selectedOption=="Earn CROPs"){
+      type="earnCrop";
+    }
+    else{
+      type="redeemCrop";
+    }
     axios
-    .post(`${process.env.HOST}/api/admin/getBusinessProductRatedAll`)
+    .get(`${process.env.HOST}/api/admin/getBusinessProductRatedAll?applyType=${type}`)
     .then(function (response) {
       // handle success
       console.log(response);
+      setProductData(response.data.productCommentsAndRatings)
     })
     .catch(function (error) {
       // handle error
@@ -94,11 +102,11 @@ const OfferAndPromoManagement = () => {
   }
 
   useEffect(() => {
-    fetchDetails()
+    // fetchDetails()
     fetchMostPopularProductDetails()
     fetchPromoProductDetails()
-    // fetchStarRatingProducts()
-  }, [])
+    fetchStarRatingProducts()
+  }, [selectedOption])
   return (
     <>
       <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
@@ -123,8 +131,8 @@ const OfferAndPromoManagement = () => {
                 >
                   <Tab value='one' label='Most Popular' />
                   <Tab value='two' label='Star Rating' />
-                  {/* <Tab value='three' label='Promo Product' />
-                  <Tab value='four' label='All Other Product' /> */}
+                  <Tab value='three' label='Near Me' />
+                  {/* <Tab value='four' label='All Other Product' /> */}
                 </Tabs>
       </Box>
        {value == 'one' && (<TableContainer style={{ height: 400, overflow: 'auto' }}>
@@ -139,12 +147,12 @@ const OfferAndPromoManagement = () => {
                 <TableCell>Likes</TableCell>
                 <TableCell>AUD</TableCell>
                 <TableCell sx={{textTransform:"none"}}>CROPs</TableCell>
-                <TableCell>Bid AUD</TableCell>
+                {/* <TableCell>Bid AUD</TableCell> */}
                 <TableCell>From</TableCell>
                 <TableCell>To</TableCell>
-                <TableCell>Market For</TableCell>
+                {/* <TableCell>Market For</TableCell> */}
                 <TableCell>Status</TableCell>
-                <TableCell>Slot</TableCell>
+                {/* <TableCell>Slot</TableCell> */}
                 <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
@@ -169,10 +177,10 @@ const OfferAndPromoManagement = () => {
                   <TableCell>{row?.likes}</TableCell>
                   <TableCell>{row?.price}</TableCell>
                   <TableCell>{row?.croppoints}</TableCell>
-                  <TableCell>{row?.bidPrice}</TableCell>
+                  {/* <TableCell>{row?.bidPrice}</TableCell> */}
                   <TableCell>{row?.mktDate?.fromDate}</TableCell>
                   <TableCell>{row?.mktDate?.toDate}</TableCell>
-                  <TableCell sx={{width:20}}>{row?.mktOfferFor === 'topRank' ? 'Top Rank' : row?.mktOfferFor}</TableCell>
+                  {/* <TableCell sx={{width:20}}>{row?.mktOfferFor === 'topRank' ? 'Top Rank' : row?.mktOfferFor}</TableCell> */}
                   <TableCell>
                     <Chip
                       label={row.status}
@@ -186,7 +194,7 @@ const OfferAndPromoManagement = () => {
                       }}
                     />
                   </TableCell>
-                  <TableCell>{row?.slot}</TableCell>
+                  {/* <TableCell>{row?.slot}</TableCell> */}
                   <TableCell sx={{ cursor: 'pointer' }}>
                     <Chip
                       label={'Delete'}
@@ -218,12 +226,12 @@ const OfferAndPromoManagement = () => {
                 <TableCell>Likes</TableCell>
                 <TableCell>AUD</TableCell>
                 <TableCell>CROPs</TableCell>
-                <TableCell>Bid AUD</TableCell>
+                {/* <TableCell>Bid AUD</TableCell> */}
                 <TableCell>From</TableCell>
                 <TableCell>To</TableCell>
-                <TableCell>Market For</TableCell>
+                {/* <TableCell>Market For</TableCell> */}
                 <TableCell>Status</TableCell>
-                <TableCell>Slot</TableCell>
+                {/* <TableCell>Slot</TableCell> */}
                 <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
@@ -252,10 +260,10 @@ const OfferAndPromoManagement = () => {
                   <TableCell>{row?.likes}</TableCell>
                   <TableCell>{row?.price}</TableCell>
                   <TableCell>{row?.croppoints}</TableCell>
-                  <TableCell>{row?.bidPrice}</TableCell>
+                  {/* <TableCell>{row?.bidPrice}</TableCell> */}
                   <TableCell>{row?.mktDate?.fromDate}</TableCell>
                   <TableCell>{row?.mktDate?.toDate}</TableCell>
-                  <TableCell sx={{width: 100}}>{row?.mktOfferFor}</TableCell>
+                  {/* <TableCell sx={{width: 100}}>{row?.mktOfferFor}</TableCell> */}
 
                   <TableCell>
                     <Chip
@@ -270,7 +278,7 @@ const OfferAndPromoManagement = () => {
                       }}
                     />
                   </TableCell>
-                  <TableCell>{row?.slot}</TableCell>
+                  {/* <TableCell>{row?.slot}</TableCell> */}
                   <TableCell sx={{ cursor: 'pointer' }}>
                     <Chip
                       label={'Delete'}

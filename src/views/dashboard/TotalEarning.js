@@ -48,8 +48,8 @@ import axios from 'axios'
 const TotalEarning = () => {
 
   const [data,setData]=useState([]);
-  const [prevStats,setPrevStats]=useState("");
-  const [currentStats,setCurrentStats]=useState("");
+  const [prevStats,setPrevStats]=useState(0);
+  const [currentStats,setCurrentStats]=useState(0);
   const [gain,setGain] = useState(false);
   const [percentage,setPercentage] = useState(0);
 
@@ -110,14 +110,14 @@ const TotalEarning = () => {
               <>
                 <MenuUp sx={{ fontSize: '1.875rem', verticalAlign: 'middle' }} /> 
                 <Typography variant='body2' sx={{ fontWeight: 600, color: 'success.main' }}>
-                { Math.round(percentage) }%
+                { Math.floor(percentage) }%
                 </Typography>
               </>
              :
              <>
              <MenuDown sx={{ fontSize: '1.875rem', verticalAlign: 'middle', color:"#ff1c1c" }} />
              <Typography variant='body2' sx={{ fontWeight: 600, color: "#ff1c1c" }}>
-              { Math.round(percentage) }%
+              { Math.floor(percentage) }%
             </Typography>
              </>
             }
