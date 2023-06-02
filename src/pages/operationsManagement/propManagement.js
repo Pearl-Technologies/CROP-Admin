@@ -224,13 +224,13 @@ const CropMilestone = () => {
     <DatePickerWrapper>
       {updateStatus && <LinearProgress/>}
       <ToastContainer/>
-      <Grid container spacing={6}>
+      <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Card>
             <CardHeader title='PROPs' titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
-                <Grid container spacing={2}>
+                <Grid container spacing={1}>
                   <Grid item xs={6}>
                     <h5 style={{ marginLeft: 'auto' }}> 1 PROP (default)</h5>
                   </Grid>
@@ -279,7 +279,7 @@ const CropMilestone = () => {
             <CardHeader title='CROP' titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
-                <Grid container spacing={2}>
+                <Grid container spacing={1}>
                   <Grid item xs={6}>
                     <h5 style={{ marginLeft: 'auto' }}> 1 CROP (default)</h5>
                   </Grid>
@@ -328,12 +328,10 @@ const CropMilestone = () => {
             <CardHeader title='Milestone data' titleTypographyProps={{ variant: 'h6' }} />
             {milestoneValue && (
               <CardContent>
-                <form onSubmit={e => e.preventDefault()} style={{height:"190px", overflow:"auto", padding:"10px"}}>
-                  <Grid container spacing={5}>
-                    <Grid item xs={6}>
-                      <h5 style={{ marginLeft: 'auto' }}> CROP 5k</h5>
-                    </Grid>
-                    <Grid item xs={6} spacing={2}>
+                <form onSubmit={e => e.preventDefault()} style={{height:"380px", overflow:"auto", padding:"10px"}}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} spacing={1}>
+                      <h5 style={{ marginLeft: 'auto', width:"80px", display:"inline-block" }}> CROP 5k</h5>
                       <TextField
                         label='Base'
                         value={milestoneValue.first.base}
@@ -359,7 +357,6 @@ const CropMilestone = () => {
                         onChange={handleMileStoneDataChange('first', 'platinum')}
                       />
                     </Grid>
-                    {/* </Grid> */}
                     <Grid item xs={12} spacing={2}>
                       <h5 style={{ marginLeft: 'auto', width:"80px", display:"inline-block" }}> CROP 10k</h5>
                       <TextField
@@ -387,8 +384,6 @@ const CropMilestone = () => {
                         onChange={handleMileStoneDataChange('second', 'platinum')}
                       />
                     </Grid>
-
-
                     <Grid item xs={12} spacing={2}>
                       <h5 style={{ marginLeft: 'auto', display:"inline-block", width:"80px" }}> CROP 25k</h5>
                       <TextField
@@ -416,7 +411,6 @@ const CropMilestone = () => {
                         onChange={handleMileStoneDataChange('third', 'platinum')}
                       />
                     </Grid>
-
                     <Grid item xs={12} spacing={6}>
                       <h5 style={{ marginLeft: 'auto', display:"inline-block",width:"80px"}} xs={6} title='multiple of props/5k crops after 25k crops'>
                         {' '}
@@ -447,7 +441,6 @@ const CropMilestone = () => {
                         onChange={handleMileStoneDataChange('fourth', 'platinum')}
                       />
                     </Grid>
-
                     <Grid item xs={12}>
                       <Box
                         sx={{
