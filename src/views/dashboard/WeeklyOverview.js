@@ -8,6 +8,10 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import { useEffect, useState } from 'react'
+import { LocalizationProvider, DatePicker } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import TextField from '@mui/material/TextField';
+import { startOfWeek, endOfWeek } from 'date-fns';
 import axios from 'axios'
 
 // ** Icons Imports
@@ -24,6 +28,11 @@ const WeeklyOverview = () => {
   const [prevStats,setPrevStats]=useState("");
   const [gain,setGain] = useState(false);
   const [percentage,setPercentage] = useState(0);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const handleDateChange = (date) => {
+    // console.log(date.toISOString())
+    setSelectedDate(date);
+  };
   let HOST = process.env.HOST
 
   const options = {
@@ -89,27 +98,37 @@ const WeeklyOverview = () => {
   }
 
   useEffect(()=>{
-    axios.get(`${HOST}/api/admin/getWeeklyDetails`)
+    axios.get(`${HOST}/api/admin/getWeeklyDetails?date=${selectedDate}`)
     .then((response)=>{
       let datum=response.data.data;
       let tempData=[];
       console.log(datum)
-      datum.weeklyDetails[0].weeklySales.forEach((resData)=>{
-        console.log(resData)
-        tempData.push(resData.price)
-      })
+      if(datum.weeklyDetails.length > 0){
+        datum.weeklyDetails[0].weeklySales.forEach((resData)=>{
+          console.log(resData)
+          tempData.push(resData.price)
+        })
+        setWeekData(tempData)
+      }
+      else{
+        setWeekData([])
+      }
 
       datum.weeklyPercentage.forEach((resData)=>{
+        console.log(resData)
         if(resData._id=="Current Week"){
             setCurrentStats(resData.totalPrice)
         }
         else if(resData._id=="Previous Week"){
             setPrevStats(resData.totalPrice)
         }
+        else if(resData._id=="Other Week"){
+            setPrevStats(resData.totalPrice)
+        }
       })
-      setWeekData(tempData)
+      // setWeekData(tempData)
     })
-  },[])
+  },[selectedDate])
 
   useEffect(()=>{
     if(((currentStats/prevStats)*100)>=100){
@@ -125,6 +144,17 @@ const WeeklyOverview = () => {
 
   return (
     <Card>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <DatePicker
+        label="Select Date"
+        value={selectedDate}
+        onChange={handleDateChange}
+        renderInput={(params) => (
+          <TextField style={{margin:"10px"}} {...params} onChange={() => {}} />
+        )}
+      />
+    </LocalizationProvider>
+    {/* <input type="week" id="week" style={{}} name="week"/> */}
       <CardHeader
         title='Weekly Sales Overview'
         titleTypographyProps={{
@@ -138,15 +168,15 @@ const WeeklyOverview = () => {
       />
       <CardContent sx={{ '& .apexcharts-xcrosshairs.apexcharts-active': { opacity: 0 } }}>
         <ReactApexcharts type='bar' height={205} options={options} series={[{ data: weekData }]} />
-        <Box sx={{ mb: 7, display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
           <Typography variant='h5' sx={{ mr: 4 }}>
             ${ Number(currentStats).toFixed(2) }
           </Typography>
           <Typography variant='body2'>Your sales performance is { Math.floor(percentage) }% { gain ? "better" : "lower" } compared to last week</Typography>
         </Box>
-        <Button fullWidth variant='contained'>
+        {/* <Button fullWidth variant='contained'>
           Details
-        </Button>
+        </Button> */}
       </CardContent>
     </Card>
   )

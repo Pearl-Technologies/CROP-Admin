@@ -45,146 +45,171 @@ const salesData = [
   }
 ]
 
-const renderStats = () => {
-  const [accountDetails, setAccountDetails] = useState({prop:3000, crop:2000});
-  // console.log(accountDetails);
-  const getDetails = () => {
-    axios
-      .post(`${process.env.HOST}/api/admin/getAccountBalance`)
-      .then(function (response) {
-        // handle success
-        // console.log(response);
-        setAccountDetails(response.data.availBalance[0])
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
-      })
+const StatisticsCard = () => {
+  const [accountDetails, setAccountDetails] = useState({propCredit:0,propDebit:0,cropCredit:0,cropDebit:0});
+
+  const renderStats = () => {
+    // console.log(accountDetails)
+  
+    return (
+      <>
+        <Grid item xs={12} sm={3}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Avatar
+              variant='rounded'
+              sx={{
+                mr: 3,
+                width: 44,
+                height: 44,
+                // boxShadow: 3,
+                p:3,
+                color: 'common.white',
+                backgroundColor: `primary.main`,              
+              }}
+              src='/images/crop2.png'
+            >
+              {<CurrencyUsd sx={{ fontSize: '1.75rem' }} />}
+            </Avatar>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Typography variant='caption'>{'Total CROPs Credit'}</Typography>
+              <Typography variant='h6'>{accountDetails.cropCredit}</Typography>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Avatar
+              variant='rounded'
+              sx={{
+                mr: 3,
+                width: 44,
+                height: 44,
+                boxShadow: 3,
+                p:3,
+                color: 'common.white',
+                backgroundColor: `primary.main`,
+                
+              }}
+              src="/images/crop2.png"
+            >
+              {<CurrencyUsd sx={{ fontSize: '1.75rem' }} />}
+            </Avatar>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Typography variant='caption'>{'Total CROPs Debit'}</Typography>
+              <Typography variant='h6'>{accountDetails.cropDebit}</Typography>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Avatar
+              variant='rounded'
+              sx={{
+                mr: 3,
+                width: 44,
+                height: 44,
+                boxShadow: 3,
+                color: 'common.white',
+                backgroundColor: `primary.main`
+              }}
+              // src='/images/crop.png'
+            >
+              {<CurrencyUsd sx={{ fontSize: '1.75rem' }} />}
+            </Avatar>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Typography variant='caption'>{'Total PROPs Credit'}</Typography>
+              <Typography variant='h6'>{accountDetails.propCredit}</Typography>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <Box sx={{ display: 'flex' }}>
+            <Avatar
+              variant='rounded'
+              sx={{
+                mr: 3,
+                width: 44,
+                height: 44,
+                boxShadow: 3,
+                color: 'common.white',
+                backgroundColor: `primary.main`
+              }}
+            >
+              {<CurrencyUsd sx={{ fontSize: '1.75rem' }} />}
+            </Avatar>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Typography variant='caption'>{'Total PROPs Debit'}</Typography>
+              <Typography variant='h6'>{accountDetails.propDebit}</Typography>
+            </Box>
+          </Box>
+        </Grid>
+      </>
+    )
   }
 
-  // useEffect(() => {
-  //   getDetails()
-  // }, [])
-  // return salesData.map((item, index) => (
-  //   <Grid item xs={12} sm={3} key={index}>
-  //     <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
-  //       <Avatar
-  //         variant='rounded'
-  //         sx={{
-  //           mr: 3,
-  //           width: 44,
-  //           height: 44,
-  //           boxShadow: 3,
-  //           color: 'common.white',
-  //           backgroundColor: `${item.color}.main`
-  //         }}
-  //       >
-  //         {item.icon}
-  //       </Avatar>
-  //       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-  //         <Typography variant='caption'>{item.title}</Typography>
-  //         <Typography variant='h6'>{item.stats}</Typography>
-  //       </Box>
-  //     </Box>
-  //   </Grid>
-  // ))
-  return (
-    <>
-      <Grid item xs={12} sm={3}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar
-            variant='rounded'
-            sx={{
-              mr: 3,
-              width: 44,
-              height: 44,
-              // boxShadow: 3,
-              p:3,
-              color: 'common.white',
-              backgroundColor: `primary.main`,              
-            }}
-            src='/images/crop2.png'
-          >
-            {<CurrencyUsd sx={{ fontSize: '1.75rem' }} />}
-          </Avatar>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant='caption'>{'Total CROPs Credit'}</Typography>
-            <Typography variant='h6'>{accountDetails.crop}</Typography>
-          </Box>
-        </Box>
-      </Grid>
-      <Grid item xs={12} sm={3}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar
-            variant='rounded'
-            sx={{
-              mr: 3,
-              width: 44,
-              height: 44,
-              boxShadow: 3,
-              p:3,
-              color: 'common.white',
-              backgroundColor: `primary.main`,
-              
-            }}
-            src="/images/crop2.png"
-          >
-            {<CurrencyUsd sx={{ fontSize: '1.75rem' }} />}
-          </Avatar>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant='caption'>{'Total CROPs Debit'}</Typography>
-            <Typography variant='h6'>{accountDetails.prop}</Typography>
-          </Box>
-        </Box>
-      </Grid>
-      <Grid item xs={12} sm={3}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar
-            variant='rounded'
-            sx={{
-              mr: 3,
-              width: 44,
-              height: 44,
-              boxShadow: 3,
-              color: 'common.white',
-              backgroundColor: `primary.main`
-            }}
-            // src='/images/crop.png'
-          >
-            {<CurrencyUsd sx={{ fontSize: '1.75rem' }} />}
-          </Avatar>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant='caption'>{'Total PROPs Credit'}</Typography>
-            <Typography variant='h6'>{accountDetails.crop}</Typography>
-          </Box>
-        </Box>
-      </Grid>
-      <Grid item xs={12} sm={3}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar
-            variant='rounded'
-            sx={{
-              mr: 3,
-              width: 44,
-              height: 44,
-              boxShadow: 3,
-              color: 'common.white',
-              backgroundColor: `primary.main`
-            }}
-          >
-            {<CurrencyUsd sx={{ fontSize: '1.75rem' }} />}
-          </Avatar>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant='caption'>{'Total PROPs Debit'}</Typography>
-            <Typography variant='h6'>{accountDetails.prop}</Typography>
-          </Box>
-        </Box>
-      </Grid>
-    </>
-  )
-}
+  useEffect(()=>{
+    const getDetails = () => {
+      axios.get(`${process.env.HOST}/api/admin/getCropPropDebitCredit`)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+          if(response.data.crop.length > 0){
+            response.data.crop.forEach((datum) => {
+              console.log(datum)
+              if(datum._id=="credit"){
+                console.log(datum.totalCredit)
+                // setAccountDetails({...accountDetails,cropCredit:datum.totalCredit})
+                setAccountDetails((prevState)=>{
+                  return ({
+                    ...prevState,
+                    cropCredit:Number(datum.totalCredit).toFixed(2)
+                  })
+                })
+              }
+              else{
+                // setAccountDetails({...accountDetails,cropDebit:datum.totalDebit})
+                setAccountDetails((prevState)=>{
+                  return ({
+                    ...prevState,
+                    cropDebit:Number(datum.totalDebit).toFixed(2)
+                  })
+                })
+              }
+            });
+          }
 
-const StatisticsCard = () => {
+          if(response.data.prop.length > 0){
+            response.data.prop.forEach((datum) => {
+              if(datum._id=="credit"){
+                // setAccountDetails({...accountDetails,propCredit:datum.totalCredit,})
+                setAccountDetails((prevState)=>{
+                  return ({
+                    ...prevState,
+                    propCredit:Number(datum.totalCredit).toFixed(2)
+                  })
+                })
+              }
+              else{
+                // setAccountDetails({...accountDetails,propDebit:datum.totalDebit})
+                setAccountDetails((prevState)=>{
+                  return ({
+                    ...prevState,
+                    propDebit:Number(datum.totalDebit).toFixed(2)
+                  })
+                })
+              }
+            });
+          }
+          // setAccountDetails(response.data.availBalance[0])
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    }
+    getDetails()
+  },[])
+
   return (
     <Card>
       
