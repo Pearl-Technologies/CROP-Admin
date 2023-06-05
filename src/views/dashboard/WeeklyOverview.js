@@ -100,7 +100,7 @@ const WeeklyOverview = () => {
   useEffect(()=>{
     axios.get(`${HOST}/api/admin/getWeeklyDetails?date=${selectedDate}`)
     .then((response)=>{
-      let datum=response.data.data;
+      let datum=response?.data?.data;
       let tempData=[];
       console.log(datum)
       if(datum.weeklyDetails.length > 0){

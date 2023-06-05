@@ -71,9 +71,10 @@ const BusinessInvoiceDetails = ({}) => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id.$oid}>
                         <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row?.invoice_id}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{row?.number}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row?.description}</TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row?.cropOffered}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{row?.amount}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{row?.product[0].croppoints}</TableCell>
                         <TableCell style={{textAlign:"left"}}><Link href={row.invoice_url}>Invoice View</Link></TableCell>
                         <TableCell style={{textAlign:"left"}}><Link href={row.invoice_pdf}>Download Invoice</Link></TableCell>
                         {/* <TableCell style={{textAlign:"left"}}>{row.status}</TableCell> */}

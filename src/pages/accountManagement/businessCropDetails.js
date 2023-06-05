@@ -85,9 +85,9 @@ const businessCropDetails = ({}) => {
                   {myCropData.map(row => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
-                        <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
-                        <TableCell>{row.payment.transactionId}</TableCell>
-                        <TableCell>{row.desc}</TableCell>
+                        <TableCell>{new Date(row?.createdAt).toLocaleDateString()}</TableCell>
+                        <TableCell>{row?.payment?.transactionId}</TableCell>
+                        <TableCell>{row?.desc}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{(row.type === "Earn Crop") ? row.item.cropRulesWithBonus.toFixed(2):""}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{(row.type === "Redeem Crop") ? row.item.cropRulesWithBonus.toFixed(2):""}</TableCell>
                       </TableRow>
