@@ -156,6 +156,8 @@ const CropMilestone = () => {
  
     let body={'defaultProp': parseInt(values.defaultProp),
     'purchaseProp': parseFloat(values.purchaseProp),
+    'defaultCrop': parseFloat(values.defaultCrop),
+    'purchaseCrop': parseFloat(values.purchaseCrop),
     '_id': values._id,
     'user': values.user}
     axios({

@@ -62,7 +62,13 @@ const Trophy = () => {
       .then(function (response) {
         // handle success
         // console.log(response);
-        setUserName(response?.data?.data[0]?.fName+" "+response?.data?.data[0]?.mName+" "+response?.data?.data[0]?.lName)
+        if(response?.data?.data?.length == 0){
+          setUserName("No business Found")
+        }
+        else{
+        //  setUserName(response?.data?.data[0]?.fName+" "+response?.data?.data[0]?.mName+" "+response?.data?.data[0]?.lName)
+        setUserName(response?.data?.data[0]?.businessName)
+        }
       })
       .catch(function (error) {
         // handle error
@@ -75,7 +81,7 @@ const Trophy = () => {
       <CardContent>
         <Typography variant='h6'>Hall of Fame! 🥳</Typography>
         <Typography variant='body2' sx={{ letterSpacing: '0.25px' }}>
-        Employee of the Month
+        Business of the Month
         </Typography>
         <Typography variant='h5' sx={{ my: 4, color: 'primary.main' }}>
           {/* 98% SLA */}

@@ -79,10 +79,25 @@ const OfferAndPromoManagement = () => {
         console.log(error)
       })
   }
+
+  const fetchStarRatingProducts = () => {
+    axios
+    .post(`${process.env.HOST}/api/admin/getBusinessProductRatedAll`)
+    .then(function (response) {
+      // handle success
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error)
+    })
+  }
+
   useEffect(() => {
     fetchDetails()
     fetchMostPopularProductDetails()
     fetchPromoProductDetails()
+    // fetchStarRatingProducts()
   }, [])
   return (
     <>
@@ -108,8 +123,8 @@ const OfferAndPromoManagement = () => {
                 >
                   <Tab value='one' label='Most Popular' />
                   <Tab value='two' label='Star Rating' />
-                  <Tab value='three' label='Promo Product' />
-                  <Tab value='four' label='All Other Product' />
+                  {/* <Tab value='three' label='Promo Product' />
+                  <Tab value='four' label='All Other Product' /> */}
                 </Tabs>
       </Box>
        {value == 'one' && (<TableContainer style={{ height: 400, overflow: 'auto' }}>
