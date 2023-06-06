@@ -25,12 +25,14 @@ const WeeklyOverview = () => {
   const theme = useTheme()
   const [weekData,setWeekData] = useState([]);
   const [currentStats,setCurrentStats]=useState(0);
-  const [prevStats,setPrevStats]=useState("");
+  const [prevStats,setPrevStats]=useState(0);
   const [gain,setGain] = useState(false);
   const [percentage,setPercentage] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null);
   const handleDateChange = (date) => {
     // console.log(date.toISOString())
+    // setCurrentStats(0);
+    // setPrevStats(0)
     setSelectedDate(date);
   };
   let HOST = process.env.HOST
@@ -114,24 +116,31 @@ const WeeklyOverview = () => {
         setWeekData([])
       }
 
-      datum.weeklyPercentage.forEach((resData)=>{
+      datum.weeklyPercentage[0].weeklyPercentage.forEach((resData)=>{
         console.log(resData)
-        if(resData._id=="Current Week"){
+        if(resData.week=="Current Week"){
             setCurrentStats(resData.totalPrice)
         }
-        else if(resData._id=="Previous Week"){
+        else if(resData.week=="Previous Week"){
             setPrevStats(resData.totalPrice)
         }
-        else if(resData._id=="Other Week"){
-            setPrevStats(resData.totalPrice)
-        }
+        // else if(resData._id=="Other Week"){
+        //     setPrevStats(resData.totalPrice)
+        // }
       })
+      
+
       // setWeekData(tempData)
     })
   },[selectedDate])
 
   useEffect(()=>{
-    if(((currentStats/prevStats)*100)>=100){
+    console.log(currentStats,prevStats)
+    if(prevStats==0){
+      setGain(true)
+      setPercentage(100)
+    }
+    else if(((currentStats/prevStats)*100)>=100){
       setGain(true)
       setPercentage(((currentStats/prevStats)*100)-100)
     }

@@ -126,7 +126,7 @@ const DashboardTable = () => {
   }, [performanceVal])
   // console.log(product)
   return (
-    <Card>
+    <Card style={{marginTop:"10px"}}>
       <h3 style={{marginLeft:"18px"}}>Performing Products</h3>
       <Select
           labelId="demo-simple-select-label"
@@ -134,6 +134,7 @@ const DashboardTable = () => {
           value={performanceVal}
           label="select market"
           onChange={handleChange}
+          style={{margin:"10px"}}
         >
           <MenuItem value="high">High performance</MenuItem>
           <MenuItem value="low">Low performance</MenuItem>

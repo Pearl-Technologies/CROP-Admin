@@ -53,31 +53,35 @@ const StatisticsCard = () => {
   
     return (
       <>
+      <Grid container spacing={3}>
         <Grid item xs={12} sm={3}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
             <Avatar
               variant='rounded'
               sx={{
                 mr: 3,
                 width: 44,
                 height: 44,
-                // boxShadow: 3,
-                p:3,
+                p: 1,
                 color: 'common.white',
-                backgroundColor: `primary.main`,              
+                backgroundColor: 'primary.main',
               }}
               src='/images/crop2.png'
             >
-              {<CurrencyUsd sx={{ fontSize: '1.75rem' }} />}
+              <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
             </Avatar>
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography variant='caption'>{'Total CROPs Credit'}</Typography>
-              <Typography variant='h6'>{accountDetails.cropCredit}</Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+              <Typography variant='caption' noWrap>
+                {'Total CROPs Credit'}
+              </Typography>
+              <Typography variant='h6' noWrap title={accountDetails.cropCredit}>
+                {accountDetails.cropCredit}
+              </Typography>
             </Box>
           </Box>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
             <Avatar
               variant='rounded'
               sx={{
@@ -85,45 +89,26 @@ const StatisticsCard = () => {
                 width: 44,
                 height: 44,
                 boxShadow: 3,
-                p:3,
+                p: 1,
                 color: 'common.white',
-                backgroundColor: `primary.main`,
-                
+                backgroundColor: 'primary.main',
               }}
-              src="/images/crop2.png"
+              src='/images/crop2.png'
             >
-              {<CurrencyUsd sx={{ fontSize: '1.75rem' }} />}
+              <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
             </Avatar>
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography variant='caption'>{'Total CROPs Debit'}</Typography>
-              <Typography variant='h6'>{accountDetails.cropDebit}</Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+              <Typography variant='caption' noWrap>
+                {'Total CROPs Debit'}
+              </Typography>
+              <Typography variant='h6' noWrap title={accountDetails.cropDebit}>
+                {accountDetails.cropDebit}
+              </Typography>
             </Box>
           </Box>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Avatar
-              variant='rounded'
-              sx={{
-                mr: 3,
-                width: 44,
-                height: 44,
-                boxShadow: 3,
-                color: 'common.white',
-                backgroundColor: `primary.main`
-              }}
-              // src='/images/crop.png'
-            >
-              {<CurrencyUsd sx={{ fontSize: '1.75rem' }} />}
-            </Avatar>
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography variant='caption'>{'Total PROPs Credit'}</Typography>
-              <Typography variant='h6'>{accountDetails.propCredit}</Typography>
-            </Box>
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
             <Avatar
               variant='rounded'
               sx={{
@@ -132,17 +117,47 @@ const StatisticsCard = () => {
                 height: 44,
                 boxShadow: 3,
                 color: 'common.white',
-                backgroundColor: `primary.main`
+                backgroundColor: 'primary.main',
               }}
             >
-              {<CurrencyUsd sx={{ fontSize: '1.75rem' }} />}
+              <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
             </Avatar>
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography variant='caption'>{'Total PROPs Debit'}</Typography>
-              <Typography variant='h6'>{accountDetails.propDebit}</Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+              <Typography variant='caption' noWrap>
+                {'Total PROPs Credit'}
+              </Typography>
+              <Typography variant='h6' noWrap title={accountDetails.propCredit}>
+                {accountDetails.propCredit}
+              </Typography>
             </Box>
           </Box>
         </Grid>
+        <Grid item xs={12} sm={3}>
+          <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
+            <Avatar
+              variant='rounded'
+              sx={{
+                mr: 3,
+                width: 44,
+                height: 44,
+                boxShadow: 3,
+                color: 'common.white',
+                backgroundColor: 'primary.main',
+              }}
+            >
+              <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
+            </Avatar>
+            <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+              <Typography variant='caption' noWrap>
+                {'Total PROPs Debit'}
+              </Typography>
+              <Typography variant='h6' noWrap title={accountDetails.propDebit}>
+                {accountDetails.propDebit}
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
       </>
     )
   }
@@ -217,7 +232,7 @@ const StatisticsCard = () => {
         title='CROPs and PROPs Status'
         action={
           <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}>
-            <DotsVertical />
+            {/* <DotsVertical /> */}
           </IconButton>
         }
         
