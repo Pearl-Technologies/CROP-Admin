@@ -25,6 +25,8 @@ import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 import { Stack } from '@mui/joy'
 import { Input } from '@mui/icons-material'
+import TextField from '@mui/material/TextField';
+
 const renderStats = (market, slot, date) => {
   const [slots, setSlots] = useState([])
   // console.log(accountDetails);
@@ -55,6 +57,8 @@ const renderStats = (market, slot, date) => {
   }else if(slot){
     filteredData =slots.filter(x => (x.publishingSlot === slot))
   }else if(date){
+    console.log(date);
+    console.log(typeof(date));
     filteredData = slots.filter(x => (x.published_start_date===date))
   }
   useEffect(() => {
@@ -83,7 +87,7 @@ const renderStats = (market, slot, date) => {
                 >
                   <Typography variant='caption' color={'white'} fontWeight={'bold'}>
                     {data.publishingSlot[0].toUpperCase() + data.publishingSlot.substr(1)}{' '}
-                    {data.publishedAs === 'topRank' ? 'Top Rank' : 'Promo'} {'Slot'}
+                    {data.publishedAs === 'topRank' ? 'Top Rank' : data.publishedAs === 'Promo'?'Promo':'Combo'} {'Slot'}
                   </Typography>
                   <Typography variant='caption' color={'white'}>
                     From: {data.published_start_date}
@@ -120,6 +124,7 @@ const MarketSlots = () => {
   if (selected) {
     footer = <p>You picked {format(selected, 'PP')}.</p>
   }
+  console.log(date);
   return (
     <Card>
       <CardHeader
@@ -163,13 +168,7 @@ const MarketSlots = () => {
           <MenuItem value={'monthly'}>Monthly</MenuItem>
         </Select>
       </FormControl>
-
-      <Stack style={{display:"inline-block", border:"1px solid #e0e0e0", borderRadius:"5px"}} sx={{p:1}}>
-        <InputLabel>Select Date</InputLabel>
-        {/* {dateOpen && <DayPicker mode='single' selected={selected} onSelect={setSelected} footer={footer} />} */}
-        <input type="date" onChange={(e)=>setDate(e.target.value)} value={date}/>
-      </Stack>
-
+      <TextField type="date" onChange={(e)=>setDate(e.target.value)} value={date}/>
       <CardContent sx={{ pt: theme => `${theme.spacing(3)} !important` }}>
         <Grid container spacing={[5, 0]}>
           {renderStats(market, slots, date)}

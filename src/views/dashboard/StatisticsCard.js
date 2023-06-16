@@ -62,11 +62,10 @@ const StatisticsCard = () => {
                 mr: 3,
                 width: 44,
                 height: 44,
-                p: 1,
                 color: 'common.white',
                 backgroundColor: 'primary.main',
               }}
-              src='/images/crop2.png'
+              src='/images/crop.png'
             >
               <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
             </Avatar>
@@ -81,19 +80,19 @@ const StatisticsCard = () => {
           </Box>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 10 }}>
             <Avatar
               variant='rounded'
               sx={{
-                mr: 3,
+                // mr: 3,
                 width: 44,
                 height: 44,
                 boxShadow: 3,
-                p: 1,
+                // p:,
                 color: 'common.white',
                 backgroundColor: 'primary.main',
               }}
-              src='/images/crop2.png'
+              src='/images/crop.png'
             >
               <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
             </Avatar>

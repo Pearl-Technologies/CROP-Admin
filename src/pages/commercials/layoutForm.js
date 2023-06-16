@@ -189,6 +189,16 @@ const layoutFrom = () => {
                 focused
               />
             </Grid>
+            <Grid item xs={4}>
+              <TextField
+                fullWidth
+                label='monthly (AUD)'
+                // placeholder='Enter the value'
+                value={basePrice?.monthly}
+                onChange={handleChange('monthly')}
+                focused
+              />
+            </Grid>
           </Grid>
           <Grid item xs={12}>
               <Button size='large' type='submit' variant='contained' sx={{ width: '100%' }} onClick={updateBasePrice}>

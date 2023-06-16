@@ -241,7 +241,7 @@ const OperationsManagement = () => {
         </Card>
 
         <Card
-          onClick={() => router.push('/operationsManagement/payPropToCustomer')}
+          onClick={() => router.push('/operationsManagement/paymentProcess')}
           style={{
             alignItems: 'center',
             textAlign: 'center',

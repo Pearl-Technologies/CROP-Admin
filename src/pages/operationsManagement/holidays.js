@@ -253,9 +253,9 @@ const Holiday = () => {
     <DatePickerWrapper>
       {updateStatus && <LinearProgress />}
       <ToastContainer />
-      <span onClick={() => router.back()}>
-        <ArrowBackIcon  style={{ cursor: 'pointer', margin:"2px"}}/>
-      </span>
+      <button onClick={() => router.back()} marginBottom="10px">
+        <ArrowBackIcon  style={{ cursor: 'pointer'}}/>
+      </button>
       <Grid container spacing={6}>
         <Grid item xs={12} md={8}>
           <Card>

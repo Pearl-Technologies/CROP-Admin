@@ -256,7 +256,7 @@ const AccountManagement = () => {
                             {item?.cropid} 
                             </TableCell>
                             <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerCrop(item._id)}>
-                              <img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.croppoints.toFixed(2)}
+                              <img width='10px' src={'/images/crop2.png'} alt='crop logo' /> {item.croppoints.toFixed(2)}
                               <LinearProgress
                                 color={item.color}
                                 value={item.progress}
@@ -314,7 +314,7 @@ const AccountManagement = () => {
                               {item?.cropid} 
                             </TableCell>
                             <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerProp(item._id)}>
-                              <img width='10px' src={'/images/crop.png'} alt='crop logo' /> {item.proppoints.toFixed(2)}
+                              <img width='10px' src={'/images/crop2.png'} alt='crop logo' /> {item.proppoints.toFixed(2)}
                               <LinearProgress
                                 color={item.color}
                                 value={item.progress}

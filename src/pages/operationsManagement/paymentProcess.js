@@ -50,7 +50,7 @@ const statusObj = {
   active: { color: 'success' }
 }
 
-const PayToCustomer = () => {
+const PaymentProcess = () => {
   const router = useRouter()
   const [customerData, setCustomerData] = useState([])
   const [businessData, setBusinessData] = useState([])
@@ -70,7 +70,6 @@ const PayToCustomer = () => {
       .catch(function (error) {
         // handle error
         console.log(error)
-
       })
   }
 
@@ -131,77 +130,78 @@ const PayToCustomer = () => {
 
   return (
     <Grid container spacing={2}>
-      {false && <Grid item xs={12}>
-        <Card>
-          <TableContainer sx={{ height: 400 }}>
-            <h4 style={{ marginLeft: '20px' }}>Customer Data</h4>
-            {cdStatus ? (
-              <Spinner />
-            ) : !customerData.length ? (
-              <h6 style={{ textAlign: 'center' }}>Data not found</h6>
-            ) : (
-              <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Customer Name</TableCell>
-                    <TableCell>CROP Id</TableCell>
-                    <TableCell>Tier</TableCell>
-                    <TableCell>Tier Changed Date</TableCell>
-                    <TableCell>CROPs</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {customerData.map(row => (
-                    <TableRow
-                      hover
-                      key={'customer' + row._id}
-                      sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
-                    >
-                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
-                            {row.name.fName} {row.name.mName} {row.name.lName}{' '}
-                          </Typography>
-                          {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
-                          {/* <Typography variant='caption'>{row.designation}</Typography> */}
-                        </Box>
-                      </TableCell>
-                      <TableCell onClick={() => showCustomerCrop(row._id)} sx={{ cursor: 'pointer' }}>
-                        {row.cropid}
-                      </TableCell>
-                      <TableCell>{row.UserTier}</TableCell>
-                      <TableCell>{new Date(row.TierChangeDate).toLocaleDateString()}</TableCell>
-                      <TableCell>{row.total}</TableCell>
+      {false && (
+        <Grid item xs={12}>
+          <Card>
+            <TableContainer sx={{ height: 400 }}>
+              <h4 style={{ marginLeft: '20px' }}>Customer Data</h4>
+              {cdStatus ? (
+                <Spinner />
+              ) : !customerData.length ? (
+                <h6 style={{ textAlign: 'center' }}>Data not found</h6>
+              ) : (
+                <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Customer Name</TableCell>
+                      <TableCell>CROP Id</TableCell>
+                      <TableCell>Tier</TableCell>
+                      <TableCell>Tier Changed Date</TableCell>
+                      <TableCell>CROPs</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </TableContainer>
-        </Card>
-      </Grid>}
+                  </TableHead>
+                  <TableBody>
+                    {customerData.map(row => (
+                      <TableRow
+                        hover
+                        key={'customer' + row._id}
+                        sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
+                      >
+                        <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
+                              {row.name.fName} {row.name.mName} {row.name.lName}{' '}
+                            </Typography>
+                            {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
+                            {/* <Typography variant='caption'>{row.designation}</Typography> */}
+                          </Box>
+                        </TableCell>
+                        <TableCell onClick={() => showCustomerCrop(row._id)} sx={{ cursor: 'pointer' }}>
+                          {row.cropid}
+                        </TableCell>
+                        <TableCell>{row.UserTier}</TableCell>
+                        <TableCell>{new Date(row.TierChangeDate).toLocaleDateString()}</TableCell>
+                        <TableCell>{row.total}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </TableContainer>
+          </Card>
+        </Grid>
+      )}
       <Grid item xs={12}>
         <Card>
-          <TableContainer sx={{ height: 400 }}>
+          <TableContainer sx={{ height: 480 }}>
             <h3 style={{ marginLeft: '20px' }}>Business Data</h3>
             {bdStatus ? (
               <Spinner />
             ) : !businessData.length ? (
               <h6 style={{ textAlign: 'center' }}>Data not found</h6>
             ) : (
-              <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
+              <Table stickyHeader aria-label='table in dashboard'>
                 <TableHead>
                   <TableRow>
                     <TableCell>Business Name</TableCell>
+                    <TableCell align='right'>Amount</TableCell>
                   </TableRow>
                 </TableHead>
 
                 <TableBody>
                   {businessData.map((row, x) => {
                     let value_pay_to_business = 0
-                    return (
-                      <TreeView id={row._id} data={row}/>                     
-                    )
+                    return <TreeView id={row._id} data={row} key={`bus${x}-${row._id}`} />
                   })}
                 </TableBody>
               </Table>
@@ -213,4 +213,4 @@ const PayToCustomer = () => {
   )
 }
 
-export default PayToCustomer
+export default PaymentProcess
