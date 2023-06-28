@@ -29,7 +29,8 @@ import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import Switch from '@mui/material/Switch'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -44,98 +45,15 @@ const style = {
   boxShadow: 24,
   p: 4
 }
-const rows = [
-  {
-    age: 27,
-    status: 'current',
-    date: '09/27/2018',
-    name: 'Sally Quinn',
-    salary: '$19586.23',
-    email: 'eebsworth2m@sbwire.com',
-    designation: 'Human Resources Assistant'
-  },
-  {
-    age: 61,
-    date: '09/23/2016',
-    salary: '$23896.35',
-    status: 'professional',
-    name: 'Margaret Bowers',
-    email: 'kocrevy0@thetimes.co.uk',
-    designation: 'Nuclear Power Engineer'
-  },
-  {
-    age: 59,
-    date: '10/15/2017',
-    name: 'Minnie Roy',
-    status: 'rejected',
-    salary: '$18991.67',
-    email: 'ediehn6@163.com',
-    designation: 'Environmental Specialist'
-  },
-  {
-    age: 30,
-    date: '06/12/2018',
-    status: 'resigned',
-    salary: '$19252.12',
-    name: 'Ralph Leonard',
-    email: 'dfalloona@ifeng.com',
-    designation: 'Sales Representative'
-  },
-  {
-    age: 66,
-    status: 'applied',
-    date: '03/24/2018',
-    salary: '$13076.28',
-    name: 'Annie Martin',
-    designation: 'Operator',
-    email: 'sganderton2@tuttocitta.it'
-  },
-  {
-    age: 33,
-    date: '08/25/2017',
-    salary: '$10909.52',
-    name: 'Adeline Day',
-    status: 'professional',
-    email: 'hnisius4@gnu.org',
-    designation: 'Senior Cost Accountant'
-  },
-  {
-    age: 61,
-    status: 'current',
-    date: '06/01/2017',
-    salary: '$17803.80',
-    name: 'Lora Jackson',
-    designation: 'Geologist',
-    email: 'ghoneywood5@narod.ru'
-  },
-  {
-    age: 22,
-    date: '12/03/2017',
-    salary: '$12336.17',
-    name: 'Rodney Sharp',
-    status: 'professional',
-    designation: 'Cost Accountant',
-    email: 'dcrossman3@google.co.jp'
-  }
-]
-
-const statusObj = {
-  presuspend: { color: 'info' },
-  deactivated: { color: 'error' },
-  current: { color: 'primary' },
-  suspended: { color: 'warning' },
-  active: { color: 'success' }
-}
 
 const Complaint = () => {
   const [updateStatus, setUpdateStatus] = useState(false)
   const [message, setMessage] = useState([])
   const [reponseCode, setResponseCode] = useState(null)
   const router = useRouter()
-  // const customerComplain = require('../../db/admin_customer_complains')
-  const businessComplain = require('../../db/admin_business_complains.json')
   const [customerData, setCustomerData] = useState([])
   const [businessData, setBusinessData] = useState([])
+  const [selectedOption, setSelectedOption]=useState("Customer Complaint")
 
   const [open, setOpen] = useState(false)
   const handleClick = () => {
@@ -182,7 +100,7 @@ const Complaint = () => {
           setResponseCode(response.status)
           toast.success(response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
         .catch(function (error) {
@@ -192,14 +110,18 @@ const Complaint = () => {
           setResponseCode(error?.response?.status)
           toast.error(error.response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
       handleClose()
     }
     return (
       <div>
-        <Button onClick={handleOpen}>{data.complainNumber.toLocaleString('en-US', { maximumFractionDigits: 0, maximumSignificantDigits: 7 }).slice(0, 7)}</Button>
+        <Button onClick={handleOpen}>
+          {data.complainNumber
+            .toLocaleString('en-US', { maximumFractionDigits: 0, maximumSignificantDigits: 7 })
+            .slice(0, 7)}
+        </Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -263,7 +185,7 @@ const Complaint = () => {
           setResponseCode(response.status)
           toast.success(response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
         .catch(function (error) {
@@ -273,14 +195,18 @@ const Complaint = () => {
           setResponseCode(error?.response?.status)
           toast.error(error.response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
       handleClose()
     }
     return (
       <div>
-        <Button onClick={handleOpen}>{data.complainNumber.toLocaleString('en-US', { maximumFractionDigits: 0, maximumSignificantDigits: 7 }).slice(0, 7)}</Button>
+        <Button onClick={handleOpen}>
+          {data.complainNumber
+            .toLocaleString('en-US', { maximumFractionDigits: 0, maximumSignificantDigits: 7 })
+            .slice(0, 7)}
+        </Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -340,8 +266,18 @@ const Complaint = () => {
 
   return (
     <Grid container spacing={2}>
+      <ArrowBackIcon sx={{cursor:'pointer', marginRight:"auto"}} onClick={()=>router.back()}/>
+      <div style={{ display: 'flex', gap: 2 }}>
+        <Switch
+            
+            defaultChecked
+            sx={{ marginTop: 3 }}
+            onChange={() => setSelectedOption(x => (x === 'Customer Complaint' ? 'Business Complaint' : 'Customer Complaint'))}
+          />
+          <h5>{selectedOption}</h5>
+      </div>
       <Grid item xs={12}>
-      <Card>
+        {selectedOption==="Customer Complaint"&&<Card>
           <CardHeader
             title='Customer Complaint'
             titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
@@ -356,18 +292,22 @@ const Complaint = () => {
               </IconButton>
             }
           />
-      
-           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
-            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
+
+          <TableContainer >
+            <Table
+              sx={{ minWidth: 800 }}
+              aria-label='table in dashboard'
+              stickyHeader
+              style={{ border: '1px solid #F4F5FA' }}
+            >
               <TableHead>
-              
-              <TableRow>
+                <TableRow>
                   <TableCell>Number</TableCell>
                   <TableCell>Date</TableCell>
-                  <TableCell title="DESCRIPTION">DESC</TableCell>
-                  <TableCell  title="Expectation Outcomes">Exp OC</TableCell>
+                  <TableCell title='DESCRIPTION'>DESC</TableCell>
+                  <TableCell title='Expectation Outcomes'>Exp OC</TableCell>
                   <TableCell>Type</TableCell>
-                  <TableCell  title="Preferred Contact Medium">PCM</TableCell>
+                  <TableCell title='Preferred Contact Medium'>PCM</TableCell>
                   <TableCell>Modified</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Response</TableCell>
@@ -393,7 +333,6 @@ const Complaint = () => {
                     <TableCell>{row.expectedOutcoms}</TableCell>
                     <TableCell>{row.complainType}</TableCell>
                     <TableCell>{row.preferredMediumContact}</TableCell>
-
                     <TableCell>{new Date(Date(row.complainUpdateDate)).toLocaleDateString()}</TableCell>
                     <TableCell>{row.complainStatus}</TableCell>
                     <TableCell>{row.complainResponse}</TableCell>
@@ -402,11 +341,8 @@ const Complaint = () => {
               </TableBody>
             </Table>
           </TableContainer>
-        
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-      <Card>
+        </Card>}
+        {selectedOption==="Business Complaint"&&<Card>
           <CardHeader
             title='Business Complaint'
             titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
@@ -421,18 +357,22 @@ const Complaint = () => {
               </IconButton>
             }
           />
-      
-           <TableContainer style={{paddingLeft:"50px",paddingRight:"50px"}}>
-            <Table sx={{ minWidth: 800 }} aria-label='table in dashboard' stickyHeader style={{border:"1px solid #F4F5FA"}}>
+
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 800 }}
+              aria-label='table in dashboard'
+              stickyHeader
+              style={{ border: '1px solid #F4F5FA' }}
+            >
               <TableHead>
-              
-              <TableRow>
+                <TableRow>
                   <TableCell>Number</TableCell>
                   <TableCell>Date</TableCell>
-                  <TableCell title="DESCRIPTION">DESC</TableCell>
-                  <TableCell  title="Expectation Outcomes">Exp OC</TableCell>
+                  <TableCell title='DESCRIPTION'>DESC</TableCell>
+                  <TableCell title='Expectation Outcomes'>Exp OC</TableCell>
                   <TableCell>Type</TableCell>
-                  <TableCell  title="Preferred Contact Medium">PCM</TableCell>
+                  <TableCell title='Preferred Contact Medium'>PCM</TableCell>
                   <TableCell>Modified</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Response</TableCell>
@@ -468,9 +408,11 @@ const Complaint = () => {
               </TableBody>
             </Table>
           </TableContainer>
-        
-        </Card>
+        </Card>}
       </Grid>
+     
+
+      
     </Grid>
   )
 }

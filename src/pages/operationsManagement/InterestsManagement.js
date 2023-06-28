@@ -250,7 +250,7 @@ export default function InterestsManagement() {
         sx={{
           width: '55%',
           maxWidth: 760,
-          maxHeight:420,
+          maxHeight:350,
           //   display:'flex',
           //   justifyContent:'space-between',
           bgcolor: 'background.paper',

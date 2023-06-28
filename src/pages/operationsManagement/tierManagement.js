@@ -25,21 +25,8 @@ import { useRouter } from 'next/router'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import CircularProgress from '@mui/material/CircularProgress'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  height: 800,
-  width: 800,
-  overflow: 'auto',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  borderRadius: '10px',
-  boxShadow: 24,
-  p: 4
-}
 
 const statusObj = {
   presuspended: { color: 'info' },
@@ -312,6 +299,7 @@ const TierManagement = () => {
   return (
     <Grid container spacing={2}>
       <ToastContainer />
+      <ArrowBackIcon sx={{cursor:'pointer', marginRight:"auto"}} onClick={()=>router.back()}/>
       <div style={{ display: 'flex', gap: 2 }}>
         <Switch
           {...label}

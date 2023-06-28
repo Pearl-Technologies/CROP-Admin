@@ -251,7 +251,7 @@ export default function Loyalty() {
       <List
         sx={{
           width: '55%',
-          maxHeight: 400,
+          maxHeight: 350,
           //   display:'flex',
           //   justifyContent:'space-between',
           bgcolor: 'background.paper',
@@ -262,8 +262,7 @@ export default function Loyalty() {
         }}        
       >
         <ul>
-          <ListItem>
-            {/* <ListItemText sx={{ width: 500 }} /> */}
+          <ListItem sticky>
             <ListItemText sx={{ textAlign: 'left' }}>
               <span style={{ fontWeight: 'bold'}} > Loyality</span>
 
@@ -272,12 +271,14 @@ export default function Loyalty() {
             <ListItemText sx={{ textAlign: 'right', color: 'bold' }}>
               <span style={{ fontWeight: 'bold' }}> Action</span>
             </ListItemText>
+            
           </ListItem>
 
           {/* <SpringModal /> */}
         </ul>
-        <ul>
-          <SpringModal />
+        <ul>          
+        <SpringModal />
+          
           {loyalityList.map(item => (
             <ListItem key={`${item._id}`}>
               <ListItemText primary={`${item.programmeName}`} sx={{ width: 500 }} />

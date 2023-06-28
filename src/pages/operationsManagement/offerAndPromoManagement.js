@@ -23,6 +23,8 @@ const label = { inputProps: { 'aria-label': 'Switch demo' } }
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Spinner from '../databaseManagement/spinner';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { useRouter } from 'next/router'
 const statusObj = {
   applied: { color: 'info' },
   rejected: { color: 'error' },
@@ -41,6 +43,7 @@ const OfferAndPromoManagement = () => {
   const [selectedOption, setSelectedOption] = useState('Earn CROPs')
   const [productCategory, setProductCategory] = React.useState('None');
   const[zipCode, setZipCode] = useState();
+  const router= useRouter();
   
   // const fetchDetails = () => {
   //   axios
@@ -121,6 +124,7 @@ const OfferAndPromoManagement = () => {
   
   return (
     <>
+    <ArrowBackIcon sx={{cursor:'pointer', marginRight:"auto"}} onClick={()=>router.back()}/>
       <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <h3 style={{ margin: '2px 2px 0px 10px' }}>Offer and Promo Management</h3>
         <div style={{ display: 'flex' }}>

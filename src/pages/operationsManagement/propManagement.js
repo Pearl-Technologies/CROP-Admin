@@ -1,6 +1,6 @@
 // ** React Imports
 import { useState, useEffect } from 'react'
-
+import { useRouter } from 'next/router'
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -23,12 +23,14 @@ import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 // ** Demo Components Imports
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
 
 const CropMilestone = () => {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [updateStatus, setUpdateStatus] = useState(false)
   const [message, setMessage] = useState([])
@@ -226,6 +228,7 @@ const CropMilestone = () => {
     <DatePickerWrapper>
       {updateStatus && <LinearProgress/>}
       <ToastContainer/>
+      <ArrowBackIcon sx={{cursor:'pointer', marginRight:"auto"}} onClick={()=>router.back()}/>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Card>

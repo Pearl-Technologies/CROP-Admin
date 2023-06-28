@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
 import IconButton from '@mui/material/IconButton'
 import CardHeader from '@mui/material/CardHeader'
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Tooltip from '@mui/material/Tooltip'
 import CardMedia from '@mui/material/CardMedia'
 import axios from 'axios'
@@ -78,7 +78,7 @@ const Request = () => {
 
   const fetchCustomerDetails = () => {
     axios
-      .post('http://192.168.0.254:7001/api/admin/get-all-users')
+      .post(`${process.env.HOST}/api/admin/get-all-users`)
       .then(function (response) {
         // handle success
         // console.log(response);
@@ -418,6 +418,7 @@ const Request = () => {
   return (
     <Grid container spacing={2}>
       <ToastContainer />
+      <ArrowBackIcon sx={{cursor:'pointer', marginRight:"auto"}} onClick={()=>router.back()}/>
       <div style={{ display: 'flex', gap: 2 }}>
         <Switch
             {...label}

@@ -23,25 +23,24 @@ import TableHead from '@mui/material/TableHead'
 import TableCell from '@mui/material/TableCell'
 import TableBody from '@mui/material/TableBody'
 import ArrowUpDropCircleOutline from 'mdi-material-ui/ArrowUpDropCircleOutline'
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from '@mui/icons-material/Edit'
 import TableRow from '@mui/material/TableRow'
-import Avatar from '@mui/material/Avatar';
-import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
+import Avatar from '@mui/material/Avatar'
+import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 // ** Demo Components Imports
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
-
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import Slide from '@mui/material/Slide'
 
 const ImgStyled = styled('img')(({ theme }) => ({
   width: 120,
@@ -58,85 +57,83 @@ const ButtonStyled = styled(Button)(({ theme }) => ({
 
 const Sector = () => {
   const [updateStatus, setUpdateStatus] = useState(false)
-  const [imageFile, setImageFile] = useState(null);
-  const [profileImg, setProfileImg] = useState(null);
+  const [imageFile, setImageFile] = useState(null)
+  const [profileImg, setProfileImg] = useState(null)
   const [sectorName, setSectorName] = useState('')
   const [category, setCategory] = useState([])
-  const [message, setMessage] =useState('')
-  const [update, setUpdate] = useState(false);
-  const [categoryId, setCategoryId] = useState('');
+  const [message, setMessage] = useState('')
+  const [update, setUpdate] = useState(false)
+  const [categoryId, setCategoryId] = useState('')
   const router = useRouter()
   const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
-  
-  function AlertDialogSlide({id, categoryName}) {
-    const [open, setOpen] = React.useState(false);
-    
+    return <Slide direction='up' ref={ref} {...props} />
+  })
+
+  function AlertDialogSlide({ id, categoryName }) {
+    const [open, setOpen] = React.useState(false)
+
     const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
+      setOpen(true)
+    }
+
     const handleClose = () => {
-      setOpen(false);
-    };
-    const handleDelete = async(id, sectorName) => {
+      setOpen(false)
+    }
+    const handleDelete = async (id, sectorName) => {
       handleClose()
       // setUpdateStatus(true)
       const formData = new FormData()
       formData.append('sectorName', sectorName)
-      formData.append('id', id);
+      formData.append('id', id)
       await axios
         .post(`${process.env.HOST}/api/admin/deleteCategory`, formData, {
           headers: {
-            "authorization": `Bearer ${localStorage.getItem('token')}`,
-            "Content-Type": 'application/json'
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
           }
         })
         .then(function (response) {
           toast.success(response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
-          setMessage(response.data.msg);
+          setMessage(response.data.msg)
           // setUpdateStatus(false)
         })
         .catch(function (error) {
           console.log(error)
           setUpdateStatus(false)
           let msg = error?.response?.data?.msg
-          setMessage(msg);
+          setMessage(msg)
           toast.error(msg, {
             position: toast.POSITION.TOP_CENTER,
-            progressClassName: "Toastify__progress-bar--animated",
+            progressClassName: 'Toastify__progress-bar--animated'
           })
         })
     }
     return (
       <div>
         <Button onClick={handleClickOpen}>
-        <DeleteForeverSharpIcon/>
+          <DeleteForeverSharpIcon />
         </Button>
         <Dialog
           open={open}
           TransitionComponent={Transition}
           keepMounted
           onClose={handleClose}
-          aria-describedby="alert-dialog-slide-description"
+          aria-describedby='alert-dialog-slide-description'
         >
           <DialogTitle>{"Use Google's location service?"}</DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              Are you really want to delete?
-            </DialogContentText>
+            <DialogContentText id='alert-dialog-slide-description'>Are you really want to delete?</DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Disagree</Button>
-            <Button onClick={()=>handleDelete(id, categoryName)}>Delete</Button>
+            <Button onClick={() => handleDelete(id, categoryName)}>Delete</Button>
           </DialogActions>
         </Dialog>
       </div>
-    );
+    )
   }
   const getAllSector = () => {
     axios
@@ -149,55 +146,55 @@ const Sector = () => {
         console.log(error)
       })
   }
-  const handleSubmit = async(e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
     setUpdateStatus(true)
     const formData = new FormData()
     formData.append('sectorName', sectorName)
-    formData.append('image', imageFile);
+    formData.append('image', imageFile)
     await axios
       .post(`${process.env.HOST}/api/admin/createCategory`, formData, {
         headers: {
-          "authorization": `Bearer ${localStorage.getItem('token')}`,
-          "Content-Type": 'multipart/form-data'
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'multipart/form-data'
         }
       })
       .then(function (response) {
         toast.success(response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
-        setMessage(response.data.msg);
+        setMessage(response.data.msg)
         setUpdateStatus(false)
       })
       .catch(function (error) {
         console.log(error)
         setUpdateStatus(false)
         let msg = error?.response?.data?.msg
-        setMessage(msg);
+        setMessage(msg)
         toast.error(msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
       })
   }
-  const handleEdit = async(id) => {
-    setUpdate(true);
+  const handleEdit = async id => {
+    setUpdate(true)
     setUpdateStatus(true)
-    const postData={
-      id:id
+    const postData = {
+      id: id
     }
     await axios
-      .post(`${process.env.HOST}/api/admin/getCategoryById`, postData,{
+      .post(`${process.env.HOST}/api/admin/getCategoryById`, postData, {
         headers: {
-          "authorization": `Bearer ${localStorage.getItem('token')}`,
-          "Content-Type": 'application/json'
-        }        
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
       })
       .then(function (response) {
-        console.log(response);
-        setSectorName(response.data.categories.categoryName);
-        setCategoryId(response.data.categories._id);
+        console.log(response)
+        setSectorName(response.data.categories.categoryName)
+        setCategoryId(response.data.categories._id)
         // toast.success(response.data.msg, {
         //   position: toast.POSITION.TOP_CENTER,
         //   progressClassName: "Toastify__progress-bar--animated",
@@ -216,26 +213,26 @@ const Sector = () => {
         // })
       })
   }
-  const handleUpdate=async(e)=>{
+  const handleUpdate = async e => {
     e.preventDefault()
     setUpdateStatus(true)
     const formData = new FormData()
     formData.append('sectorName', sectorName)
-    formData.append('image', imageFile);
-    formData.append('id', categoryId);
+    formData.append('image', imageFile)
+    formData.append('id', categoryId)
     await axios
       .post(`${process.env.HOST}/api/admin/updateCategory`, formData, {
         headers: {
-          "authorization": `Bearer ${localStorage.getItem('token')}`,
-          "Content-Type": 'multipart/form-data'
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'multipart/form-data'
         }
       })
       .then(function (response) {
         toast.success(response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
-        setMessage(response.data.msg);
+        setMessage(response.data.msg)
         setUpdateStatus(false)
         setUpdate(false)
       })
@@ -244,27 +241,26 @@ const Sector = () => {
         setUpdateStatus(false)
         setUpdate(false)
         let msg = error?.response?.data?.msg
-        setMessage(msg);
+        setMessage(msg)
         toast.error(msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
       })
   }
-  
-const handleCancle=()=>{
-  setUpdate(false);
-  setCategoryId('');
-  setSectorName('');
-}
+
+  const handleCancle = () => {
+    setUpdate(false)
+    setCategoryId('')
+    setSectorName('')
+  }
   useEffect(() => {
-    getAllSector();
+    getAllSector()
     // addASector()
   }, [message])
 
   return (
-    <DatePickerWrapper>
-              <span onClick={()=>router.back()}><ArrowBackIcon/></span>
+    <DatePickerWrapper>      
       {updateStatus && <LinearProgress />}
       <ToastContainer
         position='top-right'
@@ -278,10 +274,11 @@ const handleCancle=()=>{
         pauseOnHover
         theme='colored'
       />
+      <ArrowBackIcon sx={{cursor:'pointer', marginBottom:5}} onClick={()=>router.back()}/>
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
           <Card>
-            <TableContainer sx={{height:355}} >
+            <TableContainer sx={{ height: 355 }}>
               <Table sx={{ minWidth: 300 }} aria-label='table in dashboard' stickyHeader>
                 <TableHead>
                   {/* <button onClick={() => setShow(x => !x)}>
@@ -296,13 +293,19 @@ const handleCancle=()=>{
                 </TableHead>
                 <TableBody>
                   {category.map(row => (
-                      <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                        <TableCell><Avatar src={`${process.env.HOST}/api/products/image/${row.image}`}/></TableCell>
-                        <TableCell>{row.categoryName}</TableCell>
-                        <TableCell onClick={()=>handleEdit(row._id)}><EditIcon/></TableCell>
-                        <TableCell><AlertDialogSlide id={row._id} categoryName={row.categoryName}/></TableCell>
-                      </TableRow>
-                    ))}
+                    <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                      <TableCell>
+                        <Avatar src={`${process.env.HOST}/api/products/image/${row.image}`} />
+                      </TableCell>
+                      <TableCell>{row.categoryName}</TableCell>
+                      <TableCell onClick={() => handleEdit(row._id)}>
+                        <EditIcon />
+                      </TableCell>
+                      <TableCell>
+                        <AlertDialogSlide id={row._id} categoryName={row.categoryName} />
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -310,7 +313,7 @@ const handleCancle=()=>{
         </Grid>
         <Grid item xs={12} md={6}>
           <Card>
-            <CardHeader title={`${update ? "Update Sector":"New Sector"}`} titleTypographyProps={{ variant: 'h6' }} />
+            <CardHeader title={`${update ? 'Update Sector' : 'New Sector'}`} titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
                 <Grid container spacing={2}>
@@ -318,7 +321,12 @@ const handleCancle=()=>{
                     <h5 style={{ marginLeft: 'auto' }}> Sector Name</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
-                    <TextField label={'Sector'} style={{ marginBottom: '8px' }} value={sectorName} onChange={(e)=>setSectorName(e.target.value)}/>
+                    <TextField
+                      label={'Sector'}
+                      style={{ marginBottom: '8px' }}
+                      value={sectorName}
+                      onChange={e => setSectorName(e.target.value)}
+                    />
                   </Grid>
 
                   <Grid item xs={12} sx={{ marginTop: 4.8, marginBottom: 3 }}>
@@ -332,9 +340,9 @@ const handleCancle=()=>{
                             hidden
                             type='file'
                             onChange={e => {
-                              setImageFile(e.target.files[0]);
-                              let reader =new FileReader();
-                              let file = e.target.files[0];
+                              setImageFile(e.target.files[0])
+                              let reader = new FileReader()
+                              let file = e.target.files[0]
                               reader.onloadend = () => {
                                 setProfileImg(reader.result)
                               }
@@ -361,15 +369,21 @@ const handleCancle=()=>{
                         justifyContent: 'space-between'
                       }}
                     >
-                      {!update && <Button type='submit' variant='contained' size='large' onClick={handleSubmit}>
-                        Add
-                      </Button>}
-                      {update && <><Button type='submit' variant='contained' size='large' onClick={handleUpdate}>
-                        Update
-                      </Button>
-                      <Button type='submit' variant='contained' size='large' onClick={handleCancle}>
-                      Cancle
-                    </Button></>}
+                      {!update && (
+                        <Button type='submit' variant='contained' size='large' onClick={handleSubmit}>
+                          Add
+                        </Button>
+                      )}
+                      {update && (
+                        <>
+                          <Button type='submit' variant='contained' size='large' onClick={handleUpdate}>
+                            Update
+                          </Button>
+                          <Button type='submit' variant='contained' size='large' onClick={handleCancle}>
+                            Cancle
+                          </Button>
+                        </>
+                      )}
                     </Box>
                   </Grid>
                 </Grid>

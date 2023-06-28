@@ -27,6 +27,7 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Link } from '@mui/material'
 import TreeView from './treeView'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -130,6 +131,7 @@ const PaymentProcess = () => {
 
   return (
     <Grid container spacing={2}>
+      <ArrowBackIcon sx={{cursor:'pointer'}} onClick={()=>router.back()}/>
       {false && (
         <Grid item xs={12}>
           <Card>
@@ -195,6 +197,7 @@ const PaymentProcess = () => {
                   <TableRow>
                     <TableCell>Business Name</TableCell>
                     <TableCell align='right'>Amount</TableCell>
+                    <TableCell align='right'>Action</TableCell>
                   </TableRow>
                 </TableHead>
 

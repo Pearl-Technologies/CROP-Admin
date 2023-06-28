@@ -27,6 +27,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import Avatar from '@mui/material/Avatar'
 import Switch from '@mui/material/Switch';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -360,6 +361,7 @@ const services = () => {
 
   return (
     <Grid container spacing={2}>
+      <ArrowBackIcon sx={{cursor:'pointer', marginRight:"auto"}} onClick={()=>router.back()}/>
       <Switch {...label} defaultChecked onChange={()=>setData(x=> x === "Customer" ? "Business":"Customer")}/>
       <p style={{fontWeight:"bold", marginTop:8}}>{data} Services</p>
       <ToastContainer/>
