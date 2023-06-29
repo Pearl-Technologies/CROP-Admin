@@ -1,38 +1,41 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button';
 import Table from '@mui/material/Table'
 import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import Typography from '@mui/material/Typography'
-import axios from 'axios'
-import Accordion from '@mui/material/Accordion'
-import AccordionDetails from '@mui/material/AccordionDetails'
-import AccordionSummary from '@mui/material/AccordionSummary'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { Link } from '@mui/material'
 import TableContainer from '@mui/material/TableContainer'
 import Paper from '@mui/material/Paper'
-import Button from '@mui/material/Button'
-import { useRouter } from 'next/router'
+import axios from 'axios'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-const ViewTransaction = () => {
+import Spinner from '../databaseManagement/spinner'
+const TrasactionHistory = () => {
   let router = useRouter()
   let id = router.query.id
-  let pay_to_business = router.query.payment
-  const [soleData, setSoldData] = React.useState([])
-  const [expanded, setExpanded] = React.useState(false)
-  const handleChange = panel => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false)
-  }
+  const [fromDate, setFromDate]=useState('');
+  const [toDate, setToDate]=useState("");
+  const [soleData, setSoldData] =useState([])
+  const [status, setStatus] = useState(false);
   const fetchBusinessProductSoldDetails = id => {
-    // setCDStatus(true)
+    setStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getPurchasedProductStatement`, { businessId: id })
+      .post(
+        `${process.env.HOST}/api/admin/getAllPurchasedProductStatementByDateRange`,
+        { businessId: id, fromDate, toDate },
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+      )
       .then(function (response) {
         // handle success
         setSoldData(response.data.statement)
-        // setCDStatus(false)
+        setStatus(false)
       })
       .catch(function (error) {
         // handle error
@@ -44,10 +47,16 @@ const ViewTransaction = () => {
   }, [])
   return (
     <div>
-      <TableRow>
-      <ArrowBackIcon onClick={()=>router.back()} sx={{cursor:'pointer', marginRight:"auto"}}/>
-      <Button onClick={()=>router.push(`TrasactionHistory?id=${id}`)}>History</Button>
-        <TableContainer component={Paper}>
+      
+      <ArrowBackIcon sx={{cursor:'pointer', marginRight:"auto"}} onClick={()=>router.back()}/>
+      <h6>Transaction history</h6>
+      <div style={{display:"flex", gap:2, marginTop:5}}>
+         <TextField variant='outlined' type='date' label="From" focused value={fromDate} onChange={(event)=>setFromDate(event.target.value)}/>
+        <TextField variant='outlined' type='date' label="To" focused value={toDate} onChange={(event)=>setToDate(event.target.value)}/>
+        <Button variant="contained" onClick={()=>fetchBusinessProductSoldDetails(id)}>Filter</Button>
+      </div>
+      {status && <Spinner/>}
+      <TableContainer component={Paper}>
           <Table aria-label='simple table' stickyHeader sx={{ minWidth: 800 }}>
             <TableHead>
               <TableRow>
@@ -65,7 +74,7 @@ const ViewTransaction = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {soleData.map((data, i) => {
+              {soleData.length ? soleData.map((data, i) => {
                 let date = new Date(data.createdAt).toLocaleDateString()
                 let title = data.item.title
                 let price = data.item.price
@@ -114,8 +123,8 @@ const ViewTransaction = () => {
                     </TableCell>
                   </TableRow>
                 )
-              })}
-              <TableRow>
+              }):<TableRow><TableCell colSpan={10} align='center'>no record found</TableCell></TableRow>}
+              {/* <TableRow>
                 <TableCell colSpan={8}>
                   <Typography></Typography>
                 </TableCell>
@@ -123,9 +132,9 @@ const ViewTransaction = () => {
                   <Typography>Total ToPay</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography>{pay_to_business}</Typography>
+                  <Typography>{"pay_to_business"}</Typography>
                 </TableCell>
-              </TableRow>
+              </TableRow> */}
               {/* <TableRow>
                 <TableCell colSpan={9}>
                   <Typography></Typography>
@@ -145,9 +154,9 @@ const ViewTransaction = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      </TableRow>
+
     </div>
   )
 }
 
-export default ViewTransaction
+export default TrasactionHistory

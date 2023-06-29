@@ -102,7 +102,7 @@ const TotalEarning = () => {
       <CardContent sx={{ pt: theme => `${theme.spacing(2.25)} !important`, height:"355px"}}>
         <Box sx={{ mb: 1.5, display: 'flex', alignItems: 'center' }}>
           <Typography variant='h4' sx={{ fontWeight: 600, fontSize: '2.125rem !important' }}>
-           ${currentStats}
+           ${currentStats.toFixed(2)}
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', color: 'success.main' }}>
             {
@@ -167,7 +167,7 @@ const TotalEarning = () => {
 
                 <Box sx={{ minWidth: 85, display: 'flex', flexDirection: 'column' }}>
                   <Typography variant='body2' sx={{ mb: 2, fontWeight: 600, color: 'text.primary' }}>
-                    ${item.totalPrice}
+                    ${item.totalPrice.toFixed(2)}
                   </Typography>
                   <LinearProgress color={item.color} value={item.progress} variant='determinate' />
                 </Box>
