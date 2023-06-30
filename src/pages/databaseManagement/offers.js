@@ -16,18 +16,21 @@ import { useRouter } from 'next/router'
 import Rating from '@mui/material/Rating'
 import ThumbUp from 'mdi-material-ui/ThumbUp'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import Spinner from '../databaseManagement/spinner'
 const Offers = () => {
   const router = useRouter()
   const { q } = router.query
   const [productData, setProductData] = useState([])
-  const product = require('../../db/busin_products.json')
+  const [status, setStatus]= useState(false)
   const fetchDetails = () => {
+    setStatus(true)
     axios
       .post(`${process.env.HOST}/api/admin/getAllProduct`, { businessId: q })
       .then(function (response) {
         // handle success
-        console.log(response);
+        
         setProductData(response.data.productList)
+        setStatus(false)
       })
       .catch(function (error) {
         // handle error
@@ -38,35 +41,34 @@ const Offers = () => {
   useEffect(() => {
     fetchDetails()
   }, [q])
-  const likeCount=(data)=>{
-    let y=0;
-    if(data[0]?.product_likes.length){
-      data[0].product_likes.map((x)=>{
-        if(x.like){
+  const likeCount = data => {
+    let y = 0
+    if (data[0]?.product_likes.length) {
+      data[0].product_likes.map(x => {
+        if (x.like) {
           y++
         }
       })
     }
   }
-    const ratingCount=(data)=>{
-      let y=0;
-      let index=0
-      if(data[0]?.details.length){
-        data[0].details.map((x)=>{          
-          if(x.rating){
-            y = y + x.rating;
-            index ++;
-          }
-        })
-      }
+  const ratingCount = data => {
+    let y = 0
+    let index = 0
+    if (data[0]?.details.length) {
+      data[0].details.map(x => {
+        if (x.rating) {
+          y = y + x.rating
+          index++
+        }
+      })
+    }
 
-    return y/index
+    return y / index
   }
   return (
     <Card>
-      <span onClick={() => router.back()}>
-        <ArrowBackIcon />
-      </span>
+      <ArrowBackIcon sx={{ cursor: 'pointer', marginRight: 'auto' }} onClick={() => router.back()} />
+      {status && <Spinner/>}
       <TableContainer style={{ height: 600, overflow: 'auto' }}>
         <Table stickyHeader aria-label='table in dashboard'>
           <TableHead>
@@ -76,11 +78,10 @@ const Offers = () => {
               <TableCell>Star Rating</TableCell>
               <TableCell>Likes</TableCell>
               {/* <TableCell>Dollar Value</TableCell> */}
-              
             </TableRow>
           </TableHead>
           <TableBody>
-            {myProduct &&
+            {myProduct.length ? (
               myProduct.map(row => (
                 <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
                   <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
@@ -106,15 +107,20 @@ const Offers = () => {
                   </TableCell>
                   <TableCell>
                     <Typography style={{ width: '50px' }}>
-                    {likeCount(row.pd)}
+                      {likeCount(row.pd)}
                       <ThumbUp />
                     </Typography>
                   </TableCell>
                   {/* <TableCell><Typography style={{ width: '100px' }}>AUD {row?.price}</Typography></TableCell> */}
-                
-
                 </TableRow>
-              ))}
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={4} align='center'>
+                  No Record Found
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

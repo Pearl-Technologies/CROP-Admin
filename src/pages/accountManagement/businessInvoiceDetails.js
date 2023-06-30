@@ -74,7 +74,7 @@ const BusinessInvoiceDetails = ({}) => {
                         <TableCell style={{textAlign:"left"}}>{row?.number}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row?.description}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row?.amount}</TableCell>
-                        <TableCell style={{textAlign:"left"}}>{row?.product[0].croppoints}</TableCell>
+                        <TableCell style={{textAlign:"left"}}>{row?.product[0]?.croppoints}</TableCell>
                         <TableCell style={{textAlign:"left"}}><Link href={row.invoice_url}>Invoice View</Link></TableCell>
                         <TableCell style={{textAlign:"left"}}><Link href={row.invoice_pdf}>Download Invoice</Link></TableCell>
                         {/* <TableCell style={{textAlign:"left"}}>{row.status}</TableCell> */}

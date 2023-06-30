@@ -621,6 +621,7 @@ const Database = () => {
                 <Table stickyHeader aria-label='table in dashboard'>
                   <TableHead>
                     <TableRow>
+                    <TableCell>SI</TableCell>
                       <TableCell>Customer Name</TableCell>
                       <TableCell>CROP Id</TableCell>
                       <TableCell>Status</TableCell>
@@ -635,12 +636,13 @@ const Database = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {customerData.map(row => (
+                    {customerData.map((row, index) => (
                       <TableRow
                         hover
                         key={'customer' + row._id}
                         sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
                       >
+                        <TableCell>{index+1}</TableCell>
                         <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', minWidth: '160px' }}>
@@ -752,6 +754,7 @@ const Database = () => {
                 <Table stickyHeader aria-label='table in dashboard'>
                   <TableHead>
                     <TableRow>
+                    <TableCell>SI</TableCell>
                       <TableCell>Business Name</TableCell>
                       <TableCell>CROP Id</TableCell>
                       <TableCell>Status</TableCell>
@@ -766,12 +769,13 @@ const Database = () => {
                   </TableHead>
 
                   <TableBody>
-                    {businessData.map(row => (
+                    {businessData.map((row, index) => (
                       <TableRow
                         hover
                         key={'business' + row._id}
                         sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 }}}
                       >
+                        <TableCell>{index+1}</TableCell>
                         <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', minWidth: '160px' }}>
