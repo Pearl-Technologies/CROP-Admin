@@ -29,14 +29,13 @@ import TextField from '@mui/material/TextField';
 
 const renderStats = (market, slot, date) => {
   const [slots, setSlots] = useState([])
-  // console.log(accountDetails);
   let  filteredData =[]
   const getSlots = () => {
     axios
       .get(`${process.env.HOST}/api/admin/getSlot`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         setSlots(response.data.allSlot)
       })
       .catch(function (error) {
@@ -57,8 +56,6 @@ const renderStats = (market, slot, date) => {
   }else if(slot){
     filteredData =slots.filter(x => (x.publishingSlot === slot))
   }else if(date){
-    console.log(date);
-    console.log(typeof(date));
     filteredData = slots.filter(x => (x.published_start_date===date))
   }
   useEffect(() => {
@@ -124,7 +121,7 @@ const MarketSlots = () => {
   if (selected) {
     footer = <p>You picked {format(selected, 'PP')}.</p>
   }
-  console.log(date);
+  
   return (
     <Card>
       <CardHeader

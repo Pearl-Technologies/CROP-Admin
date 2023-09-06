@@ -23,7 +23,7 @@ const customerLikeProducts = () => {
         axios.post(`${process.env.HOST}/api/admin/getAllLikedProductByUser`, 
     {customerId:q}, 
     {headers:{"Content-Type":"application/json"}}).then(function(response){
-        // console.log(response);
+       
         setProductData(response.data.product);
     }).catch(function(error){
         console.log(error);

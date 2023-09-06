@@ -113,7 +113,6 @@ const PasswordReset = () => {
       .then(function (response) {
         setLoginStatus(false)
         setMessage(response.data)
-        console.log(response);
         toast.success(response.data.msg, {
           position: toast.POSITION.TOP_CENTER,
           progressClassName: "Toastify__progress-bar--animated",

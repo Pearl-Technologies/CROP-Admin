@@ -32,7 +32,7 @@ const CustomerInvoiceDetails = ({}) => {
   const { q } = router.query
   // const myInvoiceData = invoiceData.filter(data => data.user === q)
   const myInvoiceData = invoiceData
-  console.log(myInvoiceData)
+  
 
   const getAllOrders = () => {
     setInvoiceStatus(true)
@@ -40,7 +40,7 @@ const CustomerInvoiceDetails = ({}) => {
       .get(`${process.env.HOST}/api/admin/productPurchaseTrasaction?user=${router.query.q}`)
       .then(function (response) {
         // handle success
-        console.log(response)
+        
         setInvoiceData(response.data.data)
         setInvoiceStatus(false)
       })
@@ -56,7 +56,7 @@ const CustomerInvoiceDetails = ({}) => {
       .get(`${process.env.HOST}/api/admin/pointPurchaseTrasaction?user=${router.query.q}`)
       .then(function (response) {
         // handle success
-        console.log(response)
+        
         setPointPurchaseData(response.data.data)
         setInvoiceStatus2(false)
       })

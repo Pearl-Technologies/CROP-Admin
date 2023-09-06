@@ -21,7 +21,7 @@ const CropDetails = ({}) => {
   const [odStatus, setODStatus] = useState(false);
   const router = useRouter()
   const { q } = router.query
-  //   console.log(productData);
+
   // const myCropData = orderData.filter(data => data.user === q)
   const myCropData = orderData
 
@@ -97,7 +97,7 @@ const CropDetails = ({}) => {
       .get(`${process.env.HOST}/api/admin/getAllCropTrasactionByAdmin?user=${q}`)
       .then(function (response) {
         // handle success
-        console.log(response);
+       
         setOrderData(response.data.trasactionDetails)
         setODStatus(false)
       })
@@ -110,7 +110,7 @@ const CropDetails = ({}) => {
   useEffect(()=>{
     getAllOrders()
   },[q])
-console.log(myCropData,"crop data");
+
   return (
         <Grid item xs={12}>
         <Card>

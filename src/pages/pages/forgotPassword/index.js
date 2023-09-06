@@ -96,7 +96,6 @@ const ForgotPassword = () => {
     axios
       .post(`${process.env.HOST}/api/admin/passwordResetEmail`, values)
       .then(function (response) {        
-        console.log(response)
           setLoginStatus(false);
           toast.success(response.data.msg, {
             position: toast.POSITION.TOP_CENTER,

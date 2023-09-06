@@ -28,6 +28,7 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import Avatar from '@mui/material/Avatar'
 import ThumbUp from 'mdi-material-ui/ThumbUp'
 import Switch from '@mui/material/Switch'
+import Search from 'src/components/search'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -163,7 +164,6 @@ const Database = () => {
       .post(`${process.env.HOST}/api/admin/getAllCustomer`)
       .then(function (response) {
         // handle success
-        // console.log(response);
         setCustomerData(response.data.customers)
         setCDStatus(false)
       })
@@ -177,7 +177,6 @@ const Database = () => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
-    console.log(user)
     return (
       <div>
         <Button onClick={handleOpen}>
@@ -572,7 +571,6 @@ const Database = () => {
       .post(`${process.env.HOST}/api/admin/getAllBusiness`)
       .then(function (response) {
         // handle success
-        // console.log(response);
         setBusinessData(response.data.businesses)
         setBDStatus(false)
       })
@@ -607,10 +605,13 @@ const Database = () => {
         />
         <h5>{selectedOption}</h5>
       </div>
+      <Grid item xs={12}>
+        <Search />
+      </Grid>
       {selectedOption == 'Customer Data' ? (
         <Grid item xs={12}>
           <Card>
-            <TableContainer sx={{ height: '420px'}}>
+            <TableContainer sx={{ height: '420px' }}>
               {/* <h4 style={{ marginLeft: '20px' }}>Customer Data</h4> */}
 
               {cdStatus ? (
@@ -621,7 +622,7 @@ const Database = () => {
                 <Table stickyHeader aria-label='table in dashboard'>
                   <TableHead>
                     <TableRow>
-                    <TableCell>SI</TableCell>
+                      <TableCell>SI</TableCell>
                       <TableCell>Customer Name</TableCell>
                       <TableCell>CROP Id</TableCell>
                       <TableCell>Status</TableCell>
@@ -642,7 +643,7 @@ const Database = () => {
                         key={'customer' + row._id}
                         sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
                       >
-                        <TableCell>{index+1}</TableCell>
+                        <TableCell>{index + 1}</TableCell>
                         <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', minWidth: '160px' }}>
@@ -652,7 +653,7 @@ const Database = () => {
                             {/* <Typography variant='caption'>{row.designation}</Typography> */}
                           </Box>
                         </TableCell>
-                        <TableCell sx={{paddingRight:"64px"}}>{row.cropid}</TableCell>
+                        <TableCell sx={{ paddingRight: '64px' }}>{row.cropid}</TableCell>
                         <TableCell sx={{ minWidth: '100px' }}>
                           <Chip
                             label={row.status}
@@ -754,7 +755,7 @@ const Database = () => {
                 <Table stickyHeader aria-label='table in dashboard'>
                   <TableHead>
                     <TableRow>
-                    <TableCell>SI</TableCell>
+                      <TableCell>SI</TableCell>
                       <TableCell>Business Name</TableCell>
                       <TableCell>CROP Id</TableCell>
                       <TableCell>Status</TableCell>
@@ -773,9 +774,9 @@ const Database = () => {
                       <TableRow
                         hover
                         key={'business' + row._id}
-                        sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 }}}
+                        sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
                       >
-                        <TableCell>{index+1}</TableCell>
+                        <TableCell>{index + 1}</TableCell>
                         <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', minWidth: '160px' }}>

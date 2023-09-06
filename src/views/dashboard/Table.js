@@ -107,7 +107,6 @@ const DashboardTable = () => {
       .get(`${process.env.HOST}/api/admin/getPerformingProducts?filter=${performanceVal}`)
       .then(function (response) {
         // handle success
-        console.log(response);
         setProductData(response.data.data)
       })
       .catch(function (error) {
@@ -117,14 +116,12 @@ const DashboardTable = () => {
   }
 
   function handleChange(e){
-    console.log(e.target.value);
     setPerformanceVal(e.target.value);
   }
 
   useEffect(() => {
     fetchDetails()
   }, [performanceVal])
-  // console.log(product)
   return (
     <Card style={{marginTop:"10px"}}>
       <h3 style={{marginLeft:"18px"}}>Performing Products</h3>
@@ -152,7 +149,6 @@ const DashboardTable = () => {
           </TableHead>
           <TableBody>
             {productData.map((row, i) =>{
-              console.log(row)
               return(
               <TableRow hover key={"product_table"+i} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
                 <TableCell>{row.productName}</TableCell>

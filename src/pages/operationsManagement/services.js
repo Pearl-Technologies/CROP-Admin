@@ -56,7 +56,7 @@ const services = () => {
       .post(`${process.env.HOST}/api/admin/getAllCustomer`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         setCustomerData(response.data.customers)
       })
       .catch(function (error) {
@@ -229,7 +229,7 @@ const services = () => {
       let body = { status: sts, _id: user }
       axios({ method: 'post', url: `${process.env.HOST}/api/admin/updateBusinessAccountStatus`, data: body })
         .then(function (response) {
-          console.log(response)
+          
           setMessage(response.data)
           SetUpdateStatus(false)
           toast.success(response.data.msg, {
@@ -345,7 +345,7 @@ const services = () => {
       .post(`${process.env.HOST}/api/admin/getAllBusiness`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         setBusinessData(response.data.businesses)
       })
       .catch(function (error) {

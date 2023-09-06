@@ -94,7 +94,7 @@ const Complaint = () => {
         data: data
       })
         .then(function (response) {
-          console.log(response)
+          
           setUpdateStatus(false)
           setMessage(response.data)
           setResponseCode(response.status)
@@ -179,7 +179,7 @@ const Complaint = () => {
         data: data
       })
         .then(function (response) {
-          console.log(response)
+          
           setUpdateStatus(false)
           setMessage(response.data)
           setResponseCode(response.status)
@@ -251,7 +251,7 @@ const Complaint = () => {
       .post(`${process.env.HOST}/api/admin/getBusinessComplain`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         setBusinessData(response.data.getComplainList)
       })
       .catch(function (error) {

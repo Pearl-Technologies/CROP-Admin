@@ -59,10 +59,10 @@ const TotalEarning = () => {
    axios.get(`${HOST}/api/admin/getSalesDetails`)
     .then((res)=>{
       let data = res.data.data;
-      // console.log(data)
+      
       setData(data.finalData)
       data.stats.filter((datum)=>{
-        console.log(datum)
+        
         if(datum._id=="Current Month"){
           setCurrentStats(datum.totalPrice)
         }
@@ -83,7 +83,6 @@ const TotalEarning = () => {
     }
     else{
       setGain(false)
-      console.log(100-((currentStats/prevStats)*100))
       setPercentage(100-((currentStats/prevStats)*100))
     }
   },[currentStats,prevStats])

@@ -19,7 +19,6 @@ const AuditReport = ({}) => {
   const productData = require('../../db/admin_audits.json')
   const router = useRouter()
   const { q } = router.query
-  //   console.log(productData);
 
   const columns = [
     { id: 'Date', label: 'Date', minWidth: 170 },
@@ -89,7 +88,7 @@ const AuditReport = ({}) => {
       .post(`${process.env.HOST}/api/admin/getCustomerAuditReport?q=${q}`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+       
         setAuditData(response.data.auditReport)
         setADStatus(false)
       })
@@ -103,7 +102,7 @@ const AuditReport = ({}) => {
     getAuditReport();
   },[q])
 
-  // console.log(myAuditData)
+ 
   return (
     <Grid item xs={12}>
       <Card>

@@ -62,7 +62,6 @@ const TreeView = ({ id, data}) => {
         }),
       });
       const transfer = await response.json();
-      console.log(transfer); // Handle the transfer response
     } catch (error) {
       console.error(error);
     }

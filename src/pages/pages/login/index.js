@@ -106,7 +106,6 @@ const LoginPage = () => {
           setLoginStatus(false)
           router.push('/')
         } else {
-          console.log('status code change')
           setLoginStatus(false)
         }
       })

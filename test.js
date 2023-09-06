@@ -130,5 +130,5 @@
   // for(let i=0; i<newData.length; i++){
   //   newData2[newData[i]] = customerCropData.filter((x)=>x.user === newData[i]);
   // }
-  // console.log(newData);
+  // 
 

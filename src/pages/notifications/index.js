@@ -213,7 +213,7 @@ const Notifications = () => {
   }
   const fetchBusinessAccountNotification = () => {
     axios.post(`${process.env.HOST}/api/admin/getBusinessAccountNotification`).then(function (response) {
-      console.log(response)
+      
       setBusinessAccountNotification(response.data.notification[0])
     })
   }

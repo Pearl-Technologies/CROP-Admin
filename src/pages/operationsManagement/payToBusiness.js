@@ -3,7 +3,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 let stripePromise;
 const getStripe = () => {
-    // console.log(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
   if (!stripePromise) {
     stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
   }
@@ -18,7 +17,7 @@ const handleCheckout = async () => {
     method: "POST",
     data:{type:"CROP", quantity:100, user_id:"6433cc8279495c4233562ecb"}
     }).then(function(response){
-      console.log(response);
+      
       if (response.statusCode === 500) return;
     //   toast.loading("Redirecting...");
       stripe.redirectToCheckout({ sessionId: response.data.id });
@@ -111,7 +110,7 @@ const handleRedeem = async () => {
     method: "POST",
     data:cart
     }).then(function(response){
-      console.log(response);
+      
       if (response.statusCode === 500) return;
     //   toast.loading("Redirecting...");
       stripe.redirectToCheckout({ sessionId: response.data.id });
@@ -123,11 +122,11 @@ export default function PreviewPage() {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
     if (query.get("success")) {
-      console.log("Order placed! You will receive an email confirmation.");
+      alert("Order placed! You will receive an email confirmation.");
     }
 
     if (query.get("canceled")) {
-      console.log(
+      alert(
         "Order canceled -- continue to shop around and checkout when you’re ready."
       );
     }

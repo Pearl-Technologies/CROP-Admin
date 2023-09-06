@@ -1,7 +1,7 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
-
+import { useRouter } from 'next/router'
 // ** Layout Imports
 // !Do not remove this Layout import
 import VerticalLayout from 'src/@core/layouts/VerticalLayout'
@@ -15,7 +15,8 @@ import VerticalAppBarContent from './components/vertical/AppBarContent'
 
 // ** Hook Import
 import { useSettings } from 'src/@core/hooks/useSettings'
-
+import { useEffect, useState } from 'react'
+import { Triangle } from 'react-loader-spinner'
 const UserLayout = ({ children }) => {
   // ** Hooks
   const { settings, saveSettings } = useSettings()
@@ -29,7 +30,14 @@ const UserLayout = ({ children }) => {
    *  ! Do not change this value unless you know what you are doing. It can break the template.
    */
   const hidden = useMediaQuery(theme => theme.breakpoints.down('lg'))
-
+  const router = useRouter()
+  if (typeof window !== 'undefined') {
+    // Perform localStorage action
+    if (!localStorage.getItem('token')) {
+      router.push('/pages/login')
+    }
+  }
+  const [login, setLogin] = useState(false)
   const UpgradeToProImg = () => {
     return (
       <Box sx={{ mx: 'auto' }}>
@@ -43,8 +51,25 @@ const UserLayout = ({ children }) => {
       </Box>
     )
   }
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      setLogin(true)
+    }
+  }, [])
 
-  return (
+  return !login ? (
+    <div style={{ position: 'absolute', top: '50%', left: '50%' }}>
+      <Triangle
+        height='80'
+        width='80'
+        color='#4fa94d'
+        ariaLabel='triangle-loading'
+        wrapperStyle={{}}
+        wrapperClassName=''
+        visible={true}
+      />
+    </div>
+  ) : (
     <VerticalLayout
       hidden={hidden}
       settings={settings}

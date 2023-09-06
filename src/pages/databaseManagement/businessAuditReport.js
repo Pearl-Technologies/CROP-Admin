@@ -17,8 +17,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const BusinessAuditReport = ({}) => {
   const router = useRouter()
   const { q } = router.query
-  //   console.log(productData);
-
+  
   const columns = [
     { id: 'Date', label: 'Date', minWidth: 170 },
     { id: 'Description', label: 'Description', minWidth: 100 },
@@ -50,7 +49,7 @@ const BusinessAuditReport = ({}) => {
     getAuditReport();
   },[])
 
-  // console.log(myAuditData)
+ 
   return (
     <Grid item xs={12}>
       <Card>

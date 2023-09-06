@@ -26,11 +26,11 @@ const navigation = () => {
       icon: HomeOutline,
       path: '/'
     },
-    {
-      title: 'Account Settings',
-      icon: BadgeAccountOutline,
-      path: '/account-settings'
-    },
+    // {
+    //   title: 'Account Settings',
+    //   icon: BadgeAccountOutline,
+    //   path: '/account-settings'
+    // },
     // {
     //   sectionTitle: 'Pages'
     // },

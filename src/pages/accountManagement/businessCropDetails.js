@@ -21,9 +21,7 @@ const businessCropDetails = ({}) => {
   const [odStatus, setODStatus] = useState(false);
   const router = useRouter()
   const { q } = router.query
-    console.log(router.query);
   const myCropData = orderData
-  // console.log(myCropData)
   
   function createData(name, code, population, size) {
     const density = population / size
@@ -50,7 +48,7 @@ const businessCropDetails = ({}) => {
       .post(`${process.env.HOST}/api/admin/getBusinessCropStatement`, {businessId:q})
       .then(function (response) {
         // handle success
-        console.log(response);
+        
         setOrderData(response.data.statement)
         setODStatus(false)
       })

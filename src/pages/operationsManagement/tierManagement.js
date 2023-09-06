@@ -49,7 +49,6 @@ const TierManagement = () => {
       .post(`${process.env.HOST}/api/admin/getAllCustomer`)
       .then(function (response) {
         // handle success
-        // console.log(response);
         setCustomerData(response.data.customers)
       })
       .catch(function (error) {
@@ -63,7 +62,6 @@ const TierManagement = () => {
       .post(`${process.env.HOST}/api/admin/getAllBusiness`)
       .then(function (response) {
         // handle success
-        // console.log(response);
         setBusinessData(response.data.businesses)
       })
       .catch(function (error) {

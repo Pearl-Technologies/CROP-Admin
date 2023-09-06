@@ -33,7 +33,7 @@ const businessProductRated = () => {
   useEffect(()=>{
     fetchBusinessProductRatedData();
   },[q])
-  console.log(productData);
+  
   return (
     <TableContainer style={{ height:450, overflow: 'auto' }}>
     <span onClick={()=>router.back()}><ArrowBackIcon/></span>

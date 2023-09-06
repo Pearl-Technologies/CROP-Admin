@@ -23,7 +23,6 @@ const BusinessInvoiceDetails = ({}) => {
   const [invoiceStatus, setInvoiceStatus] = useState(false);
   const router = useRouter()
   const { q } = router.query
-  //   console.log(productData);
   // const myInvoiceData = invoiceData.filter(data => data.businessId.$oid === q)
   const myInvoiceData = invoiceData
 
@@ -33,7 +32,7 @@ const BusinessInvoiceDetails = ({}) => {
       .post(`${process.env.HOST}/api/admin/findBusinessInvoice`, {user:q})
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         setInvoiceData(response.data.invoices)
         setInvoiceStatus(false)
       })

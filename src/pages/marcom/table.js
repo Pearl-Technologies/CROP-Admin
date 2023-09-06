@@ -360,7 +360,7 @@ const fetBusinessData=()=>{
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        {console.log(selected.length)}
+        
         {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
         <TableContainer>
           <Table

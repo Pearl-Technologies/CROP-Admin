@@ -23,9 +23,9 @@ const PropDetails = ({}) => {
   const [odStatus, setODStatus] = useState(false);
   const router = useRouter()
   const { q } = router.query
-  //   console.log(productData);
+  
   // const myCropData = orderData.filter(data => data.user === q)
-  // console.log(myCropData)
+ 
   
   function createData(name, code, population, size) {
     const density = population / size
@@ -68,7 +68,7 @@ const PropDetails = ({}) => {
     .get(`${process.env.HOST}/api/admin/getAllPropTrasactionByAdmin?user=${q}`)
     .then(function (response) {
       // handle success
-      // console.log(response);
+      
       setOrderData(response.data.trasactionDetails)
       setODStatus(false)
     })

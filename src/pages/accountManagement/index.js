@@ -56,7 +56,7 @@ const AccountManagement = () => {
       .post(`${process.env.HOST}/api/admin/getAllCustomer`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+       
         setCustomerCropData(response.data.customers)
         setccStatus(false)
       })
@@ -72,7 +72,7 @@ const AccountManagement = () => {
       .post(`${process.env.HOST}/api/admin/getAllBusiness`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         setBusinessCropData(response.data.businesses)
         setbcStatus(false)
       })
@@ -105,7 +105,7 @@ const AccountManagement = () => {
       .post(`${process.env.HOST}/api/admin/getAllBusiness`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         setBusinessData(response.data.businesses)
         setbiStatus(false)
       })
@@ -121,7 +121,7 @@ const AccountManagement = () => {
       .post(`${process.env.HOST}/api/admin/getAllCustomer`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+       
         setCustomerData(response.data.customers)
         setciStatus(false)
       })
@@ -145,7 +145,7 @@ const AccountManagement = () => {
         value={selectedOption}
         onChange={e => {
           // setSelectedOption()
-          console.log(e.target.value)
+          
           setSelectedOption(e.target.value)
         }}
       >
@@ -162,7 +162,7 @@ const AccountManagement = () => {
         value={selectedCustomerOpt}
         onChange={e => {
           // setSelectedOption()
-          console.log(e.target.value)
+          
           setSelectedCustomerOpt(e.target.value)
         }}
       >

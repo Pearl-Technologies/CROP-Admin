@@ -73,6 +73,12 @@ const [name, setName] = useState('');
 useEffect(()=>{
   setProfileImage(localStorage.getItem('profileImage'));
   setName(localStorage.getItem('name'));
+  if (typeof window !== 'undefined') {
+    // Perform localStorage action
+    setProfileImage(localStorage.getItem('profileImage'));
+    setName(localStorage.getItem('name'));
+
+  }
 },[])
   return (
     <Fragment>
@@ -84,7 +90,7 @@ useEffect(()=>{
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
         <Avatar
-          alt='John Doe'
+          alt='profile img'
           onClick={handleDropdownOpen}
           sx={{ width: 40, height: 40 }}
           src={`${process.env.HOST}/api/products/image/${profileImage}`}
@@ -105,7 +111,7 @@ useEffect(()=>{
               badgeContent={<BadgeContentSpan />}
               anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             >
-              <Avatar alt='John Doe' src={`${process.env.HOST}/api/products/image/${profileImage}`} sx={{ width: '2.5rem', height: '2.5rem' }} />
+              <Avatar alt='profile image' src={`${process.env.HOST}/api/products/image/${profileImage}`} sx={{ width: '2.5rem', height: '2.5rem' }} />
             </Badge>
             <Box sx={{ display: 'flex', marginLeft: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
               <Typography sx={{ fontWeight: 600 }}>{name}</Typography>

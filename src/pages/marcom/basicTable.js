@@ -95,7 +95,7 @@ export default function BasicTable() {
       data: { businessNotificationContent, emailData }
     })
       .then(function (response) {
-        console.log(response.data)
+        let data=response
       })
       .catch(function (error) {
         console.log(error)
@@ -108,7 +108,7 @@ export default function BasicTable() {
       data: { customerNotificationContent, userEmailData }
     })
       .then(function (response) {
-        console.log(response.data)
+        let data = response
       })
       .catch(function (error) {
         console.log(error)

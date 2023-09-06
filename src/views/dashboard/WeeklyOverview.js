@@ -30,7 +30,6 @@ const WeeklyOverview = () => {
   const [percentage,setPercentage] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null);
   const handleDateChange = (date) => {
-    // console.log(date.toISOString())
     // setCurrentStats(0);
     // setPrevStats(0)
     setSelectedDate(date);
@@ -104,10 +103,9 @@ const WeeklyOverview = () => {
     .then((response)=>{
       let datum=response?.data?.data;
       let tempData=[];
-      console.log(datum)
       if(datum.weeklyDetails.length > 0){
         datum.weeklyDetails[0].weeklySales.forEach((resData)=>{
-          console.log(resData)
+          
           tempData.push(resData.price)
         })
         setWeekData(tempData)
@@ -116,8 +114,8 @@ const WeeklyOverview = () => {
         setWeekData([])
       }
 
-      datum.weeklyPercentage[0].weeklyPercentage.forEach((resData)=>{
-        console.log(resData)
+      datum.weeklyPercentage[0]?.weeklyPercentage.forEach((resData)=>{
+        
         if(resData.week=="Current Week"){
             setCurrentStats(resData.totalPrice)
         }
@@ -135,7 +133,6 @@ const WeeklyOverview = () => {
   },[selectedDate])
 
   useEffect(()=>{
-    console.log(currentStats,prevStats)
     if(prevStats==0){
       setGain(true)
       setPercentage(100)
@@ -146,7 +143,6 @@ const WeeklyOverview = () => {
     }
     else{
       setGain(false)
-      console.log(100-((currentStats/prevStats)*100))
       setPercentage(100-((currentStats/prevStats)*100))
     }
   },[currentStats,prevStats])

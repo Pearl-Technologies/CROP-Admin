@@ -98,7 +98,7 @@ const PaymentProcess = () => {
       .post(`${process.env.HOST}/api/admin/getAllCustomerForPropPayment`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         setCustomerData(response.data.userDetails)
         setCDStatus(false)
       })
@@ -114,7 +114,7 @@ const PaymentProcess = () => {
       .post(`${process.env.HOST}/api/admin/getAllBusiness`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         setBusinessData(response.data.businesses)
         setBDStatus(false)
       })

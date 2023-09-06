@@ -27,7 +27,7 @@ const CustomerRatedProducts = () => {
         { headers: { 'Content-Type': 'application/json' } }
       )
       .then(function (response) {
-        console.log(response)
+        
         setProductData(response.data.product)
       })
       .catch(function (error) {
@@ -37,7 +37,7 @@ const CustomerRatedProducts = () => {
   useEffect(() => {
     getRatedProduct()
   }, [q])
-  console.log(productData)
+  
   return (
     <TableContainer style={{ height: 600, overflow: 'auto' }}>
       <span onClick={() => router.back()}>

@@ -48,9 +48,7 @@ const salesData = [
 const StatisticsCard = () => {
   const [accountDetails, setAccountDetails] = useState({propCredit:0,propDebit:0,cropCredit:0,cropDebit:0});
 
-  const renderStats = () => {
-    // console.log(accountDetails)
-  
+  const renderStats = () => {  
     return (
       <>
       <Grid container spacing={3}>
@@ -80,15 +78,13 @@ const StatisticsCard = () => {
           </Box>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 10 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
             <Avatar
               variant='rounded'
               sx={{
-                // mr: 3,
+                mr: 3,
                 width: 44,
                 height: 44,
-                boxShadow: 3,
-                // p:,
                 color: 'common.white',
                 backgroundColor: 'primary.main',
               }}
@@ -118,6 +114,7 @@ const StatisticsCard = () => {
                 color: 'common.white',
                 backgroundColor: 'primary.main',
               }}
+              src='/images/prop.png'
             >
               <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
             </Avatar>
@@ -141,8 +138,9 @@ const StatisticsCard = () => {
                 height: 44,
                 boxShadow: 3,
                 color: 'common.white',
-                backgroundColor: 'primary.main',
+                backgroundColor: "primary.main",
               }}
+              src='/images/prop.png'
             >
               <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
             </Avatar>
@@ -166,12 +164,11 @@ const StatisticsCard = () => {
       axios.get(`${process.env.HOST}/api/admin/getCropPropDebitCredit`)
         .then(function (response) {
           // handle success
-          console.log(response);
           if(response.data.crop.length > 0){
             response.data.crop.forEach((datum) => {
-              console.log(datum)
+              
               if(datum._id=="credit"){
-                console.log(datum.totalCredit)
+                
                 // setAccountDetails({...accountDetails,cropCredit:datum.totalCredit})
                 setAccountDetails((prevState)=>{
                   return ({

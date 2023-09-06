@@ -133,7 +133,6 @@ const CropMilestone = () => {
     axios
       .post(`${process.env.HOST}/api/admin/getPropValuation`)
       .then(function (response) {
-        console.log(response, "prop valueation data");
         setValues(response.data.propValuationData[0])
       })
       .catch(function (error) {
@@ -200,7 +199,7 @@ const CropMilestone = () => {
     })
       .then(function (response) {
         setUpdateStatus(false)
-        console.log(response)
+        
         setMessage(response.data)
         setResponseCode(response.status)
         toast.success(response.data.msg, {

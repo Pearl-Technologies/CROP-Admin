@@ -81,7 +81,6 @@ const Request = () => {
       .post(`${process.env.HOST}/api/admin/get-all-users`)
       .then(function (response) {
         // handle success
-        // console.log(response);
         setCustomerData(response.data.users)
       })
       .catch(function (error) {
@@ -104,7 +103,7 @@ const Request = () => {
         data: data
       })
         .then(function (response) {
-          console.log(response)
+          
           setUpdateStatus(false)
           setMessage(response.data)
           setResponseCode(response.status)
@@ -321,7 +320,7 @@ const Request = () => {
         data: data
       })
         .then(function (response) {
-          console.log(response)
+          
           setUpdateStatus(false)
           setMessage(response.data)
           setResponseCode(response.status)
@@ -392,7 +391,7 @@ const Request = () => {
       .post(`${process.env.HOST}/api/admin/getBusinessRequest`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         setBusinessRequest(response.data.getRequestList)
       })
       .catch(function (error) {

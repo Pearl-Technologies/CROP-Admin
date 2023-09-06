@@ -142,6 +142,7 @@ const TabAccount = () => {
     const parseData = await resoponse.json()
     // setImgSrc(parseData.user[0]?.imageUrl)
     setData(parseData.user)
+    localStorage.setItem('profileImage', parseData?.user?.filename)
   }
   useEffect(() => {
     getDetails()

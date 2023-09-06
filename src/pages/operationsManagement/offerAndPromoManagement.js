@@ -50,7 +50,7 @@ const OfferAndPromoManagement = () => {
   //     .post(`${process.env.HOST}/api/admin/getAllProduct`)
   //     .then(function (response) {
   //       // handle success
-  //       // console.log(response);
+  //       
   //       setProductData(response.data.productList)
   //     })
   //     .catch(function (error) {
@@ -69,7 +69,7 @@ const OfferAndPromoManagement = () => {
       .post(`${process.env.HOST}/api/admin/getAllMostPopularProduct?mktFor=${productCategory}&apply=${selectedOption}`)
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         setMostPopularProductData(response.data.productList)
         setccStatus(false);
       })
@@ -84,7 +84,7 @@ const OfferAndPromoManagement = () => {
       .post(`${process.env.HOST}/api/admin/getAllProductByZipCode`, {zipCode:zipCode, apply:selectedOption})
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         setPromoProductData(response.data.productList)
         setccStatus(false)
       })
@@ -106,7 +106,7 @@ const OfferAndPromoManagement = () => {
       .get(`${process.env.HOST}/api/admin/getBusinessProductRatedAll?applyType=${type}`)
       .then(function (response) {
         // handle success
-        console.log(response)
+        
         setProductData(response.data.productCommentsAndRatings)
         setccStatus(false);
       })

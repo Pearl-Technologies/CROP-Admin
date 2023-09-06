@@ -111,7 +111,6 @@ const DepositWithdraw = () => {
     axios.post(`${process.env.HOST}/api/admin/getAllTransactions`)
   .then(function (response) {
     // handle success
-    // console.log(response);
     setAccountTrasaction(response.data.account);
   })
   .catch(function (error) {

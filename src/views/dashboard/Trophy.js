@@ -61,7 +61,7 @@ const Trophy = () => {
     })
       .then(function (response) {
         // handle success
-        // console.log(response);
+        
         if(response?.data?.data?.length == 0){
           setUserName("No business Found")
         }
@@ -81,7 +81,7 @@ const Trophy = () => {
       <CardContent>
         <Typography variant='h6'>Hall of Fame! 🥳</Typography>
         <Typography variant='body2' sx={{ letterSpacing: '0.25px' }}>
-        Business of the Month
+        Employee of the Month
         </Typography>
         <Typography variant='h5' sx={{ my: 4, color: 'primary.main' }}>
           {/* 98% SLA */}

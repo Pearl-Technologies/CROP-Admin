@@ -192,7 +192,7 @@ const Sector = () => {
         }
       })
       .then(function (response) {
-        console.log(response)
+        
         setSectorName(response.data.categories.categoryName)
         setCategoryId(response.data.categories._id)
         // toast.success(response.data.msg, {
