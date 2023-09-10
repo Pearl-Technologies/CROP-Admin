@@ -14,7 +14,7 @@ import TablePagination from '@mui/material/TablePagination'
 import Spinner from '../databaseManagement/spinner'
 import axios from 'axios'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+import moment from 'moment'
 const businessCropDetails = ({}) => {
   // const productData = require('../../db/orders_customers.json')
   const [orderData, setOrderData] = useState([]);
@@ -45,7 +45,11 @@ const businessCropDetails = ({}) => {
   const getAllOrders=()=>{
     setODStatus(true);
     axios
-      .post(`${process.env.HOST}/api/admin/getBusinessCropStatement`, {businessId:q})
+      .post(`${process.env.HOST}/api/admin/getBusinessCropStatement`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, {businessId:q})
       .then(function (response) {
         // handle success
         
@@ -83,7 +87,7 @@ const businessCropDetails = ({}) => {
                   {myCropData.map(row => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
-                        <TableCell>{new Date(row?.createdAt).toLocaleDateString()}</TableCell>
+                        <TableCell>{moment(new Date(row?.createdAt)).format("DD/MM/YYYY")}</TableCell>
                         <TableCell>{row?.payment?.transactionId}</TableCell>
                         <TableCell>{row?.desc}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{(row.type === "Earn Crop") ? row.item.cropRulesWithBonus.toFixed(2):""}</TableCell>

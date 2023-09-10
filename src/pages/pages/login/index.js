@@ -93,7 +93,7 @@ const LoginPage = () => {
     setLoginStatus(true)
     if (rememberMe) {
       localStorage.setItem('email', values.email)
-      localStorage.setItem('password', values.password)
+      // localStorage.setItem('password', values.password)
     }
     axios
       .post(`${process.env.HOST}/api/admin/adminLogIn`, values)
@@ -126,7 +126,7 @@ const LoginPage = () => {
     if (localStorage.getItem('token')) {
       router.push('/admin')
     }
-    setValues({ ...values, ['email']: localStorage.getItem('email'), ['password']: localStorage.getItem('password') })
+    setValues({ ...values, ['email']: localStorage.getItem('email') })
   }, [])
   return (
     <Box className='content-center'>

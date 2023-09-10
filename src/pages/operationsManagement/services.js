@@ -53,7 +53,11 @@ const services = () => {
 
   const fetchCustomerDetails = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomer`)
+      .post(`${process.env.HOST}/api/admin/getAllCustomer`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         
@@ -342,7 +346,11 @@ const services = () => {
   }
   const fetchBusinessDetails = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getAllBusiness`)
+      .post(`${process.env.HOST}/api/admin/getAllBusiness`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         

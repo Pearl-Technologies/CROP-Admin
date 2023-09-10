@@ -99,7 +99,11 @@ const WeeklyOverview = () => {
   }
 
   useEffect(()=>{
-    axios.get(`${HOST}/api/admin/getWeeklyDetails?date=${selectedDate}`)
+    axios.get(`${HOST}/api/admin/getWeeklyDetails?date=${selectedDate}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
     .then((response)=>{
       let datum=response?.data?.data;
       let tempData=[];

@@ -22,10 +22,12 @@ const AppBarContent = props => {
         left: 0,
         right: 0,
         zIndex: 999,
-        backgroundColor: '#F4F5FA'
+        // backgroundColor: '#F4F5FA'
+        backgroundColor: settings.mode=="dark"? '#28243D':'#F4F5FA'
         // boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
       }}
     >
+      
       <Box
         sx={{
           width: '100%',

@@ -249,7 +249,7 @@ const Sector = () => {
       })
   }
 
-  const handleCancle = () => {
+  const handleCancel = () => {
     setUpdate(false)
     setCategoryId('')
     setSectorName('')
@@ -313,7 +313,7 @@ const Sector = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Card>
-            <CardHeader title={`${update ? 'Update Sector' : 'New Sector'}`} titleTypographyProps={{ variant: 'h6' }} />
+            <CardHeader title={`${update ? 'Update Sector' : 'Add New Sector'}`} titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
                 <Grid container spacing={2}>
@@ -332,7 +332,7 @@ const Sector = () => {
                   <Grid item xs={12} sx={{ marginTop: 4.8, marginBottom: 3 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                       <ImgStyled src={profileImg ? profileImg : '/images/logos/slack.png'} alt='Profile Pic' />
-                      {/* {`${process.env.HOST}/api/products/image/${data?.filename}`} */}
+                      
                       <Box>
                         <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
                           Upload New Photo
@@ -379,8 +379,8 @@ const Sector = () => {
                           <Button type='submit' variant='contained' size='large' onClick={handleUpdate}>
                             Update
                           </Button>
-                          <Button type='submit' variant='contained' size='large' onClick={handleCancle}>
-                            Cancle
+                          <Button type='submit' variant='contained' size='large' onClick={handleCancel}>
+                            Cancel
                           </Button>
                         </>
                       )}

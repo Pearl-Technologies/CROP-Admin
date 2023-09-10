@@ -254,7 +254,11 @@ export default function EnhancedTable() {
     fetBusinessData();
   }, []);
 const fetBusinessData=()=>{
-  axios.post(`${process.env.HOST}/api/admin/getAllBusiness`)
+  axios.post(`${process.env.HOST}/api/admin/getAllBusiness`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('token')}`
+    }
+  })
   .then(function(response){
     setBusinessData(response.data.businesses)
   })

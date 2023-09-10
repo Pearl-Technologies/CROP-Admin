@@ -18,10 +18,10 @@ import StatisticsCard from 'src/views/dashboard/StatisticsCard'
 import MarketSlots from 'src/views/dashboard/MarketSlot'
 import WeeklyOverview from 'src/views/dashboard/WeeklyOverview'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+
 import axios from 'axios'
 const Dashboard = () => {
-  
   let HOST = process.env.HOST
   const [activeCustomers, setActiveCustomers] = useState('')
   const [activeBusiness, setActiveBusiness] = useState('')
@@ -126,7 +126,6 @@ const Dashboard = () => {
       <Grid item xs={12}>
         <Table />
       </Grid>
-      {/* Comming Soon */}
     </ApexChartWrapper>
   )
 }

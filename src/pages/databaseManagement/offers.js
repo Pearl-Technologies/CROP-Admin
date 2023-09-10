@@ -25,7 +25,11 @@ const Offers = () => {
   const fetchDetails = () => {
     setStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllProduct`, { businessId: q })
+      .post(`${process.env.HOST}/api/admin/getAllProduct`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, { businessId: q })
       .then(function (response) {
         // handle success
         

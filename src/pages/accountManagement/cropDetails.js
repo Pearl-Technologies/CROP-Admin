@@ -14,6 +14,7 @@ import TablePagination from '@mui/material/TablePagination'
 import Spinner from '../databaseManagement/spinner'
 import axios from 'axios'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import moment from 'moment'
 
 const CropDetails = ({}) => {
   // const productData = require('../../db/orders_customers.json')
@@ -137,7 +138,7 @@ const CropDetails = ({}) => {
                   {myCropData.map(row => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
-                        <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
+                        <TableCell>{moment(new Date(row.createdAt)).format('DD/MM/YYYY')}</TableCell>
                         <TableCell>{row?.orderNumber}</TableCell>
                         <TableCell>{row?.amount}</TableCell>
                         <TableCell>{row?.description}</TableCell>

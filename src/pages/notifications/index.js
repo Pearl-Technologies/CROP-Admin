@@ -187,48 +187,84 @@ const Notifications = () => {
   }
 
   const fetchNotification = () => {
-    axios.post(`${process.env.HOST}/api/admin/getAllNotifications`).then(function (response) {
+    axios.post(`${process.env.HOST}/api/admin/getAllNotifications`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(function (response) {
       setNotificationData(response.data.notifications)
     })
   }
   const fetchCustomerAccountNotification = () => {
-    axios.post(`${process.env.HOST}/api/admin/getCustomerAccountNotification`).then(function (response) {
+    axios.post(`${process.env.HOST}/api/admin/getCustomerAccountNotification`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(function (response) {
       setCustomerAccountNotification(response.data.notification[0])
     })
   }
   const fetchCustomerGeneralNotification = () => {
-    axios.post(`${process.env.HOST}/api/admin/getCustomerGeneralNotification`).then(function (response) {
+    axios.post(`${process.env.HOST}/api/admin/getCustomerGeneralNotification`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(function (response) {
       setCustomerGeneralNotification(response.data.notification[0])
     })
   }
   const fetchCustomerPurchaseAndRedeemtionNotification = () => {
-    axios.post(`${process.env.HOST}/api/admin/getCustomerPurchaseAndRedeemNotification`).then(function (response) {
+    axios.post(`${process.env.HOST}/api/admin/getCustomerPurchaseAndRedeemNotification`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(function (response) {
       setCustomerPurchaseAndRedeemtionNotification(response.data.notification[0])
     })
   }
   const fetchCustomerRequestAndComplaintNotification = () => {
-    axios.post(`${process.env.HOST}/api/admin/getCustomerRequestAndComplaintNotification`).then(function (response) {
+    axios.post(`${process.env.HOST}/api/admin/getCustomerRequestAndComplaintNotification`,{
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(function (response) {
       setCustomerRequestAndComplaintNotification(response.data.notification[0])
     })
   }
   const fetchBusinessAccountNotification = () => {
-    axios.post(`${process.env.HOST}/api/admin/getBusinessAccountNotification`).then(function (response) {
+    axios.post(`${process.env.HOST}/api/admin/getBusinessAccountNotification`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(function (response) {
       
       setBusinessAccountNotification(response.data.notification[0])
     })
   }
   const fetchBusinessGeneralNotification = () => {
-    axios.post(`${process.env.HOST}/api/admin/getBusinessGeneralNotification`).then(function (response) {
+    axios.post(`${process.env.HOST}/api/admin/getBusinessGeneralNotification`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(function (response) {
       setBusinessGeneralNotification(response.data.notification[0])
     })
   }
   const fetchBusinessPurchaseAndRedeemtionNotification = () => {
-    axios.post(`${process.env.HOST}/api/admin/getBusinessPurchaseAndRedeemNotification`).then(function (response) {
+    axios.post(`${process.env.HOST}/api/admin/getBusinessPurchaseAndRedeemNotification`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(function (response) {
       setBusinessPurchaseAndRedeemptionNotification(response.data.notification[0])
     })
   }
   const fetchBusinessRequestAndComplaintNotification = () => {
-    axios.post(`${process.env.HOST}/api/admin/getBusinessRequestAndComplaintNotification`).then(function (response) {
+    axios.post(`${process.env.HOST}/api/admin/getBusinessRequestAndComplaintNotification`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(function (response) {
       setBusinessRequestAndComplaintNotification(response.data.notification[0])
     })
   }

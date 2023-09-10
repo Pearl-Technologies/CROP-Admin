@@ -16,6 +16,7 @@ import axios from 'axios'
 import Link from '@mui/material/Link';
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import moment from 'moment'
 const BusinessInvoiceDetails = ({}) => {
   // const productData = require('../../db/orders_customers.json')
   // const businessInvoices = require('../../db/admin_payment_trackers.json')
@@ -29,7 +30,11 @@ const BusinessInvoiceDetails = ({}) => {
   const getAllOrders=()=>{
     setInvoiceStatus(true);
     axios
-      .post(`${process.env.HOST}/api/admin/findBusinessInvoice`, {user:q})
+      .post(`${process.env.HOST}/api/admin/findBusinessInvoice`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, {user:q})
       .then(function (response) {
         // handle success
         
@@ -69,7 +74,7 @@ const BusinessInvoiceDetails = ({}) => {
                   {myInvoiceData.map(row => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id.$oid}>
-                        <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
+                        <TableCell>{moment(new Date(row.createdAt).format('DD/MM/YYYY'))}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row?.number}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row?.description}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row?.amount}</TableCell>

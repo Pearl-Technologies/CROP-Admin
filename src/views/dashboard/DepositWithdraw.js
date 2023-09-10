@@ -108,7 +108,11 @@ const Divider = styled(MuiDivider)(({ theme }) => ({
 const DepositWithdraw = () => {
   const [accountTrasaction, setAccountTrasaction] = useState([]);
   const getDetails=()=>{
-    axios.post(`${process.env.HOST}/api/admin/getAllTransactions`)
+    axios.post(`${process.env.HOST}/api/admin/getAllTransactions`,{
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
   .then(function (response) {
     // handle success
     setAccountTrasaction(response.data.account);

@@ -94,7 +94,11 @@ const ForgotPassword = () => {
     setLoginStatus(true);
     
     axios
-      .post(`${process.env.HOST}/api/admin/passwordResetEmail`, values)
+      .post(`${process.env.HOST}/api/admin/passwordResetEmail`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, values)
       .then(function (response) {        
           setLoginStatus(false);
           toast.success(response.data.msg, {

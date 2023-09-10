@@ -18,6 +18,7 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import axios from 'axios'
 import Switch from '@mui/material/Switch'
 import Typography from '@mui/material/Typography'
+import moment from 'moment'
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } }
 
@@ -79,7 +80,7 @@ const CustomerInvoiceDetails = ({}) => {
         <ArrowBackIcon />
       </span>
       <div style={{ display: 'flex', gap: 2 }}>
-        <Switch {...label} defaultChecked onChange={() => setData(x => (x === 'one' ? 'two' : 'one'))} />
+        <Switch {...label} defaultChecked color="default" onChange={() => setData(x => (x === 'one' ? 'two' : 'one'))} />
         <p style={{ fontWeight: 'bold', marginTop: 8 }}>
           {`${
             data === 'one' ? 'Customer Order Details' : 'Customer CROP/PROP Purchase Details'
@@ -108,7 +109,7 @@ const CustomerInvoiceDetails = ({}) => {
                       // sx={{paddingRight:8, paddingLeft:20}}
                       > Quatity</TableCell>
                       <TableCell> Total</TableCell>
-                      <TableCell> CROPs</TableCell>
+                      <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
                       <TableCell> View</TableCell>
                       <TableCell> Download</TableCell>
                       <TableCell> Invoice Number</TableCell>
@@ -118,7 +119,7 @@ const CustomerInvoiceDetails = ({}) => {
                     {myInvoiceData.map(row => {
                       return (
                         <TableRow hover role='checkbox' tabIndex={-1} key={'orderDetails' + row._id}>
-                          <TableCell>{new Date(row.updatedAt).toLocaleDateString()}</TableCell>
+                          <TableCell>{moment(new Date(row.updatedAt)).format('DD/MM/YYYY')}</TableCell>
                           <TableCell >
                             {/* <img
                               style={{ width: '10px' }}                              

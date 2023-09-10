@@ -237,7 +237,7 @@ const Holiday = () => {
       })
   }
 
-  const handleCancle = () => {
+  const handleCancel = () => {
     setUpdate(false)
     setData({
       holidayName: '',
@@ -293,7 +293,7 @@ const Holiday = () => {
         <Grid item xs={12} md={4}>
           <Card>
             <CardHeader
-              title={`${update ? 'Update Holiday' : 'New Holiday'}`}
+              title={`${update ? 'Update Holiday' : 'Add New Holiday'}`}
               titleTypographyProps={{ variant: 'h6' }}
             />
             <CardContent>
@@ -311,7 +311,7 @@ const Holiday = () => {
                     <TextField
                       label={'Date'}
                       style={{ marginBottom: '8px' }}
-                      value={moment(data.holidayDate).format('YYYY-MM-DD')}
+                      value={moment(data?.holidayDate).format('DD/MM/YYYY')}
                       onChange={changeHoliday('holidayDate')}
                       type='date'
                     />
@@ -345,8 +345,8 @@ const Holiday = () => {
                           <Button type='submit' variant='contained' size='large' onClick={handleUpdate}>
                             Update
                           </Button>
-                          <Button type='submit' variant='contained' size='large' onClick={handleCancle}>
-                            Cancle
+                          <Button type='submit' variant='contained' size='large' onClick={handleCancel}>
+                            Cancel
                           </Button>
                         </>
                       )}

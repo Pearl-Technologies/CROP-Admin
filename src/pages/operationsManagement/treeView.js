@@ -23,7 +23,11 @@ const TreeView = ({ id, data}) => {
   const fetchBusinessProductSoldDetails = id => {
     // setCDStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getPurchasedProductStatement`, { businessId: id })
+      .post(`${process.env.HOST}/api/admin/getPurchasedProductStatement`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, { businessId: id })
       .then(function (response) {
         // handle success
         setSoldData(response.data.statement)

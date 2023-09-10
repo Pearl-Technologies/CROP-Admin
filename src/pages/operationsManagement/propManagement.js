@@ -131,7 +131,11 @@ const CropMilestone = () => {
 
   const fetchPropData = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getPropValuation`)
+      .post(`${process.env.HOST}/api/admin/getPropValuation`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         setValues(response.data.propValuationData[0])
       })
@@ -142,7 +146,11 @@ const CropMilestone = () => {
   }
   const fetchDefaultMileStoneData = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getMilestoneData`)
+      .post(`${process.env.HOST}/api/admin/getMilestoneData`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         setMileStoneValue(response.data.milestoneReport[0])
       })
@@ -280,7 +288,7 @@ const CropMilestone = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Card>
-            <CardHeader title='CROP' titleTypographyProps={{ variant: 'h6' }} />
+            <CardHeader title='CROPs' titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
                 <Grid container spacing={1}>
@@ -337,7 +345,7 @@ const CropMilestone = () => {
                     <Grid item xs={12} spacing={1}>
                       <h5 style={{ marginLeft: 'auto', width:"80px", display:"inline-block" }}> CROP 5k</h5>
                       <TextField
-                        label='Base'
+                        label='Blue'
                         value={milestoneValue.first.base}
                         style={{ margin: '4px', width:"150px" }}
                         onChange={handleMileStoneDataChange('first', 'base')}
@@ -364,7 +372,7 @@ const CropMilestone = () => {
                     <Grid item xs={12} spacing={2}>
                       <h5 style={{ marginLeft: 'auto', width:"80px", display:"inline-block" }}> CROP 10k</h5>
                       <TextField
-                        label='Base'
+                        label='Blue'
                         value={milestoneValue.second.base}
                         style={{ margin: '4px', width:"150px"}}
                         onChange={handleMileStoneDataChange('second', 'base')}
@@ -391,7 +399,7 @@ const CropMilestone = () => {
                     <Grid item xs={12} spacing={2}>
                       <h5 style={{ marginLeft: 'auto', display:"inline-block", width:"80px" }}> CROP 25k</h5>
                       <TextField
-                        label='Base'
+                        label='Blue'
                         value={milestoneValue.third.base}
                         style={{ margin: '4px', width:"150px"}}
                         onChange={handleMileStoneDataChange('third', 'base')}
@@ -421,7 +429,7 @@ const CropMilestone = () => {
                         CROP 25k Plus{' '}
                       </h5>
                       <TextField
-                        label='Base'
+                        label='Blue'
                         value={milestoneValue.fourth.base}
                         style={{ margin: '4px', width:"150px"}}
                         onChange={handleMileStoneDataChange('fourth', 'base')}
