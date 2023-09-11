@@ -4,7 +4,7 @@ import React, { createContext, useState, useEffect } from 'react'
 export const AdminContext = createContext()
 
 export default function AdminProvider({ children }) {
-  const [searchId, setSearchId] = useState(0)
+  const [searchId, setSearchId] = useState()
   const [selectedOption, setSelectedOption] = useState('Customer Data')
   const [customerData, setCustomerData] = useState([])
   const [businessData, setBusinessData] = useState([])
