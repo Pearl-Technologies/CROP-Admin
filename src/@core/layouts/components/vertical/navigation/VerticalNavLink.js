@@ -30,7 +30,7 @@ const MenuNavLink = styled(ListItemButton)(({ theme }) => ({
   transition: 'opacity .25s ease-in-out',
   '&.active, &.active:hover': {
     boxShadow: theme.shadows[3],
-    backgroundImage: `linear-gradient(98deg, ${theme.palette.customColors.primaryGradient}, ${theme.palette.primary.main} 94%)`
+    backgroundImage: `linear-gradient(-40deg, ${theme.palette.customColors.primaryGradient}, ${theme.palette.primary.main} 150%)`
   },
   '&.active .MuiTypography-root, &.active .MuiSvgIcon-root': {
     color: `${theme.palette.common.white} !important`

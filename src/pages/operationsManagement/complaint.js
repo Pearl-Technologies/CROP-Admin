@@ -69,7 +69,11 @@ const Complaint = () => {
 
   const fetchCustomerDetails = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getCustomerComplain`)
+      .post(`${process.env.HOST}/api/admin/getCustomerComplain`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         setCustomerData(response.data.getComplainList)
       })
@@ -136,8 +140,8 @@ const Complaint = () => {
             </Typography>
             <Typography sx={{ mt: 2, width: '100%' }}>
               <Select value={data.complainStatus} onChange={handleChange('complainStatus')}>
-                <MenuItem value={'open'}>Open</MenuItem>
-                <MenuItem value={'progress'}>Progress</MenuItem>
+                <MenuItem value={'Open'}>Open</MenuItem>
+                <MenuItem value={'Progress'}>Progress</MenuItem>
                 <MenuItem value={'Closed'}>Closed</MenuItem>
               </Select>
             </Typography>
@@ -247,7 +251,11 @@ const Complaint = () => {
   }
   const fetchBusinessDetails = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getBusinessComplain`)
+      .post(`${process.env.HOST}/api/admin/getBusinessComplain`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         

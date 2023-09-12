@@ -14,7 +14,8 @@ import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import { Box } from '@mui/joy'
 import Switch from '@mui/material/Switch'
-
+import Divider from '@mui/material/Divider'
+import CardHeader from '@mui/material/CardHeader'
 const label = { inputProps: { 'aria-label': 'Switch demo' } }
 
 export default function BasicTable() {
@@ -145,12 +146,14 @@ export default function BasicTable() {
       <div style={{ display: 'flex', gap: 2 }}>
         <Switch
           {...label}
-          defaultChecked
+          defaultChecked color='default'
           sx={{ marginTop: 3 }}
           onChange={() => setSelectedOption(x => (x === 'Customer Account' ? 'Business Account' : 'Customer Account'))}
         />
         <h5>{selectedOption}</h5>
       </div>
+      <CardHeader title='Marcom  (Marketing and Communication)' titleTypographyProps={{ variant: 'h6' }} />
+      <Divider sx={{ margin: 0 }} />
       {selectedOption == 'Customer Account' ? (
         <TableContainer component={Paper} sx={{ height: 380 }}>
           {/* <h3 style={{ marginLeft: '20px' }}>Customer Account</h3> */}
@@ -242,19 +245,19 @@ export default function BasicTable() {
           {/* <h3 style={{ marginLeft: '20px' }}>Business Account</h3> */}
           <Box margin={2}>
             <OutlinedInput
-              placeholder='business name'
+              placeholder='Business Name'
               style={{ marginLeft: '2px' }}
               value={data?.businessName}
               onChange={handleChange('businessName')}
             />
             <OutlinedInput
-              placeholder='pin'
+              placeholder='PIN'
               style={{ marginLeft: '2px' }}
               value={data?.Zip_code}
               onChange={handleChange('Zip_code')}
             />
             <OutlinedInput
-              placeholder='nature of business'
+              placeholder='Nature Of Business'
               style={{ marginLeft: '2px' }}
               value={data?.natureOfBusiness}
               onChange={handleChange('natureOfBusiness')}

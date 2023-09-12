@@ -161,7 +161,11 @@ const StatisticsCard = () => {
 
   useEffect(()=>{
     const getDetails = () => {
-      axios.get(`${process.env.HOST}/api/admin/getCropPropDebitCredit`)
+      axios.get(`${process.env.HOST}/api/admin/getCropPropDebitCredit`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
         .then(function (response) {
           // handle success
           if(response.data.crop.length > 0){

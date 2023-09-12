@@ -78,7 +78,11 @@ const Request = () => {
 
   const fetchCustomerDetails = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/get-all-users`)
+      .post(`${process.env.HOST}/api/admin/get-all-users`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         setCustomerData(response.data.users)
@@ -388,7 +392,11 @@ const Request = () => {
   }
   const fetchBusinessRequest = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getBusinessRequest`)
+      .post(`${process.env.HOST}/api/admin/getBusinessRequest`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         
@@ -400,7 +408,11 @@ const Request = () => {
       })
   }
   const fetchCustomerRequest = () => {
-    axios.post(`${process.env.HOST}/api/admin/getCustomerRequest`).then(function (response) {
+    axios.post(`${process.env.HOST}/api/admin/getCustomerRequest`,{
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(function (response) {
       setCustomerRequest(response.data.getRequestList)
     })
   }

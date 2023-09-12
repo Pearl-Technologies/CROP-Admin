@@ -116,9 +116,8 @@ const FormLayoutsSeparator = () => {
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
   return (
     <Card>
-      <CardHeader title='Marcom  (Marketing and Communication)' titleTypographyProps={{ variant: 'h6' }} />
-      <Divider sx={{ margin: 0 }} />
-      <form onSubmit={e => e.preventDefault()}>
+
+      {/* <form onSubmit={e => e.preventDefault()}> */}
         {/* <CardContent>
           <div style={{ display: 'flex' }}>
             <div>
@@ -166,7 +165,7 @@ const FormLayoutsSeparator = () => {
         </CardContent> */}
               <BasicTable/>
 
-      </form>
+      {/* </form> */}
     </Card>
   )
 }

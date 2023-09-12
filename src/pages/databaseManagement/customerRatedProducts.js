@@ -24,7 +24,8 @@ const CustomerRatedProducts = () => {
       .post(
         `${process.env.HOST}/api/admin/getAllRatedProductByUser`,
         { customerId: q },
-        { headers: { 'Content-Type': 'application/json' } }
+        { headers: { 'Content-Type': 'application/json', authorization: `Bearer ${localStorage.getItem('token')}` } }
+        
       )
       .then(function (response) {
         

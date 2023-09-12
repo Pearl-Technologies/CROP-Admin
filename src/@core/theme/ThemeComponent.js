@@ -2,7 +2,7 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import GlobalStyles from '@mui/material/GlobalStyles'
 import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles'
-
+import AdminProvider from '../context/adminContest'
 // ** Theme Config
 import themeConfig from 'src/configs/themeConfig'
 
@@ -38,11 +38,13 @@ const ThemeComponent = props => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <GlobalStyles styles={() => GlobalStyling(theme)} />
-      {children}
-    </ThemeProvider>
+    <AdminProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <GlobalStyles styles={() => GlobalStyling(theme)} />
+        {children}
+      </ThemeProvider>
+    </AdminProvider>
   )
 }
 

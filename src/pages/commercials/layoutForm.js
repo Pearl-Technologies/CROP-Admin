@@ -50,7 +50,11 @@ const layoutFrom = () => {
   }
   const fetchBasePrice = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getBasePrice`)
+      .post(`${process.env.HOST}/api/admin/getBasePrice`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         setBasePrice(response.data.defaultPrice[0])
       })

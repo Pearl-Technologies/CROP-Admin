@@ -22,7 +22,11 @@ import axios from 'axios'
 export default function NotificationTable() {
     const [notificationData, setNotificationData] = useState([]);
   const fetchNotification=()=>{
-    axios.post(`${process.env.HOST}/api/admin/getAllNotifications`)
+    axios.post(`${process.env.HOST}/api/admin/getAllNotifications`,{
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
     .then(function(response){
       setNotificationData(response.data.notifications);
     })

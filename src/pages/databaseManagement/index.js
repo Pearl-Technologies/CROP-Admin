@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Chip from '@mui/material/Chip'
@@ -29,6 +29,9 @@ import Avatar from '@mui/material/Avatar'
 import ThumbUp from 'mdi-material-ui/ThumbUp'
 import Switch from '@mui/material/Switch'
 import Search from 'src/components/search'
+import moment from 'moment'
+import { AdminContext } from 'src/@core/context/adminContest'
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -43,80 +46,7 @@ const style = {
   p: 4
 }
 const label = { inputProps: { 'aria-label': 'Switch demo' } }
-const rows = [
-  {
-    age: 27,
-    status: 'current',
-    date: '09/27/2018',
-    name: 'Sally Quinn',
-    salary: '$19586.23',
-    email: 'eebsworth2m@sbwire.com',
-    designation: 'Human Resources Assistant'
-  },
-  {
-    age: 61,
-    date: '09/23/2016',
-    salary: '$23896.35',
-    status: 'professional',
-    name: 'Margaret Bowers',
-    email: 'kocrevy0@thetimes.co.uk',
-    designation: 'Nuclear Power Engineer'
-  },
-  {
-    age: 59,
-    date: '10/15/2017',
-    name: 'Minnie Roy',
-    status: 'rejected',
-    salary: '$18991.67',
-    email: 'ediehn6@163.com',
-    designation: 'Environmental Specialist'
-  },
-  {
-    age: 30,
-    date: '06/12/2018',
-    status: 'resigned',
-    salary: '$19252.12',
-    name: 'Ralph Leonard',
-    email: 'dfalloona@ifeng.com',
-    designation: 'Sales Representative'
-  },
-  {
-    age: 66,
-    status: 'applied',
-    date: '03/24/2018',
-    salary: '$13076.28',
-    name: 'Annie Martin',
-    designation: 'Operator',
-    email: 'sganderton2@tuttocitta.it'
-  },
-  {
-    age: 33,
-    date: '08/25/2017',
-    salary: '$10909.52',
-    name: 'Adeline Day',
-    status: 'professional',
-    email: 'hnisius4@gnu.org',
-    designation: 'Senior Cost Accountant'
-  },
-  {
-    age: 61,
-    status: 'current',
-    date: '06/01/2017',
-    salary: '$17803.80',
-    name: 'Lora Jackson',
-    designation: 'Geologist',
-    email: 'ghoneywood5@narod.ru'
-  },
-  {
-    age: 22,
-    date: '12/03/2017',
-    salary: '$12336.17',
-    name: 'Rodney Sharp',
-    status: 'professional',
-    designation: 'Cost Accountant',
-    email: 'dcrossman3@google.co.jp'
-  }
-]
+
 
 const statusObj = {
   presuspended: { color: 'info' },
@@ -128,11 +58,12 @@ const statusObj = {
 
 const Database = () => {
   const router = useRouter()
-  const [customerData, setCustomerData] = useState([])
-  const [businessData, setBusinessData] = useState([])
-  const [cdStatus, setCDStatus] = useState(false)
-  const [bdStatus, setBDStatus] = useState(false)
-  const [selectedOption, setSelectedOption] = useState('Customer Data')
+  // const [customerData, setCustomerData] = useState([])
+  // const [businessData, setBusinessData] = useState([])
+  // const [cdStatus, setCDStatus] = useState(false)
+  // const [bdStatus, setBDStatus] = useState(false)
+  const {selectedOption, setSelectedOption, customerData, businessData, cdStatus, bdStatus} = useContext(AdminContext)
+  
   const showCustomerCrop = x => {
     router.push(`/accountManagement/cropDetails?q=${x}`)
   }
@@ -161,7 +92,11 @@ const Database = () => {
   const fetchCustomerDetails = () => {
     setCDStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomer`)
+      .post(`${process.env.HOST}/api/admin/getAllCustomer`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         setCustomerData(response.data.customers)
@@ -185,8 +120,8 @@ const Database = () => {
         <Modal
           open={open}
           onClose={handleClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
+          // aria-labelledby='modal-modal-title'
+          // aria-describedby='modal-modal-description'
         >
           <Box sx={style}>
             <Button onClick={handleClose}>
@@ -321,18 +256,18 @@ const Database = () => {
                           }}
                         >
                           <Grid item sm={2}>
-                            <p style={{ fontWeight: 'bold' }}>Line1 </p>
-                            <p style={{ fontWeight: 'bold' }}>Line2 </p>
-                            <p style={{ fontWeight: 'bold' }}>Line3 </p>
-                            <p style={{ fontWeight: 'bold' }}>State </p>
-                            <p style={{ fontWeight: 'bold' }}>Pin </p>
+                            {data.line1 &&<p style={{ fontWeight: 'bold' }}>Line1 </p>}
+                            {data.line2 &&<p style={{ fontWeight: 'bold' }}>Line2 </p>}
+                            {data.line3 &&<p style={{ fontWeight: 'bold' }}>Line3 </p>}
+                            {data.state &&<p style={{ fontWeight: 'bold' }}>State </p>}
+                            {<p style={{ fontWeight: 'bold' }}>Pin </p>}
                           </Grid>
                           <Grid item sm={10}>
-                            <p>:{data.line1}</p>
-                            <p>:{data.line2}</p>
-                            <p>:{data.line3}</p>
-                            <p>:{data.state}</p>
-                            <p>:{data.pin}</p>
+                            {data.line1 &&<p>:{data.line1}</p>}
+                            {data.line2 &&<p>:{data.line2}</p>}
+                            {data.line3 &&<p>:{data.line3}</p>}
+                            {data.state &&<p>:{data.state}</p>}
+                            {data.pin &&<p>:{data.pin}</p>}
                           </Grid>
                         </Grid>
                       </Grid>
@@ -342,24 +277,24 @@ const Database = () => {
             </div>
             <div style={{ marginLeft: '327px' }}>
               <h3> Name of Loyalty Programs</h3>
-              <div
+              <ul
                 style={{
                   width: '350px',
                   lineHeight: '10px',
                   borderRadius: '10px',
                   border: '1px solid #c1c1c1',
-                  padding: '10px',
-                  height: '200px',
-                  overflow: 'auto'
+                  paddingLeft: '10px',
+                  listStyleType:"none"
                 }}
+                
               >
                 {user.loyaltyProgram &&
                   user.loyaltyProgram.map((data, i) => (
-                    <div key={'loyalty' + data._id}>
+                    <li key={'loyalty' + data._id}>
                       <p>{data.programmeName}</p>
-                    </div>
+                    </li>
                   ))}
-              </div>
+              </ul>
             </div>
           </Box>
         </Modal>
@@ -410,12 +345,18 @@ const Database = () => {
                       variant='outlined'
                       value={user.name?.fName + ' ' + user.name?.mName + ' ' + user.name?.lName}
                     />
-                    <TextField style={{ marginTop: '15px' }} label='Gender' variant='outlined' value={user.gender} />
+                    <TextField
+                      style={{ marginTop: '15px' }}
+                      label='Gender'
+                      variant='outlined'
+                      value={user.gender ? user.gender.charAt(0).toUpperCase() + user.gender.substring(1):""}
+                    />
                     <TextField
                       style={{ marginTop: '15px' }}
                       label='DOB'
                       variant='outlined'
-                      value={`${new Date(user.dob).getDate()}/${new Date(user.dob).getMonth()}`}
+                      // value={`${new Date(user.dob).getDate()}/${new Date(user.dob).getMonth()+1}`}
+                      value={user.dob}
                     />
                     <TextField
                       style={{ marginTop: '15px' }}
@@ -469,13 +410,13 @@ const Database = () => {
                       style={{ marginTop: '15px' }}
                       label='Customer Signup date'
                       variant='outlined'
-                      value={user.signUpDate}
+                      value={moment(user.signUpDate).format("DD/MM/YYYY")}
                     />
                     <TextField
                       style={{ marginTop: '15px' }}
                       label='Last Tier Change Date'
                       variant='outlined'
-                      value={new Date(user?.TierChangeDate).toLocaleDateString()}
+                      value={moment(new Date(user?.TierChangeDate)).format("DD/MM/YYYY")}
                     />
                   </Grid>
                 </Grid>
@@ -486,39 +427,39 @@ const Database = () => {
                 <div key={'address' + data._id} style={{ marginLeft: '327px' }}>
                   <h3>Address {i + 1}</h3>
                   <Grid container spacing={2}>
-                    <Grid item sm={6}>
+                    <Grid item sm={12}>
                       <Grid
                         container
                         spacing={2}
                         style={{
-                          width: '280px',
+                          width: '560px',
                           lineHeight: '10px',
                           borderRadius: '10px',
                           border: '1px solid #c1c1c1'
                         }}
                       >
                         <Grid item sm={2}>
-                          <p style={{ fontWeight: 'bold' }}>Line1 </p>
-                          <p style={{ fontWeight: 'bold' }}>Line2 </p>
-                          <p style={{ fontWeight: 'bold' }}>Line3 </p>
-                          <p style={{ fontWeight: 'bold' }}>State </p>
-                          <p style={{ fontWeight: 'bold' }}>Pin </p>
+                          {data.line1 && <p style={{ fontWeight: 'bold' }}>Line1 </p>}
+                          {data.line2 && <p style={{ fontWeight: 'bold' }}>Line2 </p>}
+                          {data.line3 && <p style={{ fontWeight: 'bold' }}>Line3 </p>}
+                          {data.state && <p style={{ fontWeight: 'bold' }}>State </p>}
+                          {data.pin && <p style={{ fontWeight: 'bold' }}>Pin </p>}
                         </Grid>
                         <Grid item sm={10}>
-                          <p>:{data.line1}</p>
-                          <p>:{data.line2}</p>
-                          <p>:{data.line3}</p>
-                          <p>:{data.state}</p>
-                          <p>:{data.pin}</p>
+                          {data.line1 && <p>:{data.line1}</p>}
+                          {data.line2 && <p>:{data.line2}</p>}
+                          {data.line3 && <p>:{data.line3}</p>}
+                          {data.state && <p>:{data.state}</p>}
+                          {data.pin && <p>:{data.pin}</p>}
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                 </div>
               ))}
-            <div style={{ display: 'flex', flexDirection: 'start', marginLeft: '327px', gap: '5px' }}>
+            <div style={{ display: 'flex', flexDirection: 'start', marginLeft: '327px', gap:"30px"}}>
               <div>
-                <h3>Loyalty</h3>
+                <h3>Interests</h3>
                 <div
                   style={{
                     border: '1px solid #c1c1c1',
@@ -568,7 +509,11 @@ const Database = () => {
   const fetchBusinessDetails = () => {
     setBDStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllBusiness`)
+      .post(`${process.env.HOST}/api/admin/getAllBusiness`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         setBusinessData(response.data.businesses)
@@ -589,17 +534,17 @@ const Database = () => {
   const showBusinessProductRated = x => {
     router.push(`/databaseManagement/businessProductRated?q=${x}`)
   }
-  useEffect(() => {
-    fetchCustomerDetails()
-    fetchBusinessDetails()
-  }, [])
+  // useEffect(() => {
+    // fetchCustomerDetails()
+    // fetchBusinessDetails()
+  // }, [])
 
   return (
     <Grid container spacing={2}>
       <div style={{ display: 'flex', gap: 2 }}>
         <Switch
           {...label}
-          defaultChecked
+          defaultChecked color="secondary"
           sx={{ marginTop: 3 }}
           onChange={() => setSelectedOption(x => (x === 'Customer Data' ? 'Business Data' : 'Customer Data'))}
         />

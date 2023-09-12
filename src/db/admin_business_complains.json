@@ -7,7 +7,7 @@
   "complainType": "performance",
   "preferredMediumContact": "app",
   "complainNumber": "80777070707070",
-  "complainStatus": "received",
+  "complainStatus": "open",
   "complainResponse": "",
   "user": {
     "$oid": "64118c19a60d3953301be823"

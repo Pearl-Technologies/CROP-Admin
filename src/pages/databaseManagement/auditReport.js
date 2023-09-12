@@ -14,7 +14,7 @@ import TablePagination from '@mui/material/TablePagination'
 import Spinner from '../databaseManagement/spinner';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios'
-
+import moment from 'moment'
 const AuditReport = ({}) => {
   const productData = require('../../db/admin_audits.json')
   const router = useRouter()
@@ -85,7 +85,11 @@ const AuditReport = ({}) => {
   const getAuditReport=()=>{
     setADStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getCustomerAuditReport?q=${q}`)
+      .post(`${process.env.HOST}/api/admin/getCustomerAuditReport?q=${q}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
        
@@ -134,7 +138,7 @@ const AuditReport = ({}) => {
                           </TableCell>
                         )
                       })} */}
-                      <TableCell>{new Date(row.date).toLocaleDateString()}</TableCell>
+                      <TableCell>{moment(new Date(row.date)).format('DD/MM/YYYY')}</TableCell>
                       <TableCell>{row.description}</TableCell>
                       
                     </TableRow>

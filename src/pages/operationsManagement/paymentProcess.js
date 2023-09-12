@@ -62,7 +62,11 @@ const PaymentProcess = () => {
   const fetchBusinessProductSoldDetails = id => {
     setCDStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getPurchasedProductStatement`, { businessId: id })
+      .post(`${process.env.HOST}/api/admin/getPurchasedProductStatement`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, { businessId: id })
       .then(function (response) {
         // handle success
         setSoldData(response.data.statement)
@@ -95,7 +99,11 @@ const PaymentProcess = () => {
   const fetchCustomerDetails = () => {
     setCDStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomerForPropPayment`)
+      .post(`${process.env.HOST}/api/admin/getAllCustomerForPropPayment`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         
@@ -111,7 +119,11 @@ const PaymentProcess = () => {
   const fetchBusinessDetails = () => {
     setBDStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllBusiness`)
+      .post(`${process.env.HOST}/api/admin/getAllBusiness`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         

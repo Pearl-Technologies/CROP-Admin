@@ -26,6 +26,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import moment from 'moment'
 
 
 const statusObj = {
@@ -46,7 +47,11 @@ const TierManagement = () => {
 
   const fetchCustomerDetails = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomer`)
+      .post(`${process.env.HOST}/api/admin/getAllCustomer`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         setCustomerData(response.data.customers)
@@ -59,7 +64,11 @@ const TierManagement = () => {
 
   const fetchBusinessDetails = () => {
     axios
-      .post(`${process.env.HOST}/api/admin/getAllBusiness`)
+      .post(`${process.env.HOST}/api/admin/getAllBusiness`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         setBusinessData(response.data.businesses)
@@ -145,7 +154,7 @@ const TierManagement = () => {
           >
             <Box sx={style}>
               <Chip
-                label={'Base'}
+                label={'Blue'}
                 // color={statusObj[row.status].color}
                 color={'primary'}
                 sx={{
@@ -157,7 +166,7 @@ const TierManagement = () => {
                   margin: '3px'
                 }}
                 onClick={() => {
-                  ChangeTier(type, 'Base')
+                  ChangeTier(type, 'Blue')
                 }}
               />
               <Chip
@@ -301,7 +310,7 @@ const TierManagement = () => {
       <div style={{ display: 'flex', gap: 2 }}>
         <Switch
           {...label}
-          defaultChecked
+          defaultChecked color="default"
           sx={{ marginTop: 3 }}
           onChange={() => setSelectedOption(x => (x === 'Customer Data' ? 'Business Data' : 'Customer Data'))}
         />
@@ -332,17 +341,15 @@ const TierManagement = () => {
                       key={'customer' + row._id}
                       sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
                     >
-                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                      <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important`, width:"100px"}}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
+                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important'}}>
                             {row.name.fName} {row.name.mName} {row.name.lName}{' '}
                           </Typography>
-                          {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
-                          {/* <Typography variant='caption'>{row.designation}</Typography> */}
                         </Box>
                       </TableCell>
-                      <TableCell>{row.cropid}</TableCell>
-                      <TableCell>
+                      <TableCell sx={{width:"100px" }}>{row.cropid}</TableCell>
+                      <TableCell sx={{width:"100px"}}>
                         <Chip
                           label={row.status}
                           // color={statusObj[row.status].color}
@@ -355,15 +362,14 @@ const TierManagement = () => {
                           }}
                         />
                       </TableCell>
-                      <TableCell>{row.UserTier}</TableCell>
-                      <TableCell>{row.croppoints.toFixed(2)}</TableCell>
-                      <TableCell>
-                        {/* <CustomerModal user={row} /> */}
-                        {new Date(row.TierChangeDate).toLocaleDateString()}
+                      <TableCell sx={{width:"100px"}}>{row.UserTier}</TableCell>
+                      <TableCell sx={{width:"100px"}}>{row.croppoints.toFixed(2)}</TableCell>
+                      <TableCell sx={{width:"100px"}}>
+                        {moment(new Date(row.TierChangeDate)).format('DD/MM/YYYY')}
                       </TableCell>
                       
                     {/* <TableCell>{'PROP Info'}</TableCell> */}
-                      <TableCell>
+                      <TableCell sx={{width:"100px"}}>
                         <ChangeAccountTier user={row._id} type='customer' />
                       </TableCell>
                     </TableRow>
@@ -381,13 +387,13 @@ const TierManagement = () => {
               <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{textTransform:"none"}}>Business Name</TableCell>
-                    <TableCell sx={{textTransform:"none"}}>CROP Id</TableCell>
-                    <TableCell sx={{textTransform:"none"}}>Status</TableCell>
-                    <TableCell sx={{textTransform:"none"}}>Tier</TableCell>
-                    <TableCell sx={{textTransform:"none"}}>Offered CROPS</TableCell>
-                    <TableCell sx={{textTransform:"none"}}>Last Change Date</TableCell>
-                    <TableCell sx={{textTransform:"none"}}>Change Tier</TableCell>
+                    <TableCell sx={{textTransform:"none", width:"100px"}}>Business Name</TableCell>
+                    <TableCell sx={{textTransform:"none", width:"100px"}}>ID</TableCell>
+                    <TableCell sx={{textTransform:"none", width:"100px"}}>Status</TableCell>
+                    <TableCell sx={{textTransform:"none", width:"100px"}}>Tier</TableCell>
+                    <TableCell sx={{textTransform:"none", width:"100px"}}>Offered CROPs</TableCell>
+                    <TableCell sx={{textTransform:"none", width:"100px"}}>Last Change Date</TableCell>
+                    <TableCell sx={{textTransform:"none", width:"100px"}}>Change Tier</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -395,19 +401,19 @@ const TierManagement = () => {
                     <TableRow
                       hover
                       key={'business' + row._id}
-                      sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
+                      sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 }, width:"100px" }}
                     >
                       <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
+                          <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important'}}>
                             {row.businessName}
                           </Typography>
                           {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
                           <Typography variant='caption'>{row.designation}</Typography>
                         </Box>
                       </TableCell>
-                      <TableCell>{row.cropId}</TableCell>
-                      <TableCell>
+                      <TableCell sx={{width:"100px"}}>{row.cropId}</TableCell>
+                      <TableCell sx={{width:"100px"}}>
                         <Chip
                           label={row.status}
                           // color={statusObj[row.status].color}
@@ -420,13 +426,13 @@ const TierManagement = () => {
                           }}
                         />
                       </TableCell>
-                      <TableCell>{row.tier}</TableCell>
-                      <TableCell>
-                     {row?.croppoint}                     
+                      <TableCell sx={{width:"100px"}}>{row.tier}</TableCell>
+                      <TableCell sx={{width:"100px"}}>
+                     {row?.croppoint.toFixed(2)}                     
                     </TableCell>
-                      <TableCell>{new Date(row.tierChangeDate).toLocaleDateString()}</TableCell>
+                      <TableCell>{moment(new Date(row.tierChangeDate)).format('DD/MM/YYYY')}</TableCell>
 
-                      <TableCell>
+                      <TableCell sx={{width:"100px"}}>
                         <ChangeAccountTier user={row._id} type='business' />
                       </TableCell>
                       {/* <TableCell>{'view active offers'}</TableCell> */}

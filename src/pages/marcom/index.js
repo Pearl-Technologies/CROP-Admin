@@ -30,7 +30,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 const FormLayouts = () => {
   return (
-    <>
+    <div style={{height:400}}>
       {/* <Accordion>
         <AccordionSummary expandIcon={<ArrowDownBoldCircle />} aria-controls='panel1a-content' id='panel1a-header'>
           <Typography>Account Notifications</Typography>
@@ -56,7 +56,7 @@ const FormLayouts = () => {
         </AccordionDetails>
       </Accordion> */}
       <FormLayoutsSeparator />
-    </>
+    </div>
   )
 }
 

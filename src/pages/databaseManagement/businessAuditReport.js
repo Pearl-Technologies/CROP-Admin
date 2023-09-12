@@ -13,7 +13,7 @@ import TableContainer from '@mui/material/TableContainer'
 import Spinner from '../databaseManagement/spinner';
 import axios from 'axios'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+import moment from 'moment'
 const BusinessAuditReport = ({}) => {
   const router = useRouter()
   const { q } = router.query
@@ -34,7 +34,11 @@ const BusinessAuditReport = ({}) => {
   const getAuditReport=()=>{
     setADStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getBusinessAuditReport`)
+      .post(`${process.env.HOST}/api/admin/getBusinessAuditReport`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         setBusinessAuditData(response.data.auditReport)
         setADStatus(false)
@@ -72,7 +76,7 @@ const BusinessAuditReport = ({}) => {
                 {myAuditData?.map(row => {
                   return (
                     <TableRow hover role='checkbox' tabIndex={-1} key={row._id}>
-                      <TableCell>{new Date(row.date).toLocaleDateString()}</TableCell>
+                      <TableCell>{moment(new Date(row.date)).format('DD/MM/YYYY')}</TableCell>
                       <TableCell>{row.description}</TableCell>
                       
                     </TableRow>

@@ -16,13 +16,13 @@ import Tabs from '@mui/material/Tabs'
 import axios from 'axios'
 import { left } from '@popperjs/core'
 import Switch from '@mui/material/Switch'
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import Select from '@mui/material/Select'
 const label = { inputProps: { 'aria-label': 'Switch demo' } }
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
-import Spinner from '../databaseManagement/spinner';
+import MenuItem from '@mui/material/MenuItem'
+import TextField from '@mui/material/TextField'
+import Spinner from '../databaseManagement/spinner'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { useRouter } from 'next/router'
 const statusObj = {
@@ -31,7 +31,7 @@ const statusObj = {
   active: { color: 'primary' },
   resigned: { color: 'warning' },
   professional: { color: 'success' },
-  published: { color: 'success' }
+  scheduled: { color: 'success' }
 }
 
 const OfferAndPromoManagement = () => {
@@ -41,16 +41,16 @@ const OfferAndPromoManagement = () => {
   const [ccStatus, setccStatus] = useState(false)
   const [value, setValue] = React.useState('one')
   const [selectedOption, setSelectedOption] = useState('Earn CROPs')
-  const [productCategory, setProductCategory] = React.useState('None');
-  const[zipCode, setZipCode] = useState();
-  const router= useRouter();
-  
+  const [productCategory, setProductCategory] = React.useState('None')
+  const [zipCode, setZipCode] = useState()
+  const router = useRouter()
+
   // const fetchDetails = () => {
   //   axios
   //     .post(`${process.env.HOST}/api/admin/getAllProduct`)
   //     .then(function (response) {
   //       // handle success
-  //       
+  //
   //       setProductData(response.data.productList)
   //     })
   //     .catch(function (error) {
@@ -66,25 +66,40 @@ const OfferAndPromoManagement = () => {
   const fetchMostPopularProductDetails = () => {
     setccStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllMostPopularProduct?mktFor=${productCategory}&apply=${selectedOption}`)
+      .post(
+        `${process.env.HOST}/api/admin/getAllMostPopularProduct?mktFor=${productCategory}&apply=${selectedOption}`,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+      )
       .then(function (response) {
         // handle success
-        
+
         setMostPopularProductData(response.data.productList)
-        setccStatus(false);
+        setccStatus(false)
       })
       .catch(function (error) {
         // handle error
         console.log(error)
       })
   }
-  const handleNearMeProduct = (event) => {
+  const handleNearMeProduct = event => {
     setccStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllProductByZipCode`, {zipCode:zipCode, apply:selectedOption})
+      .post(
+        `${process.env.HOST}/api/admin/getAllProductByZipCode`,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        },
+        { zipCode: zipCode, apply: selectedOption }
+      )
       .then(function (response) {
         // handle success
-        
+
         setPromoProductData(response.data.productList)
         setccStatus(false)
       })
@@ -106,9 +121,9 @@ const OfferAndPromoManagement = () => {
       .get(`${process.env.HOST}/api/admin/getBusinessProductRatedAll?applyType=${type}`)
       .then(function (response) {
         // handle success
-        
+
         setProductData(response.data.productCommentsAndRatings)
-        setccStatus(false);
+        setccStatus(false)
       })
       .catch(function (error) {
         // handle error
@@ -121,10 +136,10 @@ const OfferAndPromoManagement = () => {
     fetchMostPopularProductDetails()
     fetchStarRatingProducts()
   }, [value, selectedOption, productCategory, zipCode])
-  
+
   return (
     <>
-    <ArrowBackIcon sx={{cursor:'pointer', marginRight:"auto"}} onClick={()=>router.back()}/>
+      <ArrowBackIcon sx={{ cursor: 'pointer', marginRight: 'auto' }} onClick={() => router.back()} />
       <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <h3 style={{ margin: '2px 2px 0px 10px' }}>Offer and Promo Management</h3>
         <div style={{ display: 'flex' }}>
@@ -137,7 +152,7 @@ const OfferAndPromoManagement = () => {
         </div>
       </div>
       <Card>
-      {ccStatus && <Spinner/>}
+        {ccStatus && <Spinner />}
         <Box sx={{ width: '100%' }}>
           <Tabs
             value={value}
@@ -146,26 +161,31 @@ const OfferAndPromoManagement = () => {
             indicatorColor='secondary'
             aria-label='secondary tabs example'
           >
-            <Tab value='one' label={selectedOption === "Earn CROPs"? "Most Popular":"Most Recommended"} />
+            <Tab value='one' label={selectedOption === 'Earn CROPs' ? 'Most Popular' : 'Recommended'} />
             <Tab value='two' label='Star Rating' />
             <Tab value='three' label='Near Me' />
             {/* <Tab value='four' label='All Other Product' /> */}
-            </Tabs>
-          
-{value == 'one' &&<FormControl>              
-              <Select
-                value={productCategory}
-                onChange={(e)=>setProductCategory(e.target.value)}
-              >
-                <MenuItem value={"topRank"}>Top Rank</MenuItem>
-                <MenuItem value={"promo"}>Promo</MenuItem>
-                <MenuItem value={"None"}>None</MenuItem>
+          </Tabs>
+
+          {value == 'one' && (
+            <FormControl>
+              <Select value={productCategory} onChange={e => setProductCategory(e.target.value)}>
+                <MenuItem value={'topRank'}>Top Rank</MenuItem>
+                <MenuItem value={'promo'}>Promo</MenuItem>
+                <MenuItem value={'None'}>None</MenuItem>
               </Select>
-            </FormControl>}
-            {value == 'three' &&<FormControl>              
-            <TextField label="Zip Code" variant="outlined" value={zipCode} onChange={(event)=>setZipCode(event.target.value)}/>
-            </FormControl>}           
-            
+            </FormControl>
+          )}
+          {value == 'three' && (
+            <FormControl>
+              <TextField
+                label='Zip Code'
+                variant='outlined'
+                value={zipCode}
+                onChange={event => setZipCode(event.target.value)}
+              />
+            </FormControl>
+          )}
         </Box>
 
         {value == 'one' && (

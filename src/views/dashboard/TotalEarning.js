@@ -56,7 +56,11 @@ const TotalEarning = () => {
   let HOST = process.env.HOST
 
   useEffect(()=>{
-   axios.get(`${HOST}/api/admin/getSalesDetails`)
+   axios.get(`${HOST}/api/admin/getSalesDetails`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('token')}`
+    }
+   })
     .then((res)=>{
       let data = res.data.data;
       
@@ -168,7 +172,7 @@ const TotalEarning = () => {
                   <Typography variant='body2' sx={{ mb: 2, fontWeight: 600, color: 'text.primary' }}>
                     ${item.totalPrice.toFixed(2)}
                   </Typography>
-                  <LinearProgress color={item.color} value={item.progress} variant='determinate' />
+                  
                 </Box>
               </Box>
             </Box>

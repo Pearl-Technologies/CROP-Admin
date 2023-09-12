@@ -53,7 +53,11 @@ const AccountManagement = () => {
   const fetchCustomerCropTrasaction = () => {
     setccStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomer`)
+      .post(`${process.env.HOST}/api/admin/getAllCustomer`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
        
@@ -69,7 +73,11 @@ const AccountManagement = () => {
   const fetchBusinessCropTrasaction = () => {
     setbcStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllBusiness`)
+      .post(`${process.env.HOST}/api/admin/getAllBusiness`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         
@@ -102,7 +110,11 @@ const AccountManagement = () => {
   const fetchBusinessDetails = () => {
     setbiStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllBusiness`)
+      .post(`${process.env.HOST}/api/admin/getAllBusiness`,{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(function (response) {
         // handle success
         
@@ -118,7 +130,11 @@ const AccountManagement = () => {
   const fetchCustomerDetails = () => {
     setciStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomer`)
+      .post(`${process.env.HOST}/api/admin/getAllCustomer`, {
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+      })
       .then(function (response) {
         // handle success
        
@@ -184,7 +200,7 @@ const AccountManagement = () => {
        <div style={{ display: 'flex', gap: 2, margin:0}}>
       <Switch
         {...label}
-        defaultChecked
+        defaultChecked color="default"
         onChange={() => setSelectedOption(x => {
           x==="Customer Transactions"? setValue('four'):setValue("one")
           return(x === 'Customer Transactions' ? 'Business Transactions' : 'Customer Transactions')})}
@@ -207,8 +223,8 @@ const AccountManagement = () => {
                   indicatorColor='secondary'
                   aria-label='secondary tabs example'
                 >
-                  <Tab value='one' label='CROP' />
-                  <Tab value='two' label='PROP' />
+                  <Tab value='one' label='CROP' sx={{ textTransform: 'none' }}/>
+                  <Tab value='two' label='PROP' sx={{ textTransform: 'none' }}/>
                   <Tab value='three' label='Invoice' />
                 </Tabs>
               </Box>
@@ -224,14 +240,15 @@ const AccountManagement = () => {
                       <TableRow>
                         <TableCell>Customer Name</TableCell>
                         <TableCell>CROP ID</TableCell>
-                        <TableCell>{'CROP'}</TableCell>
+                        {/* <TableCell>{'CROP'}</TableCell> */}
+                        <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {customerCropData.map((item, index) => {
                         return (
-                          <TableRow hover sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                            <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important`}}>
+                          <TableRow hover key={'customerCropData'+index}sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                            <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important`, width:"400px" }}>
                               <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                                 <Avatar variant='rounded-circle' 
                                 src={
@@ -252,17 +269,12 @@ const AccountManagement = () => {
                                 </Typography>
                               </Box>
                             </TableCell>
-                            <TableCell>
+                            <TableCell sx={{width:"400px"}}>
                             {item?.cropid} 
                             </TableCell>
                             <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerCrop(item._id)}>
                               <img width='10px' src={'/images/crop2.png'} alt='crop logo' /> {item.croppoints.toFixed(2)}
-                              <LinearProgress
-                                color={item.color}
-                                value={item.progress}
-                                variant='determinate'
-                                style={{ width: '80px' }}
-                              />
+                             
                             </TableCell>
                           </TableRow>
                         )
@@ -283,14 +295,15 @@ const AccountManagement = () => {
                       <TableRow>
                         <TableCell>Customer Name</TableCell>
                         <TableCell>CROP ID</TableCell>
-                        <TableCell>{'PROP'}</TableCell>
+                        {/* <TableCell>{'PROP'}</TableCell> */}
+                        <TableCell sx={{ textTransform: 'none' }}>PROPs</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {customerCropData.map((item, index) => {
                         return (
-                          <TableRow hover sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                            <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                          <TableRow hover key={'customer_crop_data'+index} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                            <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important`, width:"400px"}}>
                               <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                                 <Avatar variant='rounded-circle'
                                 src={
@@ -310,17 +323,11 @@ const AccountManagement = () => {
                                 </Typography>
                               </Box>
                             </TableCell>
-                            <TableCell>
+                            <TableCell sx={{width:"400px"}}>
                               {item?.cropid} 
                             </TableCell>
                             <TableCell sx={{ cursor: 'pointer' }} onClick={() => showCustomerProp(item._id)}>
-                              <img width='10px' src={'/images/crop2.png'} alt='crop logo' /> {item.proppoints.toFixed(2)}
-                              <LinearProgress
-                                color={item.color}
-                                value={item.progress}
-                                variant='determinate'
-                                style={{ width: '80px' }}
-                              />
+                              <img width='20px' height={"15px"} src={'/images/prop.png'} alt='crop logo' /> {item.proppoints.toFixed(2)}
                             </TableCell>
                           </TableRow>
                         )
@@ -350,7 +357,7 @@ const AccountManagement = () => {
                           key={'customer' + row._id}
                           sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
                         >
-                          <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                          <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important`, width:"400px" }}>
                             <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                               <Avatar
                                 variant='rounded-circle'
@@ -418,7 +425,7 @@ const AccountManagement = () => {
                       <TableRow>
                         <TableCell>Business Name</TableCell>
                         <TableCell> CROP ID</TableCell>
-                        <TableCell>{'CROP'}</TableCell>
+                        <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -427,7 +434,7 @@ const AccountManagement = () => {
                           <TableRow hover 
                           key={'businessCrop' + item._id}
                           sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                            <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                            <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important`, width:"400px" }}>
                               <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                                 <Avatar
                                   variant='rounded-circle'
@@ -449,18 +456,13 @@ const AccountManagement = () => {
                                 </Typography>
                               </Box>
                             </TableCell>
-                            <TableCell >          
+                            <TableCell sx={{width:"400px"}}>          
                               {item.cropId}
                             </TableCell>
-                            <TableCell sx={{ cursor: 'pointer', display:"flex", gap:2 }} onClick={() => showBusinessCrop(item._id)}>
-                              <img height='20px' src={'/images/crop.png'} alt='crop logo' />
-                              <Typography>{item.croppoint.toFixed(2)}</Typography> 
-                              {/* <LinearProgress
-                                color={item.color}
-                                value={item.progress}
-                                variant='determinate'
-                                style={{ width: '80px' }}
-                              /> */}
+                            <TableCell sx={{ cursor: 'pointer'}} onClick={() => showBusinessCrop(item._id)}>
+                              <img width='10px' src={'/images/crop2.png'} alt='crop logo' />
+                              {" "}{item.croppoint.toFixed(2)}
+                              
                             </TableCell>
                           </TableRow>
                         )
@@ -490,7 +492,7 @@ const AccountManagement = () => {
                           key={'business' + row._id}
                           sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
                         >
-                          <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                          <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important`, width:"400px" }}>
                             <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                               <Avatar
                                 variant='rounded-circle'

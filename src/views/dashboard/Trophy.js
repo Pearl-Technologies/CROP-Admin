@@ -63,7 +63,7 @@ const Trophy = () => {
         // handle success
         
         if(response?.data?.data?.length == 0){
-          setUserName("No business Found")
+          setUserName("None")
         }
         else{
         //  setUserName(response?.data?.data[0]?.fName+" "+response?.data?.data[0]?.mName+" "+response?.data?.data[0]?.lName)
@@ -83,7 +83,7 @@ const Trophy = () => {
         <Typography variant='body2' sx={{ letterSpacing: '0.25px' }}>
         Employee of the Month
         </Typography>
-        <Typography variant='h5' sx={{ my: 4, color: 'primary.main' }}>
+        <Typography variant='h5' >
           {/* 98% SLA */}
           {userName}
         </Typography>
