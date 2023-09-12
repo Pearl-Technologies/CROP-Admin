@@ -236,7 +236,7 @@ const CropMilestone = () => {
               <form onSubmit={e => e.preventDefault()}>
                 <Grid container spacing={1}>
                   <Grid item xs={6}>
-                    <h5 style={{ marginLeft: 'auto' }}> 1 PROP (default)</h5>
+                    <h5 style={{ marginLeft: 'auto' }}> 1 PROPs (default)</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
                     <TextField
@@ -247,7 +247,7 @@ const CropMilestone = () => {
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <h5 style={{ marginLeft: 'auto' }}> 1 PROP (purchase)</h5>
+                    <h5 style={{ marginLeft: 'auto' }}> 1 PROPs (purchase)</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
                     <TextField
@@ -280,12 +280,12 @@ const CropMilestone = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Card>
-            <CardHeader title='CROP' titleTypographyProps={{ variant: 'h6' }} />
+            <CardHeader title='CROPs' titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
                 <Grid container spacing={1}>
                   <Grid item xs={6}>
-                    <h5 style={{ marginLeft: 'auto' }}> 1 CROP (default)</h5>
+                    <h5 style={{ marginLeft: 'auto' }}> 1 CROPs (default)</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
                     <TextField
@@ -296,7 +296,7 @@ const CropMilestone = () => {
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <h5 style={{ marginLeft: 'auto' }}> 1 CROP (purchase)</h5>
+                    <h5 style={{ marginLeft: 'auto' }}> 1 CROPs (purchase)</h5>
                   </Grid>
                   <Grid item xs={6} spacing={2}>
                     <TextField
@@ -335,7 +335,7 @@ const CropMilestone = () => {
                 <form onSubmit={e => e.preventDefault()} style={{height:"380px", overflow:"auto", padding:"10px"}}>
                   <Grid container spacing={2}>
                     <Grid item xs={12} spacing={1}>
-                      <h5 style={{ marginLeft: 'auto', width:"80px", display:"inline-block" }}> CROP 5k</h5>
+                      <h5 style={{ marginLeft: 'auto', width:"80px", display:"inline-block" }}> CROPs 5k</h5>
                       <TextField
                         label='Base'
                         value={milestoneValue.first.base}
@@ -362,7 +362,7 @@ const CropMilestone = () => {
                       />
                     </Grid>
                     <Grid item xs={12} spacing={2}>
-                      <h5 style={{ marginLeft: 'auto', width:"80px", display:"inline-block" }}> CROP 10k</h5>
+                      <h5 style={{ marginLeft: 'auto', width:"80px", display:"inline-block" }}> CROPs 10k</h5>
                       <TextField
                         label='Base'
                         value={milestoneValue.second.base}
@@ -389,7 +389,7 @@ const CropMilestone = () => {
                       />
                     </Grid>
                     <Grid item xs={12} spacing={2}>
-                      <h5 style={{ marginLeft: 'auto', display:"inline-block", width:"80px" }}> CROP 25k</h5>
+                      <h5 style={{ marginLeft: 'auto', display:"inline-block", width:"80px" }}> CROPs 25k</h5>
                       <TextField
                         label='Base'
                         value={milestoneValue.third.base}
@@ -418,7 +418,7 @@ const CropMilestone = () => {
                     <Grid item xs={12} spacing={6}>
                       <h5 style={{ marginLeft: 'auto', display:"inline-block",width:"80px"}} xs={6} title='multiple of props/5k crops after 25k crops'>
                         {' '}
-                        CROP 25k Plus{' '}
+                        CROPs 25k Plus{' '}
                       </h5>
                       <TextField
                         label='Base'

@@ -489,12 +489,14 @@ const Request = () => {
                     sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
                   >
                     <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', cursor: 'pointer' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                        <Typography style={{display:"flex",width:"150px"}}>
+                        <span style={{marginTop:"7px"}}>R - </span>
                           <CustomerModal user={row} />
                         </Typography>
                       </Box>
                     </TableCell>
+                    
                     <TableCell>{new Date(Date(row.createdAt)).toLocaleDateString()}</TableCell>
                     <TableCell>{row.description}</TableCell>
                     <TableCell>{row.requestType}</TableCell>
@@ -563,8 +565,10 @@ const Request = () => {
                     sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
                   >
                     <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
+                     
                       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important', cursor: 'pointer' }}>
+                        <Typography style={{display:"flex",width:"150px"}}>
+                        <span style={{marginTop:"7px"}}>R - </span>
                           <BusinessModal user={row} />
                         </Typography>
                       </Box>

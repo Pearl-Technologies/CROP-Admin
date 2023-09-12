@@ -110,7 +110,7 @@ const ViewTransaction = () => {
                       <Typography>{retainTionFivePercent.toFixed(2)}</Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography>{totalToPayForProduct.toFixed(2)}</Typography>
+                      <Typography>{totalForProduct.toFixed(2)}</Typography>
                     </TableCell>
                   </TableRow>
                 )
@@ -120,7 +120,7 @@ const ViewTransaction = () => {
                   <Typography></Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography>Total ToPay</Typography>
+                  <Typography>Total To Pay</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography>{pay_to_business}</Typography>

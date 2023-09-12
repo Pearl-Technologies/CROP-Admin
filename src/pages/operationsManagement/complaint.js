@@ -94,7 +94,6 @@ const Complaint = () => {
         data: data
       })
         .then(function (response) {
-          
           setUpdateStatus(false)
           setMessage(response.data)
           setResponseCode(response.status)
@@ -303,12 +302,12 @@ const Complaint = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Number</TableCell>
-                  <TableCell>Date</TableCell>
-                  <TableCell title='DESCRIPTION'>DESC</TableCell>
-                  <TableCell title='Expectation Outcomes'>Exp OC</TableCell>
-                  <TableCell>Type</TableCell>
+                  <TableCell>Date Raised</TableCell>
+                  <TableCell title='DESCRIPTION'>Type</TableCell>
+                  {/* <TableCell title='Expectation Outcomes'>Exp OC</TableCell> */}
+                  <TableCell>Type with Details</TableCell>
                   <TableCell title='Preferred Contact Medium'>PCM</TableCell>
-                  <TableCell>Modified</TableCell>
+                  <TableCell>Modified with Actioned</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Response</TableCell>
                 </TableRow>
@@ -321,16 +320,16 @@ const Complaint = () => {
                     sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
                   >
                     <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
-                      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
-                          {/* {row.complainNumber} */}
+                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                        <Typography style={{display:"flex",width:"150px"}}>
+                        <span style={{marginTop:"7px"}}>C - </span>
                           <CustomerModal user={row} />
                         </Typography>
                       </Box>
                     </TableCell>
                     <TableCell>{new Date(Date(row.createdAt)).toLocaleDateString()}</TableCell>
                     <TableCell>{row.description}</TableCell>
-                    <TableCell>{row.expectedOutcoms}</TableCell>
+                    {/* <TableCell>{row.expectedOutcoms}</TableCell> */}
                     <TableCell>{row.complainType}</TableCell>
                     <TableCell>{row.preferredMediumContact}</TableCell>
                     <TableCell>{new Date(Date(row.complainUpdateDate)).toLocaleDateString()}</TableCell>
@@ -368,12 +367,12 @@ const Complaint = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Number</TableCell>
-                  <TableCell>Date</TableCell>
-                  <TableCell title='DESCRIPTION'>DESC</TableCell>
-                  <TableCell title='Expectation Outcomes'>Exp OC</TableCell>
-                  <TableCell>Type</TableCell>
+                  <TableCell>Date Raised</TableCell>
+                  <TableCell title='DESCRIPTION'>Type</TableCell>
+                  {/* <TableCell title='Expectation Outcomes'>Exp OC</TableCell> */}
+                  <TableCell>Type with Details</TableCell>
                   <TableCell title='Preferred Contact Medium'>PCM</TableCell>
-                  <TableCell>Modified</TableCell>
+                  <TableCell>Modified with Actioned</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Response</TableCell>
                 </TableRow>
@@ -384,20 +383,18 @@ const Complaint = () => {
                     hover
                     key={'businessComplain' + row._id}
                     sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}
-                  >
+                    >
                     <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Typography sx={{ fontWeight: 500, fontSize: '0.875rem !important' }}>
-                          {/* {row.complainNumber} */}
-                          <BusinessModal user={row} />
+                        <Typography style={{display:"flex",width:"150px"}}>
+                        <span style={{marginTop:"7px"}}>C - </span>
+                          <CustomerModal user={row} />
                         </Typography>
-                        {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
-                        {/* <Typography variant='caption'>{row.designation}</Typography> */}
                       </Box>
                     </TableCell>
                     <TableCell>{new Date(Date(row.createdAt)).toLocaleDateString()}</TableCell>
                     <TableCell>{row.description}</TableCell>
-                    <TableCell>{row.expectedOutcoms}</TableCell>
+                    {/* <TableCell>{row.expectedOutcoms}</TableCell> */}
                     <TableCell>{row.complainType}</TableCell>
                     <TableCell>{row.preferredMediumContact}</TableCell>
                     <TableCell>{new Date(Date(row.complainUpdateDate)).toLocaleDateString()}</TableCell>

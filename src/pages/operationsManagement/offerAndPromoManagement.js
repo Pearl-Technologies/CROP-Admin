@@ -260,7 +260,7 @@ const OfferAndPromoManagement = () => {
                   <TableCell>Rating</TableCell>
                   <TableCell>Likes</TableCell>
                   <TableCell>AUD</TableCell>
-                  <TableCell>CROPs</TableCell>
+                  <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
                   {/* <TableCell>Bid AUD</TableCell> */}
                   <TableCell>From</TableCell>
                   <TableCell>To</TableCell>
@@ -346,7 +346,7 @@ const OfferAndPromoManagement = () => {
                   <TableCell>Rating</TableCell>
                   <TableCell>Likes</TableCell>
                   <TableCell>AUD</TableCell>
-                  <TableCell>CROPs</TableCell>
+                  <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
                   <TableCell>Bid AUD</TableCell>
                   <TableCell>From</TableCell>
                   <TableCell>To</TableCell>
@@ -431,7 +431,7 @@ const OfferAndPromoManagement = () => {
                   <TableCell>Rating</TableCell>
                   <TableCell>Likes</TableCell>
                   <TableCell>AUD</TableCell>
-                  <TableCell>CROPs</TableCell>
+                  <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
                   <TableCell>From</TableCell>
                   <TableCell>To</TableCell>
                   <TableCell>Status</TableCell>
@@ -511,7 +511,7 @@ const OfferAndPromoManagement = () => {
                   <TableCell>Rating</TableCell>
                   <TableCell>Likes</TableCell>
                   <TableCell>AUD</TableCell>
-                  <TableCell>CROPs</TableCell>
+                  <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Action</TableCell>
                 </TableRow>
