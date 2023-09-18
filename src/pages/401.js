@@ -52,7 +52,7 @@ const Error401 = () => {
           </Button>
         </Link>
       </Box>
-      <FooterIllustrations />
+      {/* <FooterIllustrations /> */}
     </Box>
   )
 }

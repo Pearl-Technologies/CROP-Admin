@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import Chip from '@mui/material/Chip'
 import Table from '@mui/material/Table'
 import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
@@ -9,94 +8,24 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
-import { Select, MenuItem, InputLabel } from '@mui/material'
-import axios from 'axios'
 import Grid from '@mui/material/Grid'
 import Avatar from '@mui/material/Avatar'
-import IconButton from '@mui/material/IconButton'
-import CardHeader from '@mui/material/CardHeader'
-import CardContent from '@mui/material/CardContent'
-import LinearProgress from '@mui/material/LinearProgress'
-import ArrowUpDropCircleOutline from 'mdi-material-ui/ArrowUpDropCircleOutline'
-import ArrowDownDropCircleOutline from 'mdi-material-ui/ArrowDownDropCircleOutline'
-import CustomerTransitionsModal from './customerMotal'
-import CardMedia from '@mui/material/CardMedia'
-import CropDetails from './cropDetails'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 // ** Icons Imports
 import Spinner from '../databaseManagement/spinner'
-import DotsVertical from 'mdi-material-ui/DotsVertical'
 import { useRouter } from 'next/router'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import Switch from '@mui/material/Switch'
+import {AdminContext} from '../../@core/context/adminContest'
+import PaginationComponent from 'src/components/pagination'
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } }
 
 const AccountManagement = () => {
   const router = useRouter()
-  const [businessData, setBusinessData] = useState([])
-  const [customerData, setCustomerData] = useState([])
-  const [ccStatus, setccStatus] = useState(false)
-  const [cpStatus, setcpStatus] = useState(false)
-  const [bcStatus, setbcStatus] = useState(false)
-  const [ciStatus, setciStatus] = useState(false)
-  const [biStatus, setbiStatus] = useState(false)
-  const [customerCropData, setCustomerCropData] = useState([])
-  const [customerPropData, setCustomerPropData] = useState([])
-  const [businessCropData, setBusinessCropData] = useState([])
-  const [customerAccountBalanceData, setCustomerAccountBalanceData] = useState([])
-  const [businessAccountBalanceData, setBusinessAccountBalanceData] = useState([])
-  const [selectedOption, setSelectedOption] = useState('Customer Transactions')
-  const [selectedCustomerOpt, setSelectedCustomerOpt] = useState('')
-  const [selectedBusinessOpt, setSelectedBusinessOpt] = useState('')
-  const fetchCustomerCropTrasaction = () => {
-    setccStatus(true)
-    axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomer`,{
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-      .then(function (response) {
-        // handle success
-       
-        setCustomerCropData(response.data.customers)
-        setccStatus(false)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
-        setccStatus(false)
-      })
-  }
-  const fetchBusinessCropTrasaction = () => {
-    setbcStatus(true)
-    axios
-      .post(`${process.env.HOST}/api/admin/getAllBusiness`,{
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-      .then(function (response) {
-        // handle success
-        
-        setBusinessCropData(response.data.businesses)
-        setbcStatus(false)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
-        setbcStatus(false)
-      })
-  }
-
-  useEffect(() => {
-    fetchCustomerCropTrasaction()
-    fetchBusinessCropTrasaction()
-    fetchBusinessDetails()
-    fetchCustomerDetails()
-  }, [])
+  const {AMTvalue:value, setAMTValue: setValue, customerData, customerCount, setPage, page, cdStatus, 
+    bdStatus, setBPage, businessCount, businessData, selectedOption, setSelectedOption, bPage} = useContext(AdminContext)
 
   const showCustomerCrop = x => {
     router.push(`/accountManagement/cropDetails?q=${x}`)
@@ -107,89 +36,12 @@ const AccountManagement = () => {
   const showBusinessCrop = x => {
     router.push(`/accountManagement/businessCropDetails?q=${x}`)
   }
-  const fetchBusinessDetails = () => {
-    setbiStatus(true)
-    axios
-      .post(`${process.env.HOST}/api/admin/getAllBusiness`,{
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-      .then(function (response) {
-        // handle success
-        
-        setBusinessData(response.data.businesses)
-        setbiStatus(false)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
-        setbiStatus(false)
-      })
-  }
-  const fetchCustomerDetails = () => {
-    setciStatus(true)
-    axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomer`, {
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-      })
-      .then(function (response) {
-        // handle success
-       
-        setCustomerData(response.data.customers)
-        setciStatus(false)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
-        setciStatus(false)
-      })
-  }
   const showCustomerInvoice = x => {
     router.push(`/accountManagement/customerInvoiceDetails?q=${x}`)
   }
   const showBusinessInvoice = x => {
     router.push(`/accountManagement/businessInvoiceDetails?q=${x}`)
   }
-
-  const RenderOptions = () => {
-    return (
-      <Select
-        sx={{ margin: 5 }}
-        value={selectedOption}
-        onChange={e => {
-          // setSelectedOption()
-          
-          setSelectedOption(e.target.value)
-        }}
-      >
-        <MenuItem value='customerData'>Customer Data</MenuItem>
-        <MenuItem value='businessData'>Business Data</MenuItem>
-      </Select>
-    )
-  }
-
-  const RenderCustomerOptions = () => {
-    return (
-      <Select
-        sx={{ margin: 5 }}
-        value={selectedCustomerOpt}
-        onChange={e => {
-          // setSelectedOption()
-          
-          setSelectedCustomerOpt(e.target.value)
-        }}
-      >
-        <MenuItem value='customerCrops'>Customer CROPs</MenuItem>
-        <MenuItem value='customerProps'>Customer PROPs</MenuItem>
-        <MenuItem value='customerInvoices'>Customer Invoices</MenuItem>
-      </Select>
-    )
-  }
-
-  const [value, setValue] = React.useState('one')
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -202,18 +54,18 @@ const AccountManagement = () => {
         {...label}
         defaultChecked color="default"
         onChange={() => setSelectedOption(x => {
-          x==="Customer Transactions"? setValue('four'):setValue("one")
-          return(x === 'Customer Transactions' ? 'Business Transactions' : 'Customer Transactions')})}
+          x==="Customer Data"? setValue('four'):setValue("one")
+          return(x === 'Customer Data' ? 'Business Data' : 'Customer Data')})}
       />
-      <p style={{marginTop:8, fontWeight:"bold"}}>{selectedOption}</p>
+      <p style={{marginTop:8, fontWeight:"bold"}}>{selectedOption==="Customer Data" ? "Customer Transactions" : "Business Transactions"}</p>
       </div>
 
-      {selectedOption === 'Customer Transactions' ? (
+      {selectedOption === 'Customer Data' ? (
         <>
           <Grid item sm={12}>
-            {ccStatus && value === 'one' && <Spinner />}
-            {ccStatus && value === 'two' && <Spinner />}
-            {ciStatus && value === 'three' && <Spinner />}
+            {cdStatus && value === 'one' && <Spinner />}
+            {cdStatus && value === 'two' && <Spinner />}
+            {cdStatus && value === 'three' && <Spinner />}
             <Card>
               <Box sx={{ width: '100%' }}>
                 <Tabs
@@ -245,7 +97,7 @@ const AccountManagement = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {customerCropData.map((item, index) => {
+                      {customerData.map((item, index) => {
                         return (
                           <TableRow hover key={'customerCropData'+index}sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
                             <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important`, width:"400px" }}>
@@ -281,6 +133,7 @@ const AccountManagement = () => {
                       })}
                     </TableBody>
                   </Table>
+                  <PaginationComponent count={customerCount} limit={10} callback={setPage} page={page}/>
                 </TableContainer>
               )}
               {value === 'two' && (
@@ -300,7 +153,7 @@ const AccountManagement = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {customerCropData.map((item, index) => {
+                      {customerData.map((item, index) => {
                         return (
                           <TableRow hover key={'customer_crop_data'+index} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
                             <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important`, width:"400px"}}>
@@ -334,6 +187,7 @@ const AccountManagement = () => {
                       })}
                     </TableBody>
                   </Table>
+                  <PaginationComponent count={customerCount} limit={10} callback={setPage} page={page}/>
                 </TableContainer>
               )}
               {value === 'three' && (
@@ -388,6 +242,7 @@ const AccountManagement = () => {
                       ))}
                     </TableBody>
                   </Table>
+                  <PaginationComponent count={customerCount} limit={10} callback={setPage} page={page}/>
                 </TableContainer>
               )}
             </Card>
@@ -397,8 +252,8 @@ const AccountManagement = () => {
         <>
           {/* business crop */}
           <Grid item xs={12}>
-            {bcStatus && value === 'four' && <Spinner />}
-            {biStatus && value === 'five' && <Spinner />}
+            {bdStatus && value === 'four' && <Spinner />}
+            {bdStatus && value === 'five' && <Spinner />}
             <Card>
               <Box sx={{ width: '100%' }}>
                 <Tabs
@@ -429,7 +284,7 @@ const AccountManagement = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {businessCropData.map((item, index) => {
+                      {businessData.map((item, index) => {
                         return (
                           <TableRow hover 
                           key={'businessCrop' + item._id}
@@ -469,6 +324,7 @@ const AccountManagement = () => {
                       })}
                     </TableBody>
                   </Table>
+                  <PaginationComponent count={businessCount} limit={10} callback={setBPage} page={bPage}/>
                 </TableContainer>
               )}
               {value === 'five' && (
@@ -513,8 +369,6 @@ const AccountManagement = () => {
                               >
                                 {row?.businessName}
                               </Typography>
-                              {/* <CardMedia component='img' height='50' image={row.image} alt='Paella dish' /> */}
-                              {/* <Typography variant='caption'>{row.designation}</Typography> */}
                             </Box>
                           </TableCell>
 
@@ -525,6 +379,7 @@ const AccountManagement = () => {
                       ))}
                     </TableBody>
                   </Table>
+                  <PaginationComponent count={businessCount} limit={10} callback={setBPage} page={bPage}/>
                 </TableContainer>
               )}
             </Card>

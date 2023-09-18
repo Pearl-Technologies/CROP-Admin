@@ -3,7 +3,7 @@ const webpack = require("webpack")
 // require('./')
 
 const {parsed: myEnv} =require('dotenv').config({
-  path: "./.env"
+  path: "./.env.local"
 })
 module.exports = {
   trailingSlash: true,

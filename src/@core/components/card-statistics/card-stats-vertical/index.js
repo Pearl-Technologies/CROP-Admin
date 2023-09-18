@@ -14,7 +14,7 @@ const CardStatsVertical = props => {
   const { title, subtitle, color, icon, stats, trend, trendNumber } = props
 
   return (
-    <Card>
+    <Card style={{height:178}}>
       <CardContent>
         <Box sx={{ display: 'flex', marginBottom: 5.5, alignItems: 'flex-start', justifyContent: 'space-between' }}>
           <Avatar sx={{ boxShadow: 3, marginRight: 4, color: 'common.white', backgroundColor: `${color}.main` }}>

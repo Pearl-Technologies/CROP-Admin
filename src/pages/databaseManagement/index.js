@@ -31,6 +31,8 @@ import Switch from '@mui/material/Switch'
 import Search from 'src/components/search'
 import moment from 'moment'
 import { AdminContext } from 'src/@core/context/adminContest'
+import PaginationComponent from 'src/components/pagination'
+import { set } from 'nprogress'
 
 const style = {
   position: 'absolute',
@@ -47,7 +49,6 @@ const style = {
 }
 const label = { inputProps: { 'aria-label': 'Switch demo' } }
 
-
 const statusObj = {
   presuspended: { color: 'info' },
   deactivated: { color: 'error' },
@@ -62,8 +63,19 @@ const Database = () => {
   // const [businessData, setBusinessData] = useState([])
   // const [cdStatus, setCDStatus] = useState(false)
   // const [bdStatus, setBDStatus] = useState(false)
-  const {selectedOption, setSelectedOption, customerData, businessData, cdStatus, bdStatus} = useContext(AdminContext)
-  
+  const {
+    selectedOption,
+    setSelectedOption,
+    customerData,
+    businessData,
+    cdStatus,
+    bdStatus,
+    setPage,
+    customerCount,
+    businessCount,
+    setBPage
+  } = useContext(AdminContext)
+
   const showCustomerCrop = x => {
     router.push(`/accountManagement/cropDetails?q=${x}`)
   }
@@ -92,7 +104,7 @@ const Database = () => {
   const fetchCustomerDetails = () => {
     setCDStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomer`,{
+      .post(`${process.env.HOST}/api/admin/getAllCustomer`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -256,18 +268,18 @@ const Database = () => {
                           }}
                         >
                           <Grid item sm={2}>
-                            {data.line1 &&<p style={{ fontWeight: 'bold' }}>Line1 </p>}
-                            {data.line2 &&<p style={{ fontWeight: 'bold' }}>Line2 </p>}
-                            {data.line3 &&<p style={{ fontWeight: 'bold' }}>Line3 </p>}
-                            {data.state &&<p style={{ fontWeight: 'bold' }}>State </p>}
+                            {data.line1 && <p style={{ fontWeight: 'bold' }}>Line1 </p>}
+                            {data.line2 && <p style={{ fontWeight: 'bold' }}>Line2 </p>}
+                            {data.line3 && <p style={{ fontWeight: 'bold' }}>Line3 </p>}
+                            {data.state && <p style={{ fontWeight: 'bold' }}>State </p>}
                             {<p style={{ fontWeight: 'bold' }}>Pin </p>}
                           </Grid>
                           <Grid item sm={10}>
-                            {data.line1 &&<p>:{data.line1}</p>}
-                            {data.line2 &&<p>:{data.line2}</p>}
-                            {data.line3 &&<p>:{data.line3}</p>}
-                            {data.state &&<p>:{data.state}</p>}
-                            {data.pin &&<p>:{data.pin}</p>}
+                            {data.line1 && <p>:{data.line1}</p>}
+                            {data.line2 && <p>:{data.line2}</p>}
+                            {data.line3 && <p>:{data.line3}</p>}
+                            {data.state && <p>:{data.state}</p>}
+                            {data.pin && <p>:{data.pin}</p>}
                           </Grid>
                         </Grid>
                       </Grid>
@@ -284,9 +296,8 @@ const Database = () => {
                   borderRadius: '10px',
                   border: '1px solid #c1c1c1',
                   paddingLeft: '10px',
-                  listStyleType:"none"
+                  listStyleType: 'none'
                 }}
-                
               >
                 {user.loyaltyProgram &&
                   user.loyaltyProgram.map((data, i) => (
@@ -349,7 +360,7 @@ const Database = () => {
                       style={{ marginTop: '15px' }}
                       label='Gender'
                       variant='outlined'
-                      value={user.gender ? user.gender.charAt(0).toUpperCase() + user.gender.substring(1):""}
+                      value={user.gender ? user.gender.charAt(0).toUpperCase() + user.gender.substring(1) : ''}
                     />
                     <TextField
                       style={{ marginTop: '15px' }}
@@ -410,13 +421,13 @@ const Database = () => {
                       style={{ marginTop: '15px' }}
                       label='Customer Signup date'
                       variant='outlined'
-                      value={moment(user.signUpDate).format("DD/MM/YYYY")}
+                      value={moment(user.signUpDate).format('DD/MM/YYYY')}
                     />
                     <TextField
                       style={{ marginTop: '15px' }}
                       label='Last Tier Change Date'
                       variant='outlined'
-                      value={moment(new Date(user?.TierChangeDate)).format("DD/MM/YYYY")}
+                      value={moment(new Date(user?.TierChangeDate)).format('DD/MM/YYYY')}
                     />
                   </Grid>
                 </Grid>
@@ -457,7 +468,7 @@ const Database = () => {
                   </Grid>
                 </div>
               ))}
-            <div style={{ display: 'flex', flexDirection: 'start', marginLeft: '327px', gap:"30px"}}>
+            <div style={{ display: 'flex', flexDirection: 'start', marginLeft: '327px', gap: '30px' }}>
               <div>
                 <h3>Interests</h3>
                 <div
@@ -509,7 +520,7 @@ const Database = () => {
   const fetchBusinessDetails = () => {
     setBDStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllBusiness`,{
+      .post(`${process.env.HOST}/api/admin/getAllBusiness`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -535,8 +546,8 @@ const Database = () => {
     router.push(`/databaseManagement/businessProductRated?q=${x}`)
   }
   // useEffect(() => {
-    // fetchCustomerDetails()
-    // fetchBusinessDetails()
+  // fetchCustomerDetails()
+  // fetchBusinessDetails()
   // }, [])
 
   return (
@@ -544,7 +555,8 @@ const Database = () => {
       <div style={{ display: 'flex', gap: 2 }}>
         <Switch
           {...label}
-          defaultChecked color="secondary"
+          defaultChecked
+          color='secondary'
           sx={{ marginTop: 3 }}
           onChange={() => setSelectedOption(x => (x === 'Customer Data' ? 'Business Data' : 'Customer Data'))}
         />
@@ -556,7 +568,7 @@ const Database = () => {
       {selectedOption == 'Customer Data' ? (
         <Grid item xs={12}>
           <Card>
-            <TableContainer sx={{ height: '420px' }}>
+            <TableContainer sx={{ height: '350px' }}>
               {/* <h4 style={{ marginLeft: '20px' }}>Customer Data</h4> */}
 
               {cdStatus ? (
@@ -685,6 +697,7 @@ const Database = () => {
                   </TableBody>
                 </Table>
               )}
+              <PaginationComponent count={customerCount} limit={10} callback={setPage}/>
             </TableContainer>
           </Card>
         </Grid>
@@ -808,6 +821,7 @@ const Database = () => {
                   </TableBody>
                 </Table>
               )}
+              <PaginationComponent count={businessCount} limit={10} callback={setBPage}/>
             </TableContainer>
           </Card>
         </Grid>

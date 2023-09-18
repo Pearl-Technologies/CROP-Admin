@@ -85,7 +85,7 @@ const Trophy = () => {
         </Typography>
         <Typography variant='h5' >
           {/* 98% SLA */}
-          {userName}
+          {'pradeep'}
         </Typography>
         <Button size='small' variant='contained'>
         View Performance

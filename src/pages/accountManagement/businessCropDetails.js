@@ -45,11 +45,11 @@ const businessCropDetails = ({}) => {
   const getAllOrders=()=>{
     setODStatus(true);
     axios
-      .post(`${process.env.HOST}/api/admin/getBusinessCropStatement`,{
+      .post(`${process.env.HOST}/api/admin/getBusinessCropStatement`,{businessId:q},{
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`
         }
-      }, {businessId:q})
+      })
       .then(function (response) {
         // handle success
         
@@ -78,6 +78,7 @@ const businessCropDetails = ({}) => {
                   <TableRow>                  
                       <TableCell> Date</TableCell>
                       <TableCell> Order Number</TableCell>
+                      <TableCell> Amount</TableCell>
                       <TableCell> Description</TableCell>
                       <TableCell> Debit</TableCell>                  
                       <TableCell> Credit</TableCell>                  
@@ -88,7 +89,8 @@ const businessCropDetails = ({}) => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id}>
                         <TableCell>{moment(new Date(row?.createdAt)).format("DD/MM/YYYY")}</TableCell>
-                        <TableCell>{row?.payment?.transactionId}</TableCell>
+                        <TableCell>{row?.orders?.number}</TableCell>
+                        <TableCell>{row?.item.tempPrice}</TableCell>
                         <TableCell>{row?.desc}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{(row.type === "Earn Crop") ? row.item.cropRulesWithBonus.toFixed(2):""}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{(row.type === "Redeem Crop") ? row.item.cropRulesWithBonus.toFixed(2):""}</TableCell>

@@ -102,7 +102,7 @@ const TotalEarning = () => {
           </IconButton>
         }
       />
-      <CardContent sx={{ pt: theme => `${theme.spacing(2.25)} !important`, height:"355px"}}>
+      <CardContent sx={{ pt: theme => `${theme.spacing(2.25)} !important`, height:"310px"}}>
         <Box sx={{ mb: 1.5, display: 'flex', alignItems: 'center' }}>
           <Typography variant='h4' sx={{ fontWeight: 600, fontSize: '2.125rem !important' }}>
            ${currentStats.toFixed(2)}

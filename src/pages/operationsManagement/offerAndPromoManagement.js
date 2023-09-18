@@ -42,7 +42,7 @@ const OfferAndPromoManagement = () => {
   const [value, setValue] = React.useState('one')
   const [selectedOption, setSelectedOption] = useState('Earn CROPs')
   const [productCategory, setProductCategory] = React.useState('None')
-  const [zipCode, setZipCode] = useState()
+  const [zipCode, setZipCode] = useState(3000)
   const router = useRouter()
 
   // const fetchDetails = () => {
@@ -90,11 +90,11 @@ const OfferAndPromoManagement = () => {
     axios
       .post(
         `${process.env.HOST}/api/admin/getAllProductByZipCode`,
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-        },
+        // {
+        //   headers: {
+        //     authorization: `Bearer ${localStorage.getItem('token')}`
+        //   }
+        // },
         { zipCode: zipCode, apply: selectedOption }
       )
       .then(function (response) {
@@ -136,6 +136,7 @@ const OfferAndPromoManagement = () => {
     fetchMostPopularProductDetails()
     fetchStarRatingProducts()
   }, [value, selectedOption, productCategory, zipCode])
+  
 
   return (
     <>
@@ -168,7 +169,7 @@ const OfferAndPromoManagement = () => {
           </Tabs>
 
           {value == 'one' && (
-            <FormControl>
+            <FormControl sx={{m:1}}>
               <Select value={productCategory} onChange={e => setProductCategory(e.target.value)}>
                 <MenuItem value={'topRank'}>Top Rank</MenuItem>
                 <MenuItem value={'promo'}>Promo</MenuItem>
@@ -177,7 +178,7 @@ const OfferAndPromoManagement = () => {
             </FormControl>
           )}
           {value == 'three' && (
-            <FormControl>
+            <FormControl sx={{m:1}}>
               <TextField
                 label='Zip Code'
                 variant='outlined'
@@ -498,7 +499,7 @@ const OfferAndPromoManagement = () => {
                         }}
                       />
                     </TableCell>
-                    <TableCell>{row?.slot}</TableCell>
+                    {/* <TableCell>{row?.slot}</TableCell> */}
                     <TableCell sx={{ cursor: 'pointer' }}>
                       <Chip
                         label={'Delete'}

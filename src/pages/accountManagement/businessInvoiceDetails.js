@@ -30,11 +30,11 @@ const BusinessInvoiceDetails = ({}) => {
   const getAllOrders=()=>{
     setInvoiceStatus(true);
     axios
-      .post(`${process.env.HOST}/api/admin/findBusinessInvoice`,{
+      .post(`${process.env.HOST}/api/admin/findBusinessInvoice`,{user:q},{
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`
         }
-      }, {user:q})
+      }, )
       .then(function (response) {
         // handle success
         
@@ -74,7 +74,7 @@ const BusinessInvoiceDetails = ({}) => {
                   {myInvoiceData.map(row => {
                     return (
                       <TableRow hover role='checkbox' tabIndex={-1} key={"orderDetails"+row._id.$oid}>
-                        <TableCell>{moment(new Date(row.createdAt).format('DD/MM/YYYY'))}</TableCell>
+                        <TableCell>{moment(new Date(row.createdAt)).format('DD/MM/YYYY')}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row?.number}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row?.description}</TableCell>
                         <TableCell style={{textAlign:"left"}}>{row?.amount}</TableCell>

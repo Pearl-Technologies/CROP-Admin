@@ -16,7 +16,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios'
 import moment from 'moment'
 const AuditReport = ({}) => {
-  const productData = require('../../db/admin_audits.json')
   const router = useRouter()
   const { q } = router.query
 

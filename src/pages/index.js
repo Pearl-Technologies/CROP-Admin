@@ -18,7 +18,7 @@ import StatisticsCard from 'src/views/dashboard/StatisticsCard'
 import MarketSlots from 'src/views/dashboard/MarketSlot'
 import WeeklyOverview from 'src/views/dashboard/WeeklyOverview'
 
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import axios from 'axios'
 const Dashboard = () => {

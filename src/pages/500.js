@@ -61,7 +61,7 @@ const Error500 = () => {
           </Button>
         </Link>
       </Box>
-      <FooterIllustrations image={<TreeIllustration alt='tree' src='/images/pages/tree-3.png' />} />
+      {/* <FooterIllustrations image={<TreeIllustration alt='tree' src='/images/pages/tree-3.png' />} /> */}
     </Box>
   )
 }

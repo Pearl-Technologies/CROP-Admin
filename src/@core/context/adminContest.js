@@ -4,17 +4,22 @@ import React, { createContext, useState, useEffect } from 'react'
 export const AdminContext = createContext()
 
 export default function AdminProvider({ children }) {
-  const [searchId, setSearchId] = useState()
+  const [searchId, setSearchId] = useState('')
   const [selectedOption, setSelectedOption] = useState('Customer Data')
   const [customerData, setCustomerData] = useState([])
   const [businessData, setBusinessData] = useState([])
   const [cdStatus, setCDStatus] = useState(false)
   const [bdStatus, setBDStatus] = useState(false)
-  
+  const [AMTvalue, setAMTValue] = useState('one');
+  const [page, setPage] = useState(1)
+  const [bPage, setBPage] = useState(1)
+  const [customerCount, setCustomerCount] = useState(10)
+  const [businessCount, setBusinessCount] = useState(10)
+
   const fetchCustomerDetails = () => {
     setCDStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomer`, {
+      .post(`${process.env.HOST}/api/admin/getAllCustomer`, {page}, {
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -22,6 +27,7 @@ export default function AdminProvider({ children }) {
       .then(function (response) {
         // handle success
         setCustomerData(response.data.customers)
+        setCustomerCount(response.data.customerCount)
         setCDStatus(false)
       })
       .catch(function (error) {
@@ -33,7 +39,7 @@ export default function AdminProvider({ children }) {
   const fetchBusinessDetails = () => {
     setBDStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllBusiness`, {
+      .post(`${process.env.HOST}/api/admin/getAllBusiness`,{page:bPage}, {
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -41,6 +47,7 @@ export default function AdminProvider({ children }) {
       .then(function (response) {
         // handle success
         setBusinessData(response.data.businesses)
+        setBusinessCount(response.data.businessesCount)
         setBDStatus(false)
       })
       .catch(function (error) {
@@ -105,7 +112,7 @@ useEffect(()=>{
   }else{
     fetchBusinessDetails()
   }
-},[selectedOption])
+},[selectedOption, page, bPage])
 
 useEffect(()=>{
     getCustomerByCropId()
@@ -119,7 +126,15 @@ useEffect(()=>{
         customerData, 
         businessData, 
         cdStatus, 
-        bdStatus     
+        bdStatus,
+        AMTvalue, 
+        setAMTValue,
+        page,
+        setPage,
+        customerCount,
+        setBPage,     
+        businessCount,
+        bPage
         }}>
       {children}
     </AdminContext.Provider>
