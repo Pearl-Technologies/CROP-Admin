@@ -93,7 +93,7 @@ useEffect(()=>{
           alt='profile img'
           onClick={handleDropdownOpen}
           sx={{ width: 40, height: 40 }}
-          src={`${process.env.HOST}/api/products/image/${profileImage}`}
+          src={profileImage ? `${process.env.HOST}/api/products/image/${profileImage}`:"./images/avatars/profile.jpg"}
         />
       </Badge>
       <Menu

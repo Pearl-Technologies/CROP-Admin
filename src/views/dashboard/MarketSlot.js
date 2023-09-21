@@ -25,15 +25,15 @@ import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 import { Stack } from '@mui/joy'
 import { Input } from '@mui/icons-material'
-import TextField from '@mui/material/TextField';
+import TextField from '@mui/material/TextField'
 import { LocalizationProvider, DatePicker } from '@mui/lab'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import { Calendar, DateObject } from "react-multi-date-picker"
-import DatePickerHeader from "react-multi-date-picker/plugins/date_picker_header"
-import DatePanel from "react-multi-date-picker/plugins/date_panel"
-import multiColors from "react-multi-date-picker/plugins/colors"
-import Settings from "react-multi-date-picker/plugins/settings"
-import Toolbar from "react-multi-date-picker/plugins/toolbar"
+import { Calendar, DateObject } from 'react-multi-date-picker'
+import DatePickerHeader from 'react-multi-date-picker/plugins/date_picker_header'
+import DatePanel from 'react-multi-date-picker/plugins/date_panel'
+import multiColors from 'react-multi-date-picker/plugins/colors'
+import Settings from 'react-multi-date-picker/plugins/settings'
+import Toolbar from 'react-multi-date-picker/plugins/toolbar'
 const dateObject = new DateObject()
 
 const toDateObject = day => new DateObject(dateObject).setDay(day)
@@ -41,54 +41,54 @@ const toDateObject = day => new DateObject(dateObject).setDay(day)
 const colors = {
   green: [2, 10, 17].map(toDateObject),
   amber: [5, 6, 14].map(toDateObject),
-  red: [13, 19, 25].map(toDateObject),
+  red: [13, 19, 25].map(toDateObject)
   // yellow: [15, 22, 28].map(toDateObject)
 }
 Object.keys(colors).forEach(color => {
   colors[color].forEach((date, index) => {
-      colors[color][index].color = color
+    colors[color][index].color = color
   })
 })
-const initialProps ={
+const initialProps = {
   value: [
     ...colors.green,
     ...colors.amber,
-    ...colors.red,
+    ...colors.red
     // ...colors.yellow
-  ], 
+  ],
   multiple: true
 }
 
 function DatePickerPlugins() {
   const [props, setProps] = useState(initialProps)
-  const isRTL = ["fa", "ar"].includes(props.locale?.name?.split?.("_")?.[1])
+  const isRTL = ['fa', 'ar'].includes(props.locale?.name?.split?.('_')?.[1])
 
   return (
-    <div 
-      style={{ 
-        display: "flex", 
-        justifyContent: "center" 
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center'
       }}
     >
       <Calendar
         {...props}
         plugins={[
-          // <DatePickerHeader 
-          //   position="top" 
-          //   size="medium" 
+          // <DatePickerHeader
+          //   position="top"
+          //   size="medium"
           // />,
           // <DatePanel
           //   position={isRTL ? "left" : "right"}
           //   sort="date"
           //   eachDaysInRange={!props.onlyMonthPicker && !props.onlyYearPicker}
           // />,
-          multiColors({ position: isRTL ? "right" : "left" }),
-          // <Settings 
-          //   position="bottom" 
-          //   defaultActive="locale" 
+          multiColors({ position: isRTL ? 'right' : 'left' })
+          // <Settings
+          //   position="bottom"
+          //   defaultActive="locale"
           // />,
-          // <Toolbar 
-          //   position="bottom" 
+          // <Toolbar
+          //   position="bottom"
           // />
         ]}
       />
@@ -96,15 +96,14 @@ function DatePickerPlugins() {
   )
 }
 
-const renderStats = (market, slot, date) => {
+const renderStats = (date) => {
   const [slots, setSlots] = useState([])
-  let  filteredData =[]
   const getSlots = () => {
     axios
-      .get(`${process.env.HOST}/api/admin/getSlot`)
+      .get(`${process.env.HOST}/api/admin/getSlot/${moment(date).format('YYYY-MM-DD')}`)
       .then(function (response) {
         // handle success
-        
+
         setSlots(response.data.allSlot)
       })
       .catch(function (error) {
@@ -112,63 +111,50 @@ const renderStats = (market, slot, date) => {
         console.log(error)
       })
   }
-  if(market && slot && date){
-    filteredData = slots.filter(x => (x.publishedAs === market && x.publishingSlot === slot && x.published_start_date===date))
-  }else if(market && slot){
-    filteredData =slots.filter(x => (x.publishedAs === market && x.publishingSlot === slot))
-  }else if(market && date){
-    filteredData = slots.filter(x => (x.publishedAs === market && x.published_start_date===date))
-  }else if(slot && date){
-    filteredData = slots.filter(x => (x.publishingSlot === slot && x.published_start_date===date))
-  }else if(market){
-    filteredData = slots.filter(x => (x.publishedAs === market))
-  }else if(slot){
-    filteredData =slots.filter(x => (x.publishingSlot === slot))
-  }else if(date){
-    filteredData = slots.filter(x => (x.published_start_date===date))
-  }
   useEffect(() => {
     getSlots()
   }, [])
-  
+
   return (
     <>
-      {filteredData.length
-        ? filteredData.map(data => (
-              <Grid item xs={12} sm={3}>
-                {/* <Box sx={{ display: 'flex', alignItems: 'center'}}> */}
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    border: 1,
-                    p: 2,
-                    m: 1,
-                    // backgroundColor: `${
-                    //   moment(data.bid_end_date) > moment().subtract(1, 'day') ? '#56CA00' : '#ef5350'
-                    // }`,
-                    backgroundColor: "#bad6e3",
-                    borderRadius: 2,
-                    textAlign: 'center'
-                  }}
-                >
-                  <Typography variant='caption' color={'black'} fontWeight={'bold'}>
-                    {data.publishingSlot[0].toUpperCase() + data.publishingSlot.substr(1)}{' '}
-                    {data.publishedAs === 'topRank' ? 'Top Rank' : data.publishedAs === 'Promo'?'Promo':'Combo'} {'Slot'}
-                  </Typography>
-                  <Typography variant='caption' color={'black'}>
-                    From: {data.published_start_date}
-                  </Typography>
-                  <Typography variant='caption' color={'black'}>
-                    To: {data.published_end_date}
-                  </Typography>
-                  <Typography variant='caption' color={'black'}>
-                    Bid End Date: {data.bid_end_date}
-                  </Typography>
-                </Box>
-                {/* </Box> */}
-              </Grid>
-            ))
+
+      {slots?.length
+        ? slots.map(data => (
+            <Grid item xs={12} sm={3}>
+              {/* <Box sx={{ display: 'flex', alignItems: 'center'}}> */}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  border: 1,
+                  p: 2,
+                  m: 1,
+                  // backgroundColor: `${
+                  //   moment(data.bid_end_date) > moment().subtract(1, 'day') ? '#56CA00' : '#ef5350'
+                  // }`,
+                  backgroundColor: '#bad6e3',
+                  borderRadius: 2,
+                  textAlign: 'center'
+                }}
+              >
+                <Typography variant='caption' color={'black'} fontWeight={'bold'}>
+                  {data.publishingSlot[0].toUpperCase() + data.publishingSlot.substr(1)}{' '}
+                  {data.publishedAs === 'topRank' ? 'Top Rank' : data.publishedAs === 'Promo' ? 'Promo' : 'Combo'}{' '}
+                  {'Slot'}
+                </Typography>
+                <Typography variant='caption' color={'black'}>
+                  From: {data.published_start_date}
+                </Typography>
+                <Typography variant='caption' color={'black'}>
+                  To: {data.published_end_date}
+                </Typography>
+                <Typography variant='caption' color={'black'}>
+                  Bid End Date: {data.bid_end_date}
+                </Typography>
+              </Box>
+              {/* </Box> */}
+            </Grid>
+          ))
         : ' no record found'}
     </>
   )
@@ -177,9 +163,8 @@ const renderStats = (market, slot, date) => {
 const MarketSlots = () => {
   const [market, setMarket] = React.useState('')
   const [slots, setSlots] = React.useState('')
-  const [date, setDate] = React.useState(false)
   const [selected, setSelected] = React.useState()
-
+  const [date, setDate] = React.useState(new Date().toLocaleDateString())
   const handleChange = event => {
     setMarket(event.target.value)
   }
@@ -191,13 +176,18 @@ const MarketSlots = () => {
   if (selected) {
     footer = <p>You picked {format(selected, 'PP')}.</p>
   }
-  
+
   return (
     <Card>
-      <CardHeader 
+      <CardHeader
         title='Market Slots'
         action={
-          <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}/>
+          <IconButton
+            size='small'
+            aria-label='settings'
+            className='card-more-options'
+            sx={{ color: 'text.secondary' }}
+          />
         }
         titleTypographyProps={{
           sx: {
@@ -233,11 +223,16 @@ const MarketSlots = () => {
           <MenuItem value={'monthly'}>Monthly</MenuItem>
         </Select>
       </FormControl> */}
-      <TextField type="date" onChange={(e)=>setDate(e.target.value)} value={date} sx={{ ml: 3, px:2 }} />
       {/* <DatePickerPlugins/> */}
+      <TextField
+        type='date'
+        onChange={e => setDate(e.target.value)}
+        value={moment(date).format('YYYY-MM-DD')}
+        sx={{ ml: 3, px: 2 }}
+      />
       <CardContent sx={{ pt: theme => `${theme.spacing(3)} !important` }}>
         <Grid container spacing={[5, 0]}>
-          {renderStats(market, slots, date)}
+          {renderStats(date)}
         </Grid>
       </CardContent>
     </Card>

@@ -27,7 +27,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import moment from 'moment'
-
+import { useContext } from 'react'
+import { AdminContext } from 'src/@core/context/adminContest'
+import PaginationComponent from 'src/components/pagination'
+import Spinner from 'src/pages/databaseManagement/spinner'
 
 const statusObj = {
   presuspended: { color: 'info' },
@@ -40,10 +43,11 @@ const label = { inputProps: { 'aria-label': 'Switch demo' } }
 
 const TierManagement = () => {
   const router = useRouter()
-  const [customerData, setCustomerData] = useState([])
-  const [businessData, setBusinessData] = useState([])
+  // const [customerData, setCustomerData] = useState([])
+  // const [businessData, setBusinessData] = useState([])
   const [message, setMessage] = useState('')
-  const [selectedOption, setSelectedOption] = useState('Customer Data')
+  // const [selectedOption, setSelectedOption] = useState('Customer Data')
+  const {customerData, businessData, page, setPage, bPage, setBPage, selectedOption, setSelectedOption, customerCount, businessCount, cdStatus, bdStatus} = useContext(AdminContext)
 
   const fetchCustomerDetails = () => {
     axios
@@ -298,10 +302,10 @@ const TierManagement = () => {
       </div>
     )
   }
-  useEffect(() => {
-    fetchCustomerDetails()
-    fetchBusinessDetails()
-  }, [message])
+  // useEffect(() => {
+  //   fetchCustomerDetails()
+  //   fetchBusinessDetails()
+  // }, [message])
 
   return (
     <Grid container spacing={2}>
@@ -321,6 +325,7 @@ const TierManagement = () => {
           <Card>
             <TableContainer sx={{ height: 420 }}>
               <h4 style={{ marginLeft: '15px' }}>Customer Data</h4>
+              {cdStatus && <Spinner/>}
               <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
                 <TableHead>
                   <TableRow>
@@ -376,6 +381,7 @@ const TierManagement = () => {
                   ))}
                 </TableBody>
               </Table>
+              <PaginationComponent limit={10} page={page} count={customerCount} callback={setPage}/>
             </TableContainer>
           </Card>
         </Grid>
@@ -383,6 +389,7 @@ const TierManagement = () => {
         <Grid item xs={12}>
           <Card>
             <TableContainer sx={{height:420}}>
+            {bdStatus && <Spinner/>}
               <h4 style={{ marginLeft: '15px' }}>Business Data</h4>
               <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
                 <TableHead>
@@ -440,6 +447,7 @@ const TierManagement = () => {
                   ))}
                 </TableBody>
               </Table>
+              <PaginationComponent page={bPage} callback={setBPage} count={businessCount} limit={10}/>
             </TableContainer>
           </Card>
         </Grid>

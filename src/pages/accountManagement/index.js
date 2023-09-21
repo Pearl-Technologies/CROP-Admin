@@ -86,7 +86,6 @@ const AccountManagement = () => {
                     sx={{ minWidth: 800 }}
                     aria-label='table in dashboard'
                     stickyHeader
-                    style={{ border: '1px solid #F4F5FA' }}
                   >
                     <TableHead>
                       <TableRow>
@@ -142,7 +141,6 @@ const AccountManagement = () => {
                     sx={{ minWidth: 800 }}
                     aria-label='table in dashboard'
                     stickyHeader
-                    style={{ border: '1px solid #F4F5FA' }}
                   >
                     <TableHead>
                       <TableRow>
@@ -196,7 +194,6 @@ const AccountManagement = () => {
                     sx={{ minWidth: 800 }}
                     aria-label='table in dashboard'
                     stickyHeader
-                    style={{ border: '1px solid #F4F5FA' }}
                   >
                     <TableHead>
                       <TableRow>
@@ -274,7 +271,6 @@ const AccountManagement = () => {
                     sx={{ minWidth: 800 }}
                     aria-label='table in dashboard'
                     stickyHeader
-                    style={{ border: '1px solid #F4F5FA' }}
                   >
                     <TableHead>
                       <TableRow>
@@ -333,7 +329,6 @@ const AccountManagement = () => {
                     sx={{ minWidth: 800 }}
                     aria-label='table in dashboard'
                     stickyHeader
-                    style={{ border: '1px solid #F4F5FA' }}
                   >
                     <TableHead>
                       <TableRow>

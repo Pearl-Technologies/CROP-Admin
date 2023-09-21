@@ -515,12 +515,12 @@ const Request = () => {
                     <TableCell>{row.preferredMediumContact}</TableCell>
                     <TableCell>{new Date(Date(row.requestUpdateDate)).toLocaleDateString()}</TableCell>
                     <TableCell>{row.requestStatus}</TableCell>
-                    <TableCell>{row.requestResponse}</TableCell>
-                    <TableCell style={{ gap: '5px' }}>
-                      <Button size='small' variant='contained' style={{ margin: '2px' }}>
+                    <TableCell sx={{width:"400px"}}>{row.requestResponse}</TableCell>
+                    <TableCell style={{ gap: '5px', width:"200px" }}>
+                      <Button size='small' variant='outlined' style={{ margin: '2px' }}>
                         Yes
                       </Button>
-                      <Button size='small' variant='contained' style={{ margin: '2px' }}>
+                      <Button size='small' variant='outlined' style={{ margin: '2px' }}>
                         No
                       </Button>
                     </TableCell>
@@ -543,9 +543,7 @@ const Request = () => {
                 aria-label='settings'
                 className='card-more-options'
                 sx={{ color: 'text.secondary' }}
-              >
-                {/* <DotsVertical /> */}
-              </IconButton>
+              />
             }
           />
 
@@ -592,12 +590,12 @@ const Request = () => {
                     <TableCell>{row.preferredMediumContact}</TableCell>
                     <TableCell>{new Date(row.requestUpdateDate).toLocaleDateString()}</TableCell>
                     <TableCell>{row.requestStatus}</TableCell>
-                    <TableCell>{row.requestResponse}</TableCell>
-                    <TableCell style={{ gap: '5px' }}>
-                      <Button size='small' variant='contained' style={{ margin: '2px' }}>
+                    <TableCell sx={{width:"400px"}}>{row.requestResponse}</TableCell>
+                    <TableCell style={{ gap: '5px', width:"200px" }}>
+                      <Button size='small' variant='outlined' style={{ margin: '2px' }}>
                         Yes
                       </Button>
-                      <Button size='small' variant='contained' style={{ margin: '2px' }}>
+                      <Button size='small' variant='outlined' style={{ margin: '2px' }}>
                         No
                       </Button>
                     </TableCell>

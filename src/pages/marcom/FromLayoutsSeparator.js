@@ -53,67 +53,6 @@ const CustomInput = forwardRef((props, ref) => {
 })
 
 const FormLayoutsSeparator = () => {
-  const customer = require('../../db/users_customers.json')
-  const business = require('../../db/businesses.json')
-  const users = customer.concat(business)
-  // ** States
-  const [language, setLanguage] = useState([])
-  const [date, setDate] = useState(null)
-  const [customerData, setCustomerData] = useState();
-  const [values, setValues] = useState({
-    password: '',
-    password2: '',
-    showPassword: false,
-    showPassword2: false
-  })
-
-  // Handle Password
-  const handlePasswordChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value })
-  }
-
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
-  }
-  // useEffect(()=>{
-    
-  // },[])
-
-  const handleMouseDownPassword = event => {
-    event.preventDefault()
-  }
-
-  // Handle Confirm Password
-  const handleConfirmChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value })
-  }
-
-  const handleClickShowConfirmPassword = () => {
-    setValues({ ...values, showPassword2: !values.showPassword2 })
-  }
-
-  const handleMouseDownConfirmPassword = event => {
-    event.preventDefault()
-  }
-
-  // Handle Select
-  const handleSelectChange = event => {
-    setLanguage(event.target.value)
-  }
-  const theme = useTheme()
-  const [personName, setPersonName] = React.useState([])
-
-  const handleChange = event => {
-    const {
-      target: { value }
-    } = event
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value
-    )
-  }
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
   return (
     <Card>
 

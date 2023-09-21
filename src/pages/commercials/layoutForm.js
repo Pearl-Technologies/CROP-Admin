@@ -203,6 +203,36 @@ const layoutFrom = () => {
                 focused
               />
             </Grid>
+            <Grid item xs={4}>
+              <TextField
+                fullWidth
+                label='Local (AUD)'
+                // placeholder='Enter the value'
+                value={basePrice?.local}
+                onChange={handleChange('local')}
+                focused
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                fullWidth
+                label='Regional (AUD)'
+                // placeholder='Enter the value'
+                value={basePrice?.regional}
+                onChange={handleChange('regional')}
+                focused
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                fullWidth
+                label='National (AUD)'
+                // placeholder='Enter the value'
+                value={basePrice?.national}
+                onChange={handleChange('national')}
+                focused
+              />
+            </Grid>
           </Grid>
           <Grid item xs={12}>
               <Button size='large' type='submit' variant='contained' sx={{ width: '100%' }} onClick={updateBasePrice}>

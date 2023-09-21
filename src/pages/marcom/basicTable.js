@@ -16,6 +16,8 @@ import { Box } from '@mui/joy'
 import Switch from '@mui/material/Switch'
 import Divider from '@mui/material/Divider'
 import CardHeader from '@mui/material/CardHeader'
+import CommunicationMedium from './communicationMedium'
+import { AdminContext } from 'src/@core/context/adminContest'
 const label = { inputProps: { 'aria-label': 'Switch demo' } }
 
 export default function BasicTable() {
@@ -25,41 +27,48 @@ export default function BasicTable() {
   const [emailData, setEmailData] = React.useState([])
   const [userData, setUserData] = React.useState([])
   const [userEmailData, setUserEmailData] = React.useState([])
+  const [userMobileNums, setUserMobileNums] = React.useState([])
+  const [busMobileNums, setBusMobileNums] = React.useState([])
+  const [userAppNums, setUserAppNums] = React.useState([])
+  const [busAppNums, setBusAppNums] = React.useState([])
   const [deme, setDemo] = React.useState(false)
   const [businessNotificationContent, setBusinessNotificationContent] = React.useState('')
   const [customerNotificationContent, setCustomerNotificationContent] = React.useState('')
-  const [selectedOption, setSelectedOption] = React.useState('Customer Account')
+  // const [selectedOption, setSelectedOption] = React.useState('Customer Account')
+  const { app, sms, email, selectedOption, setSelectedOption } = React.useContext(AdminContext)
   const handleChange = prop => event => {
     setData({ ...data, [prop]: event.target.value })
   }
   const handleUserChange = prop => event => {
-    setUserData({ ...userData, [prop]: event.target.value })
+    // setUserData({ ...userData, [prop]: event.target.value })
+    setUserData({ [prop]: event.target.value })
   }
-  const fetchAllCustomerByContent = () => {
-    axios({
-      url: `${process.env.HOST}/api/admin/getAllCustomerByContent`,
-      method: 'post',
-      data: userData
-    })
-      .then(function (response) {
-        setCustomerData(response.data.customerDetails)
+  const fetchAllDetailsByContent = () => {
+    if (selectedOption == 'Customer Data') {
+      axios({
+        url: `${process.env.HOST}/api/admin/getAllCustomerByContent`,
+        method: 'post',
+        data: userData
       })
-      .catch(function (error) {
-        console.log(error.message)
+        .then(function (response) {
+          setCustomerData(response.data.customerDetails)
+        })
+        .catch(function (error) {
+          console.log(error.message)
+        })
+    } else {
+      axios({
+        url: `${process.env.HOST}/api/admin/getAllBusinessByContent`,
+        method: 'post',
+        data: data
       })
-  }
-  const fetchAllBusinessByContent = () => {
-    axios({
-      url: `${process.env.HOST}/api/admin/getAllBusinessByContent`,
-      method: 'post',
-      data: data
-    })
-      .then(function (response) {
-        setBusinessData(response.data.businessDetails)
-      })
-      .catch(function (error) {
-        console.log(error.message)
-      })
+        .then(function (response) {
+          setBusinessData(response.data.businessDetails)
+        })
+        .catch(function (error) {
+          console.log(error.message)
+        })
+    }
   }
   const handleEmailData = email => {
     setDemo(e => !e)
@@ -75,7 +84,7 @@ export default function BasicTable() {
       // emailData.push(email)
     }
   }
-  const handleUserEmailData = email => {
+  const handleUserEmailData = (email, mobNum) => {
     setDemo(e => !e)
     if (userEmailData.includes(email)) {
       // let newData = emailData
@@ -88,15 +97,22 @@ export default function BasicTable() {
       setUserEmailData(x => x.concat(email))
       // emailData.push(email)
     }
+    if (userMobileNums.includes(mobNum)) {
+      let index = userMobileNums.indexOf(mobNum)
+      userMobileNums.splice(index, 1)
+      setUserMobileNums(userEmailData)
+    } else {
+      setUserMobileNums(x => x.concat(mobNum))
+    }
   }
   const sendMassNotificationForBusiness = () => {
     axios({
       url: `${process.env.HOST}/api/admin/sendMassNotification`,
       method: 'post',
-      data: { businessNotificationContent, emailData }
+      data: { businessNotificationContent, emailData, app, sms, email }
     })
       .then(function (response) {
-        let data=response
+        let data = response
       })
       .catch(function (error) {
         console.log(error)
@@ -106,7 +122,7 @@ export default function BasicTable() {
     axios({
       url: `${process.env.HOST}/api/admin/sendMassNotification`,
       method: 'post',
-      data: { customerNotificationContent, userEmailData }
+      data: { customerNotificationContent, userEmailData, app, sms, email }
     })
       .then(function (response) {
         let data = response
@@ -118,11 +134,11 @@ export default function BasicTable() {
   const handleSelectAllUser = () => {
     if (userEmailData.length) {
       setUserEmailData([])
-      // emailData.splice(0, businessData.length);
+      setUserMobileNums([])
     } else {
       for (let i = 0; i < customerData.length; i++) {
         setUserEmailData(x => x.concat(customerData[i].email))
-        // emailData.push(businessData[i].email)
+        setUserMobileNums(x => x.concat(customerData[i].mobileNumber))
       }
     }
   }
@@ -138,23 +154,24 @@ export default function BasicTable() {
     }
   }
   React.useEffect(() => {
-    fetchAllCustomerByContent()
-    fetchAllBusinessByContent()
-  }, [data])
+    // fetchAllCustomerByContent()
+    fetchAllDetailsByContent()
+  }, [data, userData, selectedOption])
   return (
     <>
       <div style={{ display: 'flex', gap: 2 }}>
         <Switch
           {...label}
-          defaultChecked color='default'
+          defaultChecked
+          color='default'
           sx={{ marginTop: 3 }}
-          onChange={() => setSelectedOption(x => (x === 'Customer Account' ? 'Business Account' : 'Customer Account'))}
+          onChange={() => setSelectedOption(x => (x === 'Customer Data' ? 'Business Data' : 'Customer Data'))}
         />
-        <h5>{selectedOption}</h5>
+        <h5>{selectedOption === 'Customer Data' ? 'Customer Account' : 'Business Account'}</h5>
       </div>
       <CardHeader title='Marcom  (Marketing and Communication)' titleTypographyProps={{ variant: 'h6' }} />
       <Divider sx={{ margin: 0 }} />
-      {selectedOption == 'Customer Account' ? (
+      {selectedOption == 'Customer Data' ? (
         <TableContainer component={Paper} sx={{ height: 380 }}>
           {/* <h3 style={{ marginLeft: '20px' }}>Customer Account</h3> */}
           <Box margin={2}>
@@ -168,13 +185,19 @@ export default function BasicTable() {
               placeholder='Email'
               style={{ marginLeft: '2px' }}
               value={userData?.email}
-              onChange={handleChange('email')}
+              onChange={handleUserChange('email')}
             />
             <OutlinedInput
               placeholder='Address'
               style={{ marginLeft: '2px' }}
               value={userData?.address}
-              onChange={handleChange('address')}
+              onChange={handleUserChange('address')}
+            />
+            <OutlinedInput
+              placeholder='ageGroup'
+              style={{ marginLeft: '2px' }}
+              value={userData?.ageGroup}
+              onChange={handleUserChange('ageGroup')}
             />
           </Box>
           <Table sx={{ minWidth: 650 }} aria-label='simple table'>
@@ -232,6 +255,7 @@ export default function BasicTable() {
               onChange={event => setCustomerNotificationContent(event.target.value)}
             />
           </Box>
+          <CommunicationMedium />
           <CardActions>
             <div sx={{ m: 1, width: 300 }}>
               <Button type='submit' sx={{ mr: 2 }} variant='contained' onClick={sendMassNotificationForCustomer}>
@@ -327,6 +351,7 @@ export default function BasicTable() {
               onChange={event => setBusinessNotificationContent(event.target.value)}
             />
           </Box>
+          <CommunicationMedium />
           <CardActions>
             <div sx={{ m: 1, width: 300 }}>
               <Button type='submit' sx={{ mr: 2 }} variant='contained' onClick={sendMassNotificationForBusiness}>

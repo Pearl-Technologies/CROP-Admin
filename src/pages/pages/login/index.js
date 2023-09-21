@@ -25,6 +25,8 @@ import Github from 'mdi-material-ui/Github'
 import Twitter from 'mdi-material-ui/Twitter'
 import Facebook from 'mdi-material-ui/Facebook'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
+import Email from 'mdi-material-ui/EmailOutline'
+import Key from 'mdi-material-ui/KeyOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 import themeConfig from 'src/configs/themeConfig'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
@@ -32,6 +34,7 @@ import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 import LinearProgress from '@mui/material/LinearProgress'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { MenuItem } from '@mui/material'
 const Card = styled(MuiCard)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: '28rem' }
 }))
@@ -115,7 +118,7 @@ const LoginPage = () => {
         let msg = error?.response?.data?.msg
         toast.error(msg, {
           position: toast.POSITION.TOP_CENTER,
-          progressClassName: "Toastify__progress-bar--animated",
+          progressClassName: 'Toastify__progress-bar--animated'
         })
       })
   }
@@ -129,49 +132,97 @@ const LoginPage = () => {
     setValues({ ...values, ['email']: localStorage.getItem('email') })
   }, [])
   return (
-    <Box className='content-center'>
-      <ToastContainer/>
-      <Card sx={{ zIndex: 1 }}>
+    <Box
+      className='content-center'
+      style={{
+        backgroundImage: `url("/images/BG.png")`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center'
+      }}
+    >
+      <ToastContainer />
+      <Card sx={{ zIndex: 1, boxShadow: 10 }} style={{ width: '28%' }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(12, 9, 7)} !important` }}>
           <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img src='/images/logo.png' alt='logo' width='150px' />
-            <Typography
-              variant='h6'
-              sx={{
-                ml: 3,
-                lineHeight: 1,
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                fontSize: '1.5rem !important'
-              }}
-            >
-              {/* {themeConfig.templateName} */}
-            </Typography>
+            <img src='/images/logo.png' alt='logo' width='100px' />
           </Box>
-          {/* <Box sx={{ mb: 6 }}> */}
-          {/* <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
-              Welcome to {themeConfig.templateName}! 👋🏻
-            </Typography> */}
-          {/* <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography> */}
-          {/* </Box> */}
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField
-              autoFocus
-              fullWidth
-              id='email'
-              label='Email'
-              sx={{ marginBottom: 4 }}
-              onChange={handleChange('email')}
-              value={values.email}
-            />
+            <Box borderRadius={'50%'}>
+              <TextField
+                autoFocus
+                fullWidth
+                size='small'
+                id='email'
+                label='Email'
+                sx={{ marginBottom: 4, border: 'none' }}
+                onChange={handleChange('email')}
+                value={values.email}
+                InputProps={{
+                  style: {
+                    borderRadius: '20px'
+                  },
+                  startAdornment: (
+                    <InputAdornment position='start'>
+                      <Box sx={{display:"flex", gap:3}}>
+                        <Email />
+                        <svg
+                          margin_left='10'
+                          width='3'
+                          height='21'
+                          viewBox='0 0 3 21'
+                          fill='none'
+                          xmlns='http://www.w3.org/2000/svg'
+                        >
+                          <path
+                            opacity='0.43'
+                            d='M0.804917 1.2023H1.56664V20.4611H0.804917V1.2023Z'
+                            fill='#2D6192'
+                            stroke='#2D6192'
+                          />
+                        </svg>
+                      </Box>
+                    </InputAdornment>
+                  )
+                }}
+              ></TextField>
+            </Box>
+            {/* <img src="/images/login_page/Combined_shape_17.png" alt="email" width="20px"/> */}
             <FormControl fullWidth>
-              <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
-              <OutlinedInput
+              {/* <InputLabel htmlFor='auth-login-password'>Password</InputLabel> */}
+              <TextField
+                size='small'
                 label='Password'
                 value={values.password}
-                id='auth-login-password'
                 onChange={handleChange('password')}
                 type={values.showPassword ? 'text' : 'password'}
+                InputProps={{
+                  style: {
+                    borderRadius: '20px'
+                  },
+                  startAdornment: (
+                    <InputAdornment position='start'>
+                      <Box sx={{display:"flex", gap:3}}>
+                        <Key />
+                        <svg
+                          margin_left='10'
+                          width='3'
+                          height='21'
+                          viewBox='0 0 3 21'
+                          fill='none'
+                          xmlns='http://www.w3.org/2000/svg'
+                        >
+                          <path
+                            opacity='0.43'
+                            d='M0.804917 1.2023H1.56664V20.4611H0.804917V1.2023Z'
+                            fill='#2D6192'
+                            stroke='#2D6192'
+                          />
+                        </svg>
+                      </Box>
+                    </InputAdornment>
+                  )
+                }}
                 endAdornment={
                   <InputAdornment position='end'>
                     <IconButton
@@ -190,7 +241,7 @@ const LoginPage = () => {
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             >
               <FormControlLabel
-                control={<Checkbox style={{color:"#5d53d4"}}/>}
+                control={<Checkbox style={{ color: '#5d53d4' }} />}
                 label='Remember Me'
                 onClick={() => setRememberMe(remember => !remember)}
               />
@@ -200,10 +251,10 @@ const LoginPage = () => {
             </Box>
             <Button
               fullWidth
-              size='large'
+              size='small'
               // variant='contained'
-              style={{backgroundColor:"#5d53d4", color:"white"}}
-              sx={{ marginBottom: 7 }}
+              style={{ backgroundColor: '#58D1FC', color: 'white' }}
+              sx={{ marginBottom: 7, borderRadius:"20px" }}
               onClick={login}
               disabled={loginStatus}
             >
@@ -248,7 +299,13 @@ const LoginPage = () => {
           </form>
         </CardContent>
       </Card>
-      <FooterIllustrationsV1 />
+      <Card sx={{ marginLeft: '-80px' }}>
+        <CardContent sx={{ padding: theme => `${theme.spacing(12, 9, 7)} !important` }}>
+          <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img src='/images/rewardGift.png' alt='logo' height={400} />
+          </Box>
+        </CardContent>
+      </Card>
     </Box>
   )
 }

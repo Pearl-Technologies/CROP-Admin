@@ -10,20 +10,35 @@ export default function AdminProvider({ children }) {
   const [businessData, setBusinessData] = useState([])
   const [cdStatus, setCDStatus] = useState(false)
   const [bdStatus, setBDStatus] = useState(false)
-  const [AMTvalue, setAMTValue] = useState('one');
+  const [AMTvalue, setAMTValue] = useState('one')
   const [page, setPage] = useState(1)
   const [bPage, setBPage] = useState(1)
   const [customerCount, setCustomerCount] = useState(10)
   const [businessCount, setBusinessCount] = useState(10)
+  const [forceRerender, setForceRerender] = useState(false)
+  const [all, setAll] = useState(false);
+    const [sms, setSms] = useState(false);
+    const [email, setEmail] = useState(false);
+    const [app, setApp] = useState(false);
+    const [local, setLocal] = useState(false);
+    const [regional, setRegional] = useState(false);
+    const [national, setNational] = useState(false);
 
+    const handelChange =()=>{
+        setAll(x=>!x)
+    }
   const fetchCustomerDetails = () => {
     setCDStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomer`, {page}, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`
+      .post(
+        `${process.env.HOST}/api/admin/getAllCustomer`,
+        { page },
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-      })
+      )
       .then(function (response) {
         // handle success
         setCustomerData(response.data.customers)
@@ -39,11 +54,15 @@ export default function AdminProvider({ children }) {
   const fetchBusinessDetails = () => {
     setBDStatus(true)
     axios
-      .post(`${process.env.HOST}/api/admin/getAllBusiness`,{page:bPage}, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`
+      .post(
+        `${process.env.HOST}/api/admin/getAllBusiness`,
+        { page: bPage },
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-      })
+      )
       .then(function (response) {
         // handle success
         setBusinessData(response.data.businesses)
@@ -62,13 +81,16 @@ export default function AdminProvider({ children }) {
   }
   const getCustomerByCropId = () => {
     if (selectedOption == 'Customer Data') {
-        setCDStatus(true)
-      axios
-        .get(`${process.env.HOST}/api/admin/getCustomerById/${searchId}`, 
-        {headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`
-        }}
-        )
+      setCDStatus(true)
+      if (!searchId) {
+        fetchCustomerDetails()
+      } else {
+        axios
+        .get(`${process.env.HOST}/api/admin/getCustomerById/${searchId}`, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        })
         .then(function (response) {
           // handle success
           setCustomerData(response.data.customers)
@@ -78,12 +100,10 @@ export default function AdminProvider({ children }) {
           // handle error
           console.log(error)
           setCDStatus(false)
-        })
-        if(!searchId){
-            fetchCustomerDetails()
-        }
-    } else {
-        setBDStatus(true)
+        })  
+      }
+    } else {      
+      setBDStatus(true)
       axios
         .get(`${process.env.HOST}/api/admin/getBusinessById/${searchId}`, {
           headers: {
@@ -100,42 +120,68 @@ export default function AdminProvider({ children }) {
           console.log(error)
           setBDStatus(false)
         })
-        if(!searchId){
-            fetchBusinessDetails()
-        }
+      if (!searchId) {
+        fetchBusinessDetails()
+      }
     }
-
   }
-useEffect(()=>{
-  if(selectedOption == "Customer Data"){
-    fetchCustomerDetails()
-  }else{
-    fetchBusinessDetails()
-  }
-},[selectedOption, page, bPage])
+  useEffect(() => {
+    if (selectedOption == 'Customer Data') {
+      fetchCustomerDetails()
+    } else {
+      fetchBusinessDetails()
+    }
+  }, [selectedOption, page, bPage, forceRerender])
 
-useEffect(()=>{
+  useEffect(() => {
     getCustomerByCropId()
-},[searchId])
+  }, [searchId])
+      
+    useEffect(()=>{
+            setSms(all)
+            setEmail(all)
+            setApp(all)
+            setLocal(all)
+            setRegional(all)
+            setNational(all)
+    },[all])
   return (
-    <AdminContext.Provider value={{ 
-        searchId, 
-        changeSearchId, 
-        selectedOption, 
+    <AdminContext.Provider
+      value={{
+        searchId,
+        changeSearchId,
+        selectedOption,
         setSelectedOption,
-        customerData, 
-        businessData, 
-        cdStatus, 
+        customerData,
+        businessData,
+        cdStatus,
         bdStatus,
-        AMTvalue, 
+        AMTvalue,
         setAMTValue,
         page,
         setPage,
         customerCount,
-        setBPage,     
+        setBPage,
         businessCount,
-        bPage
-        }}>
+        bPage,
+        forceRerender,
+        setForceRerender,
+        all,
+        app,
+        setApp,
+        sms,
+        setSms,
+        email,
+        setEmail,
+        handelChange,
+        local,
+        regional,
+        national,
+        setLocal,
+        setNational,
+        setRegional
+      }}
+    >
       {children}
     </AdminContext.Provider>
   )

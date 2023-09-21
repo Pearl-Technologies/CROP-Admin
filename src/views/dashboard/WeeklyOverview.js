@@ -200,7 +200,7 @@ const WeeklyOverview = () => {
         }
     })
   }, [selectedDate])
-  console.log(series)
+  
   useEffect(() => {
     if (prevStats == 0) {
       setGain(true)

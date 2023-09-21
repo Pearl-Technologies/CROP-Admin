@@ -28,6 +28,9 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Avatar from '@mui/material/Avatar'
 import Switch from '@mui/material/Switch';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { AdminContext } from 'src/@core/context/adminContest'
+import { useContext } from 'react'
+import PaginationComponent from 'src/components/pagination'
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -41,33 +44,9 @@ const statusObj = {
 
 const services = () => {
   const router = useRouter()
-  // const users = require('../../db/users_customers.json')
-  // const business = require('../../db/businesses.json')
-  const [customerData, setCustomerData] = useState([])
-  const [businessData, setBusinessData] = useState([])
-  const [open, setOpen] = useState(false)
-  const [message, setMessage] = useState([])
-  const [reponseCode, setResponseCode] = useState(null)
-  const [data, setData] = useState("Customer");
-  // const handleOpen = () => setOpen(true)
+  const {customerData, businessData, page, bPage, cdStatus, bdStatus, customerCount, businessCount,         selectedOption, setSelectedOption, setBPage, setPage, setForceRerender} = useContext(AdminContext)
 
-  const fetchCustomerDetails = () => {
-    axios
-      .post(`${process.env.HOST}/api/admin/getAllCustomer`,{
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-      .then(function (response) {
-        // handle success
-        
-        setCustomerData(response.data.customers)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
-      })
-  }
+  // const handleOpen = () => setOpen(true)
 
   function ChangeAccountStatus({ user }) {
     const style = {
@@ -89,16 +68,13 @@ const services = () => {
     const handleClose = () => setOpen(false)
     const ChangeStatus = sts => {
       SetUpdateStatus(true)
-      // let formData = new FormData()
-      // formData.append('status', sts)
-      // formData.append('_id', user)
       const body = {
         status: sts,
         _id: user
       }
       axios({ method: 'post', url: `${process.env.HOST}/api/admin/updateCustomerStatus`, data: body })
         .then(function (response) {
-          setMessage(response.data)
+          setForceRerender(x=>!x)
           SetUpdateStatus(false)
           toast.success(response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
@@ -234,7 +210,7 @@ const services = () => {
       axios({ method: 'post', url: `${process.env.HOST}/api/admin/updateBusinessAccountStatus`, data: body })
         .then(function (response) {
           
-          setMessage(response.data)
+          setForceRerender(x=>!x);
           SetUpdateStatus(false)
           toast.success(response.data.msg, {
             position: toast.POSITION.TOP_CENTER,
@@ -344,38 +320,16 @@ const services = () => {
       </div>
     )
   }
-  const fetchBusinessDetails = () => {
-    axios
-      .post(`${process.env.HOST}/api/admin/getAllBusiness`,{
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-      .then(function (response) {
-        // handle success
-        
-        setBusinessData(response.data.businesses)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error)
-      })
-  }
-
-  useEffect(() => {
-    fetchCustomerDetails()
-    fetchBusinessDetails()
-  }, [message])
 
   return (
     <Grid container spacing={2}>
       <ArrowBackIcon sx={{cursor:'pointer', marginRight:"auto"}} onClick={()=>router.back()}/>
-      <Switch {...label} defaultChecked onChange={()=>setData(x=> x === "Customer" ? "Business":"Customer")}/>
-      <p style={{fontWeight:"bold", marginTop:8}}>{data} Services</p>
+      <Switch {...label} defaultChecked onChange={()=>setSelectedOption(x=> x === "Customer Data" ? "Business Data":"Customer Data")}/>
+      <p style={{fontWeight:"bold", marginTop:8}}>{selectedOption == "Customer Data" ? "Customer Services": "Business Services"}</p>
       <ToastContainer/>
       <Grid item xs={12}>
         <Card>
-          {data === "Customer" && <TableContainer sx={{ height: 450 }}>
+          {selectedOption === "Customer Data" ? <TableContainer sx={{ height: 450 }}>
             {/* <h3 style={{ marginLeft: '20px' }}>Customer Data</h3> */}
             <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
               <TableHead>
@@ -438,9 +392,9 @@ const services = () => {
                 ))}
               </TableBody>
             </Table>
-          </TableContainer>}
-          {data === "Business" &&<TableContainer sx={{ height: 450 }}>
-            {/* <h3 style={{ marginLeft: '20px' }}>Business Data</h3> */}
+            <PaginationComponent count={customerCount} limit={10} callback={setPage} page={page}/>
+          </TableContainer>:
+          <TableContainer sx={{ height: 450 }}>
             <Table stickyHeader sx={{ minWidth: 800 }} aria-label='table in dashboard'>
               <TableHead>
                 <TableRow>
@@ -507,6 +461,7 @@ const services = () => {
                 ))}
               </TableBody>
             </Table>
+            <PaginationComponent count={businessCount} limit={10} callback={setBPage} page={bPage}/>
           </TableContainer>}
         </Card>
       </Grid>

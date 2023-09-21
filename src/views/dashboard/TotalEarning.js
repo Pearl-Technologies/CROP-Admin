@@ -97,9 +97,7 @@ const TotalEarning = () => {
         title='Total Sales'
         titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
         action={
-          <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}>
-            {/* <DotsVertical /> */}
-          </IconButton>
+          <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}/>
         }
       />
       <CardContent sx={{ pt: theme => `${theme.spacing(2.25)} !important`, height:"310px"}}>
@@ -134,7 +132,7 @@ const TotalEarning = () => {
         {data.map((item, index) => {
           return (
             <Box
-              key={item.title}
+              key={item._id}
               sx={{
                 display: 'flex',
                 alignItems: 'center',

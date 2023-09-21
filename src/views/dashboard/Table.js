@@ -126,10 +126,7 @@ const DashboardTable = () => {
     <Card style={{marginTop:"10px"}}>
       <h3 style={{marginLeft:"18px"}}>Performing Products</h3>
       <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
           value={performanceVal}
-          label="select market"
           onChange={handleChange}
           style={{margin:"10px"}}
         >
