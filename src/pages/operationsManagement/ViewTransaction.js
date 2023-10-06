@@ -54,12 +54,12 @@ const ViewTransaction = () => {
                 <TableCell>Date</TableCell>
                 <TableCell>Title</TableCell>
                 <TableCell>Price</TableCell>
-                <TableCell>CROPs</TableCell>
+                <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
                 <TableCell>Quantity</TableCell>
-                <TableCell>Total CROPs</TableCell>
+                <TableCell sx={{ textTransform: 'none' }}>TOTAL CROPs</TableCell>
                 <TableCell>Total</TableCell>
                 <TableCell>GST 10%</TableCell>
-                <TableCell varient='body'>CROPs Values</TableCell>
+                <TableCell varient='body' sx={{ textTransform: 'none' }}>CROPs VALUES</TableCell>
                 <TableCell>Crop Retention 5%</TableCell>
                 <TableCell>To Pay</TableCell>
               </TableRow>

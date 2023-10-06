@@ -335,7 +335,7 @@ const TierManagement = () => {
                     <TableCell sx={{textTransform:"none"}}>Tier</TableCell>
                     <TableCell sx={{textTransform:"none"}}>Earn CROPs</TableCell>
                     {/* <TableCell>Invoices</TableCell> */}
-                    <TableCell sx={{textTransform:"none"}}>Last Tier Changed Date</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>Last Change Date</TableCell>
                     <TableCell sx={{textTransform:"none"}}>Change Tier</TableCell>
                   </TableRow>
                 </TableHead>

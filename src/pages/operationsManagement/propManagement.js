@@ -239,7 +239,7 @@ const CropMilestone = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Card>
-            <CardHeader title='PROPs' titleTypographyProps={{ variant: 'h6' }} />
+            <CardHeader title='PROPs Management' titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
                 <Grid container spacing={1}>
@@ -288,7 +288,7 @@ const CropMilestone = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Card>
-            <CardHeader title='CROPs' titleTypographyProps={{ variant: 'h6' }} />
+            <CardHeader title='CROPs Management' titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <form onSubmit={e => e.preventDefault()}>
                 <Grid container spacing={1}>

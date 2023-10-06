@@ -141,7 +141,7 @@ const Complaint = () => {
             <Typography sx={{ mt: 2, width: '100%' }}>
               <Select value={data.complainStatus} onChange={handleChange('complainStatus')}>
                 <MenuItem value={'Open'}>Open</MenuItem>
-                <MenuItem value={'Progress'}>Progress</MenuItem>
+                <MenuItem value={'In Progress'}>In Progress</MenuItem>
                 <MenuItem value={'Closed'}>Closed</MenuItem>
               </Select>
             </Typography>
@@ -226,7 +226,7 @@ const Complaint = () => {
             <Typography sx={{ mt: 2, width: '100%' }}>
               <Select value={data.complainStatus} onChange={handleChange('complainStatus')}>
                 <MenuItem value={'open'}>Open</MenuItem>
-                <MenuItem value={'progress'}>Progress</MenuItem>
+                <MenuItem value={'In Progress'}>In Progress</MenuItem>
                 <MenuItem value={'closed'}>Closed</MenuItem>
               </Select>
             </Typography>
@@ -310,14 +310,14 @@ const Complaint = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Number</TableCell>
-                  <TableCell>Date Raised</TableCell>
-                  <TableCell title='DESCRIPTION'>Type</TableCell>
+                  <TableCell>Date With Raised</TableCell>
+                  <TableCell title='DESCRIPTION'>Type With Details</TableCell>
                   {/* <TableCell title='Expectation Outcomes'>Exp OC</TableCell> */}
                   <TableCell>Type with Details</TableCell>
                   <TableCell title='Preferred Contact Medium'>PCM</TableCell>
                   <TableCell>Modified with Actioned</TableCell>
                   <TableCell>Status</TableCell>
-                  <TableCell>Response</TableCell>
+                  <TableCell>Response With Resolution</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -375,14 +375,14 @@ const Complaint = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Number</TableCell>
-                  <TableCell>Date Raised</TableCell>
-                  <TableCell title='DESCRIPTION'>Type</TableCell>
+                  <TableCell>Date With Raised</TableCell>
+                  <TableCell title='DESCRIPTION'>Type With Details</TableCell>
                   {/* <TableCell title='Expectation Outcomes'>Exp OC</TableCell> */}
                   <TableCell>Type with Details</TableCell>
                   <TableCell title='Preferred Contact Medium'>PCM</TableCell>
                   <TableCell>Modified with Actioned</TableCell>
                   <TableCell>Status</TableCell>
-                  <TableCell>Response</TableCell>
+                  <TableCell>Response With Resolution</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

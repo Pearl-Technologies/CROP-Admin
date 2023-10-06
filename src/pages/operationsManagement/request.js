@@ -71,7 +71,9 @@ const Request = () => {
   const showCustomerCrop = x => {
     router.push(`/accountManagement/cropDetails?q=${x}`)
     // return<CropDetails id={x}/>
+   
   }
+  // console.log(customerRequest,'HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHh')
   const showCustomerAuditReport = x => {
     router.push(`/databaseManagement/auditReport?q=${x}`)
   }
@@ -126,7 +128,9 @@ const Request = () => {
             progressClassName: 'Toastify__progress-bar--animated'
           })
         })
+      
     }
+    
     return (
       <div>
         <Button onClick={handleOpen}>
