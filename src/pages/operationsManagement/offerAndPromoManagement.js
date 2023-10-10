@@ -199,7 +199,7 @@ const OfferAndPromoManagement = () => {
                   <TableCell>Title</TableCell>
                   <TableCell>Rating</TableCell>
                   <TableCell>Likes</TableCell>
-                  <TableCell>AUD</TableCell>
+                  {/* <TableCell>AUD</TableCell> */}
                   <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
                   {/* <TableCell>Bid AUD</TableCell> */}
                   <TableCell>From</TableCell>
@@ -229,7 +229,7 @@ const OfferAndPromoManagement = () => {
                     <TableCell>{row?.title}</TableCell>
                     <TableCell>{row?.rating}</TableCell>
                     <TableCell>{row?.likes}</TableCell>
-                    <TableCell>{row?.price}</TableCell>
+                    {/* <TableCell>{row?.price}</TableCell> */}
                     <TableCell>{row?.croppoints}</TableCell>
                     {/* <TableCell>{row?.bidPrice}</TableCell> */}
                     <TableCell>{row?.mktDate?.fromDate}</TableCell>
@@ -280,7 +280,7 @@ const OfferAndPromoManagement = () => {
                   <TableCell>Title</TableCell>
                   <TableCell>Rating</TableCell>
                   <TableCell>Likes</TableCell>
-                  <TableCell>AUD</TableCell>
+                  {/* <TableCell>AUD</TableCell> */}
                   <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
                   {/* <TableCell>Bid AUD</TableCell> */}
                   <TableCell>From</TableCell>
@@ -314,7 +314,7 @@ const OfferAndPromoManagement = () => {
                     <TableCell>{row?.title}</TableCell>
                     <TableCell>{row?.rating}</TableCell>
                     <TableCell>{row?.likes}</TableCell>
-                    <TableCell>{row?.price}</TableCell>
+                    {/* <TableCell>{row?.price}</TableCell> */}
                     <TableCell>{row?.croppoints}</TableCell>
                     {/* <TableCell>{row?.bidPrice}</TableCell> */}
                     <TableCell>{row?.mktDate?.fromDate}</TableCell>
@@ -451,7 +451,7 @@ const OfferAndPromoManagement = () => {
                   <TableCell>Title</TableCell>
                   <TableCell>Rating</TableCell>
                   <TableCell>Likes</TableCell>
-                  <TableCell>AUD</TableCell>
+                  {/* <TableCell>AUD</TableCell> */}
                   <TableCell sx={{ textTransform: 'none' }}>CROPs</TableCell>
                   <TableCell>From</TableCell>
                   <TableCell>To</TableCell>
@@ -482,7 +482,7 @@ const OfferAndPromoManagement = () => {
                     <TableCell>{row?.title}</TableCell>
                     <TableCell>{row?.rating}</TableCell>
                     <TableCell>{row?.likes}</TableCell>
-                    <TableCell>{row?.price}</TableCell>
+                    {/* <TableCell>{row?.price}</TableCell> */}
                     <TableCell>{row?.croppoints}</TableCell>
                     <TableCell>{row?.mktDate?.fromDate}</TableCell>
                     <TableCell>{row?.mktDate?.toDate}</TableCell>

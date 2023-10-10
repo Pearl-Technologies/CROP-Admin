@@ -270,7 +270,7 @@ const Complaint = () => {
     fetchCustomerDetails()
     fetchBusinessDetails()
   }, [message])
-
+console.log('JESUSJESUSJESUSJEUSJESUSJESUSJESUSJESUS',customerData)
   return (
     <Grid container spacing={2}>
       <ArrowBackIcon sx={{cursor:'pointer', marginRight:"auto"}} onClick={()=>router.back()}/>
@@ -310,14 +310,14 @@ const Complaint = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Number</TableCell>
-                  <TableCell>Date With Raised</TableCell>
-                  <TableCell title='DESCRIPTION'>Type With Details</TableCell>
+                  <TableCell>Raised</TableCell>
+                  <TableCell title='DESCRIPTION'>Details</TableCell>
                   {/* <TableCell title='Expectation Outcomes'>Exp OC</TableCell> */}
-                  <TableCell>Type with Details</TableCell>
+                  <TableCell>Details</TableCell>
                   <TableCell title='Preferred Contact Medium'>PCM</TableCell>
-                  <TableCell>Modified with Actioned</TableCell>
+                  <TableCell>Actioned</TableCell>
                   <TableCell>Status</TableCell>
-                  <TableCell>Response With Resolution</TableCell>
+                  <TableCell>Resolution</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -375,14 +375,14 @@ const Complaint = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Number</TableCell>
-                  <TableCell>Date With Raised</TableCell>
-                  <TableCell title='DESCRIPTION'>Type With Details</TableCell>
+                  <TableCell>Raised</TableCell>
+                  <TableCell title='DESCRIPTION'>Details</TableCell>
                   {/* <TableCell title='Expectation Outcomes'>Exp OC</TableCell> */}
-                  <TableCell>Type with Details</TableCell>
+                  <TableCell>Details</TableCell>
                   <TableCell title='Preferred Contact Medium'>PCM</TableCell>
-                  <TableCell>Modified with Actioned</TableCell>
+                  <TableCell>Actioned</TableCell>
                   <TableCell>Status</TableCell>
-                  <TableCell>Response With Resolution</TableCell>
+                  <TableCell>Resolution</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

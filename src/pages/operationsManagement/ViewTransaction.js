@@ -60,7 +60,7 @@ const ViewTransaction = () => {
                 <TableCell>Total</TableCell>
                 <TableCell>GST 10%</TableCell>
                 <TableCell varient='body' sx={{ textTransform: 'none' }}>CROPs VALUES</TableCell>
-                <TableCell>Crop Retention 5%</TableCell>
+                <TableCell sx={{ textTransform: 'none' }}>CROPs Retention 5%</TableCell>
                 <TableCell>To Pay</TableCell>
               </TableRow>
             </TableHead>

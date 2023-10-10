@@ -36,6 +36,7 @@ export default function BasicTable() {
   const [customerNotificationContent, setCustomerNotificationContent] = React.useState('')
   // const [selectedOption, setSelectedOption] = React.useState('Customer Account')
   const { app, sms, email, selectedOption, setSelectedOption } = React.useContext(AdminContext)
+
   const handleChange = prop => event => {
     setData({ ...data, [prop]: event.target.value })
   }
@@ -157,6 +158,7 @@ export default function BasicTable() {
     // fetchAllCustomerByContent()
     fetchAllDetailsByContent()
   }, [data, userData, selectedOption])
+  console.log('MASSMMSSMSMSMSMSSMMSSMSMSSMSM',userData);
   return (
     <>
       <div style={{ display: 'flex', gap: 2 }}>
@@ -177,27 +179,34 @@ export default function BasicTable() {
           <Box margin={2}>
             <OutlinedInput
               placeholder='Customer Name'
-              style={{ marginLeft: '2px' }}
+              style={{ marginLeft: '1px',width: '230px' }}
               value={userData?.customerName}
               onChange={handleUserChange('customerName')}
             />
             <OutlinedInput
               placeholder='Email'
-              style={{ marginLeft: '2px' }}
+              style={{ marginLeft: '1px',width: '230px' }}
               value={userData?.email}
               onChange={handleUserChange('email')}
             />
             <OutlinedInput
               placeholder='Address'
-              style={{ marginLeft: '2px' }}
+              style={{ marginLeft: '1px',width: '230px' }}
               value={userData?.address}
               onChange={handleUserChange('address')}
             />
             <OutlinedInput
               placeholder='ageGroup'
-              style={{ marginLeft: '2px' }}
+              style={{ marginLeft: '1px',width: '230px' }}
               value={userData?.ageGroup}
               onChange={handleUserChange('ageGroup')}
+            />
+
+            <OutlinedInput
+              placeholder='Pincode'
+              style={{ marginLeft: '2px',width: '230px' }}
+              value={userData?.pincode}
+              onChange={handleUserChange('pincode')}
             />
           </Box>
           <Table sx={{ minWidth: 650 }} aria-label='simple table'>
@@ -267,7 +276,7 @@ export default function BasicTable() {
       ) : (
         <TableContainer component={Paper} sx={{ height: 380 }}>
           {/* <h3 style={{ marginLeft: '20px' }}>Business Account</h3> */}
-          <Box margin={2}>
+          <Box margin={1}>
             <OutlinedInput
               placeholder='Business Name'
               style={{ marginLeft: '2px' }}
@@ -286,6 +295,7 @@ export default function BasicTable() {
               value={data?.natureOfBusiness}
               onChange={handleChange('natureOfBusiness')}
             />
+            
           </Box>
           <Table sx={{ minWidth: 650 }} stickyHeader>
             <TableHead>
@@ -294,7 +304,7 @@ export default function BasicTable() {
                   <Checkbox />
                 </TableCell>
                 <TableCell>Name</TableCell>
-                <TableCell>Nature Of Business</TableCell>
+                <TableCell>Nature  Of Business</TableCell>
                 <TableCell align='right'>Email</TableCell>
                 <TableCell align='right'>Address</TableCell>
               </TableRow>

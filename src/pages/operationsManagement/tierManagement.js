@@ -330,7 +330,7 @@ const TierManagement = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell sx={{textTransform:"none"}}>Customer Name</TableCell>
-                    <TableCell sx={{textTransform:"none"}}>CROP Id</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>CROPs ID</TableCell>
                     <TableCell sx={{textTransform:"none"}}>Status</TableCell>
                     <TableCell sx={{textTransform:"none"}}>Tier</TableCell>
                     <TableCell sx={{textTransform:"none"}}>Earn CROPs</TableCell>

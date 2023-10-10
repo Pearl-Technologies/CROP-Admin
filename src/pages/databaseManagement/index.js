@@ -203,7 +203,7 @@ const Database = () => {
                       style={{ marginTop: '10px' }}
                       label='Active Loyalty Program'
                       variant='outlined'
-                      value={user?.loyaltyProgram?.length ? 'true' : 'false'}
+                      value={user?.loyaltyProgram?.length ? 'Yes' : 'No'}
                     />
                     {/* <TextField style={{ marginTop: '10px' }} label='Name Of Loyalty Program' variant='outlined' value={user?.nameOfLoyaltyProgram} /> */}
                   </Grid>
@@ -212,13 +212,15 @@ const Database = () => {
                       style={{ marginTop: '10px' }}
                       label='Market Notification Status'
                       variant='outlined'
-                      value={user.mktNotification}
+                      value={user?.mktNotification ? 'Yes' : 'No'}
+                     
                     />
                     <TextField
                       style={{ marginTop: '10px' }}
                       label='Newsletter Subscription Status'
                       variant='outlined'
-                      value={user?.newsLetterSubscription}
+                      value={user?.newsLetterSubscription ? 'Yes' : 'No'}
+                     
                     />
                     <TextField style={{ marginTop: '10px' }} label='Tier' variant='outlined' value={user.Tier} />
                     <TextField
@@ -316,6 +318,7 @@ const Database = () => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
+    
     return (
       <div>
         <Button onClick={handleOpen}>
@@ -391,24 +394,26 @@ const Database = () => {
                     />
                   </Grid>
                   <Grid item sm={6}>
-                    <TextField style={{ marginTop: '10px' }} label='Loyalty' variant='outlined' value={user?.loyalty} />
+                    <TextField style={{ marginTop: '10px' }} label='Loyalty' variant='outlined'   value={user?.loyalty ? 'Yes' : 'No'}  />
                     <TextField
                       style={{ marginTop: '15px' }}
                       label='Interests'
                       variant='outlined'
-                      value={user?.interest}
+                      value={user?.interest ? 'Yes' : 'No'}
                     />
                     <TextField
                       style={{ marginTop: '15px' }}
                       label='Marketing Notification Status'
                       variant='outlined'
-                      value={user.mktNotification}
+                      value={user?.mktNotification ? 'Yes' : 'No'}
+                   
                     />
                     <TextField
                       style={{ marginTop: '15px' }}
                       label='Newsletter Subscription Status'
                       variant='outlined'
-                      value={user?.newsLetterSubscription}
+                      value={user?.newsLetterSubscription ? 'Yes' : 'No'}
+                     
                     />
                     <TextField style={{ marginTop: '15px' }} label='Tier' variant='outlined' value={user.UserTier} />
                     <TextField
