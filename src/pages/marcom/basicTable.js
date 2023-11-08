@@ -158,7 +158,7 @@ export default function BasicTable() {
     // fetchAllCustomerByContent()
     fetchAllDetailsByContent()
   }, [data, userData, selectedOption])
-  console.log('MASSMMSSMSMSMSMSSMMSSMSMSSMSM',userData);
+
   return (
     <>
       <div style={{ display: 'flex', gap: 2 }}>
@@ -209,7 +209,7 @@ export default function BasicTable() {
               onChange={handleUserChange('pincode')}
             />
           </Box>
-          <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+          <Table sx={{ minWidth: 650 }} stickyHeader aria-label='simple table'>
             <TableHead>
               <TableRow>
                 <TableCell onClick={handleSelectAllUser}>

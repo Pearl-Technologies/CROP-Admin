@@ -270,7 +270,6 @@ const Complaint = () => {
     fetchCustomerDetails()
     fetchBusinessDetails()
   }, [message])
-console.log('JESUSJESUSJESUSJEUSJESUSJESUSJESUSJESUS',customerData)
   return (
     <Grid container spacing={2}>
       <ArrowBackIcon sx={{cursor:'pointer', marginRight:"auto"}} onClick={()=>router.back()}/>
@@ -311,7 +310,7 @@ console.log('JESUSJESUSJESUSJEUSJESUSJESUSJESUSJESUS',customerData)
                 <TableRow>
                   <TableCell>Number</TableCell>
                   <TableCell>Raised</TableCell>
-                  <TableCell title='DESCRIPTION'>Details</TableCell>
+                  <TableCell title='DESCRIPTION'>Description</TableCell>
                   {/* <TableCell title='Expectation Outcomes'>Exp OC</TableCell> */}
                   <TableCell>Details</TableCell>
                   <TableCell title='Preferred Contact Medium'>PCM</TableCell>
@@ -376,7 +375,7 @@ console.log('JESUSJESUSJESUSJEUSJESUSJESUSJESUSJESUS',customerData)
                 <TableRow>
                   <TableCell>Number</TableCell>
                   <TableCell>Raised</TableCell>
-                  <TableCell title='DESCRIPTION'>Details</TableCell>
+                  <TableCell title='DESCRIPTION'>Description</TableCell>
                   {/* <TableCell title='Expectation Outcomes'>Exp OC</TableCell> */}
                   <TableCell>Details</TableCell>
                   <TableCell title='Preferred Contact Medium'>PCM</TableCell>

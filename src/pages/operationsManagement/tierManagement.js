@@ -330,10 +330,10 @@ const TierManagement = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell sx={{textTransform:"none"}}>Customer Name</TableCell>
-                    <TableCell sx={{textTransform:"none"}}>CROPs ID</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>ID</TableCell>
                     <TableCell sx={{textTransform:"none"}}>Status</TableCell>
                     <TableCell sx={{textTransform:"none"}}>Tier</TableCell>
-                    <TableCell sx={{textTransform:"none"}}>Earn CROPs</TableCell>
+                    <TableCell sx={{textTransform:"none"}}>CROPs</TableCell>
                     {/* <TableCell>Invoices</TableCell> */}
                     <TableCell sx={{textTransform:"none"}}>Last Change Date</TableCell>
                     <TableCell sx={{textTransform:"none"}}>Change Tier</TableCell>
@@ -398,7 +398,7 @@ const TierManagement = () => {
                     <TableCell sx={{textTransform:"none", width:"100px"}}>ID</TableCell>
                     <TableCell sx={{textTransform:"none", width:"100px"}}>Status</TableCell>
                     <TableCell sx={{textTransform:"none", width:"100px"}}>Tier</TableCell>
-                    <TableCell sx={{textTransform:"none", width:"100px"}}>Offered CROPs</TableCell>
+                    <TableCell sx={{textTransform:"none", width:"100px"}}>CROPs</TableCell>
                     <TableCell sx={{textTransform:"none", width:"100px"}}>Last Change Date</TableCell>
                     <TableCell sx={{textTransform:"none", width:"100px"}}>Change Tier</TableCell>
                   </TableRow>

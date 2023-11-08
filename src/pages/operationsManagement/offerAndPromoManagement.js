@@ -447,7 +447,7 @@ const OfferAndPromoManagement = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Sector</TableCell>
-                  <TableCell>Product</TableCell>
+                  <TableCell>Offer</TableCell>
                   <TableCell>Title</TableCell>
                   <TableCell>Rating</TableCell>
                   <TableCell>Likes</TableCell>
@@ -527,7 +527,7 @@ const OfferAndPromoManagement = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Sector</TableCell>
-                  <TableCell>Product</TableCell>
+                  <TableCell>Offer</TableCell>
                   <TableCell>Title</TableCell>
                   <TableCell>Rating</TableCell>
                   <TableCell>Likes</TableCell>

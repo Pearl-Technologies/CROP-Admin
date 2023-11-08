@@ -488,8 +488,8 @@ const Request = () => {
                 <TableRow>
                   <TableCell>Number</TableCell>
                   <TableCell>Raised</TableCell>
-                  <TableCell>Type</TableCell>
                   <TableCell>Details</TableCell>
+                  <TableCell>Type</TableCell>
                   <TableCell>PCM</TableCell>
                   <TableCell>Actioned</TableCell>
                   <TableCell>Status</TableCell>
@@ -518,7 +518,13 @@ const Request = () => {
                     <TableCell>{row.requestType}</TableCell>
                     <TableCell>{row.preferredMediumContact}</TableCell>
                     <TableCell>{new Date(Date(row.requestUpdateDate)).toLocaleDateString()}</TableCell>
-                    <TableCell>{row.requestStatus}</TableCell>
+                    <TableCell>
+                      {console.log(row.requestStatus)}
+                      {row.requestStatus === "completed" ? "Closed" : 
+                        row.requestStatus === "open" ? "Open" :
+                        row.requestStatus === "inprogress" ? "In Progress" :
+                        row.requestStatus}
+                    </TableCell>
                     <TableCell sx={{width:"400px"}}>{row.requestResponse}</TableCell>
                     <TableCell style={{ gap: '5px', width:"200px" }}>
                       <Button size='small' variant='outlined' style={{ margin: '2px' }}>
@@ -562,8 +568,8 @@ const Request = () => {
                 <TableRow>
                   <TableCell>Number</TableCell>
                   <TableCell>Raised</TableCell>
-                  <TableCell>Type</TableCell>
                   <TableCell>Details</TableCell>
+                  <TableCell>Type</TableCell>
                   <TableCell>PCM</TableCell>
                   <TableCell>Actioned</TableCell>
                   <TableCell>Status</TableCell>
@@ -593,7 +599,16 @@ const Request = () => {
                     <TableCell>{row.requestType}</TableCell>
                     <TableCell>{row.preferredMediumContact}</TableCell>
                     <TableCell>{new Date(row.requestUpdateDate).toLocaleDateString()}</TableCell>
-                    <TableCell>{row.requestStatus}</TableCell>
+                    
+                    
+                    <TableCell>
+                      {console.log(row.requestStatus)}
+                      {row.requestStatus === "completed" ? "Closed" : 
+                        row.requestStatus === "open" ? "Open" :
+                        row.requestStatus === "inprogress" ? "In Progress" :
+                        row.requestStatus}
+                    </TableCell>
+
                     <TableCell sx={{width:"400px"}}>{row.requestResponse}</TableCell>
                     <TableCell style={{ gap: '5px', width:"200px" }}>
                       <Button size='small' variant='outlined' style={{ margin: '2px' }}>

@@ -136,7 +136,7 @@ const Database = () => {
           // aria-describedby='modal-modal-description'
         >
           <Box sx={style}>
-            <Button onClick={handleClose}>
+            <Button onClick={handleClose}   style={{ float: 'inline-end' }}>
               <Close />
             </Button>
             <h2 style={{ textAlign: 'center' }}>Profile Details</h2>
@@ -331,7 +331,7 @@ const Database = () => {
           aria-describedby='modal-modal-description'
         >
           <Box sx={style}>
-            <Button onClick={handleClose}>
+            <Button onClick={handleClose}  style={{ float: 'inline-end' }}>
               <Close />
             </Button>
             <h2 style={{ textAlign: 'center' }}>Profile Details</h2>
@@ -370,7 +370,7 @@ const Database = () => {
                       label='DOB'
                       variant='outlined'
                       // value={`${new Date(user.dob).getDate()}/${new Date(user.dob).getMonth()+1}`}
-                      value={user.dob}
+                      value={user.dob ? user.dob.substring(0, 10) : ''}
                     />
                     <TextField
                       style={{ marginTop: '15px' }}
