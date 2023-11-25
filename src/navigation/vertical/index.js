@@ -17,6 +17,7 @@ import AccountArrowUpOutline from 'mdi-material-ui/AccountArrowUpOutline'
 import AccountGroupOutline from 'mdi-material-ui/AccountGroupOutline'
 import MessageTextOutline from 'mdi-material-ui/MessageTextOutline'
 import BadgeAccountOutline from 'mdi-material-ui/BadgeAccountOutline'
+import SmartToyIcon from '@mui/icons-material/SmartToy'
 
 
 const navigation = () => {
@@ -99,6 +100,11 @@ const navigation = () => {
       icon: AccountConvertOutline,
       title: 'Operations Management',
       path: '/operationsManagement'
+    },
+    {
+      icon: SmartToyIcon,
+      title: 'Interactive Chat',
+      path: '/pages/InteractiveChat'
     },
     {
       icon: NotificationClearAll,
